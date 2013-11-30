@@ -62,7 +62,7 @@ class MProfile extends BaseModel
 	{
 		return array(
 			'id' => Yii::t('model','ID'),
-			'm_id' => 'M',
+			'm_id' => Yii::t('model','M'),
 			'cc_id' => Yii::t('model','СС'),
 			'phone' => Yii::t('model','Phone'),
 			'avatar' => Yii::t('model','Avatar'),

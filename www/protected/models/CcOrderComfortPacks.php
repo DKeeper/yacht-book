@@ -63,7 +63,7 @@ class CcOrderComfortPacks extends BaseModel
 			'id' => Yii::t('model','ID'),
 			'cc_profile_id' => Yii::t('model','СС profile'),
 			'options_id' => Yii::t('model','Options'),
-			'description_id' => Yii::t('model','Description'),
+			'description' => Yii::t('model','Description'),
 			'obligatory' => Yii::t('model','Obligatory'),
 			'included' => Yii::t('model','Included'),
 			'price' => Yii::t('model','Price'),

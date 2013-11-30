@@ -62,7 +62,7 @@ class YachtModel extends BaseModel
 	{
 		return array(
 			'id' => Yii::t('model','ID'),
-			'shipyard_id' => 'Shipyard',
+			'shipyard_id' => Yii::t('model','Shipyard'),
 			'name' => Yii::t('model','Name'),
 		);
 	}

@@ -61,7 +61,7 @@ class Yachts extends BaseModel
 			'id' => Yii::t('model','ID'),
 			'type_id' => Yii::t('model','Type'),
 			'isActive' => Yii::t('model','Is active'),
-			'isTrash' => 'Is Trash',
+			'isTrash' => Yii::t('model','Is trash'),
 		);
 	}
 

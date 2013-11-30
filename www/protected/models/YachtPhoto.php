@@ -57,7 +57,7 @@ class YachtPhoto extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'yacht_id' => Yii::t('model','Yacht'),
-			'link' => 'Link',
+			'link' => Yii::t('model','Link'),
 		);
 	}
 

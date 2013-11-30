@@ -63,9 +63,9 @@ class YachtHistoryWatch extends BaseModel
 			'id' => Yii::t('model','ID'),
 			'c_id' => Yii::t('model','C'),
 			'yacht_id' => Yii::t('model','Yacht'),
-			'count' => 'Count',
-			'last_date' => 'Last Date',
-			'date' => 'Date',
+			'count' => Yii::t('model','Count'),
+			'last_date' => Yii::t('model','Last date'),
+			'date' => Yii::t('model','Date'),
 		);
 	}
 

@@ -60,8 +60,8 @@ class OrderStatusHistory extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'order_id' => Yii::t('model','Order'),
-			'status_id' => 'Status',
-			'date' => 'Date',
+			'status_id' => Yii::t('model','Status'),
+			'date' => Yii::t('model','Date'),
 		);
 	}
 

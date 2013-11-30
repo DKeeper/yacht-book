@@ -23,7 +23,7 @@
  * @property integer $early
  * @property integer $extra
  * @property double $charter_price
- * @property integer $site_commision
+ * @property integer $site_commission
  * @property double $total
  * @property double $additional_price
  * @property string $additional_text
@@ -55,13 +55,13 @@ class Orders extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('yacht_name, yacht_latitude, yacht_longitude, date_from, duration, duration_type_id, status_id, base_price, site_price, charter_price, site_commision, total', 'required'),
-			array('yacht_id, yacht_name, captain_id, manager_id, duration, duration_type_id, status_id, repeater, _long, early, extra, site_commision', 'numerical', 'integerOnly'=>true),
+			array('yacht_name, yacht_latitude, yacht_longitude, date_from, duration, duration_type_id, status_id, base_price, site_price, charter_price, site_commission, total', 'required'),
+			array('yacht_id, yacht_name, captain_id, manager_id, duration, duration_type_id, status_id, repeater, _long, early, extra, site_commission', 'numerical', 'integerOnly'=>true),
 			array('yacht_latitude, yacht_longitude, base_price, site_price, charter_price, total, additional_price', 'numerical'),
 			array('status_end, additional_text', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, yacht_id, yacht_name, yacht_latitude, yacht_longitude, captain_id, manager_id, date_from, duration, duration_type_id, status_id, status_end, base_price, site_price, repeater, _long, early, extra, charter_price, site_commision, total, additional_price, additional_text', 'safe', 'on'=>'search'),
+			array('id, yacht_id, yacht_name, yacht_latitude, yacht_longitude, captain_id, manager_id, date_from, duration, duration_type_id, status_id, status_end, base_price, site_price, repeater, _long, early, extra, charter_price, site_commission, total, additional_price, additional_text', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -91,27 +91,27 @@ class Orders extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'yacht_id' => Yii::t('model','Yacht'),
-			'yacht_name' => 'Yacht Name',
-			'yacht_latitude' => 'Yacht Latitude',
-			'yacht_longitude' => 'Yacht Longitude',
-			'captain_id' => 'Captain',
-			'manager_id' => 'Manager',
-			'date_from' => 'Date From',
-			'duration' => 'Duration',
+			'yacht_name' => Yii::t('model','Yacht name'),
+			'yacht_latitude' => Yii::t('model','Yacht latitude'),
+			'yacht_longitude' => Yii::t('model','Yacht longitude'),
+			'captain_id' => Yii::t('model','C'),
+			'manager_id' => Yii::t('model','M'),
+			'date_from' => Yii::t('model','Date from'),
+			'duration' => Yii::t('model','Duration'),
 			'duration_type_id' => Yii::t('model','Duration type'),
-			'status_id' => 'Status',
+			'status_id' => Yii::t('model','Status'),
 			'status_end' => 'Status End',
 			'base_price' => 'Base Price',
 			'site_price' => 'Site Price',
 			'repeater' => Yii::t('model','Repeater'),
-			'_long' => 'Long',
-			'early' => 'Early',
+			'_long' => Yii::t('model','Long'),
+			'early' => Yii::t('model','Early'),
 			'extra' => Yii::t('model','Extra'),
-			'charter_price' => 'Charter Price',
-			'site_commision' => 'Site Commision',
-			'total' => 'Total',
-			'additional_price' => 'Additional Price',
-			'additional_text' => 'Additional Text',
+			'charter_price' => Yii::t('model','Charter price'),
+			'site_commission' => Yii::t('model','Site commission'),
+			'total' => Yii::t('model','Total'),
+			'additional_price' => Yii::t('model','Additional price'),
+			'additional_text' => Yii::t('model','Additional text'),
 		);
 	}
 
@@ -152,7 +152,7 @@ class Orders extends BaseModel
 		$criteria->compare('early',$this->early);
 		$criteria->compare('extra',$this->extra);
 		$criteria->compare('charter_price',$this->charter_price);
-		$criteria->compare('site_commision',$this->site_commision);
+		$criteria->compare('site_commission',$this->site_commission);
 		$criteria->compare('total',$this->total);
 		$criteria->compare('additional_price',$this->additional_price);
 		$criteria->compare('additional_text',$this->additional_text,true);

@@ -57,7 +57,7 @@ class OrderOptions extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'name' => Yii::t('model','Name'),
-			'description_id' => Yii::t('model','Description'),
+			'description' => Yii::t('model','Description'),
 		);
 	}
 

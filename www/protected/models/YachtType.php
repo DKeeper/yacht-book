@@ -58,7 +58,7 @@ class YachtType extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'name' => Yii::t('model','Name'),
-			'profile_table' => 'Profile Table',
+			'profile_table' => Yii::t('model','Profile table'),
 		);
 	}
 

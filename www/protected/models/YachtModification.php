@@ -58,7 +58,7 @@ class YachtModification extends BaseModel
 	{
 		return array(
 			'id' => Yii::t('model','ID'),
-			'model_id' => 'Model',
+			'model_id' => Yii::t('model','Model'),
 			'name' => Yii::t('model','Name'),
 		);
 	}
