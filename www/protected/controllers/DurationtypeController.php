@@ -1,6 +1,6 @@
 <?php
 
-class YachttypeController extends Controller
+class DurationtypeController extends Controller
 {
     public function filters()
     {
@@ -26,14 +26,14 @@ class YachttypeController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new YachtType;
+		$model=new DurationType;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['YachtType']))
+		if(isset($_POST['DurationType']))
 		{
-			$model->attributes=$_POST['YachtType'];
+			$model->attributes=$_POST['DurationType'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -55,9 +55,9 @@ class YachttypeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['YachtType']))
+		if(isset($_POST['DurationType']))
 		{
-			$model->attributes=$_POST['YachtType'];
+			$model->attributes=$_POST['DurationType'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -86,7 +86,7 @@ class YachttypeController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('YachtType');
+		$dataProvider=new CActiveDataProvider('DurationType');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -97,10 +97,10 @@ class YachttypeController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new YachtType('search');
+		$model=new DurationType('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['YachtType']))
-			$model->attributes=$_GET['YachtType'];
+		if(isset($_GET['DurationType']))
+			$model->attributes=$_GET['DurationType'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -111,12 +111,12 @@ class YachttypeController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return YachtType the loaded model
+	 * @return DurationType the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=YachtType::model()->findByPk($id);
+		$model=DurationType::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -124,11 +124,11 @@ class YachttypeController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param YachtType $model the model to be validated
+	 * @param DurationType $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='yacht-type-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='duration-type-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

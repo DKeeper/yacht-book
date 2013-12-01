@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'duration_type':
  * @property integer $id
- * @property integer $name
+ * @property string $name
  *
  * The followings are the available model relations:
  * @property CcCancelPeriod[] $ccCancelPeriods
@@ -31,11 +31,28 @@ class DurationType extends BaseModel
 	 */
 	public function rules()
 	{
+        $purifier = new CHtmlPurifier();
+        $purifier->options = array(
+            'HTML.AllowedElements' => array
+            (
+                'strong'    => TRUE,
+                'em'        => TRUE,
+                'ul'        => TRUE,
+                'ol'        => TRUE,
+                'li'        => TRUE,
+                'p'         => TRUE,
+                'span'      => TRUE,
+            ),
+            'HTML.AllowedAttributes' => array
+            (
+                '*.style'   => TRUE,
+                '*.title'   => TRUE,
+            ),
+        );
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'numerical', 'integerOnly'=>true),
+            array('name', 'filter', 'filter' => array($purifier, 'purify')),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name', 'safe', 'on'=>'search'),
@@ -90,7 +107,7 @@ class DurationType extends BaseModel
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name);
+        $criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

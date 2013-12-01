@@ -19,7 +19,7 @@ class BaseModel extends CActiveRecord
         $list = array();
         foreach($data as $model){
             $name = isset($model->name) ? $model->name : Yii::t('class',get_class($this))." ".$model->id;
-            $list[$model->id] = $model->isTrash ? '__' . $name : $name;
+            $list[$model->id] = $name;
             if(!empty($fields)){
                 foreach($fields as $k => $f) {
                     if(is_numeric($k))
@@ -49,5 +49,31 @@ class BaseModel extends CActiveRecord
             }
         }
         return $n;
+    }
+
+    public function rules(){
+        $purifier = new CHtmlPurifier();
+        $purifier->options = array(
+            'HTML.AllowedElements' => array
+            (
+                'strong'    => TRUE,
+                'em'        => TRUE,
+                'ul'        => TRUE,
+                'ol'        => TRUE,
+                'li'        => TRUE,
+                'p'         => TRUE,
+                'span'      => TRUE,
+            ),
+            'HTML.AllowedAttributes' => array
+            (
+                '*.style'   => TRUE,
+                '*.title'   => TRUE,
+            ),
+        );
+        return array(
+            array('name, description', 'filter', 'filter' => array($purifier, 'purify')),
+            array('description', 'default', 'value' => null),
+            array('name', 'required'),
+        );
     }
 }
