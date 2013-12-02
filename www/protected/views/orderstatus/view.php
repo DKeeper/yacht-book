@@ -1,9 +1,9 @@
 <?php
-/* @var $this YachtshipyardController */
-/* @var $model YachtShipyard */
+/* @var $this OrderstatusController */
+/* @var $model OrderStatus */
 
 $this->breadcrumbs=array(
-	'Yacht Shipyards'=>array('index'),
+	'Order Statuses'=>array('index'),
 	$model->name,
 );
 
@@ -16,16 +16,12 @@ $this->menu=array(
 );
 ?>
 
-<h1>View YachtShipyard #<?php echo $model->id; ?></h1>
+<h1>View OrderStatus #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		array(
-            'label'=>$model->getAttributeLabel('yacht_type_id'),
-            'value'=>$model->yachtType->name
-        ),
 		'name',
 	),
 )); ?>

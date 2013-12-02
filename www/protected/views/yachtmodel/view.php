@@ -1,9 +1,9 @@
 <?php
-/* @var $this YachtshipyardController */
-/* @var $model YachtShipyard */
+/* @var $this YachtmodelController */
+/* @var $model YachtModel */
 
 $this->breadcrumbs=array(
-	'Yacht Shipyards'=>array('index'),
+	'Yacht Models'=>array('index'),
 	$model->name,
 );
 
@@ -16,15 +16,15 @@ $this->menu=array(
 );
 ?>
 
-<h1>View YachtShipyard #<?php echo $model->id; ?></h1>
+<h1>View YachtModel #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		array(
-            'label'=>$model->getAttributeLabel('yacht_type_id'),
-            'value'=>$model->yachtType->name
+        array(
+            'label'=>$model->getAttributeLabel('shipyard_id'),
+            'value'=>$model->shipyard->name." (".$model->shipyard->yachtType->name.")"
         ),
 		'name',
 	),

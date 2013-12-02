@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'yacht_model':
  * @property integer $id
  * @property integer $shipyard_id
- * @property integer $name
+ * @property string $name
  *
  * The followings are the available model relations:
  * @property SyProfile[] $syProfiles
@@ -33,7 +33,7 @@ class YachtModel extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('shipyard_id, name', 'required'),
-			array('shipyard_id, name', 'numerical', 'integerOnly'=>true),
+			array('shipyard_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, shipyard_id, name', 'safe', 'on'=>'search'),
@@ -87,7 +87,7 @@ class YachtModel extends BaseModel
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('shipyard_id',$this->shipyard_id);
-		$criteria->compare('name',$this->name);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
