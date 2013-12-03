@@ -22,20 +22,33 @@ class AjaxController extends Controller
         $term = Yii::app()->getRequest()->getParam('term');
         $modelClass = Yii::app()->getRequest()->getParam('modelClass');
         $model = BaseModel::model($modelClass);
-        if(Yii::app()->request->isAjaxRequest && $term && $model) {
+        if(Yii::app()->request->isAjaxRequest && $model) {
             $field = Yii::app()->getRequest()->getParam('field');
-            $objects = $model->findAll(array('condition'=>"name LIKE '%$term%'"));
+            $criteria = new CDbCriteria();
+            $criteria->addSearchCondition('name',$term);
+            $parentID = Yii::app()->getRequest()->getParam('parent_id');
+            $parentProp = Yii::app()->getRequest()->getParam('parent_link');
+            $parentModel = Yii::app()->getRequest()->getParam('parent_model');
+            if($parentID && $parentProp){
+                $criteria->addCondition($parentProp.'=:v');
+                $criteria->params += array(':v'=>$parentID);
+            }
+            $objects = $model->findAll($criteria);
             $result = array();
             foreach($objects as $obj) {
                 $label = $obj->name;
                 if(isset($field)){
                     foreach($field as $fName => $fValue){
                         if(isset($obj->$fName)){
-                            $label .= " - ".$obj->$fName->$fValue;
+                            $label .= " (".$obj->$fName->$fValue.")";
                         }
                     }
                 }
-                $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label);
+                if($parentProp && $parentModel){
+                    $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label, 'parent_id'=>$obj->$parentProp, 'parent_name'=>$obj->$parentModel->name);
+                } else {
+                    $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label);
+                }
             }
             echo CJSON::encode($result);
             Yii::app()->end();
