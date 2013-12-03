@@ -186,6 +186,8 @@ return array(
     'Tick deck' => 'Палуба из тика',
     'Sprayhood' => 'Брызговик',
     'Bimini' => 'Тент',
+    'Hard top' => 'Твердая крыша',
+    'Flybridge' => 'Флайбридж',
     'Cockpit table' => 'Столик в кокпите',
     'Moveable' => 'Съемный',
     'Cockpit speakers' => 'Динамики в кокпите',

@@ -74,6 +74,8 @@
  * @property integer $tick_deck
  * @property integer $sprayhood
  * @property integer $bimini
+ * @property integer $hard_top
+ * @property integer $flybridge
  * @property integer $cockpit_table
  * @property integer $moveable
  * @property integer $cockpit_speakers
@@ -151,12 +153,12 @@ class SyProfile extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('yacht_id, shipyard_id, model_id, _index_id, modification_id, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, gennaker, displacement, no_of_engine, engine_type_id, engine_mark_id, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, last_cleaning_incl, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price_obl, race_sail_deposit_obl, crew_license', 'numerical', 'integerOnly'=>true),
+			array('yacht_id, shipyard_id, model_id, _index_id, modification_id, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, gennaker, displacement, no_of_engine, engine_type_id, engine_mark_id, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, last_cleaning_incl, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price_obl, race_sail_deposit_obl, crew_license', 'numerical', 'integerOnly'=>true),
 			array('main_sail_area, jib_area, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker_area, gennaker_price, gennaker_deposit, length_m, beam, draft, mast_draught, engine_power_hp, engine_power_kW, latitude, longitude, site_discount, last_cleaning_price, race_sail_price, race_sail_deposit, race_preparation, hull_cleaning', 'numerical'),
 			array('name, built_date, renovation_date, other_details, IRC_scan, ORC_scan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, yacht_id, name, shipyard_id, model_id, _index_id, modification_id, built_date, renovation_date, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_area, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_area, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker, gennaker_area, gennaker_price, gennaker_deposit, length_m, beam, draft, mast_draught, displacement, no_of_engine, engine_type_id, engine_mark_id, engine_power_hp, engine_power_kW, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, other_details, latitude, longitude, site_discount, last_cleaning_incl, last_cleaning_price, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price, race_sail_price_obl, race_sail_deposit, race_sail_deposit_obl, IRC_scan, ORC_scan, race_preparation, hull_cleaning, crew_license', 'safe', 'on'=>'search'),
+			array('id, yacht_id, name, shipyard_id, model_id, _index_id, modification_id, built_date, renovation_date, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_area, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_area, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker, gennaker_area, gennaker_price, gennaker_deposit, length_m, beam, draft, mast_draught, displacement, no_of_engine, engine_type_id, engine_mark_id, engine_power_hp, engine_power_kW, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, other_details, latitude, longitude, site_discount, last_cleaning_incl, last_cleaning_price, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price, race_sail_price_obl, race_sail_deposit, race_sail_deposit_obl, IRC_scan, ORC_scan, race_preparation, hull_cleaning, crew_license', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -262,6 +264,8 @@ class SyProfile extends BaseModel
 			'tick_deck' => Yii::t('model','Tick deck'),
 			'sprayhood' => Yii::t('model','Sprayhood'),
 			'bimini' => Yii::t('model','Bimini'),
+			'hard_top' => Yii::t('model','Hard top'),
+			'flybridge' => Yii::t('model','Flybridge'),
 			'cockpit_table' => Yii::t('model','Cockpit table'),
 			'moveable' => Yii::t('model','Moveable'),
 			'cockpit_speakers' => Yii::t('model','Cockpit speakers'),
@@ -394,6 +398,8 @@ class SyProfile extends BaseModel
 		$criteria->compare('tick_deck',$this->tick_deck);
 		$criteria->compare('sprayhood',$this->sprayhood);
 		$criteria->compare('bimini',$this->bimini);
+		$criteria->compare('hard_top',$this->hard_top);
+		$criteria->compare('flybridge',$this->flybridge);
 		$criteria->compare('cockpit_table',$this->cockpit_table);
 		$criteria->compare('moveable',$this->moveable);
 		$criteria->compare('cockpit_speakers',$this->cockpit_speakers);

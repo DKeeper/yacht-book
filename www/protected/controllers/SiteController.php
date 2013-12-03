@@ -2,6 +2,17 @@
 
 class SiteController extends Controller
 {
+    public function filters()
+    {
+        return array(
+            'rights',
+        );
+    }
+
+    public function allowedActions(){
+        return 'captcha, page, index, error, contact';
+    }
+
 	/**
 	 * Declares class-based actions.
 	 */

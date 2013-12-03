@@ -87,7 +87,7 @@ class YachtModel extends BaseModel
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('shipyard_id',$this->shipyard_id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('name',$this->name);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
