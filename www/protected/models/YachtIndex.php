@@ -30,7 +30,7 @@ class YachtIndex extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('model_id', 'application.components.validators.CompositeUnique', 'keyColumns' => array('name'), 'addErrorToAllColumns'=>false),
+            array('model_id', 'application.components.validators.CompositeUnique', 'keyColumns' => array('name'), 'addErrorToAllColumns'=>true),
 			array('model_id, name', 'required'),
 			array('model_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().

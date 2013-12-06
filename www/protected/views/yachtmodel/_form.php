@@ -80,7 +80,7 @@ $shipyardList = YachtShipyard::model()->getModelList(array('yachtType'=>'name'))
 
 </div><!-- form -->
 <?php
-if($ajax){
+if(isset($ajax) && $ajax){
     $scripts = Yii::app()->clientScript->scripts[4];
     foreach($scripts as $script){
         echo "<script>".$script."</script>";

@@ -4,6 +4,10 @@
 /* @var $form CActiveForm */
 /* @var $ajax boolean */
 $yachtModelList = YachtModel::model()->getModelList(array('shipyard'=>'name'));
+$htmlOptions = array();
+if(isset($ajax) && $ajax){
+    $htmlOptions = array('disabled'=>true);
+}
 ?>
 
 <div class="form">
@@ -25,7 +29,7 @@ $yachtModelList = YachtModel::model()->getModelList(array('shipyard'=>'name'));
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'model_id'); ?>
-        <?php echo $form->dropDownList($model,'model_id',$yachtModelList); ?>
+        <?php echo $form->dropDownList($model,'model_id',$yachtModelList,$htmlOptions); ?>
 		<?php echo $form->error($model,'model_id'); ?>
 	</div>
 
@@ -43,7 +47,7 @@ $yachtModelList = YachtModel::model()->getModelList(array('shipyard'=>'name'));
 
 </div><!-- form -->
 <?php
-if($ajax){
+if(isset($ajax) && $ajax){
     $scripts = Yii::app()->clientScript->scripts[4];
     foreach($scripts as $script){
         echo "<script>".$script."</script>";
