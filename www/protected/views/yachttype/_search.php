@@ -21,11 +21,6 @@
 		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'profile_table'); ?>
-		<?php echo $form->textArea($model,'profile_table',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

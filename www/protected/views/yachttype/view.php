@@ -23,6 +23,5 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'name',
-		'profile_table',
 	),
 )); ?>

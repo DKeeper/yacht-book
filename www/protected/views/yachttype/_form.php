@@ -25,12 +25,6 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'profile_table'); ?>
-		<?php echo $form->textField($model,'profile_table'); ?>
-		<?php echo $form->error($model,'profile_table'); ?>
-	</div>
-
 	<div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save')); ?>
 	</div>

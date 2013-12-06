@@ -48,7 +48,6 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'name',
-		'profile_table',
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -117,7 +117,7 @@ return array(
     'Count' => 'Количество',
     'Last date' => 'Последний просмотр',
     'Link' => 'Ссылка',
-    'Profile table' => 'Таблица профиля',
+    'Profile' => 'Профиля',
     'Model' => 'Модель',
     'Shipyard' => 'Верфь',
     'Yacht type' => 'Тип яхты',

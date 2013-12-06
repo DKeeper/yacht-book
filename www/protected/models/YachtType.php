@@ -6,11 +6,10 @@
  * The followings are the available columns in table 'yacht_type':
  * @property integer $id
  * @property string $name
- * @property string $profile_table
  *
  * The followings are the available model relations:
  * @property YachtShipyard[] $yachtShipyards
- * @property Yachts[] $yachts
+ * @property SyProfile[] $syProfile
  */
 class YachtType extends BaseModel
 {
@@ -49,10 +48,10 @@ class YachtType extends BaseModel
 		// will receive user inputs.
 		return array(
             array('name', 'filter', 'filter' => array($purifier, 'purify')),
-			array('name, profile_table', 'required'),
+			array('name', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, profile_table', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,7 +64,7 @@ class YachtType extends BaseModel
 		// class name for the relations automatically generated below.
 		return array(
 			'yachtShipyards' => array(self::HAS_MANY, 'YachtShipyard', 'yacht_type_id'),
-			'yachts' => array(self::HAS_MANY, 'Yachts', 'type_id'),
+			'syProfile' => array(self::HAS_MANY, 'SyProfile', 'type_id'),
 		);
 	}
 
@@ -77,7 +76,6 @@ class YachtType extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'name' => Yii::t('model','Name'),
-			'profile_table' => Yii::t('model','Profile table'),
 		);
 	}
 
@@ -101,7 +99,6 @@ class YachtType extends BaseModel
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('profile_table',$this->profile_table,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

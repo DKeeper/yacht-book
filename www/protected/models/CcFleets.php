@@ -6,15 +6,16 @@
  * The followings are the available columns in table 'cc_fleets':
  * @property integer $id
  * @property integer $cc_id
- * @property integer $yacht_id
+ * @property integer $profile_id
+ * @property integer $isActive
+ * @property integer $isTrash
  *
  * The followings are the available model relations:
  * @property User $cc
- * @property Yachts $yacht
  * @property Orders[] $orders
  * @property PriceCurrentYear[] $priceCurrentYears
  * @property PriceNextYear[] $priceNextYears
- * @property SyProfile[] $syProfiles
+ * @property SyProfile $profile
  * @property YachtFavorites[] $yachtFavorites
  * @property YachtHistoryWatch[] $yachtHistoryWatches
  * @property YachtPhoto[] $yachtPhotos
@@ -37,11 +38,11 @@ class CcFleets extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cc_id, yacht_id', 'required'),
-			array('cc_id, yacht_id', 'numerical', 'integerOnly'=>true),
+			array('cc_id, profile_id', 'required'),
+			array('cc_id, profile_id, isActive, isTrash', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cc_id, yacht_id', 'safe', 'on'=>'search'),
+			array('id, cc_id, profile_id, isActive, isTrash', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,11 +55,10 @@ class CcFleets extends BaseModel
 		// class name for the relations automatically generated below.
 		return array(
 			'cc' => array(self::BELONGS_TO, 'User', 'cc_id'),
-			'yacht' => array(self::BELONGS_TO, 'Yachts', 'yacht_id'),
+			'profile' => array(self::BELONGS_TO, 'SyProfile', 'profile_id'),
 			'orders' => array(self::HAS_MANY, 'Orders', 'yacht_id'),
 			'priceCurrentYears' => array(self::HAS_MANY, 'PriceCurrentYear', 'yacht_id'),
 			'priceNextYears' => array(self::HAS_MANY, 'PriceNextYear', 'yacht_id'),
-			'syProfiles' => array(self::HAS_MANY, 'SyProfile', 'yacht_id'),
 			'yachtFavorites' => array(self::HAS_MANY, 'YachtFavorites', 'yacht_id'),
 			'yachtHistoryWatches' => array(self::HAS_MANY, 'YachtHistoryWatch', 'yacht_id'),
 			'yachtPhotos' => array(self::HAS_MANY, 'YachtPhoto', 'yacht_id'),
@@ -73,7 +73,9 @@ class CcFleets extends BaseModel
 		return array(
 			'id' => Yii::t('model','ID'),
 			'cc_id' => Yii::t('model','СС'),
-			'yacht_id' => Yii::t('model','Yacht'),
+			'profile_id' => Yii::t('model','Profile'),
+            'isActive' => Yii::t('model','Is active'),
+            'isTrash' => Yii::t('model','Is trash'),
 		);
 	}
 
@@ -97,7 +99,9 @@ class CcFleets extends BaseModel
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('cc_id',$this->cc_id);
-		$criteria->compare('yacht_id',$this->yacht_id);
+		$criteria->compare('profile_id',$this->profile_id);
+        $criteria->compare('isActive',$this->isActive);
+        $criteria->compare('isTrash',$this->isTrash);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -13,9 +13,5 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('profile_table')); ?>:</b>
-	<?php echo CHtml::encode($data->profile_table); ?>
-	<br />
-
 
 </div>
