@@ -4,6 +4,10 @@
 /* @var $form CActiveForm */
 /* @var $ajax boolean */
 $yachtTypeList = YachtType::model()->getModelList();
+$htmlOptions = array();
+if(isset($ajax) && $ajax){
+    $htmlOptions = array('disabled'=>true);
+}
 ?>
 
 <div class="form">
@@ -25,7 +29,7 @@ $yachtTypeList = YachtType::model()->getModelList();
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'yacht_type_id'); ?>
-		<?php echo $form->dropDownList($model,'yacht_type_id',$yachtTypeList); ?>
+		<?php echo $form->dropDownList($model,'yacht_type_id',$yachtTypeList,$htmlOptions); ?>
 		<?php echo $form->error($model,'yacht_type_id'); ?>
 	</div>
 
