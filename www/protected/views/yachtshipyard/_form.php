@@ -2,6 +2,7 @@
 /* @var $this YachtshipyardController */
 /* @var $model YachtShipyard */
 /* @var $form CActiveForm */
+/* @var $ajax boolean */
 $yachtTypeList = YachtType::model()->getModelList();
 ?>
 
@@ -41,3 +42,11 @@ $yachtTypeList = YachtType::model()->getModelList();
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php
+if($ajax){
+    $scripts = Yii::app()->clientScript->scripts[4];
+    foreach($scripts as $script){
+        echo "<script>".$script."</script>";
+    }
+}
+?>

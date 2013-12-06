@@ -78,10 +78,15 @@ class AjaxController extends Controller
             } else {
                 $view = Yii::app()->getRequest()->getParam('view');
                 $modelClass = Yii::app()->getRequest()->getParam('model');
+                $parentID = Yii::app()->getRequest()->getParam('pId');
+                $parentLink = Yii::app()->getRequest()->getParam('pLink');
                 /** @var $model BaseModel */
                 $model = new $modelClass;
+                if($parentID && $parentLink){
+                    $model->$parentLink = $parentID;
+                }
             }
-            $this->renderPartial('/'.strtolower($modelClass).'/'.$view,array('model'=>$model),false,true);
+            $this->renderPartial('/'.strtolower($modelClass).'/'.$view,array('model'=>$model,'ajax'=>true));
         }
     }
 }

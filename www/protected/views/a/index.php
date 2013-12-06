@@ -7,26 +7,31 @@
  */
 /* @var $this AController */
 /* @var $model SyProfile */
+Yii::app()->clientScript->registerCoreScript("yiiactiveform");
 ?>
 <script type="text/javascript">
     var autoFind = false;
     var hideSearchResult = false;
     function createAddForm(o,type){
-        var model;
+        var model, pId, pLink;
         switch (type){
             case 'shipyard':
                 model = 'YachtShipyard';
                 break;
             case 'model':
                 model = 'YachtModel';
+                pId = $("#SyProfile_shipyard_id").val();
+                pLink = "shipyard_id";
                 break;
             case 'index':
                 model = 'YachtIndex';
+                pId = $("#SyProfile_model_id").val();
+                pLink = "model_id";
                 break;
         }
         $.ajax({
             url:'/ajax/icreate',
-            data:{view:'_form',model:model},
+            data:{view:'_form',model:model,pId:pId,pLink:pLink},
             success:function(answer){
                 showAjaxForm(o,answer);
             },
