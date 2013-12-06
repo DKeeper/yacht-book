@@ -19,6 +19,8 @@
     <p class="note"><?php echo Yii::t('view','Fields with <span class="required">*</span> are required.'); ?></p>
 
 	<?php echo $form->errorSummary($model); ?>
+    <?php echo CHtml::hiddenField('ajaxModel',get_class($model)); ?>
+    <?php echo CHtml::hiddenField('ajaxView','_form'); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'shipyard_id'); ?>
@@ -47,7 +49,9 @@
                     return false;
                 }',
                 'change' => 'js: function(event, ui) {
-                    $("#YachtModel_shipyard_id").val(-1);
+                    if(ui.item===null){
+                        $("#YachtModel_shipyard_id").val("");
+                    }
                     return false;
                 }',
 

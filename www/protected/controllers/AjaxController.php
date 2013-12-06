@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete';
+        return 'autocomplete, icreate';
     }
 
     public function actionAutocomplete(){
@@ -33,8 +33,9 @@ class AjaxController extends Controller
                 $criteria->addCondition($parentProp.'=:v');
                 $criteria->params += array(':v'=>$parentID);
             }
+            $criteria->order = "name";
             $objects = $model->findAll($criteria);
-            $result = array();
+            $result = array(array('id'=>0, 'label'=>Yii::t('view','Create'), 'value'=>Yii::t('view','Create')));
             foreach($objects as $obj) {
                 $label = $obj->name;
                 if(isset($field)){
@@ -52,6 +53,35 @@ class AjaxController extends Controller
             }
             echo CJSON::encode($result);
             Yii::app()->end();
+        }
+    }
+
+    public function actionIcreate(){
+        if(Yii::app()->request->isAjaxRequest){
+            $ajaxModel = Yii::app()->getRequest()->getParam('ajaxModel');
+            $ajaxView = Yii::app()->getRequest()->getParam('ajaxView');
+            if($ajaxModel && $ajaxView){
+                $view = $ajaxView;
+                $modelClass = $ajaxModel;
+                /** @var $model BaseModel */
+                $model = new $modelClass;
+                if(isset($_POST['ajax'])) {
+                    echo CActiveForm::validate($model);
+                    Yii::app()->end();
+                } else {
+                    $model->attributes=$_POST[$modelClass];
+			        if($model->save()){
+                        echo "create done";
+                        Yii::app()->end();
+                    }
+                }
+            } else {
+                $view = Yii::app()->getRequest()->getParam('view');
+                $modelClass = Yii::app()->getRequest()->getParam('model');
+                /** @var $model BaseModel */
+                $model = new $modelClass;
+            }
+            $this->renderPartial('/'.strtolower($modelClass).'/'.$view,array('model'=>$model),false,true);
         }
     }
 }

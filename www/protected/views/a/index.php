@@ -11,6 +11,49 @@
 <script type="text/javascript">
     var autoFind = false;
     var hideSearchResult = false;
+    function createAddForm(o,type){
+        var model;
+        switch (type){
+            case 'shipyard':
+                model = 'YachtShipyard';
+                break;
+            case 'model':
+                model = 'YachtModel';
+                break;
+            case 'index':
+                model = 'YachtIndex';
+                break;
+        }
+        $.ajax({
+            url:'/ajax/icreate',
+            data:{view:'_form',model:model},
+            success:function(answer){
+                showAjaxForm(o,answer);
+            },
+            type:'POST',
+            dataType:'html',
+            async:true
+        });
+    }
+    function showAjaxForm(o,answer){
+        $(o).empty().append(answer).find("form").on("submit",function(event){
+            $.ajax({
+                url:'/ajax/icreate',
+                data: $(this).serialize(),
+                success:function(answer){
+                    if(answer==="create done"){
+                        $(".fancybox-close").click();
+                    } else {
+                        showAjaxForm(o,answer);
+                    }
+                },
+                type:'POST',
+                dataType:'html',
+                async:true
+            });
+            return false;
+        });
+    }
 </script>
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
@@ -38,17 +81,23 @@
                 'delay'=>0,
                 'showAnim'=>'fold',
                 'click'=>'js: function(event, ui) {
+                    $(this).val("");
                     $("#YachtShipyard_name").autocomplete( "search","");
                     return false;
                 }',
                 'select' =>'js: function(event, ui) {
-                    this.value = ui.item.value;
-                    // записываем полученный id в скрытое поле
-                    $("#SyProfile_shipyard_id").val(ui.item.id);
-                    $("#SyProfile_model_id").val("");
-                    $("#SyProfile__index_id").val("");
-                    $("#YachtModel_name").val("");
-                    $("#YachtIndex_name").val("");
+                    if(!ui.item.id){
+                        createAddForm("#c","shipyard");
+                        $(".custom_create").click();
+                    } else {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#SyProfile_shipyard_id").val(ui.item.id);
+                        $("#SyProfile_model_id").val("");
+                        $("#SyProfile__index_id").val("");
+                        $("#YachtModel_name").val("");
+                        $("#YachtIndex_name").val("");
+                    }
                     return false;
                 }',
                 'change' => 'js: function(event, ui) {
@@ -59,7 +108,7 @@
                 }',
                 'response' => 'js: function( event, ui ) {
                     if(autoFind){
-                        var s = ui.content[0];
+                        var s = ui.content[1];
                         $("#SyProfile_shipyard_id").val(s.id);
                         this.value = s.value;
                         autoFind = false;
@@ -105,18 +154,24 @@
                 'delay'=>0,
                 'showAnim'=>'fold',
                 'click'=>'js: function(event, ui) {
+                    $(this).val("");
                     $("#YachtModel_name").autocomplete( "search","");
                     return false;
                 }',
                 'select' =>'js: function(event, ui) {
-                    this.value = ui.item.value;
-                    // записываем полученный id в скрытое поле
-                    $("#SyProfile_model_id").val(ui.item.id);
-                    $("#SyProfile_shipyard_id").val(ui.item.parent_id);
-                    $("#SyProfile__index_id").val("");
-                    $("#YachtIndex_name").val("");
-                    autoFind = true;
-                    $("#YachtShipyard_name").autocomplete( "search",ui.item.parent_name);
+                    if(!ui.item.id){
+                        createAddForm("#c","model");
+                        $(".custom_create").click();
+                    } else {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#SyProfile_model_id").val(ui.item.id);
+                        $("#SyProfile_shipyard_id").val(ui.item.parent_id);
+                        $("#SyProfile__index_id").val("");
+                        $("#YachtIndex_name").val("");
+                        autoFind = true;
+                        $("#YachtShipyard_name").autocomplete( "search",ui.item.parent_name);
+                    }
                     return false;
                 }',
                 'change' => 'js: function(event, ui) {
@@ -127,7 +182,7 @@
                 }',
                 'response' => 'js: function( event, ui ) {
                     if(autoFind){
-                        var s = ui.content[0];
+                        var s = ui.content[1];
                         $("#SyProfile_model_id").val(s.id);
                         this.value = s.value;
                         $("#YachtShipyard_name").autocomplete( "search",s.parent_name);
@@ -171,17 +226,23 @@
                 'delay'=>0,
                 'showAnim'=>'fold',
                 'click'=>'js: function(event, ui) {
+                    $(this).val("");
                     $("#YachtIndex_name").autocomplete( "search","");
                     return false;
                 }',
                 'select' =>'js: function(event, ui) {
-                    this.value = ui.item.value;
-                    // записываем полученный id в скрытое поле
-                    $("#SyProfile__index_id").val(ui.item.id);
-                    $("#SyProfile_model_id").val(ui.item.parent_id);
-                    autoFind = true;
-                    hideSearchResult = true;
-                    $("#YachtModel_name").autocomplete( "search",ui.item.parent_name);
+                    if(!ui.item.id){
+                        createAddForm("#c","index");
+                        $(".custom_create").click();
+                    } else {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#SyProfile__index_id").val(ui.item.id);
+                        $("#SyProfile_model_id").val(ui.item.parent_id);
+                        autoFind = true;
+                        hideSearchResult = true;
+                        $("#YachtModel_name").autocomplete( "search",ui.item.parent_name);
+                    }
                     return false;
                 }',
                 'change' => 'js: function(event, ui) {
@@ -202,4 +263,20 @@
         <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save')); ?>
     </div>
     <?php $this->endWidget(); ?>
+    <?php
+    $this->widget('fancyapps.EFancyApps', array(
+            'mode'=>'inline',
+            'id'=>'createForm',
+            /*'config'=>array(
+                'afterClose'=>"function(){alert('!');}",
+            ),*/
+            'options' => array(
+                'url' => '#c',
+                'label'=> '',
+            ),
+            'htmlOptions'=>array('class'=> "custom_create")
+        )
+    );
+    ?>
+    <div style="display:none;" id="c"></div>
 </div>

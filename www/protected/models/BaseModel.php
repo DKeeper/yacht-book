@@ -14,7 +14,7 @@ class BaseModel extends CActiveRecord
      * @param array $params
      * @return array
      */
-    public function getModelList($fields=array(),$delimiter=' - ',$condition='',$params=array()){
+    public function getModelList($fields=array(),$delimiter=' - ',$condition=array('order'=>'name'),$params=array()){
         $data = BaseModel::model(get_class($this))->findAll($condition,$params);
         $list = array();
         foreach($data as $model){

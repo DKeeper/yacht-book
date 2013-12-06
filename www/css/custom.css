@@ -16,3 +16,6 @@ span[role='status']{
 * html .ui-autocomplete {
     height: 150px;
 }
+.custom_create{
+    display: none;
+}
