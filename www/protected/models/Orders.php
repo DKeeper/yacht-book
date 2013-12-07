@@ -29,6 +29,7 @@
  * @property string $additional_text
  *
  * The followings are the available model relations:
+ * @property CcQuestionnaire[] $ccQuestionnaires
  * @property Message[] $messages
  * @property OrderStatusHistory[] $orderStatusHistories
  * @property CcFleets $yacht
@@ -73,6 +74,7 @@ class Orders extends BaseModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'ccQuestionnaires' => array(self::HAS_MANY, 'CcQuestionnaire', 'order_id'),
 			'messages' => array(self::HAS_MANY, 'Message', 'order_id'),
 			'orderStatusHistories' => array(self::HAS_MANY, 'OrderStatusHistory', 'order_id'),
 			'yacht' => array(self::BELONGS_TO, 'CcFleets', 'yacht_id'),
@@ -100,9 +102,9 @@ class Orders extends BaseModel
 			'duration' => Yii::t('model','Duration'),
 			'duration_type_id' => Yii::t('model','Duration type'),
 			'status_id' => Yii::t('model','Status'),
-			'status_end' => 'Status End',
-			'base_price' => 'Base Price',
-			'site_price' => 'Site Price',
+			'status_end' => Yii::t('model','Status end'),
+			'base_price' => Yii::t('model','base price'),
+			'site_price' => Yii::t('model','site price'),
 			'repeater' => Yii::t('model','Repeater'),
 			'_long' => Yii::t('model','Long'),
 			'early' => Yii::t('model','Early'),
