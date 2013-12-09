@@ -4,9 +4,9 @@
 /* @var $form CActiveForm */
 /* @var $ajax boolean */
 $yachtModelList = YachtModel::model()->getModelList(array('shipyard'=>'name'));
-$htmlOptions = array();
+$style = "";
 if(isset($ajax) && $ajax){
-    $htmlOptions = array('disabled'=>true);
+    $style = "style='display:none;'";
 }
 ?>
 
@@ -27,9 +27,9 @@ if(isset($ajax) && $ajax){
     <?php echo CHtml::hiddenField('ajaxModel',get_class($model)); ?>
     <?php echo CHtml::hiddenField('ajaxView','_form'); ?>
 
-	<div class="row">
+	<div class="row" <?php echo $style; ?>>
 		<?php echo $form->labelEx($model,'model_id'); ?>
-        <?php echo $form->dropDownList($model,'model_id',$yachtModelList,$htmlOptions); ?>
+        <?php echo $form->dropDownList($model,'model_id',$yachtModelList); ?>
 		<?php echo $form->error($model,'model_id'); ?>
 	</div>
 

@@ -291,7 +291,7 @@ return array(
     'year' => 'год',
     'rennovation' => 'ренновация',
     'cabins' => 'кают',
-    'persons' => 'персон',
+    'persons' => 'персон',
     'main sail' => 'грот',
     'area' => 'площадь',
     'lazyjack' => 'lazyjack',
@@ -305,5 +305,4 @@ return array(
     'engine' => 'двигатель',
     'wheel' => 'штурвал',
     'GPS chart plotter' => 'карт-плоттер',
-
 );

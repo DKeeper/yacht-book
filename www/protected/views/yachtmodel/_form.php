@@ -4,9 +4,9 @@
 /* @var $form CActiveForm */
 /* @var $ajax boolean */
 $shipyardList = YachtShipyard::model()->getModelList(array('yachtType'=>'name'));
-$htmlOptions = array();
+$style = "";
 if(isset($ajax) && $ajax){
-    $htmlOptions = array('disabled'=>true);
+    $style = "style='display:none;'";
 }
 ?>
 
@@ -27,9 +27,9 @@ if(isset($ajax) && $ajax){
     <?php echo CHtml::hiddenField('ajaxModel',get_class($model)); ?>
     <?php echo CHtml::hiddenField('ajaxView','_form'); ?>
 
-	<div class="row">
+	<div class="row" <?php echo $style; ?>>
 		<?php echo $form->labelEx($model,'shipyard_id'); ?>
-		<?php echo $form->dropDownList($model,'shipyard_id',$shipyardList,$htmlOptions); ?>
+		<?php echo $form->dropDownList($model,'shipyard_id',$shipyardList); ?>
         <?php //echo $form->hiddenField($model, 'shipyard_id'); ?>
         <?php
 //        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(

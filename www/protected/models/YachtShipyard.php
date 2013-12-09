@@ -50,6 +50,7 @@ class YachtShipyard extends BaseModel
 		// will receive user inputs.
 		return array(
             array('name', 'filter', 'filter' => array($purifier, 'purify')),
+            array('name', 'application.components.validators.CompositeUnique', 'keyColumns' => array('yacht_type_id'), 'addErrorToAllColumns'=>false),
 			array('yacht_type_id, name', 'required'),
 			array('yacht_type_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().

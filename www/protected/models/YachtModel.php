@@ -29,9 +29,29 @@ class YachtModel extends BaseModel
 	 */
 	public function rules()
 	{
+        $purifier = new CHtmlPurifier();
+        $purifier->options = array(
+            'HTML.AllowedElements' => array
+            (
+                'strong'    => TRUE,
+                'em'        => TRUE,
+                'ul'        => TRUE,
+                'ol'        => TRUE,
+                'li'        => TRUE,
+                'p'         => TRUE,
+                'span'      => TRUE,
+            ),
+            'HTML.AllowedAttributes' => array
+            (
+                '*.style'   => TRUE,
+                '*.title'   => TRUE,
+            ),
+        );
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('name', 'filter', 'filter' => array($purifier, 'purify')),
+            array('name', 'application.components.validators.CompositeUnique', 'keyColumns' => array('shipyard_id'), 'addErrorToAllColumns'=>false),
 			array('shipyard_id, name', 'required'),
 			array('shipyard_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
