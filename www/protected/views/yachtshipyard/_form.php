@@ -52,5 +52,6 @@ if(isset($ajax) && $ajax){
     foreach($scripts as $script){
         echo "<script>".$script."</script>";
     }
+    echo "<script>jQuery('#c').find('#YachtShipyard_name').focus();</script>";
 }
 ?>

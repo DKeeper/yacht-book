@@ -12,19 +12,30 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
 <script type="text/javascript">
     var autoFind = false;
     var hideSearchResult = false;
+    var currentObj;
     function createAddForm(o,type){
+        $(o).empty();
         var model, pId, pLink;
         switch (type){
             case 'shipyard':
                 model = 'YachtShipyard';
+                currentObj = "#YachtShipyard_name";
                 break;
             case 'model':
                 model = 'YachtModel';
+                currentObj = "#YachtModel_name";
                 pId = $("#SyProfile_shipyard_id").val();
                 pLink = "shipyard_id";
                 break;
             case 'index':
                 model = 'YachtIndex';
+                currentObj = "#YachtIndex_name";
+                pId = $("#SyProfile_model_id").val();
+                pLink = "model_id";
+                break;
+            case 'modification':
+                model = 'YachtModification';
+                currentObj = "#YachtModification_name";
                 pId = $("#SyProfile_model_id").val();
                 pLink = "model_id";
                 break;
@@ -41,7 +52,7 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
         });
     }
     function showAjaxForm(o,answer){
-        $(o).empty().append(answer).find("form").on("submit",function(event){
+        $(o).append(answer).find("form").on("submit",function(event){
             $.ajax({
                 url:'/ajax/icreate',
                 data: $(this).serialize(),
@@ -264,6 +275,64 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
         ));
         ?>
     </div>
+    <div class="row">
+        <?php
+        echo CHtml::activeLabel($model,'modification_id');
+        echo CHtml::activeHiddenField($model,'modification_id');
+        $this->widget('autocombobox.JuiAutoComboBox', array(
+            'model'=>YachtModification::model(),   // модель
+            'attribute'=>'name',  // атрибут модели
+            // "источник" данных для выборки
+            'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                        term: request.term.split(/,s*/).pop(),
+                        parent_id: $("#SyProfile_model_id").val(),
+                        parent_link: "model_id",
+                        parent_model: "model",
+                        modelClass: "YachtModification",
+                        field: {model: "name"}
+                    },response);
+            }',
+            // параметры, подробнее можно посмотреть на сайте
+            // http://jqueryui.com/demos/autocomplete/
+            'options'=>array(
+                'minLength'=>0,
+                'delay'=>0,
+                'showAnim'=>'fold',
+                'click'=>'js: function(event, ui) {
+                    $(this).val("");
+                    $("#YachtModification_name").autocomplete( "search","");
+                    return false;
+                }',
+                'select' =>'js: function(event, ui) {
+                    if(!ui.item.id){
+                        createAddForm("#c","modification");
+                        $(".custom_create").click();
+                    } else {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#SyProfile_modification_id").val(ui.item.id);
+                        $("#SyProfile_model_id").val(ui.item.parent_id);
+                        autoFind = true;
+                        hideSearchResult = true;
+                        $("#YachtModel_name").autocomplete( "search",ui.item.parent_name);
+                    }
+                    return false;
+                }',
+                'change' => 'js: function(event, ui) {
+                    if(ui.item===null){
+                        $("#SyProfile_modification_id").val("");
+                    }
+                    return false;
+                }',
+
+            ),
+            'htmlOptions' => array(
+                'maxlength'=>50,
+            ),
+        ));
+        ?>
+    </div>
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save')); ?>
     </div>
@@ -272,9 +341,11 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
     $this->widget('fancyapps.EFancyApps', array(
             'mode'=>'inline',
             'id'=>'createForm',
-            /*'config'=>array(
-                'afterClose'=>"function(){alert('!');}",
-            ),*/
+            'config'=>array(
+                'maxWidth'	=> 225,
+                'maxHeight'	=> 175,
+                'afterClose'=>"function(){jQuery(currentObj).effect('highlight',500);}",
+            ),
             'options' => array(
                 'url' => '#c',
                 'label'=> '',
