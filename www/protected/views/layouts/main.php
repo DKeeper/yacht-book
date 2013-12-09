@@ -22,6 +22,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -40,7 +41,9 @@
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'A', 'url'=>array('/a'), 'visible'=>!Yii::app()->user->checkAccess('Administrator')),
+                array('label'=>'Register', 'url'=>array('/register'), 'visible'=>!Yii::app()->user->checkAccess('Administrator')),
 			),
 		)); ?>
 	</div><!-- mainmenu -->
