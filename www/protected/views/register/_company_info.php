@@ -8,7 +8,7 @@
 /* @var $this RegisterController */
 /* @var $profileCC CCProfile */
 /* @var $form CActiveForm */
-$countryList = Strana::model()->getModelList('samonazvanie',' - ',array('order'=>'samonazvanie'));
+$countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'nazvanie_1'));
 ?>
 <div class="form">
     <div class="row">
@@ -29,12 +29,16 @@ $countryList = Strana::model()->getModelList('samonazvanie',' - ',array('order'=
                 'data'=>'js:{
                     term : "",
                     modelClass : "Gorod",
-                    fName : "samonazvanie",
+                    fName : ["nazvanie_1","nazvanie_2"],
                     parent_id : $(this).val(),
-                    parent_link : "strana_id",
+                    parent_link : "g.strana_id",
                     parent_model : "strana",
                     parent_include : false,
                     create_include : false,
+                    sql : true,
+                }',
+                'beforeSend'=>'js: function(xhr,settings){
+                    $("#CcProfile_company_city_id").after("<img class=aL src=/i/indicator.gif />");
                 }',
                 'success'=>'js: function(answer){
                     var o = "";
@@ -46,6 +50,7 @@ $countryList = Strana::model()->getModelList('samonazvanie',' - ',array('order'=
                         o += "<option>'.Yii::t('view','No data').'</option>";
                     }
                     $("#CcProfile_company_city_id").empty().append(o);
+                    $(".aL").remove();
                 }', //selector to update
             )));
         ?>

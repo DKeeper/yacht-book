@@ -42,37 +42,91 @@ class AjaxController extends Controller
                     $createInclude = false;
                 }
             }
-            $criteria = new CDbCriteria();
-            $criteria->addSearchCondition($fieldName,$term);
+            $sql = Yii::app()->getRequest()->getParam('sql') ? Yii::app()->getRequest()->getParam('sql') : true;
+            if(is_string($sql)){
+                if($sql==="true"){
+                    $sql = true;
+                } else {
+                    $sql = false;
+                }
+            }
             $parentID = Yii::app()->getRequest()->getParam('parent_id');
             $parentProp = Yii::app()->getRequest()->getParam('parent_link');
             $parentModel = Yii::app()->getRequest()->getParam('parent_model');
-            if($parentID && $parentProp){
-                $criteria->addCondition($parentProp.'=:v');
-                $criteria->params += array(':v'=>$parentID);
+
+            if($sql){
+                $command = Yii::app()->db->createCommand();
+                $f = array('g.id as g_id');
+                if(is_array($fieldName)){
+                    $o = array();
+                    foreach($fieldName as $i => $v){
+                        $fieldName[$i] = "g.".$v." as g_".$v;
+                        $o[] = "g_".$v;
+                    }
+                    $f = array_merge($f,$fieldName);
+                    $o = implode(',',$o);
+                } else {
+                    array_push($f,"g.".$fieldName." as g_".$fieldName);
+                    $o = "g_".$fieldName;
+                }
+                $f[] = 'r.nazvanie_1 as r_nazvanie_1';
+                $f[] = 'r.nazvanie_2 as r_nazvanie_2';
+                $command->select($f)
+                    ->from($model->tableName().' as g');
+                if($parentID && $parentProp){
+                    $command->where($parentProp.'=:v',array(':v'=>$parentID));
+                }
+                $command->andWhere('g.region_id > 0')
+                    ->join(Region::model()->tableName().' as r','r.id = g.region_id');
+                $command->order($o);
+                $objects = $command->queryAll();
+            } else {
+                $criteria = new CDbCriteria();
+                $criteria->addSearchCondition($fieldName,$term);
+                if($parentID && $parentProp){
+                    $criteria->addCondition($parentProp.'=:v');
+                    $criteria->params += array(':v'=>$parentID);
+                }
+                $criteria->order = $fieldName;
+                $objects = $model->findAll($criteria);
             }
-            $criteria->order = $fieldName;
-            $objects = $model->findAll($criteria);
+
             if($createInclude){
                 $result = array(array('id'=>0, 'label'=>Yii::t('view','Create'), 'value'=>Yii::t('view','Create')));
             } else {
                 $result = array();
             }
+
             foreach($objects as $obj) {
-                $label = $obj->$fieldName;
+                if(is_array($fieldName)){
+                    foreach(Yii::app()->getRequest()->getParam('fName') as $cF){
+                        if(empty($obj["g_".$cF])){
+                            continue;
+                        }
+                        $label = $obj["g_".$cF];
+                        if($parentProp && $parentModel){
+                            $label .= " (".$obj['r_'.$cF].")";
+                        }
+                        break;
+                    }
+                } else {
+                    $label = $obj[Yii::app()->getRequest()->getParam('fName')];
+                }
                 if(isset($field)){
                     foreach($field as $fName => $fValue){
-                        if(isset($obj->$fName)){
-                            $label .= " (".$obj->$fName->$fValue.")";
+                        if(isset($obj[$fName])){
+                            $label .= " (".$obj[$fName]->$fValue.")";
                         }
                     }
                 }
+                $id = isset($obj['id'])?$obj['id']:$obj['g_id'];
                 if($parentProp && $parentModel && $parentInclude){
-                    $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label, 'parent_id'=>$obj->$parentProp, 'parent_name'=>$obj->$parentModel->name);
+                    $result[] = array('id'=>$id, 'label'=>$label, 'value'=>$label, 'parent_id'=>$obj[$parentProp], 'parent_name'=>$obj[$parentModel]->name);
                 } else {
-                    $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label);
+                    $result[] = array('id'=>$id, 'label'=>$label, 'value'=>$label);
                 }
             }
+
             echo CJSON::encode($result);
             Yii::app()->end();
         }
