@@ -2,6 +2,11 @@
 
 return array(
 	'Registration' => 'Регистрация',
+	'Registration captain' => 'Регистрация капитана',
+	'Registration company' => 'Регистрация компании',
+	'User info' => 'Информация о пользователе',
+	'Captain info' => 'Информация о капитане',
+	'Company info' => 'Информация о компании',
 	'Register' => 'Зарегистрироваться',
 	'Login' => 'Вход',
 	'Logout' => 'Выйти',

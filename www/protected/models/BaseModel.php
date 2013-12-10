@@ -8,9 +8,9 @@
 class BaseModel extends CActiveRecord
 {
     /**
-     * @param array $fields
+     * @param array|string $fields
      * @param string $delimiter
-     * @param string $condition
+     * @param array|string $condition
      * @param array $params
      * @return array
      */
@@ -18,9 +18,13 @@ class BaseModel extends CActiveRecord
         $data = BaseModel::model(get_class($this))->findAll($condition,$params);
         $list = array();
         foreach($data as $model){
-            $name = isset($model->name) ? $model->name : Yii::t('class',get_class($this))." ".$model->id;
+            if(is_string($fields)){
+                $name = isset($model->$fields) ? Yii::t('view',$model->$fields) : Yii::t('class',get_class($this))." ".$model->id;
+            } else {
+                $name = isset($model->name) ? Yii::t('view',$model->name) : Yii::t('class',get_class($this))." ".$model->id;
+            }
             $list[$model->id] = $name;
-            if(!empty($fields)){
+            if(!empty($fields) && is_array($fields)){
                 foreach($fields as $k => $f) {
                     if(is_numeric($k))
                         if(isset($model->$f))

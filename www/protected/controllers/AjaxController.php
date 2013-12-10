@@ -24,8 +24,26 @@ class AjaxController extends Controller
         $model = BaseModel::model($modelClass);
         if(Yii::app()->request->isAjaxRequest && $model) {
             $field = Yii::app()->getRequest()->getParam('field');
+            $fieldName = Yii::app()->getRequest()->getParam('fName');
+            $fieldName = $fieldName ? $fieldName : 'name';
+            $parentInclude = Yii::app()->getRequest()->getParam('parent_include') ? Yii::app()->getRequest()->getParam('parent_include') : true;
+            if(is_string($parentInclude)){
+                if($parentInclude==="true"){
+                    $parentInclude = true;
+                } else {
+                    $parentInclude = false;
+                }
+            }
+            $createInclude = Yii::app()->getRequest()->getParam('create_include') ? Yii::app()->getRequest()->getParam('create_include') : true;
+            if(is_string($createInclude)){
+                if($createInclude==="true"){
+                    $createInclude = true;
+                } else {
+                    $createInclude = false;
+                }
+            }
             $criteria = new CDbCriteria();
-            $criteria->addSearchCondition('name',$term);
+            $criteria->addSearchCondition($fieldName,$term);
             $parentID = Yii::app()->getRequest()->getParam('parent_id');
             $parentProp = Yii::app()->getRequest()->getParam('parent_link');
             $parentModel = Yii::app()->getRequest()->getParam('parent_model');
@@ -33,11 +51,15 @@ class AjaxController extends Controller
                 $criteria->addCondition($parentProp.'=:v');
                 $criteria->params += array(':v'=>$parentID);
             }
-            $criteria->order = "name";
+            $criteria->order = $fieldName;
             $objects = $model->findAll($criteria);
-            $result = array(array('id'=>0, 'label'=>Yii::t('view','Create'), 'value'=>Yii::t('view','Create')));
+            if($createInclude){
+                $result = array(array('id'=>0, 'label'=>Yii::t('view','Create'), 'value'=>Yii::t('view','Create')));
+            } else {
+                $result = array();
+            }
             foreach($objects as $obj) {
-                $label = $obj->name;
+                $label = $obj->$fieldName;
                 if(isset($field)){
                     foreach($field as $fName => $fValue){
                         if(isset($obj->$fName)){
@@ -45,7 +67,7 @@ class AjaxController extends Controller
                         }
                     }
                 }
-                if($parentProp && $parentModel){
+                if($parentProp && $parentModel && $parentInclude){
                     $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label, 'parent_id'=>$obj->$parentProp, 'parent_name'=>$obj->$parentModel->name);
                 } else {
                     $result[] = array('id'=>$obj->id, 'label'=>$label, 'value'=>$label);

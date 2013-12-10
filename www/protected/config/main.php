@@ -4,6 +4,7 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 Yii::setPathOfAlias('fancyapps',dirname(__FILE__).'/../extensions/fancyapps');
 Yii::setPathOfAlias('autocombobox',dirname(__FILE__).'/../extensions/autocombobox');
+Yii::setPathOfAlias('ckeditor',dirname(__FILE__).'/../extensions/ckeditor');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -118,11 +119,11 @@ return array(
 					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
+
 				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
+
 			),
 		),
 	),

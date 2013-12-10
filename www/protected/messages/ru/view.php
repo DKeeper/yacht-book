@@ -20,4 +20,10 @@ return array(
     'Select type of register' => 'Выберите тип регистации',
     'You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.' => 'Вы можете использовать операторы сравнения (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) установив их перед значением.',
     'Fields with <span class="required">*</span> are required.' => '<span class="required">*</span> Обязательные поля.',
+    'Female' => 'Жен.',
+    'Male' => 'Муж.',
+    'English' => 'Англичанин',
+    'Russian' => 'Русский',
+    'Select country' => 'Выберите страну',
+    'No data' => 'Нет данных',
 );
