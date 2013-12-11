@@ -10,7 +10,7 @@
 /* @var $form CActiveForm */
 $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'nazvanie_1'));
 ?>
-<div class="form">
+    <?php echo $form->hiddenField($profileCC,'cc_id'); ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_name'); ?>
         <?php echo $form->textField($profileCC,'company_name'); ?>
@@ -317,4 +317,3 @@ $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'
         <?php echo $form->textField($profileCC,'max_discount'); ?>
         <?php echo $form->error($profileCC,'max_discount'); ?>
     </div>
-</div><!-- form -->

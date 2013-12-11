@@ -10,7 +10,6 @@
 /* @var $profileUser Profile */
 /* @var $form UActiveForm */
 ?>
-<div class="form">
     <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 
     <div class="row">
@@ -80,7 +79,6 @@
     <div class="row submit">
         <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
     </div>
-</div><!-- form -->
 <script>
     $(function(){
         $("#Profile_firstname").on("change",function(){

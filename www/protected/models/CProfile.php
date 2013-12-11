@@ -57,8 +57,14 @@ class CProfile extends BaseModel
 		return array(
 			array('c_id', 'required'),
 			array('c_id, isActive, sex_id, nationality_id, site_commission, receive_news, professional_regatta, amateur_regatta, repeater, extra', 'numerical', 'integerOnly'=>true),
-			array('phone', 'length', 'max'=>15),
 			array('name_eng, name_rus, last_name_eng, last_name_rus, zagran_passport, expire_date, date_of_birth, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'safe'),
+            array('avatar', 'file',
+                'allowEmpty' => true,
+                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png,application/pdf',
+                'maxSize' => 1024 * 1024 * 5, // 5MB
+                'tooLarge' => Yii::t('view','The file was larger than {limit} byte. Please upload a smaller file'),
+                'wrongMimeType' => Yii::t('view','The format of the selected file does not correspond to valid: jpg, png, gif, pdf'),
+            ),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, c_id, isActive, name_eng, name_rus, last_name_eng, last_name_rus, sex_id, zagran_passport, expire_date, nationality_id, date_of_birth, phone, email, site_commission, avatar, license, school_issued, date_issued, scan_of_license, website, receive_news, professional_regatta, amateur_regatta, repeater, extra, last_settings', 'safe', 'on'=>'search'),

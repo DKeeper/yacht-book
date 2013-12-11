@@ -11,7 +11,7 @@
 $genderList = Gender::model()->getModelList();
 $nationalityList = Nationality::model()->getModelList();
 ?>
-<div class="form">
+    <?php echo $form->hiddenField($profileC,'c_id'); ?>
     <div class="row">
         <?php echo $form->labelEx($profileC,'name_eng'); ?>
         <?php echo $form->textField($profileC,'name_eng'); ?>
@@ -51,6 +51,9 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
+                'minDate' => 0,
+                'changeMonth' => true,
+                'changeYear' => true,
             ),
             /*'htmlOptions' => array(
                 'size' => '10',         // textField size
@@ -74,6 +77,10 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
+                'minDate' => '-70y',
+                'yearRange' => 'c-70:c+10',
+                'changeMonth' => true,
+                'changeYear' => true,
             ),
             /*'htmlOptions' => array(
                 'size' => '10',         // textField size
@@ -122,6 +129,9 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
+                'minDate' => 0,
+                'changeMonth' => true,
+                'changeYear' => true,
             ),
             /*'htmlOptions' => array(
                 'size' => '10',         // textField size
@@ -166,4 +176,3 @@ $nationalityList = Nationality::model()->getModelList();
         <?php echo $form->textField($profileC,'extra'); ?>
         <?php echo $form->error($profileC,'extra'); ?>
     </div>
-</div><!-- form -->

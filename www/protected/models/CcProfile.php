@@ -82,6 +82,13 @@ class CcProfile extends BaseModel
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
 			array('company_name, company_full_addres, company_web_site, company_email, company_logo, company_speak, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other', 'safe'),
+            array('company_logo', 'file',
+                'allowEmpty' => true,
+                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png',
+                'maxSize' => 1024 * 1024 * 5, // 5MB
+                'tooLarge' => Yii::t('view','The file was larger than {limit} byte. Please upload a smaller file'),
+                'wrongMimeType' => Yii::t('view','The format of the selected file does not correspond to valid: jpg, png, gif'),
+            ),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, company_speak, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount', 'safe', 'on'=>'search'),

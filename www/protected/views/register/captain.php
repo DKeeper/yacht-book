@@ -23,6 +23,7 @@ $this->breadcrumbs=array(
     <?php echo Yii::app()->user->getFlash('registration'); ?>
 </div>
 <?php else: ?>
+<div class="form">
 <?php $form=$this->beginWidget('UActiveForm', array(
         'id'=>'registration-form',
         'enableAjaxValidation'=>true,
@@ -33,6 +34,7 @@ $this->breadcrumbs=array(
         'htmlOptions' => array('enctype'=>'multipart/form-data'),
     ));
 ?>
+<?php echo $form->errorSummary(array($modelUser,$profileUser,$profileC)); ?>
 <?php
     $this->widget('CTabView', array(
         'tabs'=>array(
@@ -50,4 +52,5 @@ $this->breadcrumbs=array(
     ));
 ?>
 <?php $this->endWidget(); ?>
+</div><!-- form -->
 <?php endif; ?>
