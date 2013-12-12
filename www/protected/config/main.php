@@ -5,6 +5,7 @@
 Yii::setPathOfAlias('fancyapps',dirname(__FILE__).'/../extensions/fancyapps');
 Yii::setPathOfAlias('autocombobox',dirname(__FILE__).'/../extensions/autocombobox');
 Yii::setPathOfAlias('ckeditor',dirname(__FILE__).'/../extensions/ckeditor');
+Yii::setPathOfAlias('recaptcha',dirname(__FILE__).'/../extensions/recaptcha');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.

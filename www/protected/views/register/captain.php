@@ -53,4 +53,19 @@ $this->breadcrumbs=array(
 ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<script>
+    $(function(){
+        $("#Profile_firstname").on("change",function(){
+            $("#CProfile_name_eng").val($(this).val());
+            $("#CProfile_name_rus").val($(this).val());
+        });
+        $("#Profile_lastname").on("change",function(){
+            $("#CProfile_last_name_eng").val($(this).val());
+            $("#CProfile_last_name_rus").val($(this).val());
+        });
+        $("#RegistrationForm_email").on("change",function(){
+            $("#CProfile_email").val($(this).val());
+        });
+    });
+</script>
 <?php endif; ?>

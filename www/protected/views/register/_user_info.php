@@ -66,9 +66,15 @@
     <?php if (UserModule::doCaptcha('registration')): ?>
 <div class="row">
     <?php echo $form->labelEx($modelUser,'verifyCode'); ?>
-
-    <?php $this->widget('CCaptcha'); ?>
-    <?php echo $form->textField($modelUser,'verifyCode'); ?>
+    <?php $this->widget('recaptcha.EReCaptcha',
+        array(
+            'model'=>$modelUser,
+            'attribute'=>'verifyCode',
+            'theme'=>'white',
+            'language'=>'ru',
+            'publicKey'=>'6LcIsesSAAAAAKrG0XASOw-PgUY9LFu6WQo7HXbH'
+        )
+    ); ?>
     <?php echo $form->error($modelUser,'verifyCode'); ?>
 
     <p class="hint"><?php echo UserModule::t("Please enter the letters as they are shown in the image above."); ?>
@@ -79,18 +85,3 @@
     <div class="row submit">
         <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
     </div>
-<script>
-    $(function(){
-        $("#Profile_firstname").on("change",function(){
-            $("#CProfile_name_eng").val($(this).val());
-            $("#CProfile_name_rus").val($(this).val());
-        });
-        $("#Profile_lastname").on("change",function(){
-            $("#CProfile_last_name_eng").val($(this).val());
-            $("#CProfile_last_name_rus").val($(this).val());
-        });
-        $("#RegistrationForm_email").on("change",function(){
-            $("#CProfile_email").val($(this).val());
-        });
-    });
-</script>

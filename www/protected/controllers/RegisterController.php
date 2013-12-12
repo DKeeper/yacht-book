@@ -60,11 +60,13 @@ class RegisterController extends Controller
             $this->redirect(Yii::app()->getModule('user')->profileUrl);
         } else {
             if(isset($_POST['RegistrationForm'])) {
+                $modelUser->scenario = 'registerwcaptcha';
                 $modelUser->attributes=$_POST['RegistrationForm'];
                 $profileUser->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
                 $profileC->attributes=((isset($_POST['CProfile'])?$_POST['CProfile']:array()));
                 if($modelUser->validate()&&$profileUser->validate()&&$profileC->validate())
                 {
+                    $modelUser->setScenario(null);
                     $soucePassword = $modelUser->password;
                     $modelUser->activkey=UserModule::encrypting(microtime().$modelUser->password);
                     $modelUser->password=UserModule::encrypting($modelUser->password);
@@ -145,11 +147,13 @@ class RegisterController extends Controller
             $this->redirect(Yii::app()->getModule('user')->profileUrl);
         } else {
             if(isset($_POST['RegistrationForm'])) {
+                $modelUser->scenario = 'registerwcaptcha';
                 $modelUser->attributes=$_POST['RegistrationForm'];
                 $profileUser->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
                 $profileCC->attributes=((isset($_POST['CcProfile'])?$_POST['CcProfile']:array()));
                 if($modelUser->validate()&&$profileUser->validate()&&$profileCC->validate())
                 {
+                    $modelUser->setScenario(null);
                     $soucePassword = $modelUser->password;
                     $modelUser->activkey=UserModule::encrypting(microtime().$modelUser->password);
                     $modelUser->password=UserModule::encrypting($modelUser->password);
@@ -220,11 +224,13 @@ class RegisterController extends Controller
             Yii::app()->end();
         }
         if(isset($_POST['RegistrationForm'])) {
+            $modelUser->scenario = 'registerwcaptcha';
             $modelUser->attributes=$_POST['RegistrationForm'];
             $profileUser->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
             $profileM->attributes=((isset($_POST['MProfile'])?$_POST['MProfile']:array()));
             if($modelUser->validate()&&$profileUser->validate()&&$profileM->validate())
             {
+                $modelUser->setScenario(null);
                 $soucePassword = $modelUser->password;
                 $modelUser->activkey=UserModule::encrypting(microtime().$modelUser->password);
                 $modelUser->password=UserModule::encrypting($modelUser->password);
