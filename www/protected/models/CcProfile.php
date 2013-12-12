@@ -81,6 +81,7 @@ class CcProfile extends BaseModel
 			array('company_country_id, company_postal_code', 'length', 'max'=>10),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
+            array('others, payment_other, cancel_other', 'default', 'value' => null),
 			array('company_name, company_full_addres, company_web_site, company_email, company_logo, company_speak, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other', 'safe'),
             array('company_logo', 'file',
                 'allowEmpty' => true,

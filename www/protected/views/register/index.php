@@ -14,7 +14,7 @@
     <div class="row">
         <?php
         echo CHtml::label(Yii::t('view','Select type of register'),'type_register');
-        echo CHtml::dropDownList('type_register','',array('0'=>Yii::t('model','C'),'1'=>Yii::t('model','CC')));
+        echo CHtml::dropDownList('type_register','',array('0'=>Yii::t('model','C'),'1'=>Yii::t('model','CC'),'2'=>Yii::t('model','M')));
         ?>
     </div>
     <div class="row buttons">

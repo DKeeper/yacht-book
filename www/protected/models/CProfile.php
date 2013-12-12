@@ -60,8 +60,15 @@ class CProfile extends BaseModel
 			array('name_eng, name_rus, last_name_eng, last_name_rus, zagran_passport, expire_date, date_of_birth, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'safe'),
             array('avatar', 'file',
                 'allowEmpty' => true,
-                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png,application/pdf',
+                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png',
                 'maxSize' => 1024 * 1024 * 5, // 5MB
+                'tooLarge' => Yii::t('view','The file was larger than {limit} byte. Please upload a smaller file'),
+                'wrongMimeType' => Yii::t('view','The format of the selected file does not correspond to valid: jpg, png, gif'),
+            ),
+            array('scan_of_license', 'file',
+                'allowEmpty' => true,
+                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png,application/pdf',
+                'maxSize' => 1024 * 1024 * 10, // 10MB
                 'tooLarge' => Yii::t('view','The file was larger than {limit} byte. Please upload a smaller file'),
                 'wrongMimeType' => Yii::t('view','The format of the selected file does not correspond to valid: jpg, png, gif, pdf'),
             ),

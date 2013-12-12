@@ -35,7 +35,13 @@ class MProfile extends BaseModel
 			array('m_id, cc_id', 'required'),
 			array('m_id, cc_id', 'numerical', 'integerOnly'=>true),
 			array('phone', 'length', 'max'=>20),
-			array('avatar', 'safe'),
+            array('avatar', 'file',
+                'allowEmpty' => true,
+                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png',
+                'maxSize' => 1024 * 1024 * 5, // 5MB
+                'tooLarge' => Yii::t('view','The file was larger than {limit} byte. Please upload a smaller file'),
+                'wrongMimeType' => Yii::t('view','The format of the selected file does not correspond to valid: jpg, png, gif'),
+            ),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, m_id, cc_id, phone, avatar', 'safe', 'on'=>'search'),

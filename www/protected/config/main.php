@@ -50,7 +50,7 @@ return array(
             # automatically login from registration
             'autoLogin' => true,
             # registration path
-            'registrationUrl' => array('/user/registration'),
+            'registrationUrl' => array('/register'),
             # recovery password path
             'recoveryUrl' => array('/user/recovery'),
             # login form path
