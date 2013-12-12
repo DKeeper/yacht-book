@@ -15,17 +15,7 @@ class RegisterController extends Controller
     }
 
     public function allowedActions(){
-        return 'captcha, index, captain, company';
-    }
-
-    public function actions()
-    {
-        return array(
-            'captcha'=>array(
-                'class'=>'CCaptchaAction',
-                'backColor'=>0xFFFFFF,
-            ),
-        );
+        return 'index, captain, company';
     }
 
     public function actionIndex(){

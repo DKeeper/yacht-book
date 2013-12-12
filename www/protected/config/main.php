@@ -60,6 +60,7 @@ return array(
             'returnUrl' => array('/user/profile'),
             # page after logout
             'returnLogoutUrl' => array('/user/login'),
+            'profileUrl' => array('/profile'),
         ),
         'rights'=>array(
             'superuserName'=>'admin', // Name of the role with super user privileges.
