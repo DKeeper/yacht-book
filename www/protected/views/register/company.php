@@ -49,6 +49,9 @@ $this->breadcrumbs=array(
                 'data'=>array('profileCC'=>$profileCC,'form'=>$form),
             ),
         ),
+        'htmlOptions'=>array(
+            'id'=>'company_tabs',
+        ),
     ));
     ?>
 <?php $this->endWidget(); ?>

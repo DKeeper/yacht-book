@@ -8,6 +8,7 @@ return array(
 	'User info' => 'Информация о пользователе',
 	'Captain info' => 'Информация о капитане',
 	'Company info' => 'Информация о компании',
+	'Company managers' => 'Менеджеры компании',
 	'Manager info' => 'Информация о менеджере',
 	'Register' => 'Зарегистрироваться',
 	'Login' => 'Вход',
@@ -135,7 +136,9 @@ return array(
 	'Not visited' => 'Не входил',
 	'Search' => 'Искать',
 	'Advanced Search' => 'Расширенный поиск',
-	'Profile: {username}' => 'Профиль: {username}',
+	'Profile captain: {username}' => 'Профиль капитана: {username}',
+	'Profile company: {username}' => 'Профиль компании: {username}',
+	'Profile manager: {username}' => 'Профиль менеджера: {username}',
 	'You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.'=>'Вы можете использовать операторы сравнения (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) установив их перед значением.',
 );
 

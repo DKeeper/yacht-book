@@ -34,16 +34,22 @@ class ProfileController extends Controller
         }
         $model = $this->loadUser($id);
         if($model){
+            if(Rights::getAuthorizer()->isSuperuser($model->id)===true){
+                $this->redirect('/');
+            }
             $id = $model->id;
             $profileCC=$profileC=$profileM=null;
             $profileCC = CcProfile::model()->findByAttributes(array('cc_id'=>$id));
+            $view = 'CC';
             if(!isset($profileCC)){
                 $profileC = CProfile::model()->findByAttributes(array('c_id'=>$id));
+                $view = 'C';
                 if(!isset($profileC)){
                     $profileM = MProfile::model()->findByAttributes(array('m_id'=>$id));
+                    $view = 'M';
                 }
             }
-            $role = (Yii::app()->user->checkAccess('C') ? 1 : (Yii::app()->user->checkAccess('CC') ? 2 : 3));
+            $role = (Yii::app()->user->checkAccess('C') ? 'C' : (Yii::app()->user->checkAccess('CC') ? 'CC' : (!is_null(Yii::app()->user->id) ? 'M' : '')));
             $owner = $id==Yii::app()->user->id?true:false;
             if(!$owner){
                 $this->layout = '//layouts/column1';
@@ -55,6 +61,7 @@ class ProfileController extends Controller
                 'profileC'=>$profileC,
                 'profileM'=>$profileM,
                 'role'=>$role,
+                'view'=>$view,
                 'owner'=>$owner,
             ));
         } else {

@@ -275,6 +275,10 @@ class RegisterController extends Controller
                 $profileM->validate();
             }
         }
-        $this->render('manager',array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'profileM'=>$profileM));
+        if(isset($_POST['ajax']) && $_POST['ajax']==='inline_create'){
+            $this->renderPartial('manager',array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'profileM'=>$profileM),false,true);
+        } else {
+            $this->render('manager',array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'profileM'=>$profileM));
+        }
     }
 }

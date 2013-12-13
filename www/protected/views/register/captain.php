@@ -49,6 +49,9 @@ $this->breadcrumbs=array(
                 'data'=>array('profileC'=>$profileC,'form'=>$form),
             ),
         ),
+        'htmlOptions'=>array(
+            'id'=>'captain_tabs',
+        ),
     ));
 ?>
 <?php $this->endWidget(); ?>

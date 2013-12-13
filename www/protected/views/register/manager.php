@@ -26,6 +26,7 @@ $this->breadcrumbs=array(
 <div class="form">
     <?php $form=$this->beginWidget('UActiveForm', array(
     'id'=>'registration-form',
+    'action'=>$this->id=="register"?'manager':'/register/manager',
     'enableAjaxValidation'=>true,
     'disableAjaxValidationAttributes'=>array('RegistrationForm_verifyCode'),
     'clientOptions'=>array(
@@ -40,14 +41,17 @@ $this->breadcrumbs=array(
         'tabs'=>array(
             'tab1'=>array(
                 'title'=>UserModule::t("User info"),
-                'view'=>'_user_info',
+                'view'=>$this->id=="register"?'_user_info':'/register/_user_info',
                 'data'=>array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
             ),
             'tab2'=>array(
                 'title'=>UserModule::t("Manager info"),
-                'view'=>'_manager_info',
+                'view'=>$this->id=="register"?'_manager_info':'/register/_manager_info',
                 'data'=>array('profileM'=>$profileM,'form'=>$form),
             ),
+        ),
+        'htmlOptions'=>array(
+            'id'=>'manager_tabs',
         ),
     ));
     ?>

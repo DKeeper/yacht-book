@@ -76,9 +76,6 @@
         )
     ); ?>
     <?php echo $form->error($modelUser,'verifyCode'); ?>
-
-    <p class="hint"><?php echo UserModule::t("Please enter the letters as they are shown in the image above."); ?>
-        <br/><?php echo UserModule::t("Letters are not case-sensitive."); ?></p>
 </div>
 <?php endif; ?>
 
