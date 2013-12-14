@@ -35,6 +35,7 @@ class MProfile extends BaseModel
 			array('m_id, cc_id', 'required'),
 			array('m_id, cc_id', 'numerical', 'integerOnly'=>true),
 			array('phone', 'length', 'max'=>20),
+            array('phone', 'default', 'value' => null),
             array('avatar', 'file',
                 'allowEmpty' => true,
                 'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png',

@@ -35,4 +35,9 @@ return array(
     'The file was larger than {limit} byte. Please upload a smaller file' => 'Размер выбранного файла превышает {limit} байт. Пожалуйста, выберите меньший файл',
     'The format of the selected file does not correspond to valid: jpg, png, gif, pdf' => 'Формат выбранного файла не соответсвует допустимым: jpg, png, gif, pdf',
     'The format of the selected file does not correspond to valid: jpg, png, gif' => 'Формат выбранного файла не соответсвует допустимым: jpg, png, gif',
+    'Accounts admin' => 'Управление аккаунтами',
+    'Fleets admin' => 'Управление флотом',
+    'System settings' => 'Настройки системы',
+    'Captain admin' => 'Капитаны',
+    'Company admin' => 'Компании',
 );

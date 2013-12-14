@@ -227,3 +227,16 @@ div.search-form
 {
 	background: #80CFFF;
 }
+.view_manager{
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #4F81BD;
+}
+.avatar{
+    padding: 5px;
+    width: 100px;
+    height: 100px;
+}
+.info{
+    margin-left: 110px;
+}

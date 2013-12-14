@@ -56,6 +56,8 @@
  * @property CcOrderOptions[] $ccOrderOptions
  * @property CcPaymentsPeriod[] $ccPaymentsPeriods
  * @property User $cc
+ * @property Strana $country
+ * @property Gorod $city
  * @property CcTransitLog[] $ccTransitLogs
  */
 class CcProfile extends BaseModel
@@ -81,7 +83,7 @@ class CcProfile extends BaseModel
 			array('company_country_id, company_postal_code', 'length', 'max'=>10),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
-            array('others, payment_other, cancel_other', 'default', 'value' => null),
+            array('q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
 			array('company_name, company_full_addres, company_web_site, company_email, company_logo, company_speak, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other', 'safe'),
             array('company_logo', 'file',
                 'allowEmpty' => true,
@@ -111,6 +113,8 @@ class CcProfile extends BaseModel
 			'ccOrderOptions' => array(self::HAS_MANY, 'CcOrderOptions', 'cc_profile_id'),
 			'ccPaymentsPeriods' => array(self::HAS_MANY, 'CcPaymentsPeriod', 'cc_profile_id'),
 			'cc' => array(self::BELONGS_TO, 'User', 'cc_id'),
+			'country' => array(self::BELONGS_TO, 'Strana', 'company_country_id'),
+			'city' => array(self::BELONGS_TO, 'Gorod', 'company_city_id'),
 			'ccTransitLogs' => array(self::HAS_MANY, 'CcTransitLog', 'cc_profile_id'),
 		);
 	}

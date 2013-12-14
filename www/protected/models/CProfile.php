@@ -58,6 +58,7 @@ class CProfile extends BaseModel
 			array('c_id', 'required'),
 			array('c_id, isActive, sex_id, nationality_id, site_commission, receive_news, professional_regatta, amateur_regatta, repeater, extra', 'numerical', 'integerOnly'=>true),
 			array('name_eng, name_rus, last_name_eng, last_name_rus, zagran_passport, expire_date, date_of_birth, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'safe'),
+            array('site_commission, repeater, extrazagran_passport, expire_date, date_of_birth, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'default', 'value' => null),
             array('avatar', 'file',
                 'allowEmpty' => true,
                 'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png',
