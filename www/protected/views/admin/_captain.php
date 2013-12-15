@@ -8,7 +8,7 @@
 /** @var $this AdminController */
 /** @var $captain CProfile */
 $this->widget('zii.widgets.grid.CGridView', array(
-    'id'=>'cc-profile-grid',
+    'id'=>'c-profile-grid',
     'dataProvider'=>$captain->search(),
     'filter'=>$captain,
     'columns'=>array(

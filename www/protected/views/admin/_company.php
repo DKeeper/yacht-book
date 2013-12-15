@@ -18,12 +18,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name'=>'company_country_id',
             'value'=>'$data->country->nazvanie_1',
-//            'filter'=>$yachtModelList,
+            'filter'=> CHtml::activeTextField($company->searchCountry, 'nazvanie_1'),
         ),
         array(
             'name'=>'company_city_id',
             'value'=>'$data->city->nazvanie_1',
-//            'filter'=>$yachtModelList,
+            'filter'=> CHtml::activeTextField($company->searchCity, 'nazvanie_1'),
         ),
         array(
             'name'=>'isActive',

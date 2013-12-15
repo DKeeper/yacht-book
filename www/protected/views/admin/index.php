@@ -17,7 +17,6 @@ $this->widget('CTabView', array(
             'data'=>array(
                 'company' => $company,
                 'captain' => $captain,
-                'manager' => $manager,
             ),
         ),
         'fleets_admin'=>array(

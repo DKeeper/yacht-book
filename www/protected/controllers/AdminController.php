@@ -21,12 +21,26 @@ class AdminController extends Controller
         $captain->unsetAttributes();
         $manager = new MProfile('search');
         $manager->unsetAttributes();
+        $country = new Strana('search');
+        $country->unsetAttributes();
+        if (isset($_GET['Strana']))
+        {
+            $country->attributes = $_GET['Strana'];
+        }
+        $company->searchCountry = $country;
+        $city = new Gorod('search');
+        $city->unsetAttributes();
+        if (isset($_GET['Gorod']))
+        {
+            $city->attributes = $_GET['Gorod'];
+        }
+        $company->searchCity = $city;
 
         if(isset($_GET['CcProfile']))
             $company->attributes=$_GET['CcProfile'];
         if(isset($_GET['CProfile']))
             $captain->attributes=$_GET['CProfile'];
-        if(isset($_GET['CcProfile']))
+        if(isset($_GET['MProfile']))
             $manager->attributes=$_GET['MProfile'];
 
         $this->render('index',array(

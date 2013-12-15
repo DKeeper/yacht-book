@@ -62,6 +62,11 @@
  */
 class CcProfile extends BaseModel
 {
+    /** @var $searchCountry Strana */
+    public $searchCountry;
+    /** @var $searchCity Gorod */
+    public $searchCity;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -189,12 +194,18 @@ class CcProfile extends BaseModel
 
 		$criteria=new CDbCriteria;
 
+        $criteria->group = 't.id';
+        $criteria->with = array('country','city');
+        $criteria->together = true;
+
 		$criteria->compare('id',$this->id);
 		$criteria->compare('cc_id',$this->cc_id);
 		$criteria->compare('isActive',$this->isActive);
 		$criteria->compare('company_name',$this->company_name,true);
 		$criteria->compare('company_country_id',$this->company_country_id,true);
+        $criteria->compare('country.nazvanie_1', $this->searchCountry->nazvanie_1, true);
 		$criteria->compare('company_city_id',$this->company_city_id);
+        $criteria->compare('city.nazvanie_1', $this->searchCity->nazvanie_1, true);
 		$criteria->compare('company_postal_code',$this->company_postal_code,true);
 		$criteria->compare('company_full_addres',$this->company_full_addres,true);
 		$criteria->compare('company_web_site',$this->company_web_site,true);
