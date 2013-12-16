@@ -29,7 +29,7 @@ class ProfileController extends Controller
     }
 
     protected function renderProfile($id=null){
-        if(Yii::app()->user->checkAccess('Administrator')){
+        if(Yii::app()->user->checkAccess('Administrator') && is_null($id)){
             $this->redirect('/user/profile');
         }
         $model = $this->loadUser($id);
@@ -50,6 +50,9 @@ class ProfileController extends Controller
                 }
             }
             $role = (Yii::app()->user->checkAccess('C') ? 'C' : (Yii::app()->user->checkAccess('CC') ? 'CC' : (!is_null(Yii::app()->user->id) ? 'M' : '')));
+            if(Yii::app()->user->checkAccess('Administrator')){
+                $role = 'A';
+            }
             $owner = $id==Yii::app()->user->id?true:false;
             if(!$owner){
                 $this->layout = '//layouts/column1';

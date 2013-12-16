@@ -51,6 +51,21 @@ $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'
                     }
                     $("#CcProfile_company_city_id").empty().append(o);
                     $(".aL").remove();
+                    if(answer.length){
+                        $.ajax({
+                            type: "POST",
+                            url: "'.$this->createUrl('ajax/getcityll').'",
+                            data: {id: $("#CcProfile_company_city_id").val()},
+                            dataType: "json",
+                            success: function(answer){
+                                if(!answer.success){
+                                    alert(answer.data);
+                                } else {
+                                    initialize(answer.data);
+                                }
+                            }
+                        });
+                    }
                 }', //selector to update
             )));
         ?>
@@ -59,8 +74,41 @@ $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_city_id'); ?>
-        <?php echo $form->dropDownList($profileCC,'company_city_id',array(),array('prompt'=>Yii::t('view','Select country'))); ?>
+        <?php echo $form->dropDownList($profileCC,'company_city_id',array(),array(
+            'prompt'=>Yii::t('view','Select country'),
+            'ajax' => array(
+                'type'=>'POST',
+                'dataType'=>'json',
+                'url'=>$this->createUrl('ajax/getcityll'),
+                'data'=>'js:{
+                    id: $(this).val()
+                }',
+                'success'=>'js: function(answer){
+                    if(!answer.success){
+                        alert(answer.data);
+                    } else {
+                        initialize(answer.data);
+                    }
+                }',
+            )
+        )); ?>
         <?php echo $form->error($profileCC,'company_city_id'); ?>
+    </div>
+
+    <div class="row">
+        <div id="map_canvas" style="width:500px; height:300px; display: none;"></div>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($profileCC,'longitude'); ?>
+        <?php echo $form->textField($profileCC,'longitude'); ?>
+        <?php echo $form->error($profileCC,'longitude'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($profileCC,'latitude'); ?>
+        <?php echo $form->textField($profileCC,'latitude'); ?>
+        <?php echo $form->error($profileCC,'latitude'); ?>
     </div>
 
     <div class="row">
@@ -121,18 +169,6 @@ $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'
         <?php echo $form->labelEx($profileCC,'company_speak'); ?>
         <?php echo $form->textField($profileCC,'company_speak'); ?>
         <?php echo $form->error($profileCC,'company_speak'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'longitude'); ?>
-        <?php echo $form->textField($profileCC,'longitude'); ?>
-        <?php echo $form->error($profileCC,'longitude'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'latitude'); ?>
-        <?php echo $form->textField($profileCC,'latitude'); ?>
-        <?php echo $form->error($profileCC,'latitude'); ?>
     </div>
 
     <div class="row">
@@ -317,3 +353,20 @@ $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'
         <?php echo $form->textField($profileCC,'max_discount'); ?>
         <?php echo $form->error($profileCC,'max_discount'); ?>
     </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
+<script type="text/javascript">
+    var map;
+    function initialize(param) {
+        var mapOptions = {
+            zoom: 11,
+            center: new google.maps.LatLng(param.latitude, param.longitude)
+        };
+        map = new google.maps.Map(document.getElementById('map_canvas'),
+                mapOptions);
+        $("#map_canvas").show();
+        $("#CcProfile_longitude").val(param.longitude);
+        $("#CcProfile_latitude").val(param.latitude);
+    }
+</script>
+

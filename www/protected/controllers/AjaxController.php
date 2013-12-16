@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete, icreate';
+        return 'autocomplete, icreate, getcityll';
     }
 
     public function actionAutocomplete(){
@@ -164,5 +164,26 @@ class AjaxController extends Controller
             }
             $this->renderPartial('/'.strtolower($modelClass).'/'.$view,array('model'=>$model,'ajax'=>true));
         }
+    }
+
+    public function actionGetcityll(){
+        if(Yii::app()->request->isAjaxRequest){
+            $id = Yii::app()->request->getPost('id');
+            /** @var $model Gorod */
+            $model = Gorod::model()->findByPk($id);
+            if(isset($model)){
+                $data = array('latitude'=>$model->shirota,'longitude'=>$model->dolgota);
+            } else {
+                $error = "Некорректный ID";
+            }
+        } else {
+            $error = "Некорректный запрос";
+        }
+        if(isset($data)){
+            echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
+        } else {
+            echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
+        }
+        Yii::app()->end();
     }
 }

@@ -31,6 +31,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'class'=>'CButtonColumn',
+            'template'=>'{view}{update}{delete}',
+            'buttons'=>array(
+                'view'=>array(
+                    'url'=>'Yii::app()->createAbsoluteUrl("profile/view",array("id"=>$data->cc_id))',
+                ),
+            ),
+            'htmlOptions'=>array(
+                'width' => 75,
+                'style' => 'text-align:center;',
+            ),
         ),
     ),
 ));

@@ -20,8 +20,8 @@
  * @property string $company_logo
  * @property integer $q_boat
  * @property string $company_speak
- * @property integer $longitude
- * @property integer $latitude
+ * @property double $longitude
+ * @property double $latitude
  * @property string $bank_name
  * @property string $bank_addres
  * @property string $beneficiary
@@ -84,8 +84,9 @@ class CcProfile extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_id', 'required'),
-			array('cc_id, isActive, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
+			array('cc_id, isActive, company_city_id, q_boat, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
 			array('company_country_id, company_postal_code', 'length', 'max'=>10),
+            array('longitude, latitude', 'numerical'),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
             array('q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
