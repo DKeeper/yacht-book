@@ -110,7 +110,7 @@ class AjaxController extends Controller
                         break;
                     }
                 } else {
-                    $label = $obj[Yii::app()->getRequest()->getParam('fName')];
+                    $label = $obj[$fieldName];
                 }
                 if(isset($field)){
                     foreach($field as $fName => $fValue){

@@ -87,7 +87,8 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
                     $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
                     term: request.term.split(/,s*/).pop(),
                     modelClass: "YachtShipyard",
-                    field: {yachtType: "name"}
+                    field: {yachtType: "name"},
+                    sql: false
                 }, response);
             }',
             // параметры, подробнее можно посмотреть на сайте
@@ -160,7 +161,8 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
                         parent_link: "shipyard_id",
                         parent_model: "shipyard",
                         modelClass: "YachtModel",
-                        field: {shipyard: "name"}
+                        field: {shipyard: "name"},
+                        sql: false
                     },response);
             }',
             // параметры, подробнее можно посмотреть на сайте
@@ -232,7 +234,8 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
                         parent_link: "model_id",
                         parent_model: "model",
                         modelClass: "YachtIndex",
-                        field: {model: "name"}
+                        field: {model: "name"},
+                        sql: false
                     },response);
             }',
             // параметры, подробнее можно посмотреть на сайте
@@ -290,7 +293,8 @@ Yii::app()->clientScript->registerCoreScript("yiiactiveform");
                         parent_link: "model_id",
                         parent_model: "model",
                         modelClass: "YachtModification",
-                        field: {model: "name"}
+                        field: {model: "name"},
+                        sql: false
                     },response);
             }',
             // параметры, подробнее можно посмотреть на сайте
