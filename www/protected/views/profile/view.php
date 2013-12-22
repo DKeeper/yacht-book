@@ -63,12 +63,12 @@ if(isset($no_load)){
                 'tabs'=>array(
                     'company_user'=>array(
                         'title'=>UserModule::t("User info"),
-                        'view'=>'_сс_user_info',
+                        'view'=>'_cc_user_info',
                         'data'=>array(),
                     ),
                     'company_info'=>array(
                         'title'=>UserModule::t("Company info"),
-                        'view'=>'_сс_company_info',
+                        'view'=>'_cc_company_info',
                         'data'=>array(),
                     ),
                     'company_manager'=>array(
@@ -95,12 +95,12 @@ if(isset($no_load)){
                 'tabs'=>array(
                     'manager_user'=>array(
                         'title'=>UserModule::t("User info"),
-                        'view'=>'_сс_user_info',
+                        'view'=>'_cc_user_info',
                         'data'=>array(),
                     ),
                     'company_info'=>array(
                         'title'=>UserModule::t("Company info"),
-                        'view'=>'_сс_company_info',
+                        'view'=>'_cc_company_info',
                         'data'=>array(),
                     )
                 ),
