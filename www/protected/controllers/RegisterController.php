@@ -128,6 +128,14 @@ class RegisterController extends Controller
         $profileUser->regMode = true;
         $profileCC = new CcProfile;
         $profileCC->cc_id = -1;
+        /** @var $paymentsPeriods CcPaymentsPeriod[] */
+        $paymentsPeriods = array(new CcPaymentsPeriod);
+        if(isset($_POST['CcPaymentsPeriod']) && is_array($_POST['CcPaymentsPeriod'])){
+            foreach($_POST['CcPaymentsPeriod'] as $i => $item){
+                $paymentsPeriods[$i] = new CcPaymentsPeriod;
+                $paymentsPeriods[$i]->cc_profile_id = -1;
+            }
+        }
         if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
         {
             echo UActiveForm::validate(array($modelUser,$profileUser,$profileCC));
@@ -169,6 +177,7 @@ class RegisterController extends Controller
 
                         $profileUser->user_id=$modelUser->id;
                         $profileUser->save();
+
                         if (Yii::app()->getModule('user')->sendActivationMail) {
                             $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $modelUser->activkey, "email" => $modelUser->email));
                             UserModule::sendMail($modelUser->email,UserModule::t("You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),UserModule::t("Please activate you account go to {activation_url}",array('{activation_url}'=>$activation_url)));
@@ -197,7 +206,14 @@ class RegisterController extends Controller
                     $profileCC->validate();
                 }
             }
-            $this->render('company',array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'profileCC'=>$profileCC));
+            $this->render('company',
+                array(
+                    'modelUser'=>$modelUser,
+                    'profileUser'=>$profileUser,
+                    'profileCC'=>$profileCC,
+                    'paymentsPeriods'=>$paymentsPeriods,
+                )
+            );
         }
     }
 

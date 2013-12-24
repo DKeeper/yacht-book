@@ -40,4 +40,5 @@ return array(
     'System settings' => 'Настройки системы',
     'Captain admin' => 'Капитаны',
     'Company admin' => 'Компании',
+    'Payment period - [%][before][type]' => 'Платежный период - [%][до][тип]',
 );

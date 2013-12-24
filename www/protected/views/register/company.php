@@ -10,6 +10,7 @@
 /* @var $profileUser Profile */
 /* @var $profileCC CCProfile */
 /* @var $form UActiveForm */
+/* @var $paymentsPeriods CcPaymentsPeriod[] */
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),
@@ -38,14 +39,29 @@ $this->breadcrumbs=array(
 <?php
     $this->widget('CTabView', array(
         'tabs'=>array(
-            'tab1'=>array(
+            'user_info'=>array(
                 'title'=>UserModule::t("User info"),
                 'view'=>'_user_info',
                 'data'=>array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
             ),
-            'tab2'=>array(
+            'company_info_1'=>array(
                 'title'=>UserModule::t("Company info"),
-                'view'=>'_company_info',
+                'view'=>'_company_info_step_1',
+                'data'=>array('profileCC'=>$profileCC,'form'=>$form),
+            ),
+            'company_info_2'=>array(
+                'title'=>UserModule::t("Bank"),
+                'view'=>'_company_info_step_2',
+                'data'=>array('profileCC'=>$profileCC,'form'=>$form),
+            ),
+            'company_info_3'=>array(
+                'title'=>UserModule::t("Policy"),
+                'view'=>'_company_info_step_3',
+                'data'=>array('profileCC'=>$profileCC,'form'=>$form,'paymentsPeriods'=>$paymentsPeriods),
+            ),
+            'company_info_4'=>array(
+                'title'=>UserModule::t("Prices"),
+                'view'=>'_company_info_step_4',
                 'data'=>array('profileCC'=>$profileCC,'form'=>$form),
             ),
         ),

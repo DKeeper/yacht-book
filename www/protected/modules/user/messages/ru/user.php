@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	'Info' => 'Информация',
+	'Bank' => 'Банк',
+	'Policy' => 'Политика',
+	'Prices' => 'Цены',
 	'Registration' => 'Регистрация',
 	'Registration captain' => 'Регистрация капитана',
 	'Registration company' => 'Регистрация компании',
