@@ -130,15 +130,19 @@ class RegisterController extends Controller
         $profileCC->cc_id = -1;
         /** @var $paymentsPeriods CcPaymentsPeriod[] */
         $paymentsPeriods = array(new CcPaymentsPeriod);
-        if(isset($_POST['CcPaymentsPeriod']) && is_array($_POST['CcPaymentsPeriod'])){
-            foreach($_POST['CcPaymentsPeriod'] as $i => $item){
-                $paymentsPeriods[$i] = new CcPaymentsPeriod;
-                $paymentsPeriods[$i]->cc_profile_id = -1;
-            }
-        }
+        $paymentsPeriods[0]->cc_profile_id = -1;
         if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
         {
-            echo UActiveForm::validate(array($modelUser,$profileUser,$profileCC));
+            $validateModels = array($modelUser,$profileUser,$profileCC);
+            foreach($_POST['CcPaymentsPeriod'] as $i => $item){
+                $paymentsPeriods[$i] = new CcPaymentsPeriod;
+                $paymentsPeriods[$i]->attributes = $_POST['CcPaymentsPeriod'][$i];
+                $paymentsPeriods[$i]->cc_profile_id = -1;
+            }
+            $firstValidate = json_decode(UActiveForm::validate($validateModels),true);
+            $paymentValidate = json_decode(CActiveForm::validateTabular($paymentsPeriods),true);
+            $result = array_merge($firstValidate,$paymentValidate);
+            echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
         }
         if (Yii::app()->user->id) {
@@ -175,6 +179,11 @@ class RegisterController extends Controller
                         }
                         $profileCC->save(false);
 
+                        foreach($paymentsPeriods as $period){
+                            $period->cc_profile_id = $modelUser->id;
+                            $period->save();
+                        }
+
                         $profileUser->user_id=$modelUser->id;
                         $profileUser->save();
 
@@ -204,6 +213,9 @@ class RegisterController extends Controller
                 } else {
                     $profileUser->validate();
                     $profileCC->validate();
+                    foreach($paymentsPeriods as $i => $period){
+                        $paymentsPeriods[$i]->validate();
+                    }
                 }
             }
             $this->render('company',

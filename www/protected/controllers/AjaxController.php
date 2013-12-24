@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete, icreate, getcityll';
+        return 'autocomplete, icreate, getcityll, getpaymentperiod';
     }
 
     public function actionAutocomplete(){
@@ -185,5 +185,18 @@ class AjaxController extends Controller
             echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
         }
         Yii::app()->end();
+    }
+
+    public function actionGetpaymentperiod(){
+        if(Yii::app()->request->isAjaxRequest){
+            $i = Yii::app()->request->getPost("i");
+            $form = new CActiveForm;
+            $form->enableAjaxValidation = true;
+            $this->renderPartial("/register/_payment_period",array(
+                "i"=>$i,
+                "period"=>new CcPaymentsPeriod(),
+                "form"=>$form
+            ));
+        }
     }
 }

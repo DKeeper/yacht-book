@@ -9,7 +9,6 @@
 /* @var $profileCC CCProfile */
 /* @var $form CActiveForm */
 /* @var $paymentsPeriods CcPaymentsPeriod[] */
-$durationTypeList = DurationType::model()->getModelList();
 ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
@@ -38,15 +37,11 @@ $durationTypeList = DurationType::model()->getModelList();
     <?php
         echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"");
         foreach($paymentsPeriods as $i=>$period){
-            ?>
-            <div class="row">
-            <?php
-                echo $form->textField($period,"[$i]value",array('size'=>'3'));
-                echo $form->textField($period,"[$i]before_duration",array('size'=>'3'));
-                echo $form->dropDownList($period,"[$i]duration_type_id",$durationTypeList);
-            ?>
-            </div>
-            <?php
+            $this->renderPartial("_payment_period",array(
+                "i"=>$i,
+                "period"=>$period,
+                "form"=>$form,
+            ));
         }
     ?>
 
@@ -95,3 +90,26 @@ $durationTypeList = DurationType::model()->getModelList();
         <?php echo $form->textField($profileCC,'max_discount'); ?>
         <?php echo $form->error($profileCC,'max_discount'); ?>
     </div>
+<script>
+    function addPaymentPeriod(){
+        var n = $(".payment_period").last().attr("class");
+        n = n.split(" ");
+        n = n[2].split("_");
+        n = +n[1]+1;
+        $.ajax({
+            url:'/ajax/getpaymentperiod',
+            data:{i:n},
+            success:function(answer){
+                $(".payment_period").last().after(answer);
+                $(".payment_period").last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields($(".payment_period").parents('form'), $(".payment_period").last().find('input, select'));
+            },
+            type:'POST',
+            dataType:'html',
+            async:true
+        });
+    }
+    function delPaymentPeriod(o){
+        var n = $(o).parent().remove();
+    }
+</script>
