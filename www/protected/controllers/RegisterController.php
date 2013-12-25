@@ -131,17 +131,26 @@ class RegisterController extends Controller
         /** @var $paymentsPeriods CcPaymentsPeriod[] */
         $paymentsPeriods = array(new CcPaymentsPeriod);
         $paymentsPeriods[0]->cc_profile_id = -1;
+        /** @var $cancelPeriods CcCancelPeriod[] */
+        $cancelPeriods = array(new CcCancelPeriod);
+        $cancelPeriods[0]->cc_profile_id = -1;
         if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
         {
             $validateModels = array($modelUser,$profileUser,$profileCC);
             foreach($_POST['CcPaymentsPeriod'] as $i => $item){
                 $paymentsPeriods[$i] = new CcPaymentsPeriod;
-                $paymentsPeriods[$i]->attributes = $_POST['CcPaymentsPeriod'][$i];
+                $paymentsPeriods[$i]->attributes = $item;
                 $paymentsPeriods[$i]->cc_profile_id = -1;
+            }
+            foreach($_POST['CcCancelPeriod'] as $i => $item){
+                $cancelPeriods[$i] = new CcCancelPeriod;
+                $cancelPeriods[$i]->attributes = $item;
+                $cancelPeriods[$i]->cc_profile_id = -1;
             }
             $firstValidate = json_decode(UActiveForm::validate($validateModels),true);
             $paymentValidate = json_decode(CActiveForm::validateTabular($paymentsPeriods),true);
-            $result = array_merge($firstValidate,$paymentValidate);
+            $cancelValidate = json_decode(CActiveForm::validateTabular($cancelPeriods),true);
+            $result = array_merge($firstValidate,$paymentValidate,$cancelValidate);
             echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
         }
@@ -179,9 +188,28 @@ class RegisterController extends Controller
                         }
                         $profileCC->save(false);
 
+                        foreach($_POST['CcPaymentsPeriod'] as $i => $item){
+                            $paymentsPeriods[$i] = new CcPaymentsPeriod;
+                            $paymentsPeriods[$i]->attributes = $item;
+                            $paymentsPeriods[$i]->cc_profile_id = $profileCC->id;
+                        }
+
                         foreach($paymentsPeriods as $period){
-                            $period->cc_profile_id = $modelUser->id;
-                            $period->save();
+                            $period->save(false);
+                        }
+
+                        foreach($_POST['CcCancelPeriod'] as $i => $item){
+                            $cancelPeriods[$i] = new CcCancelPeriod;
+                            $cancelPeriods[$i]->attributes = $item;
+                            $cancelPeriods[$i]->cc_profile_id = $profileCC->id;
+                        }
+
+                        foreach($paymentsPeriods as $period){
+                            $period->save(false);
+                        }
+
+                        foreach($cancelPeriods as $period){
+                            $period->save(false);
                         }
 
                         $profileUser->user_id=$modelUser->id;
@@ -216,6 +244,9 @@ class RegisterController extends Controller
                     foreach($paymentsPeriods as $i => $period){
                         $paymentsPeriods[$i]->validate();
                     }
+                    foreach($cancelPeriods as $i => $period){
+                        $cancelPeriods[$i]->validate();
+                    }
                 }
             }
             $this->render('company',
@@ -224,6 +255,7 @@ class RegisterController extends Controller
                     'profileUser'=>$profileUser,
                     'profileCC'=>$profileCC,
                     'paymentsPeriods'=>$paymentsPeriods,
+                    'cancelPeriods'=>$cancelPeriods,
                 )
             );
         }

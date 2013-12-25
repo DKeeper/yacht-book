@@ -41,4 +41,5 @@ return array(
     'Captain admin' => 'Капитаны',
     'Company admin' => 'Компании',
     'Payment period - [%][before][type]' => 'Платежный период - [%][до][тип]',
+    'Cancel period - [%][before][type]' => 'Период отмены - [%][до][тип]',
 );

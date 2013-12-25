@@ -11,6 +11,7 @@
 /* @var $profileCC CCProfile */
 /* @var $form UActiveForm */
 /* @var $paymentsPeriods CcPaymentsPeriod[] */
+/* @var $cancelPeriods CcCancelPeriod[] */
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),
@@ -57,7 +58,7 @@ $this->breadcrumbs=array(
             'company_info_3'=>array(
                 'title'=>UserModule::t("Policy"),
                 'view'=>'_company_info_step_3',
-                'data'=>array('profileCC'=>$profileCC,'form'=>$form,'paymentsPeriods'=>$paymentsPeriods),
+                'data'=>array('profileCC'=>$profileCC,'form'=>$form,'paymentsPeriods'=>$paymentsPeriods,'cancelPeriods'=>$cancelPeriods),
             ),
             'company_info_4'=>array(
                 'title'=>UserModule::t("Prices"),

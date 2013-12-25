@@ -9,6 +9,7 @@
 /* @var $profileCC CCProfile */
 /* @var $form CActiveForm */
 /* @var $paymentsPeriods CcPaymentsPeriod[] */
+/* @var $cancelPeriods CcCancelPeriod[] */
 ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
@@ -38,6 +39,17 @@
         echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"");
         foreach($paymentsPeriods as $i=>$period){
             $this->renderPartial("_payment_period",array(
+                "i"=>$i,
+                "period"=>$period,
+                "form"=>$form,
+            ));
+        }
+    ?>
+
+    <?php
+        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"");
+        foreach($cancelPeriods as $i=>$period){
+            $this->renderPartial("_cancel_period",array(
                 "i"=>$i,
                 "period"=>$period,
                 "form"=>$form,
@@ -109,7 +121,25 @@
             async:true
         });
     }
-    function delPaymentPeriod(o){
+    function addCancelPeriod(){
+        var n = $(".cancel_period").last().attr("class");
+        n = n.split(" ");
+        n = n[2].split("_");
+        n = +n[1]+1;
+        $.ajax({
+            url:'/ajax/getcancelperiod',
+            data:{i:n},
+            success:function(answer){
+                $(".cancel_period").last().after(answer);
+                $(".cancel_period").last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields($(".cancel_period").parents('form'), $(".cancel_period").last().find('input, select'));
+            },
+            type:'POST',
+            dataType:'html',
+            async:true
+        });
+    }
+    function delPeriod(o){
         var n = $(o).parent().remove();
     }
 </script>
