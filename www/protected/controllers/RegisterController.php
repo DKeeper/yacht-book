@@ -134,6 +134,12 @@ class RegisterController extends Controller
         /** @var $cancelPeriods CcCancelPeriod[] */
         $cancelPeriods = array(new CcCancelPeriod);
         $cancelPeriods[0]->cc_profile_id = -1;
+        /** @var $longPeriods CcLongPeriod[] */
+        $longPeriods = array(new CcLongPeriod);
+        $longPeriods[0]->cc_profile_id = -1;
+        /** @var $earlyPeriods CcEarlyPeriod[] */
+        $earlyPeriods = array(new CcEarlyPeriod);
+        $earlyPeriods[0]->cc_profile_id = -1;
         if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
         {
             $validateModels = array($modelUser,$profileUser,$profileCC);
@@ -147,10 +153,22 @@ class RegisterController extends Controller
                 $cancelPeriods[$i]->attributes = $item;
                 $cancelPeriods[$i]->cc_profile_id = -1;
             }
+            foreach($_POST['CcLongPeriod'] as $i => $item){
+                $longPeriods[$i] = new CcLongPeriod;
+                $longPeriods[$i]->attributes = $item;
+                $longPeriods[$i]->cc_profile_id = -1;
+            }
+            foreach($_POST['CcEarlyPeriod'] as $i => $item){
+                $earlyPeriods[$i] = new CcEarlyPeriod;
+                $earlyPeriods[$i]->attributes = $item;
+                $earlyPeriods[$i]->cc_profile_id = -1;
+            }
             $firstValidate = json_decode(UActiveForm::validate($validateModels),true);
             $paymentValidate = json_decode(CActiveForm::validateTabular($paymentsPeriods),true);
             $cancelValidate = json_decode(CActiveForm::validateTabular($cancelPeriods),true);
-            $result = array_merge($firstValidate,$paymentValidate,$cancelValidate);
+            $longValidate = json_decode(CActiveForm::validateTabular($longPeriods),true);
+            $earlyValidate = json_decode(CActiveForm::validateTabular($earlyPeriods),true);
+            $result = array_merge($firstValidate,$paymentValidate,$cancelValidate,$longValidate,$earlyValidate);
             echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
         }
@@ -204,11 +222,27 @@ class RegisterController extends Controller
                             $cancelPeriods[$i]->cc_profile_id = $profileCC->id;
                         }
 
-                        foreach($paymentsPeriods as $period){
+                        foreach($cancelPeriods as $period){
                             $period->save(false);
                         }
 
-                        foreach($cancelPeriods as $period){
+                        foreach($_POST['CcLongPeriod'] as $i => $item){
+                            $longPeriods[$i] = new CcLongPeriod;
+                            $longPeriods[$i]->attributes = $item;
+                            $longPeriods[$i]->cc_profile_id = $profileCC->id;
+                        }
+
+                        foreach($longPeriods as $period){
+                            $period->save(false);
+                        }
+
+                        foreach($_POST['CcEarlyPeriod'] as $i => $item){
+                            $earlyPeriods[$i] = new CcEarlyPeriod;
+                            $earlyPeriods[$i]->attributes = $item;
+                            $earlyPeriods[$i]->cc_profile_id = $profileCC->id;
+                        }
+
+                        foreach($earlyPeriods as $period){
                             $period->save(false);
                         }
 
@@ -247,6 +281,12 @@ class RegisterController extends Controller
                     foreach($cancelPeriods as $i => $period){
                         $cancelPeriods[$i]->validate();
                     }
+                    foreach($longPeriods as $i => $period){
+                        $longPeriods[$i]->validate();
+                    }
+                    foreach($earlyPeriods as $i => $period){
+                        $earlyPeriods[$i]->validate();
+                    }
                 }
             }
             $this->render('company',
@@ -256,6 +296,8 @@ class RegisterController extends Controller
                     'profileCC'=>$profileCC,
                     'paymentsPeriods'=>$paymentsPeriods,
                     'cancelPeriods'=>$cancelPeriods,
+                    'longPeriods'=>$longPeriods,
+                    'earlyPeriods'=>$earlyPeriods,
                 )
             );
         }

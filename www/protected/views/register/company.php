@@ -12,6 +12,8 @@
 /* @var $form UActiveForm */
 /* @var $paymentsPeriods CcPaymentsPeriod[] */
 /* @var $cancelPeriods CcCancelPeriod[] */
+/* @var $longPeriods CcLongPeriod[] */
+/* @var $earlyPeriods CcEarlyPeriod[] */
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),
@@ -58,7 +60,14 @@ $this->breadcrumbs=array(
             'company_info_3'=>array(
                 'title'=>UserModule::t("Policy"),
                 'view'=>'_company_info_step_3',
-                'data'=>array('profileCC'=>$profileCC,'form'=>$form,'paymentsPeriods'=>$paymentsPeriods,'cancelPeriods'=>$cancelPeriods),
+                'data'=>array(
+                    'profileCC'=>$profileCC,
+                    'form'=>$form,
+                    'paymentsPeriods'=>$paymentsPeriods,
+                    'cancelPeriods'=>$cancelPeriods,
+                    'longPeriods'=>$longPeriods,
+                    'earlyPeriods'=>$earlyPeriods,
+                ),
             ),
             'company_info_4'=>array(
                 'title'=>UserModule::t("Prices"),

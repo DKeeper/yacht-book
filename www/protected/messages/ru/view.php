@@ -42,4 +42,6 @@ return array(
     'Company admin' => 'Компании',
     'Payment period - [%][before][type]' => 'Платежный период - [%][до][тип]',
     'Cancel period - [%][before][type]' => 'Период отмены - [%][до][тип]',
+    'Long period - [%][value][type]' => 'Скидки за длительность - [%][значение][тип]',
+    'Early period - [%][before][type]' => 'Скидки за раннее бронирование - [%][до][тип]',
 );

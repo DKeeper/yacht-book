@@ -10,6 +10,8 @@
 /* @var $form CActiveForm */
 /* @var $paymentsPeriods CcPaymentsPeriod[] */
 /* @var $cancelPeriods CcCancelPeriod[] */
+/* @var $longPeriods CcLongPeriod[] */
+/* @var $earlyPeriods CcEarlyPeriod[] */
 ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
@@ -46,17 +48,6 @@
         }
     ?>
 
-    <?php
-        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"");
-        foreach($cancelPeriods as $i=>$period){
-            $this->renderPartial("_cancel_period",array(
-                "i"=>$i,
-                "period"=>$period,
-                "form"=>$form,
-            ));
-        }
-    ?>
-
     <div class="row">
         <?php echo $form->labelEx($profileCC,'payment_other'); ?>
         <?php
@@ -74,6 +65,17 @@
         <?php echo $form->error($profileCC,'payment_other'); ?>
     </div>
 
+    <?php
+        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"");
+        foreach($cancelPeriods as $i=>$period){
+            $this->renderPartial("_cancel_period",array(
+                "i"=>$i,
+                "period"=>$period,
+                "form"=>$form,
+            ));
+        }
+    ?>
+
     <div class="row">
         <?php echo $form->labelEx($profileCC,'cancel_other'); ?>
         <?php
@@ -90,6 +92,28 @@
         ?>
         <?php echo $form->error($profileCC,'cancel_other'); ?>
     </div>
+
+    <?php
+        echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"");
+        foreach($longPeriods as $i=>$period){
+            $this->renderPartial("_long_period",array(
+                "i"=>$i,
+                "period"=>$period,
+                "form"=>$form,
+            ));
+        }
+    ?>
+
+    <?php
+        echo CHtml::label(Yii::t("view","Early period - [%][before][type]"),"");
+        foreach($earlyPeriods as $i=>$period){
+            $this->renderPartial("_early_period",array(
+                "i"=>$i,
+                "period"=>$period,
+                "form"=>$form,
+            ));
+        }
+    ?>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'repeater_discount'); ?>
@@ -109,8 +133,12 @@
         n = n[2].split("_");
         n = +n[1]+1;
         $.ajax({
-            url:'/ajax/getpaymentperiod',
-            data:{i:n},
+            url:'/ajax/getccperiod',
+            data:{
+                i:n,
+                model:"CcPaymentsPeriod",
+                view:"/register/_payment_period"
+            },
             success:function(answer){
                 $(".payment_period").last().after(answer);
                 $(".payment_period").last().find('div').addClass("errorMessage");
@@ -127,12 +155,60 @@
         n = n[2].split("_");
         n = +n[1]+1;
         $.ajax({
-            url:'/ajax/getcancelperiod',
-            data:{i:n},
+            url:'/ajax/getccperiod',
+            data:{
+                i:n,
+                model:"CcCancelPeriod",
+                view:"/register/_cancel_period"
+            },
             success:function(answer){
                 $(".cancel_period").last().after(answer);
                 $(".cancel_period").last().find('div').addClass("errorMessage");
                 $.fn.yiiactiveform.addFields($(".cancel_period").parents('form'), $(".cancel_period").last().find('input, select'));
+            },
+            type:'POST',
+            dataType:'html',
+            async:true
+        });
+    }
+    function addLongPeriod(){
+        var n = $(".long_period").last().attr("class");
+        n = n.split(" ");
+        n = n[2].split("_");
+        n = +n[1]+1;
+        $.ajax({
+            url:'/ajax/getccperiod',
+            data:{
+                i:n,
+                model:"CcLongPeriod",
+                view:"/register/_long_period"
+            },
+            success:function(answer){
+                $(".long_period").last().after(answer);
+                $(".long_period").last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields($(".long_period").parents('form'), $(".long_period").last().find('input, select'));
+            },
+            type:'POST',
+            dataType:'html',
+            async:true
+        });
+    }
+    function addEarlyPeriod(){
+        var n = $(".early_period").last().attr("class");
+        n = n.split(" ");
+        n = n[2].split("_");
+        n = +n[1]+1;
+        $.ajax({
+            url:'/ajax/getccperiod',
+            data:{
+                i:n,
+                model:"CcEarlyPeriod",
+                view:"/register/_early_period"
+            },
+            success:function(answer){
+                $(".early_period").last().after(answer);
+                $(".early_period").last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields($(".early_period").parents('form'), $(".early_period").last().find('input, select'));
             },
             type:'POST',
             dataType:'html',
