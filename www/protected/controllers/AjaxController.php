@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete, icreate, getcityll, getccperiod';
+        return 'autocomplete, icreate, getcityll, getmodelbynum';
     }
 
     public function actionAutocomplete(){
@@ -187,7 +187,7 @@ class AjaxController extends Controller
         Yii::app()->end();
     }
 
-    public function actionGetccperiod(){
+    public function actionGetmodelbynum(){
         if(Yii::app()->request->isAjaxRequest){
             $i = Yii::app()->request->getPost("i");
             $model = Yii::app()->request->getPost("model");
@@ -196,7 +196,7 @@ class AjaxController extends Controller
             $form->enableAjaxValidation = true;
             $this->renderPartial($view,array(
                 "i"=>$i,
-                "period"=>new $model,
+                "model"=>new $model,
                 "form"=>$form
             ));
         }

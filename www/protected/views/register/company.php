@@ -14,6 +14,7 @@
 /* @var $cancelPeriods CcCancelPeriod[] */
 /* @var $longPeriods CcLongPeriod[] */
 /* @var $earlyPeriods CcEarlyPeriod[] */
+/* @var $transitLogs CcTransitLog[] */
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),
@@ -72,7 +73,11 @@ $this->breadcrumbs=array(
             'company_info_4'=>array(
                 'title'=>UserModule::t("Prices"),
                 'view'=>'_company_info_step_4',
-                'data'=>array('profileCC'=>$profileCC,'form'=>$form),
+                'data'=>array(
+                    'profileCC'=>$profileCC,
+                    'form'=>$form,
+                    'transitLogs'=>$transitLogs,
+                ),
             ),
         ),
         'htmlOptions'=>array(

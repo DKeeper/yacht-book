@@ -38,11 +38,16 @@
     </div>
 
     <?php
-        echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"");
+        echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
+        echo CHtml::image("/i/def/plus.png","",array(
+            'onclick'=>'addPaymentPeriod()',
+            'style'=>'cursor:pointer;',
+            'class'=>'add_payment'
+        ));
         foreach($paymentsPeriods as $i=>$period){
             $this->renderPartial("_payment_period",array(
                 "i"=>$i,
-                "period"=>$period,
+                "model"=>$period,
                 "form"=>$form,
             ));
         }
@@ -66,11 +71,16 @@
     </div>
 
     <?php
-        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"");
+        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
+        echo CHtml::image("/i/def/plus.png","",array(
+            'onclick'=>'addCancelPeriod()',
+            'style'=>'cursor:pointer;',
+            'class'=>'add_cancel'
+        ));
         foreach($cancelPeriods as $i=>$period){
             $this->renderPartial("_cancel_period",array(
                 "i"=>$i,
-                "period"=>$period,
+                "model"=>$period,
                 "form"=>$form,
             ));
         }
@@ -94,22 +104,32 @@
     </div>
 
     <?php
-        echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"");
+        echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"",array("style"=>"display:inline-block;"));
+        echo CHtml::image("/i/def/plus.png","",array(
+            'onclick'=>'addLongPeriod()',
+            'style'=>'cursor:pointer;',
+            'class'=>'add_long'
+        ));
         foreach($longPeriods as $i=>$period){
             $this->renderPartial("_long_period",array(
                 "i"=>$i,
-                "period"=>$period,
+                "model"=>$period,
                 "form"=>$form,
             ));
         }
     ?>
-
+    <div class="row"></div>
     <?php
-        echo CHtml::label(Yii::t("view","Early period - [%][before][type]"),"");
+        echo CHtml::label(Yii::t("view","Early period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
+        echo CHtml::image("/i/def/plus.png","",array(
+            'onclick'=>'addEarlyPeriod()',
+            'style'=>'cursor:pointer;',
+            'class'=>'add_early'
+        ));
         foreach($earlyPeriods as $i=>$period){
             $this->renderPartial("_early_period",array(
                 "i"=>$i,
-                "period"=>$period,
+                "model"=>$period,
                 "form"=>$form,
             ));
         }
@@ -129,20 +149,30 @@
 <script>
     function addPaymentPeriod(){
         var n = $(".payment_period").last().attr("class");
-        n = n.split(" ");
-        n = n[2].split("_");
-        n = +n[1]+1;
+        if(typeof n === "undefined"){
+            n = 0;
+        } else {
+            n = n.split(" ");
+            n = n[2].split("_");
+            n = +n[1]+1;
+        }
         $.ajax({
-            url:'/ajax/getccperiod',
+            url:'/ajax/getmodelbynum',
             data:{
                 i:n,
                 model:"CcPaymentsPeriod",
                 view:"/register/_payment_period"
             },
             success:function(answer){
-                $(".payment_period").last().after(answer);
-                $(".payment_period").last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields($(".payment_period").parents('form'), $(".payment_period").last().find('input, select'));
+                var o =  $(".payment_period");
+                if(o.length != 0){
+                    o.last().after(answer);
+                } else {
+                    $(".add_payment").after(answer);
+                }
+                o = $(".payment_period");
+                o.last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
             },
             type:'POST',
             dataType:'html',
@@ -151,18 +181,28 @@
     }
     function addCancelPeriod(){
         var n = $(".cancel_period").last().attr("class");
-        n = n.split(" ");
-        n = n[2].split("_");
-        n = +n[1]+1;
+        if(typeof n === "undefined"){
+            n = 0;
+        } else {
+            n = n.split(" ");
+            n = n[2].split("_");
+            n = +n[1]+1;
+        }
         $.ajax({
-            url:'/ajax/getccperiod',
+            url:'/ajax/getmodelbynum',
             data:{
                 i:n,
                 model:"CcCancelPeriod",
                 view:"/register/_cancel_period"
             },
             success:function(answer){
-                $(".cancel_period").last().after(answer);
+                var o = $(".cancel_period");
+                if(o.length != 0){
+                    o.last().after(answer);
+                } else {
+                    $(".add_cancel").after(answer);
+                }
+                o = $(".cancel_period");
                 $(".cancel_period").last().find('div').addClass("errorMessage");
                 $.fn.yiiactiveform.addFields($(".cancel_period").parents('form'), $(".cancel_period").last().find('input, select'));
             },
@@ -173,18 +213,28 @@
     }
     function addLongPeriod(){
         var n = $(".long_period").last().attr("class");
-        n = n.split(" ");
-        n = n[2].split("_");
-        n = +n[1]+1;
+        if(typeof n === "undefined"){
+            n = 0;
+        } else {
+            n = n.split(" ");
+            n = n[2].split("_");
+            n = +n[1]+1;
+        }
         $.ajax({
-            url:'/ajax/getccperiod',
+            url:'/ajax/getmodelbynum',
             data:{
                 i:n,
                 model:"CcLongPeriod",
                 view:"/register/_long_period"
             },
             success:function(answer){
-                $(".long_period").last().after(answer);
+                var o = $(".long_period");
+                if(o.length != 0){
+                    o.last().after(answer);
+                } else {
+                    $(".add_long").after(answer);
+                }
+                o = $(".long_period");
                 $(".long_period").last().find('div').addClass("errorMessage");
                 $.fn.yiiactiveform.addFields($(".long_period").parents('form'), $(".long_period").last().find('input, select'));
             },
@@ -195,18 +245,28 @@
     }
     function addEarlyPeriod(){
         var n = $(".early_period").last().attr("class");
-        n = n.split(" ");
-        n = n[2].split("_");
-        n = +n[1]+1;
+        if(typeof n === "undefined"){
+            n = 0;
+        } else {
+            n = n.split(" ");
+            n = n[2].split("_");
+            n = +n[1]+1;
+        }
         $.ajax({
-            url:'/ajax/getccperiod',
+            url:'/ajax/getmodelbynum',
             data:{
                 i:n,
                 model:"CcEarlyPeriod",
                 view:"/register/_early_period"
             },
             success:function(answer){
-                $(".early_period").last().after(answer);
+                var o = $(".early_period");
+                if(o.length != 0){
+                    o.last().after(answer);
+                } else {
+                    $(".add_early").after(answer);
+                }
+                o = $(".early_period");
                 $(".early_period").last().find('div').addClass("errorMessage");
                 $.fn.yiiactiveform.addFields($(".early_period").parents('form'), $(".early_period").last().find('input, select'));
             },
@@ -215,7 +275,7 @@
             async:true
         });
     }
-    function delPeriod(o){
+    function delRow(o){
         var n = $(o).parent().remove();
     }
 </script>
