@@ -30,6 +30,8 @@ return array(
     'English' => 'Англичанин',
     'Russian' => 'Русский',
     'Select country' => 'Выберите страну',
+    'Select company' => 'Выберите компанию',
+    'Select options' => 'Выберите опцию',
     'No data' => 'Нет данных',
     'Profile not found' => 'Профиль не найден',
     'The file was larger than {limit} byte. Please upload a smaller file' => 'Размер выбранного файла превышает {limit} байт. Пожалуйста, выберите меньший файл',
