@@ -30,6 +30,7 @@ class OrderOptions extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
+            array('name', 'match', 'pattern' => '/^[A-Za-z0-9_-\s]+$/u','message' => Yii::t("model","Incorrect symbols (A-z0-9_- ).")),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

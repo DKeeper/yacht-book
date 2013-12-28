@@ -274,7 +274,7 @@ return array(
     'extras' => 'отдельно',
     'deposits' => 'депозиты',
     'final clining' => 'финальная уборка',
-    'transit log' => 'транзитлог',
+    'transit log' => 'Транзитлог',
 
     'basic' => 'основное',
     'more' => 'дополнительное',
@@ -305,4 +305,6 @@ return array(
     'engine' => 'двигатель',
     'wheel' => 'штурвал',
     'GPS chart plotter' => 'карт-плоттер',
+
+    "Incorrect symbols (A-z0-9_- )." => "Некорректные символы (A-z0-9_- ).",
 );

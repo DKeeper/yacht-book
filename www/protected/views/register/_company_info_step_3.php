@@ -40,7 +40,7 @@
     <?php
         echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
         echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addPaymentPeriod()',
+            'onclick'=>'addPaymentPeriod(this)',
             'style'=>'cursor:pointer;',
             'class'=>'add_payment'
         ));
@@ -73,7 +73,7 @@
     <?php
         echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
         echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addCancelPeriod()',
+            'onclick'=>'addCancelPeriod(this)',
             'style'=>'cursor:pointer;',
             'class'=>'add_cancel'
         ));
@@ -106,7 +106,7 @@
     <?php
         echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"",array("style"=>"display:inline-block;"));
         echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addLongPeriod()',
+            'onclick'=>'addLongPeriod(this)',
             'style'=>'cursor:pointer;',
             'class'=>'add_long'
         ));
@@ -122,7 +122,7 @@
     <?php
         echo CHtml::label(Yii::t("view","Early period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
         echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addEarlyPeriod()',
+            'onclick'=>'addEarlyPeriod(this)',
             'style'=>'cursor:pointer;',
             'class'=>'add_early'
         ));
@@ -147,7 +147,7 @@
         <?php echo $form->error($profileCC,'max_discount'); ?>
     </div>
 <script>
-    function addPaymentPeriod(){
+    function addPaymentPeriod(o){
         var n = $(".payment_period").last().attr("class");
         if(typeof n === "undefined"){
             n = 0;
@@ -156,6 +156,7 @@
             n = n[2].split("_");
             n = +n[1]+1;
         }
+        $(o).after("<img class=aL src=/i/indicator.gif />");
         $.ajax({
             url:'/ajax/getmodelbynum',
             data:{
@@ -165,12 +166,14 @@
             },
             success:function(answer){
                 var o =  $(".payment_period");
+                $(".aL").remove();
                 if(o.length != 0){
                     o.last().after(answer);
                 } else {
                     $(".add_payment").after(answer);
                 }
                 o = $(".payment_period");
+                o.parent().find(".aL").remove();
                 o.last().find('div').addClass("errorMessage");
                 $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
             },
@@ -179,7 +182,7 @@
             async:true
         });
     }
-    function addCancelPeriod(){
+    function addCancelPeriod(o){
         var n = $(".cancel_period").last().attr("class");
         if(typeof n === "undefined"){
             n = 0;
@@ -188,6 +191,7 @@
             n = n[2].split("_");
             n = +n[1]+1;
         }
+        $(o).after("<img class=aL src=/i/indicator.gif />");
         $.ajax({
             url:'/ajax/getmodelbynum',
             data:{
@@ -203,15 +207,16 @@
                     $(".add_cancel").after(answer);
                 }
                 o = $(".cancel_period");
-                $(".cancel_period").last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields($(".cancel_period").parents('form'), $(".cancel_period").last().find('input, select'));
+                o.parent().find(".aL").remove();
+                o.last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
             },
             type:'POST',
             dataType:'html',
             async:true
         });
     }
-    function addLongPeriod(){
+    function addLongPeriod(o){
         var n = $(".long_period").last().attr("class");
         if(typeof n === "undefined"){
             n = 0;
@@ -220,6 +225,7 @@
             n = n[2].split("_");
             n = +n[1]+1;
         }
+        $(o).after("<img class=aL src=/i/indicator.gif />");
         $.ajax({
             url:'/ajax/getmodelbynum',
             data:{
@@ -229,21 +235,23 @@
             },
             success:function(answer){
                 var o = $(".long_period");
+                $(".aL").remove();
                 if(o.length != 0){
                     o.last().after(answer);
                 } else {
                     $(".add_long").after(answer);
                 }
                 o = $(".long_period");
-                $(".long_period").last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields($(".long_period").parents('form'), $(".long_period").last().find('input, select'));
+                o.parent().find(".aL").remove();
+                o.last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
             },
             type:'POST',
             dataType:'html',
             async:true
         });
     }
-    function addEarlyPeriod(){
+    function addEarlyPeriod(o){
         var n = $(".early_period").last().attr("class");
         if(typeof n === "undefined"){
             n = 0;
@@ -252,6 +260,7 @@
             n = n[2].split("_");
             n = +n[1]+1;
         }
+        $(o).after("<img class=aL src=/i/indicator.gif />");
         $.ajax({
             url:'/ajax/getmodelbynum',
             data:{
@@ -267,8 +276,9 @@
                     $(".add_early").after(answer);
                 }
                 o = $(".early_period");
-                $(".early_period").last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields($(".early_period").parents('form'), $(".early_period").last().find('input, select'));
+                o.parent().find(".aL").remove();
+                o.last().find('div').addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
             },
             type:'POST',
             dataType:'html',

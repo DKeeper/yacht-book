@@ -32,6 +32,7 @@ return array(
     'Select country' => 'Выберите страну',
     'Select company' => 'Выберите компанию',
     'Select options' => 'Выберите опцию',
+    'Options' => 'Опции',
     'No data' => 'Нет данных',
     'Profile not found' => 'Профиль не найден',
     'The file was larger than {limit} byte. Please upload a smaller file' => 'Размер выбранного файла превышает {limit} байт. Пожалуйста, выберите меньший файл',
@@ -46,4 +47,13 @@ return array(
     'Cancel period - [%][before][type]' => 'Период отмены - [%][до][тип]',
     'Long period - [%][value][type]' => 'Скидки за длительность - [%][значение][тип]',
     'Early period - [%][before][type]' => 'Скидки за раннее бронирование - [%][до][тип]',
+
+    "bedsheets" => "постельное белье",
+    "towels" => "полотенца",
+    "taxes" => "туристический налог",
+    "internet stick" => "интернет",
+    "dinghy" => "резиновая лодка",
+    "outboard engine" => "подвесной мотор",
+    "safity net" => "защитная сетка",
+    "gas" => "газ",
 );

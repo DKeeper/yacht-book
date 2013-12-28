@@ -138,6 +138,8 @@ class RegisterController extends Controller
         $earlyPeriods = array();
         /** @var $transitLogs CcTransitLog[] */
         $transitLogs = array();
+        /** @var $orderOptions CcOrderOptions[] */
+        $orderOptions = array();
         if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
         {
             $validateModels = array($modelUser,$profileUser,$profileCC);
@@ -171,9 +173,16 @@ class RegisterController extends Controller
             }
             if(isset($_POST['CcTransitLog'])){
                 foreach($_POST['CcTransitLog'] as $i => $item){
-                    $transitLogs[$i] = new CcTransitLog();
+                    $transitLogs[$i] = new CcTransitLog;
                     $transitLogs[$i]->attributes = $item;
                     $transitLogs[$i]->cc_profile_id = -1;
+                }
+            }
+            if(isset($_POST['CcOrderOptions'])){
+                foreach($_POST['CcOrderOptions'] as $i => $item){
+                    $orderOptions[$i] = new CcOrderOptions;
+                    $orderOptions[$i]->attributes = $item;
+                    $orderOptions[$i]->cc_profile_id = -1;
                 }
             }
             $firstValidate = json_decode(UActiveForm::validate($validateModels),true);
@@ -197,13 +206,18 @@ class RegisterController extends Controller
             if(!empty($transitLogs)){
                 $transitLogValidate = json_decode(CActiveForm::validateTabular($transitLogs),true);
             }
+            $orderOptionValidate = array();
+            if(!empty($orderOptions)){
+                $orderOptionValidate = json_decode(CActiveForm::validateTabular($orderOptions),true);
+            }
             $result = array_merge(
                 $firstValidate,
                 $paymentValidate,
                 $cancelValidate,
                 $longValidate,
                 $earlyValidate,
-                $transitLogValidate
+                $transitLogValidate,
+                $orderOptionValidate
             );
             echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
@@ -302,6 +316,18 @@ class RegisterController extends Controller
                             }
                         }
 
+                        if(isset($_POST['CcOrderOptions'])){
+                            foreach($_POST['CcOrderOptions'] as $i => $item){
+                                $orderOptions[$i] = new CcOrderOptions;
+                                $orderOptions[$i]->attributes = $item;
+                                $orderOptions[$i]->cc_profile_id = $profileCC->id;
+                            }
+
+                            foreach($orderOptions as $option){
+                                $option->save(false);
+                            }
+                        }
+
                         $profileUser->user_id=$modelUser->id;
                         $profileUser->save();
 
@@ -346,6 +372,9 @@ class RegisterController extends Controller
                     foreach($transitLogs as $i => $log){
                         $transitLogs[$i]->validate();
                     }
+                    foreach($orderOptions as $i => $option){
+                        $orderOptions[$i]->validate();
+                    }
                 }
             }
             $this->render('company',
@@ -358,6 +387,7 @@ class RegisterController extends Controller
                     'longPeriods'=>$longPeriods,
                     'earlyPeriods'=>$earlyPeriods,
                     'transitLogs'=>$transitLogs,
+                    'orderOptions'=>$orderOptions,
                 )
             );
         }
