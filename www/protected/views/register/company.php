@@ -16,6 +16,8 @@
 /* @var $earlyPeriods CcEarlyPeriod[] */
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
+Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerCoreScript("jquery.ui");
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),

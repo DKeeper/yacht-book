@@ -8,69 +8,8 @@
 /* @var $this AController */
 /* @var $model SyProfile */
 Yii::app()->clientScript->registerCoreScript("yiiactiveform");
+Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 ?>
-<script type="text/javascript">
-    var autoFind = false;
-    var hideSearchResult = false;
-    var currentObj;
-    function createAddForm(o,type){
-        $(o).empty();
-        var model, pId, pLink;
-        switch (type){
-            case 'shipyard':
-                model = 'YachtShipyard';
-                currentObj = "#YachtShipyard_name";
-                break;
-            case 'model':
-                model = 'YachtModel';
-                currentObj = "#YachtModel_name";
-                pId = $("#SyProfile_shipyard_id").val();
-                pLink = "shipyard_id";
-                break;
-            case 'index':
-                model = 'YachtIndex';
-                currentObj = "#YachtIndex_name";
-                pId = $("#SyProfile_model_id").val();
-                pLink = "model_id";
-                break;
-            case 'modification':
-                model = 'YachtModification';
-                currentObj = "#YachtModification_name";
-                pId = $("#SyProfile_model_id").val();
-                pLink = "model_id";
-                break;
-        }
-        $.ajax({
-            url:'/ajax/icreate',
-            data:{view:'_form',model:model,pId:pId,pLink:pLink},
-            success:function(answer){
-                showAjaxForm(o,answer);
-            },
-            type:'POST',
-            dataType:'html',
-            async:true
-        });
-    }
-    function showAjaxForm(o,answer){
-        $(o).append(answer).find("form").on("submit",function(event){
-            $.ajax({
-                url:'/ajax/icreate',
-                data: $(this).serialize(),
-                success:function(answer){
-                    if(answer==="create done"){
-                        $(".fancybox-close").click();
-                    } else {
-                        showAjaxForm(o,answer);
-                    }
-                },
-                type:'POST',
-                dataType:'html',
-                async:true
-            });
-            return false;
-        });
-    }
-</script>
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'sy-profile-form',

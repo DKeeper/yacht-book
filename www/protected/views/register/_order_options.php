@@ -9,11 +9,61 @@
 /* @var $i integer */
 /* @var $model CcOrderOptions */
 /* @var $form CActiveForm */
-$orderOptionList = OrderOptions::model()->getModelList();
+/* @var $ajax boolean */
+$orderOptionList = array(Yii::t("view","Create"));
+$orderOptionList += OrderOptions::model()->getModelList();
 ?>
 <div class="row order_options num_<?php echo $i;?>">
     <?php echo $form->labelEx($model,"[$i]order_option_id"); ?>
-    <?php echo $form->dropDownList($model,"[$i]order_option_id",$orderOptionList,array("prompt"=>Yii::t("view","Select options"))); ?>
+    <?php
+    echo $form->dropDownList(
+        $model,
+        "[$i]order_option_id",
+        $orderOptionList,
+        array(
+            "prompt"=>Yii::t("view","Select options"),
+            "onchange"=>"createOptions(this)",
+        )
+    );
+//    $this->widget('autocombobox.JuiAutoComboBox', array(
+//        'model'=>YachtShipyard::model(),   // модель
+//        'attribute'=>'name',  // атрибут модели
+//        // "источник" данных для выборки
+//        'source' =>'js:function(request, response) {
+//                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+//                    term: request.term.split(/,s*/).pop(),
+//                    modelClass: "OrderOptions",
+//                    sql: false
+//                }, response);
+//            }',
+//        // параметры, подробнее можно посмотреть на сайте
+//        // http://jqueryui.com/demos/autocomplete/
+//        'options'=>array(
+//            'minLength'=>0,
+//            'delay'=>0,
+//            'showAnim'=>'fold',
+//            'click'=>'js: function(event, ui) {
+//                    $(this).val("");
+//                    return false;
+//                }',
+//            'select' =>'js: function(event, ui) {
+//                    if(!ui.item.id){
+//                        createAddForm("#c","order_options");
+//                        $(".custom_create").click();
+//                    } else {
+//                        this.value = ui.item.value;
+//                        // записываем полученный id в скрытое поле
+//                        $("#SyProfile_shipyard_id").val(ui.item.id);
+//                    }
+//                    return false;
+//                }',
+//
+//        ),
+//        'htmlOptions' => array(
+//            'maxlength'=>50,
+//        ),
+//    ));
+    ?>
     <?php echo $form->error($model,"[$i]order_option_id"); ?>
     <?php echo $form->labelEx($model,"[$i]obligatory"); ?>
     <?php echo $form->checkBox($model,"[$i]obligatory"); ?>
@@ -31,3 +81,11 @@ $orderOptionList = OrderOptions::model()->getModelList();
     ));
     ?>
 </div>
+<?php
+//if(isset($ajax) && $ajax){
+//    $scripts = Yii::app()->clientScript->scripts[4];
+//    foreach($scripts as $script){
+//        echo "<script>".$script."</script>";
+//    }
+//}
+?>

@@ -2,6 +2,7 @@
 /* @var $this OrderoptionsController */
 /* @var $model OrderOptions */
 /* @var $form CActiveForm */
+/* @var $ajax boolean */
 ?>
 
 <div class="form">
@@ -18,6 +19,8 @@
     <p class="note"><?php echo Yii::t('view','Fields with <span class="required">*</span> are required.'); ?></p>
 
 	<?php echo $form->errorSummary($model); ?>
+    <?php echo CHtml::hiddenField('ajaxModel',get_class($model)); ?>
+    <?php echo CHtml::hiddenField('ajaxView','_form'); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
@@ -49,3 +52,13 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php
+if(isset($ajax) && $ajax){
+    $scripts = Yii::app()->clientScript->scripts;
+    foreach($scripts as $scriptPosition){
+        foreach($scriptPosition as $script){
+            echo "<script>".$script."</script>";
+        }
+    }
+}
+?>

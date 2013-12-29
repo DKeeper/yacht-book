@@ -103,19 +103,19 @@ class AjaxController extends Controller
                         if(empty($obj["g_".$cF])){
                             continue;
                         }
-                        $label = $obj["g_".$cF];
+                        $label = Yii::t("view",$obj["g_".$cF]);
                         if($parentProp && $parentModel){
-                            $label .= " (".$obj['r_'.$cF].")";
+                            $label .= " (".Yii::t("view",$obj['r_'.$cF]).")";
                         }
                         break;
                     }
                 } else {
-                    $label = $obj[$fieldName];
+                    $label = Yii::t("view",$obj[$fieldName]);
                 }
                 if(isset($field)){
                     foreach($field as $fName => $fValue){
                         if(isset($obj[$fName])){
-                            $label .= " (".$obj[$fName]->$fValue.")";
+                            $label .= " (".Yii::t("view",$obj[$fName]->$fValue).")";
                         }
                     }
                 }
@@ -197,7 +197,8 @@ class AjaxController extends Controller
             $this->renderPartial($view,array(
                 "i"=>$i,
                 "model"=>new $model,
-                "form"=>$form
+                "form"=>$form,
+                "ajax"=>true
             ));
         }
     }

@@ -45,6 +45,24 @@
         }
     ?>
 </div>
+<?php
+$this->widget('fancyapps.EFancyApps', array(
+    'mode'=>'inline',
+    'id'=>'createForm',
+    'config'=>array(
+        'maxWidth'	=> 500,
+        'maxHeight'	=> 350,
+        'afterClose'=>"function(){jQuery(currentObj).effect('highlight',500);}",
+    ),
+    'options' => array(
+        'url' => '#c',
+        'label'=> '',
+    ),
+    'htmlOptions'=>array('class'=> "custom_create")
+)
+);
+?>
+<div style="display:none;" id="c"></div>
 <script>
     function addTransitLog(o){
         var n = $(".transit_log").last().attr("class");
@@ -113,5 +131,34 @@
             dataType:'html',
             async:true
         });
+    }
+    function createOptions(o){
+        if($(o).val()=="0"){
+            createAddForm("#c","order_options",o,function(){
+                    $.getJSON(
+                        "<?php echo $this->createUrl('ajax/autocomplete'); ?>",
+                        {
+                            term: "",
+                            modelClass: "OrderOptions",
+                            sql: false
+                        },
+                        function(data){
+                            $.each($("select[name^='CcOrderOptions']"),function(){
+                                var v = $(this).val();
+                                var out = "<option value=''><?php echo Yii::t("view","Select options"); ?></option>";
+                                $.each(data,function(){
+                                    var selected = "";
+                                    if(this.id == v){
+                                        selected = " selected";
+                                    }
+                                    out += "<option value='"+this.id+"'"+selected+">"+this.label+"</option>";
+                                });
+                                $(this).empty().append(out);
+                            });
+                        });
+            });
+            $(".custom_create").click();
+            return false;
+        }
     }
 </script>
