@@ -17,12 +17,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'company_email',
         array(
             'name'=>'company_country_id',
-            'value'=>'$data->country->nazvanie_1',
+            'value'=>'isset($data->country)?$data->country->nazvanie_1:null',
             'filter'=> CHtml::activeTextField($company->searchCountry, 'nazvanie_1'),
         ),
         array(
             'name'=>'company_city_id',
-            'value'=>'$data->city->nazvanie_1',
+            'value'=>'isset($data->city)?$data->city->nazvanie_1:null',
             'filter'=> CHtml::activeTextField($company->searchCity, 'nazvanie_1'),
         ),
         array(

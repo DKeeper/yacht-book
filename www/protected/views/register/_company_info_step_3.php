@@ -45,7 +45,7 @@
             'class'=>'add_payment'
         ));
         foreach($paymentsPeriods as $i=>$period){
-            $this->renderPartial("_payment_period",array(
+            $this->renderPartial("/register/_payment_period",array(
                 "i"=>$i,
                 "model"=>$period,
                 "form"=>$form,
@@ -78,7 +78,7 @@
             'class'=>'add_cancel'
         ));
         foreach($cancelPeriods as $i=>$period){
-            $this->renderPartial("_cancel_period",array(
+            $this->renderPartial("/register/_cancel_period",array(
                 "i"=>$i,
                 "model"=>$period,
                 "form"=>$form,
@@ -111,7 +111,7 @@
             'class'=>'add_long'
         ));
         foreach($longPeriods as $i=>$period){
-            $this->renderPartial("_long_period",array(
+            $this->renderPartial("/register/_long_period",array(
                 "i"=>$i,
                 "model"=>$period,
                 "form"=>$form,
@@ -127,7 +127,7 @@
             'class'=>'add_early'
         ));
         foreach($earlyPeriods as $i=>$period){
-            $this->renderPartial("_early_period",array(
+            $this->renderPartial("/register/_early_period",array(
                 "i"=>$i,
                 "model"=>$period,
                 "form"=>$form,

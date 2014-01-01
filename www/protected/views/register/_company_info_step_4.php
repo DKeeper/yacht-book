@@ -20,7 +20,7 @@
         'class'=>'add_transit_log'
     ));
     foreach($transitLogs as $i=>$log){
-        $this->renderPartial("_transit_log",array(
+        $this->renderPartial("/register/_transit_log",array(
             "i"=>$i,
             "model"=>$log,
             "form"=>$form,
@@ -37,7 +37,7 @@
             'class'=>'add_options'
         ));
         foreach($orderOptions as $i=>$option){
-            $this->renderPartial("_order_options",array(
+            $this->renderPartial("/register/_order_options",array(
                 "i"=>$i,
                 "model"=>$option,
                 "form"=>$form,
