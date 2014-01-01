@@ -42,9 +42,18 @@ if(isset($no_load)){
     }
 ?>
 <h1><?php echo $header; ?></h1>
-<?php if(Yii::app()->user->hasFlash('profileMessage')): ?>
-    <div class="success">
-        <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
+<?php if(Yii::app()->user->hasFlash('profileMessageSuccess')): ?>
+    <?php
+        Yii::app()->clientScript->registerScript(
+            'myHideEffect',
+            '$(".flashinfo").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+            CClientScript::POS_READY
+        );
+    ?>
+    <div class="flashinfo">
+        <div class="flash success">
+            <?php echo Yii::app()->user->getFlash('profileMessageSuccess'); ?>
+        </div>
     </div>
     <?php endif; ?>
 <?php

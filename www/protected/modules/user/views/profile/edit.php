@@ -14,11 +14,6 @@ $this->menu=array(
 );
 ?><h1><?php echo UserModule::t('Edit profile'); ?></h1>
 
-<?php if(Yii::app()->user->hasFlash('profileMessage')): ?>
-<div class="success">
-<?php echo Yii::app()->user->getFlash('profileMessage'); ?>
-</div>
-<?php endif; ?>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'profile-form',

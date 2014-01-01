@@ -10,10 +10,14 @@
 /* @var $profileUser Profile */
 /* @var $profileM MProfile */
 /* @var $form UActiveForm */
-$this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration manager");
-$this->breadcrumbs=array(
-    UserModule::t("Registration manager"),
-);
+if(empty($this->pageTitle)){
+    $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration manager");
+}
+if(empty($this->breadcrumbs)){
+    $this->breadcrumbs=array(
+        UserModule::t("Registration manager"),
+    );
+}
 ?>
 
 <h1><?php echo UserModule::t("Registration manager"); ?></h1>

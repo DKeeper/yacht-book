@@ -19,3 +19,20 @@ span[role='status']{
 .custom_create{
     display: none;
 }
+.flashes {
+    width:910px;
+    height:40px;
+    position:absolute;
+    top:60px;
+    left:20px;
+}
+.flash {
+    margin:0;
+    padding:8px 12px;
+    font-size:12px;
+    font-style:italic;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+}
+.flash.success { color:#007700; background-color:#e0f8dd; }
+.flash.error { color:#7a0000; background-color:#fdd9d9; }
