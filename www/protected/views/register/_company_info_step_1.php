@@ -9,6 +9,18 @@
 /* @var $profileCC CCProfile */
 /* @var $form CActiveForm */
 $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'nazvanie_1'));
+$cityList = array();
+if(isset($profileCC->company_country_id)){
+    $cityList = Gorod::model()->getModelList('nazvanie_1',' - ',array('condition'=>'region_id > 0 and strana_id = :sid','order'=>'nazvanie_1','params'=>array(':sid'=>$profileCC->company_country_id)));
+}
+if(isset($profileCC->latitude) && isset($profileCC->longitude)){
+    $script = "
+        $('a[href=#company_info_1]').click(function(e){
+            initialize({longitude:$('#CcProfile_longitude').val(),latitude:$('#CcProfile_latitude').val()});
+        });
+    ";
+    Yii::app()->clientScript->registerScript("map_ini",$script,CClientScript::POS_LOAD);
+}
 ?>
     <?php echo $form->hiddenField($profileCC,'cc_id'); ?>
     <div class="row">
@@ -74,7 +86,7 @@ $countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_city_id'); ?>
-        <?php echo $form->dropDownList($profileCC,'company_city_id',array(),array(
+        <?php echo $form->dropDownList($profileCC,'company_city_id',$cityList,array(
             'prompt'=>Yii::t('view','Select country'),
             'ajax' => array(
                 'type'=>'POST',
