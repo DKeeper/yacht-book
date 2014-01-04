@@ -28,7 +28,7 @@ $this->widget('zii.widgets.CListView', array(
     'itemView'=>'_view_company_manager',
     'emptyText'=>Yii::t('view','No registered managers'),
 ));
-if($role=='CC'){
+if($role=='CC' && $owner){
     $this->widget('fancyapps.EFancyApps', array(
             'mode'=>'inline',
             'id'=>'createManager',
