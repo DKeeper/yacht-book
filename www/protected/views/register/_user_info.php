@@ -72,7 +72,7 @@
             'attribute'=>'verifyCode',
             'theme'=>'white',
             'language'=>'ru',
-            'publicKey'=>'6LcIsesSAAAAAKrG0XASOw-PgUY9LFu6WQo7HXbH'
+            'publicKey'=>Yii::app()->params['recaptchaPublicKey'],
         )
     ); ?>
     <?php echo $form->error($modelUser,'verifyCode'); ?>

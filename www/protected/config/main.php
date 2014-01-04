@@ -135,5 +135,9 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'dkapenkin@rambler.ru',
 		'noReplyEmail'=>'dkapenkin@rambler.ru',
+        'recaptchaPublicKey'=>
+            $_SERVER['HTTP_HOST']==="yacht-book.local"?
+                '6LcIsesSAAAAAKrG0XASOw-PgUY9LFu6WQo7HXbH':
+                '6Ld1HOwSAAAAAPsmbPLmjRQ1Kj3ywN1Yh4QppFcc ',
 	),
 );
