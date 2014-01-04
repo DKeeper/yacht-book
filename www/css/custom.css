@@ -27,12 +27,13 @@ span[role='status']{
     left:20px;
 }
 .flash {
-    margin:0;
+    margin-bottom:10px;
     padding:8px 12px;
     font-size:12px;
     font-style:italic;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
 }
 .flash.success { color:#007700; background-color:#e0f8dd; }
 .flash.error { color:#7a0000; background-color:#fdd9d9; }
