@@ -227,10 +227,11 @@ div.search-form
 {
 	background: #80CFFF;
 }
-.view_manager{
+.view_manager, .view_user{
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #4F81BD;
+    height: 100px;
 }
 .avatar{
     padding: 5px;

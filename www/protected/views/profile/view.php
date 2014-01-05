@@ -73,7 +73,9 @@ if(isset($no_load)){
                     'company_user'=>array(
                         'title'=>UserModule::t("User info"),
                         'view'=>'_cc_user_info',
-                        'data'=>array(),
+                        'data'=>array(
+                            'model'=>$profileCC,
+                        ),
                     ),
                     'company_info'=>array(
                         'title'=>UserModule::t("Company info"),
