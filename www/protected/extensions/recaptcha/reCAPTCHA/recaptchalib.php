@@ -76,6 +76,8 @@ function _recaptcha_http_post($host, $path, $data, $port = 80) {
         $http_request .= "\r\n";
         $http_request .= $req;
 
+        Yii::log($http_request);
+
         $response = '';
         if( false == ( $fs = @fsockopen($host, $port, $errno, $errstr, 10) ) ) {
                 die ("Could not open socket: $errstr ($errno)<br>\n");
@@ -165,7 +167,7 @@ function recaptcha_check_answer ($privkey, $remoteip, $challenge, $response, $ex
         if ($challenge == null || strlen($challenge) == 0 || $response == null || strlen($response) == 0) {
                 $recaptcha_response = new ReCaptchaResponse();
                 $recaptcha_response->is_valid = false;
-                $recaptcha_response->error = 'incorrect-captcha-sol';
+                $recaptcha_response->error = 'incorrect-captcha-sol-spam';
                 return $recaptcha_response;
         }
 

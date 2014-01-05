@@ -6,6 +6,23 @@ Yii::setPathOfAlias('fancyapps',dirname(__FILE__).'/../extensions/fancyapps');
 Yii::setPathOfAlias('autocombobox',dirname(__FILE__).'/../extensions/autocombobox');
 Yii::setPathOfAlias('ckeditor',dirname(__FILE__).'/../extensions/ckeditor');
 Yii::setPathOfAlias('recaptcha',dirname(__FILE__).'/../extensions/recaptcha');
+if(preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])){
+    $db = array(
+        'connectionString' => 'mysql:host=localhost;dbname=yacht-book',
+        'emulatePrepare' => true,
+        'username' => 'yacht-book',
+        'password' => '1',
+        'charset' => 'utf8',
+    );
+} else {
+    $db = array(
+        'connectionString' => 'mysql:host=localhost;dbname=vadim77_yacht_book',
+        'emulatePrepare' => true,
+        'username' => 'vadim77_yacht',
+        'password' => '1',
+        'charset' => 'utf8',
+    );
+}
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -101,13 +118,7 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=yacht-book',
-			'emulatePrepare' => true,
-			'username' => 'yacht-book',
-			'password' => '1',
-			'charset' => 'utf8',
-		),
+		'db'=>$db,
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -136,8 +147,8 @@ return array(
 		'adminEmail'=>'dkapenkin@rambler.ru',
 		'noReplyEmail'=>'dkapenkin@rambler.ru',
         'recaptchaPublicKey'=>
-            $_SERVER['HTTP_HOST']==="yacht-book.local"?
+            preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])?
                 '6LcIsesSAAAAAKrG0XASOw-PgUY9LFu6WQo7HXbH':
-                '6Ld1HOwSAAAAAPsmbPLmjRQ1Kj3ywN1Yh4QppFcc ',
+                '6LcWmOwSAAAAAP6SW85ADvjCTNk-M47d_CKEvVSN',
 	),
 );
