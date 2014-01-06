@@ -37,7 +37,13 @@ if(isset($no_load)){
             $header = ($owner?UserModule::t('Your profile'):UserModule::t('Profile company: {username}',array('{username}'=>$profileCC->company_name)));
             break;
         case 'M': // Профиль менеджера
-            $header = ($owner?UserModule::t('Your profile'):UserModule::t('Profile manager: {username}',array('{username}'=>$model->profile->lastname." ".$model->profile->firstname)));
+            if($owner&&$role=='M'){
+                $header = UserModule::t('Your profile');
+            }elseif($owner&&$role=='CC'){
+                $header = UserModule::t('Profile manager: {username}',array('{username}'=>$profileM->m->profile->lastname." ".$profileM->m->profile->firstname));
+            } else {
+                $header = ($owner?UserModule::t('Your profile'):UserModule::t('Profile manager: {username}',array('{username}'=>$model->profile->lastname." ".$model->profile->firstname)));
+            }
             break;
     }
 ?>
@@ -80,7 +86,9 @@ if(isset($no_load)){
                     'company_info'=>array(
                         'title'=>UserModule::t("Company info"),
                         'view'=>'_cc_company_info',
-                        'data'=>array(),
+                        'data'=>array(
+                            'model'=>$profileCC,
+                        ),
                     ),
                     'company_manager'=>array(
                         'title'=>UserModule::t("Company managers"),
@@ -107,7 +115,9 @@ if(isset($no_load)){
                     'manager_user'=>array(
                         'title'=>UserModule::t("User info"),
                         'view'=>'_cc_user_info',
-                        'data'=>array(),
+                        'data'=>array(
+                            'model'=>$profileCC,
+                        ),
                     ),
                     'company_info'=>array(
                         'title'=>UserModule::t("Company info"),

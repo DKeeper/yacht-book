@@ -14,6 +14,7 @@ return array(
 	'Company info' => 'Информация о компании',
 	'Company managers' => 'Менеджеры компании',
 	'Manager info' => 'Информация о менеджере',
+	'General info' => 'Общая информация',
 	'Register' => 'Зарегистрироваться',
 	'Login' => 'Вход',
 	'Logout' => 'Выйти',

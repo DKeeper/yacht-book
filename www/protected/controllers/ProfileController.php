@@ -88,52 +88,52 @@ class ProfileController extends Controller
                         $transitLogs = $profileCC->ccTransitLogs;
                         /** @var $orderOptions CcOrderOptions[] */
                         $orderOptions = $profileCC->ccOrderOptions;
+                        if(isset($_POST['CcPaymentsPeriod'])){
+                            foreach($_POST['CcPaymentsPeriod'] as $i => $item){
+                                $paymentsPeriods[$i] = new CcPaymentsPeriod;
+                                $paymentsPeriods[$i]->attributes = $item;
+                                $paymentsPeriods[$i]->cc_profile_id = $profileCC->id;
+                            }
+                        }
+                        if(isset($_POST['CcCancelPeriod'])){
+                            foreach($_POST['CcCancelPeriod'] as $i => $item){
+                                $cancelPeriods[$i] = new CcCancelPeriod;
+                                $cancelPeriods[$i]->attributes = $item;
+                                $cancelPeriods[$i]->cc_profile_id = $profileCC->id;
+                            }
+                        }
+                        if(isset($_POST['CcLongPeriod'])){
+                            foreach($_POST['CcLongPeriod'] as $i => $item){
+                                $longPeriods[$i] = new CcLongPeriod;
+                                $longPeriods[$i]->attributes = $item;
+                                $longPeriods[$i]->cc_profile_id = $profileCC->id;
+                            }
+                        }
+                        if(isset($_POST['CcEarlyPeriod'])){
+                            foreach($_POST['CcEarlyPeriod'] as $i => $item){
+                                $earlyPeriods[$i] = new CcEarlyPeriod;
+                                $earlyPeriods[$i]->attributes = $item;
+                                $earlyPeriods[$i]->cc_profile_id = $profileCC->id;
+                            }
+                        }
+                        if(isset($_POST['CcTransitLog'])){
+                            foreach($_POST['CcTransitLog'] as $i => $item){
+                                $transitLogs[$i] = new CcTransitLog;
+                                $transitLogs[$i]->attributes = $item;
+                                $transitLogs[$i]->cc_profile_id = $profileCC->id;
+                            }
+                        }
+                        if(isset($_POST['CcOrderOptions'])){
+                            foreach($_POST['CcOrderOptions'] as $i => $item){
+                                $orderOptions[$i] = new CcOrderOptions;
+                                $orderOptions[$i]->attributes = $item;
+                                $orderOptions[$i]->cc_profile_id = $profileCC->id;
+                            }
+                        }
                         // ajax validator
                         if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
                         {
                             $validateModels = array($modelUser,$profileUser,$profileCC);
-                            if(isset($_POST['CcPaymentsPeriod'])){
-                                foreach($_POST['CcPaymentsPeriod'] as $i => $item){
-                                    $paymentsPeriods[$i] = new CcPaymentsPeriod;
-                                    $paymentsPeriods[$i]->attributes = $item;
-                                    $paymentsPeriods[$i]->cc_profile_id = $modelUser->id;
-                                }
-                            }
-                            if(isset($_POST['CcCancelPeriod'])){
-                                foreach($_POST['CcCancelPeriod'] as $i => $item){
-                                    $cancelPeriods[$i] = new CcCancelPeriod;
-                                    $cancelPeriods[$i]->attributes = $item;
-                                    $cancelPeriods[$i]->cc_profile_id = $modelUser->id;
-                                }
-                            }
-                            if(isset($_POST['CcLongPeriod'])){
-                                foreach($_POST['CcLongPeriod'] as $i => $item){
-                                    $longPeriods[$i] = new CcLongPeriod;
-                                    $longPeriods[$i]->attributes = $item;
-                                    $longPeriods[$i]->cc_profile_id = $modelUser->id;
-                                }
-                            }
-                            if(isset($_POST['CcEarlyPeriod'])){
-                                foreach($_POST['CcEarlyPeriod'] as $i => $item){
-                                    $earlyPeriods[$i] = new CcEarlyPeriod;
-                                    $earlyPeriods[$i]->attributes = $item;
-                                    $earlyPeriods[$i]->cc_profile_id = $modelUser->id;
-                                }
-                            }
-                            if(isset($_POST['CcTransitLog'])){
-                                foreach($_POST['CcTransitLog'] as $i => $item){
-                                    $transitLogs[$i] = new CcTransitLog;
-                                    $transitLogs[$i]->attributes = $item;
-                                    $transitLogs[$i]->cc_profile_id = $modelUser->id;
-                                }
-                            }
-                            if(isset($_POST['CcOrderOptions'])){
-                                foreach($_POST['CcOrderOptions'] as $i => $item){
-                                    $orderOptions[$i] = new CcOrderOptions;
-                                    $orderOptions[$i]->attributes = $item;
-                                    $orderOptions[$i]->cc_profile_id = $modelUser->id;
-                                }
-                            }
                             $firstValidate = json_decode(UActiveForm::validate($validateModels),true);
                             $paymentValidate = array();
                             if(!empty($paymentsPeriods)){
@@ -185,95 +185,47 @@ class ProfileController extends Controller
                                 foreach($profileCC->ccPaymentsPeriods as $period){
                                     $period->delete();
                                 }
-                                if(isset($_POST['CcPaymentsPeriod'])){
-                                    foreach($_POST['CcPaymentsPeriod'] as $i => $item){
-                                        $paymentsPeriods[$i] = new CcPaymentsPeriod;
-                                        $paymentsPeriods[$i]->attributes = $item;
-                                        $paymentsPeriods[$i]->cc_profile_id = $profileCC->id;
-                                    }
-
-                                    foreach($paymentsPeriods as $period){
-                                        $period->save(false);
-                                    }
+                                foreach($paymentsPeriods as $period){
+                                    $period->save(false);
                                 }
 
                                 foreach($profileCC->ccCancelPeriods as $period){
                                     $period->delete();
                                 }
-                                if(isset($_POST['CcCancelPeriod'])){
-                                    foreach($_POST['CcCancelPeriod'] as $i => $item){
-                                        $cancelPeriods[$i] = new CcCancelPeriod;
-                                        $cancelPeriods[$i]->attributes = $item;
-                                        $cancelPeriods[$i]->cc_profile_id = $profileCC->id;
-                                    }
-
-                                    foreach($cancelPeriods as $period){
-                                        $period->save(false);
-                                    }
+                                foreach($cancelPeriods as $period){
+                                    $period->save(false);
                                 }
 
                                 foreach($profileCC->ccLongPeriods as $period){
                                     $period->delete();
                                 }
-                                if(isset($_POST['CcLongPeriod'])){
-                                    foreach($_POST['CcLongPeriod'] as $i => $item){
-                                        $longPeriods[$i] = new CcLongPeriod;
-                                        $longPeriods[$i]->attributes = $item;
-                                        $longPeriods[$i]->cc_profile_id = $profileCC->id;
-                                    }
-
-                                    foreach($longPeriods as $period){
-                                        $period->save(false);
-                                    }
+                                foreach($longPeriods as $period){
+                                    $period->save(false);
                                 }
 
                                 foreach($profileCC->ccEarlyPeriods as $period){
                                     $period->delete();
                                 }
-                                if(isset($_POST['CcEarlyPeriod'])){
-                                    foreach($_POST['CcEarlyPeriod'] as $i => $item){
-                                        $earlyPeriods[$i] = new CcEarlyPeriod;
-                                        $earlyPeriods[$i]->attributes = $item;
-                                        $earlyPeriods[$i]->cc_profile_id = $profileCC->id;
-                                    }
-
-                                    foreach($earlyPeriods as $period){
-                                        $period->save(false);
-                                    }
+                                foreach($earlyPeriods as $period){
+                                    $period->save(false);
                                 }
 
                                 foreach($profileCC->ccTransitLogs as $period){
                                     $period->delete();
                                 }
-                                if(isset($_POST['CcTransitLog'])){
-                                    foreach($_POST['CcTransitLog'] as $i => $item){
-                                        $transitLogs[$i] = new CcTransitLog;
-                                        $transitLogs[$i]->attributes = $item;
-                                        $transitLogs[$i]->cc_profile_id = $profileCC->id;
-                                    }
-
-                                    foreach($transitLogs as $log){
-                                        $log->save(false);
-                                    }
+                                foreach($transitLogs as $log){
+                                    $log->save(false);
                                 }
 
                                 foreach($profileCC->ccOrderOptions as $period){
                                     $period->delete();
                                 }
-                                if(isset($_POST['CcOrderOptions'])){
-                                    foreach($_POST['CcOrderOptions'] as $i => $item){
-                                        $orderOptions[$i] = new CcOrderOptions;
-                                        $orderOptions[$i]->attributes = $item;
-                                        $orderOptions[$i]->cc_profile_id = $profileCC->id;
-                                    }
-
-                                    foreach($orderOptions as $option){
-                                        $option->save(false);
-                                    }
+                                foreach($orderOptions as $option){
+                                    $option->save(false);
                                 }
 
                                 Yii::app()->user->updateSession();
-                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes is saved."));
+                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
                                 $this->redirect(array('/profile'));
                             } else {
                                 $profileUser->validate();
@@ -366,19 +318,27 @@ class ProfileController extends Controller
         return $this->_model;
     }
 
+    /**
+     * @param $model User
+     * @return array
+     */
     protected function checkAccess($model){
         if(Rights::getAuthorizer()->isSuperuser($model->id)===true){
             $this->redirect('/');
         }
         $id = $model->id;
         $profileCC=$profileC=$profileM=null;
+        /** @var $profileCC CcProfile */
         $profileCC = CcProfile::model()->findByAttributes(array('cc_id'=>$id));
         $view = 'CC';
         if(!isset($profileCC)){
+            /** @var $profileC CProfile */
             $profileC = CProfile::model()->findByAttributes(array('c_id'=>$id));
             $view = 'C';
             if(!isset($profileC)){
+                /** @var $profileM MProfile */
                 $profileM = MProfile::model()->findByAttributes(array('m_id'=>$id));
+                $profileCC = CcProfile::model()->findByAttributes(array("cc_id"=>$profileM->cc_id));
                 $view = 'M';
             }
         }
@@ -387,6 +347,14 @@ class ProfileController extends Controller
             $role = 'A';
         }
         $owner = $id==Yii::app()->user->id?true:false;
+        if( $role=='CC' && $view == 'M'){
+            if($profileM->cc_id == Yii::app()->user->id){
+                $owner = true;
+            }
+        }
+        if( $role == 'A'){
+            $owner = true;
+        }
         if(!$owner){
             $this->layout = '//layouts/column1';
         }

@@ -37,3 +37,7 @@ span[role='status']{
 }
 .flash.success { color:#007700; background-color:#e0f8dd; }
 .flash.error { color:#7a0000; background-color:#fdd9d9; }
+
+#company_tabs table th{
+    width: 250px;
+}
