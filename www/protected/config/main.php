@@ -150,5 +150,9 @@ return array(
             preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])?
                 '6LcIsesSAAAAAKrG0XASOw-PgUY9LFu6WQo7HXbH':
                 '6LcWmOwSAAAAAP6SW85ADvjCTNk-M47d_CKEvVSN',
+        'recaptchaPrivateKey'=>
+            preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])?
+                '6LcIsesSAAAAAKpfcPKAJmze4tD89dnftUlJ-Nw9':
+                '6LchmOwSAAAAALakv1GQRDbdDyBmKwIJXU7zqR7u',
 	),
 );

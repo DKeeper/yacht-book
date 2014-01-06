@@ -21,7 +21,7 @@ class RegistrationForm extends User {
             array(
                 'verifyCode',
                 'recaptcha.EReCaptchaValidator',
-                'privateKey'=> '6LcIsesSAAAAAKpfcPKAJmze4tD89dnftUlJ-Nw9',
+                'privateKey'=> Yii::app()->params['recaptchaPrivateKey'],
                 'on' => 'registerwcaptcha'
             ),
 		);
