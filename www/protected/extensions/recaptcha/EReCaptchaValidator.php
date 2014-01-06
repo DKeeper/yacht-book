@@ -94,7 +94,7 @@ class EReCaptchaValidator extends CValidator
 	                                  $_POST['recaptcha_challenge_field'],
 	                                  $_POST['recaptcha_response_field']);
 		if (!$resp->is_valid) {
-			$message = $this->message !== null ? $this->message : Yii::t('yii','The verification code is incorrect.').$resp->error;
+			$message = $this->message !== null ? $this->message : Yii::t('yii','The verification code is incorrect.');
 			$this->addError($object, $attribute, $message);
 		}
 	}
