@@ -176,3 +176,6 @@ $nationalityList = Nationality::model()->getModelList();
         <?php echo $form->textField($profileC,'extra'); ?>
         <?php echo $form->error($profileC,'extra'); ?>
     </div>
+    <div class="row submit">
+        <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+    </div>

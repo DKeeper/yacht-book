@@ -72,45 +72,64 @@ $this->breadcrumbs=array(
     echo $form->errorSummary($models);
 ?>
 <?php
-    $this->widget('CTabView', array(
+    $this->widget('zii.widgets.jui.CJuiTabs',array(
         'tabs'=>array(
-            'user_info'=>array(
-                'title'=>UserModule::t("User info"),
-                'view'=>'_user_info',
-                'data'=>array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
-            ),
-            'company_info_1'=>array(
-                'title'=>UserModule::t("Company info"),
-                'view'=>'_company_info_step_1',
-                'data'=>array('profileCC'=>$profileCC,'form'=>$form),
-            ),
-            'company_info_2'=>array(
-                'title'=>UserModule::t("Bank"),
-                'view'=>'_company_info_step_2',
-                'data'=>array('profileCC'=>$profileCC,'form'=>$form),
-            ),
-            'company_info_3'=>array(
-                'title'=>UserModule::t("Policy"),
-                'view'=>'_company_info_step_3',
-                'data'=>array(
-                    'profileCC'=>$profileCC,
-                    'form'=>$form,
-                    'paymentsPeriods'=>$paymentsPeriods,
-                    'cancelPeriods'=>$cancelPeriods,
-                    'longPeriods'=>$longPeriods,
-                    'earlyPeriods'=>$earlyPeriods,
+            UserModule::t("User info")=>array(
+                'content'=>$this->renderPartial(
+                    '_user_info',
+                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+                    true
                 ),
+                'id'=>'tab1'
             ),
-            'company_info_4'=>array(
-                'title'=>UserModule::t("Prices"),
-                'view'=>'_company_info_step_4',
-                'data'=>array(
-                    'profileCC'=>$profileCC,
-                    'form'=>$form,
-                    'transitLogs'=>$transitLogs,
-                    'orderOptions'=>$orderOptions,
+            UserModule::t("Company info")=>array(
+                'content'=>$this->renderPartial(
+                    '_company_info_step_1',
+                    array('profileCC'=>$profileCC,'form'=>$form),
+                    true
                 ),
+                'id'=>'tab2'
             ),
+            UserModule::t("Bank")=>array(
+                'content'=>$this->renderPartial(
+                    '_company_info_step_2',
+                    array('profileCC'=>$profileCC,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab3'
+            ),
+            UserModule::t("Policy")=>array(
+                'content'=>$this->renderPartial(
+                    '_company_info_step_3',
+                    array(
+                        'profileCC'=>$profileCC,
+                        'form'=>$form,
+                        'paymentsPeriods'=>$paymentsPeriods,
+                        'cancelPeriods'=>$cancelPeriods,
+                        'longPeriods'=>$longPeriods,
+                        'earlyPeriods'=>$earlyPeriods,
+                    ),
+                    true
+                ),
+                'id'=>'tab4'
+            ),
+            UserModule::t("Prices")=>array(
+                'content'=>$this->renderPartial(
+                    '_company_info_step_4',
+                    array(
+                        'profileCC'=>$profileCC,
+                        'form'=>$form,
+                        'transitLogs'=>$transitLogs,
+                        'orderOptions'=>$orderOptions,
+                    ),
+                    true
+                ),
+                'id'=>'tab5'
+            ),
+        ),
+        // additional javascript options for the tabs plugin
+        'options'=>array(
+            'collapsible'=>true,
         ),
         'htmlOptions'=>array(
             'id'=>'company_tabs',

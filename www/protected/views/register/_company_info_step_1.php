@@ -13,14 +13,14 @@ $cityList = array();
 if(isset($profileCC->company_country_id)){
     $cityList = Gorod::model()->getModelList('nazvanie_1',' - ',array('condition'=>'region_id > 0 and strana_id = :sid','order'=>'nazvanie_1','params'=>array(':sid'=>$profileCC->company_country_id)));
 }
-if(isset($profileCC->latitude) && isset($profileCC->longitude)){
+//if(isset($profileCC->latitude) && isset($profileCC->longitude)){
     $script = "
         $('a[href=#company_info_1]').click(function(e){
             initialize({longitude:$('#CcProfile_longitude').val(),latitude:$('#CcProfile_latitude').val()});
         });
     ";
     Yii::app()->clientScript->registerScript("map_ini",$script,CClientScript::POS_LOAD);
-}
+//}
 ?>
     <?php echo $form->hiddenField($profileCC,'cc_id'); ?>
     <div class="row">
@@ -180,16 +180,41 @@ if(isset($profileCC->latitude) && isset($profileCC->longitude)){
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
 <script type="text/javascript">
     var map;
+    var marker;
     function initialize(param) {
         var mapOptions = {
             zoom: 11,
-            center: new google.maps.LatLng(param.latitude, param.longitude)
+            center: new google.maps.LatLng(param.latitude, param.longitude),
+            panControl: true,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+            },
+            mapTypeControl: false,
+            scaleControl: true,
+            streetViewControl: false,
+            overviewMapControl: false
         };
         map = new google.maps.Map(document.getElementById('map_canvas'),
                 mapOptions);
+        marker = new google.maps.Marker({
+            position: map.getCenter(),
+            map: map,
+            draggable: true
+        });
+        google.maps.event.addListener(map, 'center_changed', function() {
+            marker.setPosition(map.getCenter());
+        });
+        google.maps.event.addListener(marker, "dragend", function(event) {
+            $("#CcProfile_longitude").val(event.latLng.lng());
+            $("#CcProfile_latitude").val(event.latLng.lat());
+            map.panTo(marker.getPosition());
+        });
         $("#map_canvas").show();
         $("#CcProfile_longitude").val(param.longitude);
         $("#CcProfile_latitude").val(param.latitude);
     }
+
+    initialize({longitude:90,latitude:90});
 </script>
 

@@ -23,3 +23,6 @@
     <?php echo $form->fileField($profileM,'avatar'); ?>
     <?php echo $form->error($profileM,'avatar'); ?>
 </div>
+<div class="row submit">
+    <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+</div>

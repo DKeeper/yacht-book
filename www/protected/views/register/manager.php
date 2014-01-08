@@ -41,18 +41,28 @@ if(empty($this->breadcrumbs)){
     ?>
     <?php echo $form->errorSummary(array($modelUser,$profileUser,$profileM)); ?>
     <?php
-    $this->widget('CTabView', array(
+    $this->widget('zii.widgets.jui.CJuiTabs',array(
         'tabs'=>array(
-            'tab1'=>array(
-                'title'=>UserModule::t("User info"),
-                'view'=>$this->id=="register"?'_user_info':'/register/_user_info',
-                'data'=>array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+            UserModule::t("User info")=>array(
+                'content'=>$this->renderPartial(
+                    $this->id=="register"?'_user_info':'/register/_user_info',
+                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab1'
             ),
-            'tab2'=>array(
-                'title'=>UserModule::t("Manager info"),
-                'view'=>$this->id=="register"?'_manager_info':'/register/_manager_info',
-                'data'=>array('profileM'=>$profileM,'form'=>$form),
+            UserModule::t("Manager info")=>array(
+                'content'=>$this->renderPartial(
+                    $this->id=="register"?'_manager_info':'/register/_manager_info',
+                    array('profileM'=>$profileM,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab2'
             ),
+        ),
+        // additional javascript options for the tabs plugin
+        'options'=>array(
+            'collapsible'=>true,
         ),
         'htmlOptions'=>array(
             'id'=>'manager_tabs',

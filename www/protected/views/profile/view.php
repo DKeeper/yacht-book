@@ -74,35 +74,44 @@ if(isset($no_load)){
             $profileM = new MProfile();
             $profileM->m_id = -1;
             $profileM->cc_id = -1;
-            $this->widget('CTabView', array(
+            $this->widget('zii.widgets.jui.CJuiTabs',array(
                 'tabs'=>array(
-                    'company_user'=>array(
-                        'title'=>UserModule::t("User info"),
-                        'view'=>'_cc_user_info',
-                        'data'=>array(
-                            'model'=>$profileCC,
+                    UserModule::t("User info")=>array(
+                        'content'=>$this->renderPartial(
+                            '_cc_user_info',
+                            array('model'=>$profileCC),
+                            true
                         ),
+                        'id'=>'tab1'
                     ),
-                    'company_info'=>array(
-                        'title'=>UserModule::t("Company info"),
-                        'view'=>'_cc_company_info',
-                        'data'=>array(
-                            'model'=>$profileCC,
+                    UserModule::t("Company info")=>array(
+                        'content'=>$this->renderPartial(
+                            '_cc_company_info',
+                            array('model'=>$profileCC),
+                            true
                         ),
+                        'id'=>'tab2'
                     ),
-                    'company_manager'=>array(
-                        'title'=>UserModule::t("Company managers"),
-                        'view'=>'_cc_managers',
-                        'data'=>array(
-                            'model'=>$model,
-                            'modelUser'=>$modelUser,
-                            'profileUser'=>$profileUser,
-                            'profileM'=>$profileM,
-                            'profileCC'=>$profileCC,
-                            'owner'=>$owner,
-                            'role'=>$role
+                    UserModule::t("Company managers")=>array(
+                        'content'=>$this->renderPartial(
+                            '_cc_managers',
+                            array(
+                                'model'=>$model,
+                                'modelUser'=>$modelUser,
+                                'profileUser'=>$profileUser,
+                                'profileM'=>$profileM,
+                                'profileCC'=>$profileCC,
+                                'owner'=>$owner,
+                                'role'=>$role
+                            ),
+                            true
                         ),
+                        'id'=>'tab3'
                     ),
+                ),
+                // additional javascript options for the tabs plugin
+                'options'=>array(
+                    'collapsible'=>true,
                 ),
                 'htmlOptions'=>array(
                     'id'=>'company_profile_tabs',
@@ -110,20 +119,28 @@ if(isset($no_load)){
             ));
             break;
         case 'M': // Профиль менеджера
-            $this->widget('CTabView', array(
+            $this->widget('zii.widgets.jui.CJuiTabs',array(
                 'tabs'=>array(
-                    'manager_user'=>array(
-                        'title'=>UserModule::t("User info"),
-                        'view'=>'_cc_user_info',
-                        'data'=>array(
-                            'model'=>$profileCC,
+                    UserModule::t("User info")=>array(
+                        'content'=>$this->renderPartial(
+                            '_cc_user_info',
+                            array('model'=>$profileCC),
+                            true
                         ),
+                        'id'=>'tab1'
                     ),
-                    'company_info'=>array(
-                        'title'=>UserModule::t("Company info"),
-                        'view'=>'_cc_company_info',
-                        'data'=>array(),
-                    )
+                    UserModule::t("Company info")=>array(
+                        'content'=>$this->renderPartial(
+                            '_cc_company_info',
+                            array('model'=>$profileCC),
+                            true
+                        ),
+                        'id'=>'tab2'
+                    ),
+                ),
+                // additional javascript options for the tabs plugin
+                'options'=>array(
+                    'collapsible'=>true,
                 ),
                 'htmlOptions'=>array(
                     'id'=>'manager_profile_tabs',

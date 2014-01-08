@@ -36,18 +36,28 @@ $this->breadcrumbs=array(
 ?>
 <?php echo $form->errorSummary(array($modelUser,$profileUser,$profileC)); ?>
 <?php
-    $this->widget('CTabView', array(
+    $this->widget('zii.widgets.jui.CJuiTabs',array(
         'tabs'=>array(
-            'tab1'=>array(
-                'title'=>UserModule::t("User info"),
-                'view'=>'_user_info',
-                'data'=>array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+            UserModule::t("User info")=>array(
+                'content'=>$this->renderPartial(
+                    '_user_info',
+                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab1'
             ),
-            'tab2'=>array(
-                'title'=>UserModule::t("Captain info"),
-                'view'=>'_captain_info',
-                'data'=>array('profileC'=>$profileC,'form'=>$form),
+            UserModule::t("Captain info")=>array(
+                'content'=>$this->renderPartial(
+                    '_captain_info',
+                    array('profileC'=>$profileC,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab2'
             ),
+        ),
+        // additional javascript options for the tabs plugin
+        'options'=>array(
+            'collapsible'=>true,
         ),
         'htmlOptions'=>array(
             'id'=>'captain_tabs',

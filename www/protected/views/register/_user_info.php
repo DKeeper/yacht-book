@@ -78,7 +78,3 @@
     <?php echo $form->error($modelUser,'verifyCode'); ?>
 </div>
 <?php endif; ?>
-
-    <div class="row submit">
-        <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
-    </div>

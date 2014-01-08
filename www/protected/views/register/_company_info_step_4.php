@@ -62,6 +62,9 @@ $this->widget('fancyapps.EFancyApps', array(
 )
 );
 ?>
+<div class="row submit">
+    <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+</div>
 <div style="display:none;" id="c"></div>
 <script>
     function addTransitLog(o){
