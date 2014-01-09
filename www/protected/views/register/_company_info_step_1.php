@@ -246,7 +246,21 @@ if(isset($profileCC->company_country_id)){
                                     break;
                             }
                         });
-                        var t = 0;
+                        //Поиск страны/города
+                        $.ajax({
+                            url:'/ajax/findgeoobject',
+                            data: {type:'country',value:addressForDb.country},
+                            success:function(answer){
+                                if(answer.success){
+                                    $("#CcProfile_company_country_id").val(answer.data).change();
+                                } else {
+                                    alert(answer.data)
+                                }
+                            },
+                            type:'POST',
+                            dataType:'json',
+                            async:true
+                        });
                     }
                 },
                 type:'GET',

@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete, icreate, getcityll, getmodelbynum';
+        return 'autocomplete, icreate, getcityll, getmodelbynum, findgeoobject';
     }
 
     public function actionAutocomplete(){
@@ -200,6 +200,28 @@ class AjaxController extends Controller
                 "form"=>$form,
                 "ajax"=>true
             ));
+        }
+    }
+
+    public function actionFindgeoobject(){
+        if(Yii::app()->request->isAjaxRequest){
+            $t = Yii::app()->request->getPost("type");
+            $v = Yii::app()->request->getPost("value");
+            switch($t){
+                case 'country':
+                    $criteria = new CDbCriteria();
+                    for($i = 1; $i<71; $i++){
+                        $criteria->compare('nazvanie_'.$i,$v,true,'OR');
+                    }
+                    $model = Strana::model()->find($criteria);
+                    if(isset($model)){
+                        echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$model->id));
+                    } else {
+                        echo CJavaScript::jsonEncode(array('success'=>false,'data'=>Yii::t("view","No data")));
+                    }
+                    Yii::app()->end();
+                    break;
+            }
         }
     }
 }
