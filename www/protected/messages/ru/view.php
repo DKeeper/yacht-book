@@ -34,6 +34,7 @@ return array(
     'Select options' => 'Выберите опцию',
     'Options' => 'Опции',
     'No data' => 'Нет данных',
+    'No data for {ext}' => 'Нет данных для {ext}',
     'Profile not found' => 'Профиль не найден',
     'The file was larger than {limit} byte. Please upload a smaller file' => 'Размер выбранного файла превышает {limit} байт. Пожалуйста, выберите меньший файл',
     'The format of the selected file does not correspond to valid: jpg, png, gif, pdf' => 'Формат выбранного файла не соответсвует допустимым: jpg, png, gif, pdf',

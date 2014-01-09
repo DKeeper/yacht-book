@@ -207,21 +207,24 @@ class AjaxController extends Controller
         if(Yii::app()->request->isAjaxRequest){
             $t = Yii::app()->request->getPost("type");
             $v = Yii::app()->request->getPost("value");
+            $criteria = new CDbCriteria();
+            for($i = 1; $i<71; $i++){
+                $criteria->compare('nazvanie_'.$i,$v,true,'OR');
+            }
             switch($t){
                 case 'country':
-                    $criteria = new CDbCriteria();
-                    for($i = 1; $i<71; $i++){
-                        $criteria->compare('nazvanie_'.$i,$v,true,'OR');
-                    }
                     $model = Strana::model()->find($criteria);
-                    if(isset($model)){
-                        echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$model->id));
-                    } else {
-                        echo CJavaScript::jsonEncode(array('success'=>false,'data'=>Yii::t("view","No data")));
-                    }
-                    Yii::app()->end();
+                    break;
+                case 'city':
+                    $model = Gorod::model()->find($criteria);
                     break;
             }
+            if(isset($model)){
+                echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$model->id));
+            } else {
+                echo CJavaScript::jsonEncode(array('success'=>false,'data'=>Yii::t("view","No data for {ext}",array('{ext}'=>$v))));
+            }
+            Yii::app()->end();
         }
     }
 }

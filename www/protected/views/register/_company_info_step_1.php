@@ -13,14 +13,6 @@ $cityList = array();
 if(isset($profileCC->company_country_id)){
     $cityList = Gorod::model()->getModelList('nazvanie_1',' - ',array('condition'=>'region_id > 0 and strana_id = :sid','order'=>'nazvanie_1','params'=>array(':sid'=>$profileCC->company_country_id)));
 }
-//if(isset($profileCC->latitude) && isset($profileCC->longitude)){
-    $script = "
-        $('a[href=#company_info_1]').click(function(e){
-            initialize({longitude:$('#CcProfile_longitude').val(),latitude:$('#CcProfile_latitude').val()});
-        });
-    ";
-    Yii::app()->clientScript->registerScript("map_ini",$script,CClientScript::POS_LOAD);
-//}
 ?>
     <?php echo $form->hiddenField($profileCC,'cc_id'); ?>
     <div class="row">
@@ -62,8 +54,11 @@ if(isset($profileCC->company_country_id)){
                         o += "<option>'.Yii::t('view','No data').'</option>";
                     }
                     $("#CcProfile_company_city_id").empty().append(o);
+                    if(city_id!=-1){
+                        $("#CcProfile_company_city_id").val(city_id);
+                    }
                     $(".aL").remove();
-                    if(answer.length){
+                    if(answer.length && city_id==-1 && country_id==-1){
                         $.ajax({
                             type: "POST",
                             url: "'.$this->createUrl('ajax/getcityll').'",
@@ -77,6 +72,9 @@ if(isset($profileCC->company_country_id)){
                                 }
                             }
                         });
+                    } else {
+                        city_id=-1;
+                        country_id=-1
                     }
                 }', //selector to update
             )));
@@ -182,15 +180,15 @@ if(isset($profileCC->company_country_id)){
         <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" type="button" data-type="next" class="btn btn-default"><?php echo Yii::t("view","Forward"); ?></button></div>
     </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=true"></script>
 <script type="text/javascript">
     var map;
     var marker;
     var geocoder;
+    var city_id=-1;
+    var country_id=-1;
     function initialize(param) {
         var mapOptions = {
-            zoom: 11,
-            center: new google.maps.LatLng(param.latitude, param.longitude),
             panControl: true,
             zoomControl: true,
             zoomControlOptions: {
@@ -201,6 +199,18 @@ if(isset($profileCC->company_country_id)){
             streetViewControl: false,
             overviewMapControl: false
         };
+        if(typeof param != "undefined"){
+            mapOptions['center'] = new google.maps.LatLng(param.latitude, param.longitude);
+            mapOptions['zoom'] = 11;
+        } else {
+            if($('#CcProfile_longitude').val()!="" && $('#CcProfile_latitude').val()!=""){
+                mapOptions['center'] = new google.maps.LatLng($('#CcProfile_latitude').val(), $('#CcProfile_longitude').val());
+                mapOptions['zoom'] = 11;
+            } else {
+                mapOptions['center'] = new google.maps.LatLng(0, 0);
+                mapOptions['zoom'] = 1;
+            }
+        }
         map = new google.maps.Map(document.getElementById('map_canvas'),
                 mapOptions);
         marker = new google.maps.Marker({
@@ -210,71 +220,105 @@ if(isset($profileCC->company_country_id)){
             title: '<?php echo Yii::t("view","Drag the marker to select the desired address"); ?>'
         });
         geocoder = new google.maps.Geocoder();
-        /*google.maps.event.addListener(map, 'center_changed', function() {
-            marker.setPosition(map.getCenter());
-        });*/
-        google.maps.event.addListener(marker, "dragend", function(event) {
-            $("#CcProfile_company_full_addres").after("<img class=aL src=/i/indicator.gif />");
-            $("#CcProfile_longitude").val(event.latLng.lng());
-            $("#CcProfile_latitude").val(event.latLng.lat());
-            var addressForDb = {};
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
             map.panTo(marker.getPosition());
-            $.ajax({
-                url:'http://maps.googleapis.com/maps/api/geocode/json',
-                data: {latlng:event.latLng.lat()+','+event.latLng.lng(),sensor:false},
-                success:function(answer){
-                    if(answer.status === "OK"){
-                        $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
-                        $.each(answer.results[0].address_components,function(){
-                            switch(this.types[0]){
-                                case 'street_number':
-                                    break;
-                                case 'route':
-                                    addressForDb['street']=this.long_name;
-                                    break;
-                                case 'locality':
-                                case 'administrative_area_level_2':
-                                    addressForDb['city']=this.long_name;
-                                    break;
-                                case 'administrative_area_level_1':
-                                    break;
-                                case 'country':
-                                    addressForDb['country']=this.long_name;
-                                    break;
-                                case 'postal_code':
-                                    $("#CcProfile_company_postal_code").val(this.long_name);
-                                    break;
-                            }
-                        });
-                        //Поиск страны/города
-                        $.ajax({
-                            url:'/ajax/findgeoobject',
-                            data: {type:'country',value:addressForDb.country},
-                            success:function(answer){
-                                if(answer.success){
-                                    $("#CcProfile_company_country_id").val(answer.data).change();
-                                } else {
-                                    alert(answer.data)
-                                }
-                            },
-                            type:'POST',
-                            dataType:'json',
-                            async:true
-                        });
-                    }
-                },
-                type:'GET',
-                dataType:'json',
-                async:true
-            });
-            $(".aL").remove();
+            moveMarker({lat:event.latLng.lat(),lng:event.latLng.lng()});
+        });
+        google.maps.event.addListener(marker, "dragend", function(event) {
+            moveMarker({lat:event.latLng.lat(),lng:event.latLng.lng()});
         });
         $("#map_canvas").show();
-        $("#CcProfile_longitude").val(param.longitude);
-        $("#CcProfile_latitude").val(param.latitude);
+        if(typeof param != "undefined"){
+            $("#CcProfile_longitude").val(param.longitude);
+            $("#CcProfile_latitude").val(param.latitude);
+        }
     }
 
-    initialize({longitude:90,latitude:90});
+    function moveMarker(latLng){
+        $("#CcProfile_company_full_addres").after("<img class=aL src=/i/indicator.gif />");
+        $("#CcProfile_longitude").val(latLng.lng);
+        $("#CcProfile_latitude").val(latLng.lat);
+        var addressForDb = {};
+        map.panTo(marker.getPosition());
+        $.ajax({
+            url:'http://maps.googleapis.com/maps/api/geocode/json',
+            data: {latlng:latLng.lat+','+latLng.lng,sensor:false},
+            success:function(answer){
+                if(answer.status === "OK"){
+                    $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
+                    $(".aL").remove();
+                    $("#CcProfile_company_country_id").after("<img class=aL src=/i/indicator.gif />");
+                    $.each(answer.results[0].address_components,function(){
+                        switch(this.types[0]){
+                            case 'street_number':
+                                break;
+                            case 'route':
+                                addressForDb['street']=this.long_name;
+                                break;
+                            case 'locality':
+                            case 'administrative_area_level_2':
+                                addressForDb['city']=this.long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                break;
+                            case 'country':
+                                addressForDb['country']=this.long_name;
+                                break;
+                            case 'postal_code':
+                                $("#CcProfile_company_postal_code").val(this.long_name);
+                                break;
+                        }
+                    });
+                    var city='';
+                    if(typeof addressForDb.street != "undefined"){
+                        city = addressForDb.street.replace(/(.+)?\((.+)?\)/,'$2');
+                        if(city===addressForDb.street){
+                            city='';
+                        }
+                    }
+                    if(city===''){
+                        city = addressForDb.city.replace(/город\s/,'');
+                    }
+                    // Поиск города
+                    $.ajax({
+                        url:'/ajax/findgeoobject',
+                        data: {type:'city',value:city},
+                        success:function(answer){
+                            if(answer.success){
+                                city_id = answer.data;
+                            } else {
+                                alert(answer.data)
+                            }
+                            //Поиск страны
+                            $.ajax({
+                                url:'/ajax/findgeoobject',
+                                data: {type:'country',value:addressForDb.country},
+                                success:function(answer){
+                                    if(answer.success){
+                                        country_id = answer.data;
+                                        $("#CcProfile_company_country_id").val(answer.data).change();
+                                        $(".aL").remove();
+                                    } else {
+                                        alert(answer.data)
+                                    }
+                                },
+                                type:'POST',
+                                dataType:'json',
+                                async:true
+                            });
+                        },
+                        type:'POST',
+                        dataType:'json',
+                        async:true
+                    });
+                }
+            },
+            type:'GET',
+            dataType:'json',
+            async:true
+        });
+    }
 
     $(function(){
         $("#CcProfile_company_full_addres").change(function(event){
@@ -290,6 +334,10 @@ if(isset($profileCC->company_country_id)){
                 }
             });
         });
+        $('a[href=#tab2]').click(function(e){
+            initialize();
+        });
+        initialize();
     });
 </script>
 
