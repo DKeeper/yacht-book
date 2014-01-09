@@ -66,5 +66,6 @@
 
 </div><!-- page -->
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/tooltip.js"></script>
 </body>
 </html>

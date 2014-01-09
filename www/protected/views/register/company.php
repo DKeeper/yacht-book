@@ -69,7 +69,7 @@ $this->breadcrumbs=array(
         array_push($models,$model);
     }
 
-    echo $form->errorSummary($models);
+    echo $err = $form->errorSummary($models);
 ?>
 <?php
     $this->widget('zii.widgets.jui.CJuiTabs',array(
@@ -129,7 +129,8 @@ $this->breadcrumbs=array(
         ),
         // additional javascript options for the tabs plugin
         'options'=>array(
-            'collapsible'=>true,
+            //'collapsible'=>true,
+            'disabled'=> empty($err)?array(1,2,3,4):array(),
         ),
         'htmlOptions'=>array(
             'id'=>'company_tabs',
@@ -138,4 +139,48 @@ $this->breadcrumbs=array(
     ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<script>
+    $(function(){
+        $('button[data-type="next"]').tooltip();
+        $('button[data-type="back"]').on("click",function(event){
+            var currTabNum = +$('#company_tabs').tabs("option","active");
+            $('#company_tabs').tabs("option","active",currTabNum-1);
+        });
+        $('button[data-type="next"]').on("click",function(event){
+            var o = $('#company_tabs li.ui-state-disabled a');
+            var disabledDiv = [];
+            var Field = [];
+            $.each(o,function(){
+                disabledDiv.push($(this).attr("title"));
+            });
+            $.each($('#company_tabs div[role="tabpanel"]'),function(){
+                if(disabledDiv.indexOf($(this).attr("id"))==-1){
+                    var f = $(this).find("input").serializeArray();
+                    Field = Field.concat(f);
+                }
+            });
+            var currTabNum = +$('#company_tabs').tabs("option","active");
+            var data = {ajax:'registration-form'};
+            $.each(Field,function(){
+                data[this.name]=this.value;
+            });
+            $.ajax({
+                url:'/register/company',
+                data: data,
+                success:function(answer){
+                    if(emptyObject(answer)){
+                        $('#company_tabs').tabs("enable",currTabNum+1);
+                        $('#company_tabs').tabs("option","active",currTabNum+1);
+                    } else {
+                        alert("Необходимо заполнить все поля или устранить ошибки ввода");
+                    }
+                },
+                type:'POST',
+                dataType:'json',
+                async:true
+            });
+            return false;
+        });
+    });
+</script>
 <?php endif; ?>

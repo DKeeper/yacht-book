@@ -7,28 +7,44 @@
  */
 /* @var $this ProfileController */
 /* @var $model CcProfile */
-$this->widget('CTabView', array(
+$this->widget('zii.widgets.jui.CJuiTabs',array(
     'tabs'=>array(
-        'company_info_1'=>array(
-            'title'=>UserModule::t("General info"),
-            'view'=>'_cc_company_info_step_1',
-            'data'=>array('model'=>$model),
+        UserModule::t("General info")=>array(
+            'content'=>$this->renderPartial(
+                '_cc_company_info_step_1',
+                array('model'=>$model),
+                true
+            ),
+            'id'=>'tab_1'
         ),
-        'company_info_2'=>array(
-            'title'=>UserModule::t("Bank"),
-            'view'=>'_cc_company_info_step_2',
-            'data'=>array('model'=>$model),
+        UserModule::t("Bank")=>array(
+            'content'=>$this->renderPartial(
+                '_cc_company_info_step_2',
+                array('model'=>$model),
+                true
+            ),
+            'id'=>'tab_2'
         ),
-        'company_info_3'=>array(
-            'title'=>UserModule::t("Policy"),
-            'view'=>'_cc_company_info_step_3',
-            'data'=>array('model'=>$model),
+        UserModule::t("Policy")=>array(
+            'content'=>$this->renderPartial(
+                '_cc_company_info_step_3',
+                array('model'=>$model),
+                true
+            ),
+            'id'=>'tab_3'
         ),
-        'company_info_4'=>array(
-            'title'=>UserModule::t("Prices"),
-            'view'=>'_cc_company_info_step_4',
-            'data'=>array('model'=>$model),
+        UserModule::t("Prices")=>array(
+            'content'=>$this->renderPartial(
+                '_cc_company_info_step_4',
+                array('model'=>$model),
+                true
+            ),
+            'id'=>'tab_4'
         ),
+    ),
+    // additional javascript options for the tabs plugin
+    'options'=>array(
+        //'collapsible'=>true,
     ),
     'htmlOptions'=>array(
         'id'=>'company_tabs',

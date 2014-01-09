@@ -40,7 +40,7 @@ if($role=='CC' && $owner){
                 'label'=> Yii::t('view','Create manager'),
             ),
             'htmlOptions' => array(
-                'class' => 'add_m',
+                'class' => 'add_m btn btn-default',
             ),
         )
     );

@@ -62,7 +62,7 @@ if(empty($this->breadcrumbs)){
         ),
         // additional javascript options for the tabs plugin
         'options'=>array(
-            'collapsible'=>true,
+            //'collapsible'=>true,
         ),
         'htmlOptions'=>array(
             'id'=>'manager_tabs',

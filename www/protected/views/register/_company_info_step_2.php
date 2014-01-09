@@ -127,3 +127,8 @@
         ?>
         <?php echo $form->error($profileCC,'others'); ?>
     </div>
+
+    <div class="row">
+        <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
+        <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" type="button" data-type="next" class="btn btn-default"><?php echo Yii::t("view","Forward"); ?></button></div>
+    </div>

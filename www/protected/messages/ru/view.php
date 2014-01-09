@@ -47,6 +47,9 @@ return array(
     'Cancel period - [%][before][type]' => 'Период отмены - [%][до][тип]',
     'Long period - [%][value][type]' => 'Скидки за длительность - [%][значение][тип]',
     'Early period - [%][before][type]' => 'Скидки за раннее бронирование - [%][до][тип]',
+    'Forward' => 'Далее',
+    'Backward' => 'Назад',
+    'To go fill in all fields' => 'Для перехода заполните все поля',
 
     "bedsheets" => "постельное белье",
     "towels" => "полотенца",

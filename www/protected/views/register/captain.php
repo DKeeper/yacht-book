@@ -57,7 +57,7 @@ $this->breadcrumbs=array(
         ),
         // additional javascript options for the tabs plugin
         'options'=>array(
-            'collapsible'=>true,
+            //'collapsible'=>true,
         ),
         'htmlOptions'=>array(
             'id'=>'captain_tabs',

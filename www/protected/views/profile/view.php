@@ -111,7 +111,7 @@ if(isset($no_load)){
                 ),
                 // additional javascript options for the tabs plugin
                 'options'=>array(
-                    'collapsible'=>true,
+                    //'collapsible'=>true,
                 ),
                 'htmlOptions'=>array(
                     'id'=>'company_profile_tabs',
@@ -140,7 +140,7 @@ if(isset($no_load)){
                 ),
                 // additional javascript options for the tabs plugin
                 'options'=>array(
-                    'collapsible'=>true,
+                    //'collapsible'=>true,
                 ),
                 'htmlOptions'=>array(
                     'id'=>'manager_profile_tabs',
