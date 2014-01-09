@@ -17,7 +17,6 @@
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
 Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerCoreScript("jquery.ui");
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),
@@ -73,7 +72,8 @@ $this->breadcrumbs=array(
     echo $form->errorSummary($models);
     $err = false;
     foreach($models as $m){
-        if(!empty($m->getErrors())){
+        $e = $m->getErrors();
+        if(!empty($e)){
             $err = true;
             break;
         }
@@ -157,9 +157,6 @@ $this->breadcrumbs=array(
         $('button[data-type="back"]').on("click",function(event){
             var currTabNum = +$('#company_tabs').tabs("option","active");
             $('#company_tabs').tabs("option","active",currTabNum-1);
-            if(currTabNum-1==1){
-                initialize();
-            }
         });
         $('button[data-type="next"]').on("click",function(event){
             var o = $('#company_tabs li.ui-state-disabled a');
@@ -186,9 +183,6 @@ $this->breadcrumbs=array(
                     if(emptyObject(answer)){
                         $('#company_tabs').tabs("enable",currTabNum+1);
                         $('#company_tabs').tabs("option","active",currTabNum+1);
-                        if(currTabNum+1==1){
-                            initialize();
-                        }
                     } else {
                         alert("Необходимо заполнить все поля или устранить ошибки ввода");
                     }
