@@ -108,6 +108,18 @@ if(isset($profileCC->company_country_id)){
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($profileCC,'company_full_addres'); ?>
+        <?php echo $form->textField($profileCC,'company_full_addres',array('style'=>'width:500px;')); ?>
+        <?php echo $form->error($profileCC,'company_full_addres'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($profileCC,'company_postal_code'); ?>
+        <?php echo $form->textField($profileCC,'company_postal_code'); ?>
+        <?php echo $form->error($profileCC,'company_postal_code'); ?>
+    </div>
+
+    <div class="row">
         <div id="map_canvas" style="width:500px; height:300px; display: none;"></div>
     </div>
 
@@ -121,18 +133,6 @@ if(isset($profileCC->company_country_id)){
         <?php echo $form->labelEx($profileCC,'latitude'); ?>
         <?php echo $form->textField($profileCC,'latitude'); ?>
         <?php echo $form->error($profileCC,'latitude'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'company_postal_code'); ?>
-        <?php echo $form->textField($profileCC,'company_postal_code'); ?>
-        <?php echo $form->error($profileCC,'company_postal_code'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'company_full_addres'); ?>
-        <?php echo $form->textField($profileCC,'company_full_addres'); ?>
-        <?php echo $form->error($profileCC,'company_full_addres'); ?>
     </div>
 
     <div class="row">
@@ -186,6 +186,7 @@ if(isset($profileCC->company_country_id)){
 <script type="text/javascript">
     var map;
     var marker;
+    var geocoder;
     function initialize(param) {
         var mapOptions = {
             zoom: 11,
@@ -205,15 +206,54 @@ if(isset($profileCC->company_country_id)){
         marker = new google.maps.Marker({
             position: map.getCenter(),
             map: map,
-            draggable: true
+            draggable: true,
+            title: '<?php echo Yii::t("view","Drag the marker to select the desired address"); ?>'
         });
-        google.maps.event.addListener(map, 'center_changed', function() {
+        geocoder = new google.maps.Geocoder();
+        /*google.maps.event.addListener(map, 'center_changed', function() {
             marker.setPosition(map.getCenter());
-        });
+        });*/
         google.maps.event.addListener(marker, "dragend", function(event) {
+            $("#CcProfile_company_full_addres").after("<img class=aL src=/i/indicator.gif />");
             $("#CcProfile_longitude").val(event.latLng.lng());
             $("#CcProfile_latitude").val(event.latLng.lat());
+            var addressForDb = {};
             map.panTo(marker.getPosition());
+            $.ajax({
+                url:'http://maps.googleapis.com/maps/api/geocode/json',
+                data: {latlng:event.latLng.lat()+','+event.latLng.lng(),sensor:false},
+                success:function(answer){
+                    if(answer.status === "OK"){
+                        $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
+                        $.each(answer.results[0].address_components,function(){
+                            switch(this.types[0]){
+                                case 'street_number':
+                                    break;
+                                case 'route':
+                                    addressForDb['street']=this.long_name;
+                                    break;
+                                case 'locality':
+                                case 'administrative_area_level_2':
+                                    addressForDb['city']=this.long_name;
+                                    break;
+                                case 'administrative_area_level_1':
+                                    break;
+                                case 'country':
+                                    addressForDb['country']=this.long_name;
+                                    break;
+                                case 'postal_code':
+                                    $("#CcProfile_company_postal_code").val(this.long_name);
+                                    break;
+                            }
+                        });
+                        var t = 0;
+                    }
+                },
+                type:'GET',
+                dataType:'json',
+                async:true
+            });
+            $(".aL").remove();
         });
         $("#map_canvas").show();
         $("#CcProfile_longitude").val(param.longitude);
@@ -221,5 +261,21 @@ if(isset($profileCC->company_country_id)){
     }
 
     initialize({longitude:90,latitude:90});
+
+    $(function(){
+        $("#CcProfile_company_full_addres").change(function(event){
+            var a = $(this).val();
+            geocoder.geocode( { 'address':a}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    marker.setPosition(results[0].geometry.location);
+                    map.panTo(marker.getPosition());
+                    $("#CcProfile_longitude").val(results[0].geometry.location.mb);
+                    $("#CcProfile_latitude").val(results[0].geometry.location.nb);
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        });
+    });
 </script>
 

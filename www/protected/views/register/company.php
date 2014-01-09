@@ -44,6 +44,7 @@ $this->breadcrumbs=array(
 ?>
 <?php
 
+    /** @var $models CActiveRecord[] */
     $models = array(
         $modelUser,
         $profileUser,
@@ -69,7 +70,21 @@ $this->breadcrumbs=array(
         array_push($models,$model);
     }
 
-    echo $err = $form->errorSummary($models);
+    echo $form->errorSummary($models);
+    $err = false;
+    foreach($models as $m){
+        if(!empty($m->getErrors())){
+            $err = true;
+            break;
+        }
+    }
+    $options = array();
+    if(!$err){
+        $options = array(
+            //'collapsible'=>true,
+            'disabled'=> array(1,2,3,4),
+        );
+    }
 ?>
 <?php
     $this->widget('zii.widgets.jui.CJuiTabs',array(
@@ -128,10 +143,7 @@ $this->breadcrumbs=array(
             ),
         ),
         // additional javascript options for the tabs plugin
-        'options'=>array(
-            //'collapsible'=>true,
-            'disabled'=> empty($err)?array(1,2,3,4):array(),
-        ),
+        'options'=>$options,
         'htmlOptions'=>array(
             'id'=>'company_tabs',
         ),

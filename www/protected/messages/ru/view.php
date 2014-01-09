@@ -50,6 +50,7 @@ return array(
     'Forward' => 'Далее',
     'Backward' => 'Назад',
     'To go fill in all fields' => 'Для перехода заполните все поля',
+    'Drag the marker to select the desired address' => 'Перетащите маркер для выбора нужного адреса',
 
     "bedsheets" => "постельное белье",
     "towels" => "полотенца",

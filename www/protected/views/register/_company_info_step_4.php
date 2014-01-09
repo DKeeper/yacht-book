@@ -64,7 +64,7 @@ $this->widget('fancyapps.EFancyApps', array(
 ?>
 <div class="row submit">
     <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
-    <div class="pull-right"><input title="<?php echo Yii::t("view","To go fill in all fields"); ?>" type="submit" data-type="next" class="btn btn-default" value="<?php echo UserModule::t("Register"); ?>"></div>
+    <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button></div>
 </div>
 <div style="display:none;" id="c"></div>
 <script>
