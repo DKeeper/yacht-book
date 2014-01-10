@@ -105,8 +105,7 @@ function initialize(param) {
     marker = new google.maps.Marker({
         position: map.getCenter(),
         map: map,
-        draggable: true,
-        title: '<?php echo Yii::t("view","Drag the marker to select the desired address"); ?>'
+        draggable: true
     });
     geocoder = new google.maps.Geocoder();
     google.maps.event.addListener(map, 'click', function(event) {

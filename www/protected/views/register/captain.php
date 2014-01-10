@@ -75,13 +75,13 @@ $this->breadcrumbs=array(
             $('#captain_tabs').tabs("option","active",currTabNum-1);
         });
         $('button[data-type="next"]').on("click",function(event){
-            var o = $('#company_tabs li.ui-state-disabled a');
+            var o = $('#captain_tabs li.ui-state-disabled a');
             var disabledDiv = [];
             var Field = [];
             $.each(o,function(){
                 disabledDiv.push($(this).attr("title"));
             });
-            $.each($('#company_tabs div[role="tabpanel"]'),function(){
+            $.each($('#captain_tabs div[role="tabpanel"]'),function(){
                 if(disabledDiv.indexOf($(this).attr("id"))==-1){
                     var f = $(this).find("input").serializeArray();
                     Field = Field.concat(f);
