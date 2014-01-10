@@ -23,6 +23,8 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+    <?php Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 

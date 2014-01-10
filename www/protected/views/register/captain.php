@@ -68,6 +68,46 @@ $this->breadcrumbs=array(
 </div><!-- form -->
 <script>
     $(function(){
+        $('button[data-type="next"]').tooltip();
+        $('button[data-type="back"]').on("click",function(event){
+            var currTabNum = +$('#captain_tabs').tabs("option","active");
+            $('#captain_tabs').tabs("option","active",currTabNum-1);
+        });
+        $('button[data-type="next"]').on("click",function(event){
+            var o = $('#company_tabs li.ui-state-disabled a');
+            var disabledDiv = [];
+            var Field = [];
+            $.each(o,function(){
+                disabledDiv.push($(this).attr("title"));
+            });
+            $.each($('#company_tabs div[role="tabpanel"]'),function(){
+                if(disabledDiv.indexOf($(this).attr("id"))==-1){
+                    var f = $(this).find("input").serializeArray();
+                    Field = Field.concat(f);
+                }
+            });
+            var currTabNum = +$('#captain_tabs').tabs("option","active");
+            var data = {ajax:'registration-form'};
+            $.each(Field,function(){
+                data[this.name]=this.value;
+            });
+            $.ajax({
+                url:'/register/captain',
+                data: data,
+                success:function(answer){
+                    if(emptyObject(answer)){
+                        $('#captain_tabs').tabs("enable",currTabNum+1);
+                        $('#captain_tabs').tabs("option","active",currTabNum+1);
+                    } else {
+                        alert("Необходимо заполнить все поля или устранить ошибки ввода");
+                    }
+                },
+                type:'POST',
+                dataType:'json',
+                async:true
+            });
+            return false;
+        });
         $("#Profile_firstname").on("change",function(){
             $("#CProfile_name_eng").val($(this).val());
             $("#CProfile_name_rus").val($(this).val());

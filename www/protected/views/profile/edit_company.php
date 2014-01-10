@@ -16,7 +16,6 @@
 /* @var $earlyPeriods CcEarlyPeriod[] */
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
-Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 ?>
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
