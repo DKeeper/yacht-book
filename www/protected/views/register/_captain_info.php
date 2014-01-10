@@ -177,5 +177,6 @@ $nationalityList = Nationality::model()->getModelList();
         <?php echo $form->error($profileC,'extra'); ?>
     </div>
     <div class="row submit">
-        <?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+        <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
+        <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button></div>
     </div>

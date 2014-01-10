@@ -34,7 +34,30 @@ $this->breadcrumbs=array(
         'htmlOptions' => array('enctype'=>'multipart/form-data'),
     ));
 ?>
-<?php echo $form->errorSummary(array($modelUser,$profileUser,$profileC)); ?>
+<?php
+    /** @var $models CActiveRecord[] */
+    $models = array(
+        $modelUser,
+        $profileUser,
+        $profileC,
+    );
+    echo $form->errorSummary($models);
+    $err = false;
+    foreach($models as $m){
+        $e = $m->getErrors();
+        if(!empty($e)){
+            $err = true;
+            break;
+        }
+    }
+    $options = array();
+    if(!$err){
+        $options = array(
+            //'collapsible'=>true,
+            'disabled'=> array(1),
+        );
+    }
+?>
 <?php
     $this->widget('zii.widgets.jui.CJuiTabs',array(
         'tabs'=>array(
@@ -56,9 +79,7 @@ $this->breadcrumbs=array(
             ),
         ),
         // additional javascript options for the tabs plugin
-        'options'=>array(
-            //'collapsible'=>true,
-        ),
+        'options'=>$options,
         'htmlOptions'=>array(
             'id'=>'captain_tabs',
         ),
