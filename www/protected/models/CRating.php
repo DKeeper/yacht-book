@@ -63,8 +63,8 @@ class CRating extends BaseModel
 	{
 		return array(
             'id' => Yii::t('model','ID'),
-            'c_id' => Yii::t('model','C'),
-            'cc_id' => Yii::t('model','CC'),
+            'c_id' => Yii::t('model','Captain'),
+            'cc_id' => Yii::t('model','Charter Company'),
             'order_id' => Yii::t('model','Order'),
             'rating' => Yii::t('model','Rating'),
             'comment' => Yii::t('model','Comment'),

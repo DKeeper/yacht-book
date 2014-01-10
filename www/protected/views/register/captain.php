@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 ?>
 
 <h1><?php echo UserModule::t("Registration captain"); ?></h1>
-
+<h3 style="color:red;"><?php echo Yii::t("view","You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available.")?></h3>
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="success">
     <?php echo Yii::app()->user->getFlash('registration'); ?>
@@ -69,6 +69,7 @@ $this->breadcrumbs=array(
 <script>
     $(function(){
         $('button[data-type="next"]').tooltip();
+        $('button[data-type="submit"]').tooltip();
         $('button[data-type="back"]').on("click",function(event){
             var currTabNum = +$('#captain_tabs').tabs("option","active");
             $('#captain_tabs').tabs("option","active",currTabNum-1);

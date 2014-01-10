@@ -62,4 +62,6 @@ return array(
     "outboard engine" => "подвесной мотор",
     "safity net" => "защитная сетка",
     "gas" => "газ",
+
+    "You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available."=>"Вы можете заполнить прочие данные профиля после регистрации, в личном кабинете.<br/>Напоминаем, что без полностью заполненного профиля часть функционала сайта будет не доступна.",
 );
