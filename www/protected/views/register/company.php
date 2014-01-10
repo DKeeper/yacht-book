@@ -183,7 +183,7 @@ $this->breadcrumbs=array(
                         $('#company_tabs').tabs("enable",currTabNum+1);
                         $('#company_tabs').tabs("option","active",currTabNum+1);
                     } else {
-                        alert("Необходимо заполнить все поля или устранить ошибки ввода");
+                        alert("<?php echo Yii::t("view","All fields are required or eliminate input errors"); ?>");
                     }
                 },
                 type:'POST',

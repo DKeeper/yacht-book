@@ -10,15 +10,13 @@
 /* @var $profileUser Profile */
 /* @var $form UActiveForm */
 ?>
-    <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
-
-    <div class="row">
+    <div class="row error">
         <?php echo $form->labelEx($modelUser,'username'); ?>
         <?php echo $form->textField($modelUser,'username'); ?>
         <?php echo $form->error($modelUser,'username'); ?>
     </div>
 
-    <div class="row">
+    <div class="row error">
         <?php echo $form->labelEx($modelUser,'password'); ?>
         <?php echo $form->passwordField($modelUser,'password'); ?>
         <?php echo $form->error($modelUser,'password'); ?>
@@ -27,13 +25,13 @@
         </p>
     </div>
 
-    <div class="row">
+    <div class="row error">
         <?php echo $form->labelEx($modelUser,'verifyPassword'); ?>
         <?php echo $form->passwordField($modelUser,'verifyPassword'); ?>
         <?php echo $form->error($modelUser,'verifyPassword'); ?>
     </div>
 
-    <div class="row">
+    <div class="row error">
         <?php echo $form->labelEx($modelUser,'email'); ?>
         <?php echo $form->textField($modelUser,'email'); ?>
         <?php echo $form->error($modelUser,'email'); ?>
@@ -44,7 +42,7 @@
     if ($profileFields) {
         foreach($profileFields as $field) {
             ?>
-        <div class="row">
+        <div class="row error">
             <?php echo $form->labelEx($profileUser,$field->varname); ?>
             <?php
             if ($widgetEdit = $field->widgetEdit($profileUser)) {
@@ -80,3 +78,8 @@
     <div class="pull-left">&nbsp;</div>
     <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" type="button" data-type="next" class="btn btn-default"><?php echo Yii::t("view","Forward"); ?></button></div>
 </div>
+<script>
+    $(function(){
+        $("span.required").remove();
+    });
+</script>
