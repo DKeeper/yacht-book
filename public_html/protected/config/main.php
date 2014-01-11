@@ -154,5 +154,9 @@ return array(
             preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])?
                 '6LcIsesSAAAAAKpfcPKAJmze4tD89dnftUlJ-Nw9':
                 '6LchmOwSAAAAALakv1GQRDbdDyBmKwIJXU7zqR7u',
+        'geoFieldName' => array(
+            'ru' => 1,
+            'en' => 2
+        ),
 	),
 );

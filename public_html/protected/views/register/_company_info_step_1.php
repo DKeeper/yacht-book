@@ -23,85 +23,87 @@ if(isset($profileCC->company_country_id)){
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_country_id'); ?>
-        <?php echo $form->dropDownList($profileCC,'company_country_id',$countryList,
-        array(
-            'prompt'=>Yii::t('view','Select country'),
-            'ajax' => array(
-                'type'=>'POST', //request type
-                'dataType'=>'json',
-                'url'=>$this->createUrl('ajax/autocomplete'), //url to call.
-                'data'=>'js:{
-                    term : "",
-                    modelClass : "Gorod",
-                    fName : ["nazvanie_1","nazvanie_2"],
-                    parent_id : $(this).val(),
-                    parent_link : "g.strana_id",
-                    parent_model : "strana",
-                    parent_include : false,
+        <?php echo $form->hiddenField($profileCC,'company_country_id'); ?>
+        <?php
+        $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+            'name'=>'company_country',
+            'source'=>"js:function(request, response) {
+                $.getJSON('".$this->createUrl('ajax/autocomplete')."', {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass : 'Strana',
+                    fName: geoFieldName,
                     create_include : false,
-                    sql : true,
+                    sql : false,
+                }, response);
+            }",
+            // additional javascript options for the autocomplete plugin
+            'options'=>array(
+                'minLength'=>'3',
+                'select' =>'js: function(event, ui) {
+                    // действие по умолчанию, значение текстового поля
+                    // устанавливается в значение выбранного пункта
+                    this.value = ui.item.label;
+                    // устанавливаем значения скрытого поля
+                    $("#CcProfile_company_country_id").val(ui.item.id);
+                    return false;
                 }',
-                'beforeSend'=>'js: function(xhr,settings){
-                    $("#CcProfile_company_city_id").after("<img class=aL src=/i/indicator.gif />");
-                }',
-                'success'=>'js: function(answer){
-                    var o = "";
-                    if(answer.length){
-                        $.each(answer,function(){
-                            o += "<option value="+this.id+">"+this.label+"</option>";
-                        });
-                    } else {
-                        o += "<option>'.Yii::t('view','No data').'</option>";
-                    }
-                    $("#CcProfile_company_city_id").empty().append(o);
-                    if(city_id!=-1){
-                        $("#CcProfile_company_city_id").val(city_id);
-                    }
+                'search' => 'js:function( event, ui ) {
                     $(".aL").remove();
-                    if(answer.length && city_id==-1 && country_id==-1){
-                        $.ajax({
-                            type: "POST",
-                            url: "'.$this->createUrl('ajax/getcityll').'",
-                            data: {id: $("#CcProfile_company_city_id").val()},
-                            dataType: "json",
-                            success: function(answer){
-                                if(!answer.success){
-                                    alert(answer.data);
-                                } else {
-                                    initialize(answer.data);
-                                }
-                            }
-                        });
-                    } else {
-                        city_id=-1;
-                        country_id=-1
-                    }
-                }', //selector to update
-            )));
+                    $("#company_country").after("<img class=aL src=/i/indicator.gif />");
+                }',
+                'response' => 'js:function( event, ui ) {
+                    $(".aL").remove();
+                }',
+            ),
+        ));
         ?>
         <?php echo $form->error($profileCC,'company_country_id'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_city_id'); ?>
-        <?php echo $form->dropDownList($profileCC,'company_city_id',$cityList,array(
-            'prompt'=>Yii::t('view','Select country'),
-            'ajax' => array(
-                'type'=>'POST',
-                'dataType'=>'json',
-                'url'=>$this->createUrl('ajax/getcityll'),
-                'data'=>'js:{
-                    id: $(this).val()
+        <?php echo $form->hiddenField($profileCC,'company_city_id'); ?>
+        <?php
+        $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+            'name'=>'company_city',
+            'source'=>"js:function(request, response) {
+                $.getJSON('".$this->createUrl('ajax/autocomplete')."', {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass : 'Gorod',
+                    fName: geoFieldName,
+                    parent_id : $('#CcProfile_company_country_id').val(),
+                    parent_link : 'strana_id',
+                    create_include : false,
+                    sql : false,
+                }, response);
+            }",
+            // additional javascript options for the autocomplete plugin
+            'options'=>array(
+                'minLength'=>'3',
+                'select' =>'js: function(event, ui) {
+                    // действие по умолчанию, значение текстового поля
+                    // устанавливается в значение выбранного пункта
+                    this.value = ui.item.label;
+                    // устанавливаем значения скрытого поля
+                    $("#CcProfile_company_city_id").val(ui.item.id);
+                    return false;
                 }',
-                'success'=>'js: function(answer){
-                    if(!answer.success){
-                        alert(answer.data);
-                    } else {
-                        initialize(answer.data);
+                'search' => 'js:function( event, ui ) {
+                    if(+$("#CcProfile_company_country_id").val()<1){
+                        return false;
                     }
+                    $(".aL").remove();
+                    $("#company_city").after("<img class=aL src=/i/indicator.gif />");
                 }',
-            )
-        )); ?>
+                'response' => 'js:function( event, ui ) {
+                    $(".aL").remove();
+                }',
+            ),
+            'htmlOptions' => array(
+                'placeholder' => Yii::t('view','Select country'),
+            ),
+        ));
+        ?>
         <?php echo $form->error($profileCC,'company_city_id'); ?>
     </div>
 
@@ -182,6 +184,10 @@ if(isset($profileCC->company_country_id)){
 <?php } ?>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.9&sensor=true"></script>
 <script type="text/javascript">
+    var geoFieldName = 'nazvanie_<?php
+        $geo = Yii::app()->params['geoFieldName'];
+        echo isset($geo[Yii::app()->language])?$geo[Yii::app()->language]:2;
+    ?>';
     $(function(){
         $("#CcProfile_company_full_addres").change(function(event){
             var a = $(this).val();

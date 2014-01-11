@@ -83,7 +83,10 @@ function initialize(param) {
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.SMALL
         },
-        mapTypeControl: false,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        },
         scaleControl: true,
         streetViewControl: false,
         overviewMapControl: false

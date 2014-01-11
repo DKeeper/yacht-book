@@ -69,25 +69,36 @@ class AjaxController extends Controller
                     array_push($f,"g.".$fieldName." as g_".$fieldName);
                     $o = "g_".$fieldName;
                 }
-                $f[] = 'r.nazvanie_1 as r_nazvanie_1';
-                $f[] = 'r.nazvanie_2 as r_nazvanie_2';
+                if($modelClass=="Gorod"){
+                    $f[] = 'r.nazvanie_1 as r_nazvanie_1';
+                    $f[] = 'r.nazvanie_2 as r_nazvanie_2';
+                }
                 $command->select($f)
                     ->from($model->tableName().' as g');
                 if($parentID && $parentProp){
                     $command->where($parentProp.'=:v',array(':v'=>$parentID));
                 }
-                $command->andWhere('g.region_id > 0')
-                    ->join(Region::model()->tableName().' as r','r.id = g.region_id');
+                if($modelClass=="Gorod"){
+                    $command->andWhere('g.region_id > 0')
+                        ->join(Region::model()->tableName().' as r','r.id = g.region_id');
+                }
                 $command->order($o);
                 $objects = $command->queryAll();
             } else {
                 $criteria = new CDbCriteria();
-                $criteria->addSearchCondition($fieldName,$term);
+                if(is_array($fieldName)){
+                    foreach($fieldName as $f){
+                        $criteria->addSearchCondition($f,$term,true,'OR');
+                    }
+                    $criteria->order = $fieldName[0];
+                } else {
+                    $criteria->addSearchCondition($fieldName,$term);
+                    $criteria->order = $fieldName;
+                }
                 if($parentID && $parentProp){
                     $criteria->addCondition($parentProp.'=:v');
                     $criteria->params += array(':v'=>$parentID);
                 }
-                $criteria->order = $fieldName;
                 $objects = $model->findAll($criteria);
             }
 
@@ -109,6 +120,9 @@ class AjaxController extends Controller
                         }
                         break;
                     }
+                    if(!isset($label)){
+                        $label = Yii::t("view",$obj[$fieldName[0]]);
+                    }
                 } else {
                     $label = Yii::t("view",$obj[$fieldName]);
                 }
@@ -125,6 +139,7 @@ class AjaxController extends Controller
                 } else {
                     $result[] = array('id'=>$id, 'label'=>$label, 'value'=>$label);
                 }
+                unset($label);
             }
 
             echo CJSON::encode($result);
