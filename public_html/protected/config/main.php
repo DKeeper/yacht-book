@@ -16,10 +16,10 @@ if(preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])){
     );
 } else {
     $db = array(
-        'connectionString' => 'mysql:host=localhost;dbname=vadim77_yacht_book',
+        'connectionString' => 'mysql:host=localhost;dbname=vadimbudni_0',
         'emulatePrepare' => true,
-        'username' => 'vadim77_yacht',
-        'password' => '1',
+        'username' => 'vadimbudni',
+        'password' => '0e0fhM41',
         'charset' => 'utf8',
     );
 }
