@@ -18,7 +18,7 @@ if(preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])){
     $db = array(
         'connectionString' => 'mysql:host=localhost;dbname=vadimbudni_0',
         'emulatePrepare' => true,
-        'username' => 'vadimbudni',
+        'username' => 'vadimbudni_0',
         'password' => '0e0fhM41',
         'charset' => 'utf8',
     );
