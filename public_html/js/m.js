@@ -153,11 +153,10 @@ function moveMarker(latLng){
                             break;
                         case 'locality':
                             addressForDb['city']=this.long_name;
+                            break;
                         case 'administrative_area_level_2':
-
                             break;
                         case 'administrative_area_level_1':
-
                             break;
                         case 'country':
                             addressForDb['country']=this.long_name;
@@ -199,7 +198,7 @@ function moveMarker(latLng){
                                 $("#company_country").val(answer.data.value);
                             } else {
                                 alert(answer.data);
-                                $("#company_country").val();
+                                $("#company_country").val("");
                                 country_id = undefined;
                             }
                             $("#CcProfile_company_country_id").val(country_id).change();
@@ -216,7 +215,7 @@ function moveMarker(latLng){
                                             $("#company_city").val(answer.data.value);
                                         } else {
                                             alert(answer.data);
-                                            $("#company_city").val();
+                                            $("#company_city").val("");
                                             city_id = undefined;
                                         }
                                         $("#CcProfile_company_city_id").val(city_id).change();
@@ -228,6 +227,9 @@ function moveMarker(latLng){
                                 });
                             } else {
                                 // Не найден город
+                                $("#company_city").val("");
+                                city_id = undefined;
+                                $("#CcProfile_company_city_id").val(city_id).change();
                             }
                         },
                         type:'POST',
@@ -236,7 +238,23 @@ function moveMarker(latLng){
                     });
                 } else {
                     //Не найдена страна
+                    $("#company_country").val("");
+                    country_id = undefined;
+                    $("#CcProfile_company_country_id").val(country_id);
+                    $("#company_city").val("");
+                    city_id = undefined;
+                    $("#CcProfile_company_city_id").val(city_id).change();
                 }
+            } else {
+                // Не найден адрес
+                $("#CcProfile_company_full_addres").val("");
+                $("#company_country").val("");
+                country_id = undefined;
+                $("#CcProfile_company_country_id").val(country_id);
+                $("#company_city").val("");
+                city_id = undefined;
+                $("#CcProfile_company_city_id").val(city_id).change();
+                $(".aL").remove();
             }
         },
         type:'GET',

@@ -81,7 +81,7 @@ $this->breadcrumbs=array(
     if(!$err){
         $options = array(
             //'collapsible'=>true,
-            'disabled'=> array(/*1,*/2,3,4),
+            'disabled'=> array(1,2,3,4),
         );
     }
 ?>
