@@ -144,7 +144,6 @@ function moveMarker(latLng){
             if(answer.status === "OK"){
                 $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
                 $(".aL").remove();
-                $("#company_country").after("<img class=aL src=/i/indicator.gif />");
                 $.each(answer.results[0].address_components,function(){
                     switch(this.types[0]){
                         case 'street_number':
@@ -153,10 +152,12 @@ function moveMarker(latLng){
                             addressForDb['street']=this.long_name;
                             break;
                         case 'locality':
-                        case 'administrative_area_level_2':
                             addressForDb['city']=this.long_name;
+                        case 'administrative_area_level_2':
+
                             break;
                         case 'administrative_area_level_1':
+
                             break;
                         case 'country':
                             addressForDb['country']=this.long_name;
@@ -173,52 +174,69 @@ function moveMarker(latLng){
                         city='';
                     }
                 }
-                if(city===''){
-                    switch(appLng){
-                        case 'en':
-                            city = addressForDb.city.replace(/\scity/,'');
-                            city = addressForDb.city.replace(/gorod\s/,'');
-                            break;
-                        case 'ru':
-                            city = addressForDb.city.replace(/город\s/,'');
-                            break;
+                if(typeof addressForDb.city != "undefined"){
+                    if(city===''){
+                        switch(appLng){
+                            case 'en':
+                                city = addressForDb.city.replace(/\scity/,'');
+                                city = addressForDb.city.replace(/gorod\s/,'');
+                                break;
+                            case 'ru':
+                                city = addressForDb.city.replace(/город\s/,'');
+                                break;
+                        }
                     }
                 }
-                // Поиск города
-                $.ajax({
-                    url:'/ajax/findgeoobject',
-                    data: {type:'city',value:city,field:geoFieldName},
-                    success:function(answer){
-                        if(answer.success){
-                            city_id = answer.data.id;
-                            $("#company_city").val(answer.data.value);
-                            $("#CcProfile_company_city_id").val(city_id).change();
-                        } else {
-                            alert(answer.data)
-                        }
-                        //Поиск страны
-                        $.ajax({
-                            url:'/ajax/findgeoobject',
-                            data: {type:'country',value:addressForDb.country,field:geoFieldName},
-                            success:function(answer){
-                                if(answer.success){
-                                    country_id = answer.data.id;
-                                    $("#company_country").val(answer.data.value);
-                                    $("#CcProfile_company_country_id").val(country_id).change();
-                                    $(".aL").remove();
-                                } else {
-                                    alert(answer.data)
-                                }
-                            },
-                            type:'POST',
-                            dataType:'json',
-                            async:true
-                        });
-                    },
-                    type:'POST',
-                    dataType:'json',
-                    async:true
-                });
+                if(typeof addressForDb.country != "undefined"){
+                    $("#company_country").after("<img class=aL src=/i/indicator.gif />");
+                    //Поиск страны
+                    $.ajax({
+                        url:'/ajax/findgeoobject',
+                        data: {type:'country',value:addressForDb.country,field:geoFieldName},
+                        success:function(answer){
+                            if(answer.success){
+                                country_id = answer.data.id;
+                                $("#company_country").val(answer.data.value);
+                            } else {
+                                alert(answer.data);
+                                $("#company_country").val();
+                                country_id = undefined;
+                            }
+                            $("#CcProfile_company_country_id").val(country_id).change();
+                            $(".aL").remove();
+                            if(typeof addressForDb.city != "undefined"){
+                                $("#company_city").after("<img class=aL src=/i/indicator.gif />");
+                                // Поиск города
+                                $.ajax({
+                                    url:'/ajax/findgeoobject',
+                                    data: {type:'city',value:city,field:geoFieldName,parent_link:'strana_id',parent_value:country_id},
+                                    success:function(answer){
+                                        if(answer.success){
+                                            city_id = answer.data.id;
+                                            $("#company_city").val(answer.data.value);
+                                        } else {
+                                            alert(answer.data);
+                                            $("#company_city").val();
+                                            city_id = undefined;
+                                        }
+                                        $("#CcProfile_company_city_id").val(city_id).change();
+                                        $(".aL").remove();
+                                    },
+                                    type:'POST',
+                                    dataType:'json',
+                                    async:true
+                                });
+                            } else {
+                                // Не найден город
+                            }
+                        },
+                        type:'POST',
+                        dataType:'json',
+                        async:true
+                    });
+                } else {
+                    //Не найдена страна
+                }
             }
         },
         type:'GET',

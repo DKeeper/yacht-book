@@ -223,8 +223,14 @@ class AjaxController extends Controller
             $t = Yii::app()->request->getPost("type");
             $v = Yii::app()->request->getPost("value");
             $f = Yii::app()->request->getPost("field");
+            $parent_link = Yii::app()->request->getPost("parent_link");
+            $parent_value = Yii::app()->request->getPost("parent_value");
             $criteria = new CDbCriteria();
             $criteria->compare($f,$v,true);
+            if(isset($parent_link) && isset($parent_value)){
+                $criteria->addCondition($parent_link.'=:v');
+                $criteria->params += array(':v'=>$parent_value);
+            }
             switch($t){
                 case 'country':
                     $model = Strana::model()->find($criteria);

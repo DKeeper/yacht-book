@@ -45,6 +45,8 @@ if(isset($profileCC->company_country_id)){
                     this.value = ui.item.label;
                     // устанавливаем значения скрытого поля
                     $("#CcProfile_company_country_id").val(ui.item.id);
+                    $("#CcProfile_company_city_id").val(undefined);
+                    $("#company_city").val();
                     return false;
                 }',
                 'search' => 'js:function( event, ui ) {
