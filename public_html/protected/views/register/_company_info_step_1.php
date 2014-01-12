@@ -47,6 +47,7 @@ if(isset($profileCC->company_country_id)){
                     $("#CcProfile_company_country_id").val(ui.item.id);
                     $("#CcProfile_company_city_id").val(undefined);
                     $("#company_city").val("");
+                    $("#CcProfile_company_full_addres").val("");
                     //Ищем страну
                     searchFromGeocoder(ui.item.label);
                     return false;
@@ -90,6 +91,7 @@ if(isset($profileCC->company_country_id)){
                     this.value = ui.item.label;
                     // устанавливаем значения скрытого поля
                     $("#CcProfile_company_city_id").val(ui.item.id);
+                    $("#CcProfile_company_full_addres").val("");
                     //Ищем город
                     searchFromGeocoder(ui.item.label);
                     return false;
