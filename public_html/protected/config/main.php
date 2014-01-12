@@ -31,7 +31,7 @@ return array(
 	'name'=>'Yacht-book',
     'language'=>'en',
 
-    'onBeginRequest' => array('Langinit', 'getLang'),
+//    'onBeginRequest' => array('Langinit', 'getLang'),
 
 	// preloading 'log' component
 	'preload'=>array('log'),
