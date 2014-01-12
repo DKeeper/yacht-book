@@ -128,6 +128,23 @@ function initialize(param) {
     }
 }
 
+function searchFromGeocoder(a,find){
+    find = find || false;
+    geocoder.geocode( {address:a}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            marker.setPosition(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.viewport);
+            $("#CcProfile_longitude").val(results[0].geometry.location.mb);
+            $("#CcProfile_latitude").val(results[0].geometry.location.nb);
+            if(find){
+                moveMarker({lat:results[0].geometry.location.nb,lng:results[0].geometry.location.mb});
+            }
+        } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
+    });
+}
+
 function moveMarker(latLng){
     $("#CcProfile_company_full_addres").after("<img class=aL src=/i/indicator.gif />");
     $("#CcProfile_longitude").val(latLng.lng);

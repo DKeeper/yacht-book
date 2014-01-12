@@ -46,7 +46,9 @@ if(isset($profileCC->company_country_id)){
                     // устанавливаем значения скрытого поля
                     $("#CcProfile_company_country_id").val(ui.item.id);
                     $("#CcProfile_company_city_id").val(undefined);
-                    $("#company_city").val();
+                    $("#company_city").val("");
+                    //Ищем страну
+                    searchFromGeocoder(ui.item.label);
                     return false;
                 }',
                 'search' => 'js:function( event, ui ) {
@@ -88,6 +90,8 @@ if(isset($profileCC->company_country_id)){
                     this.value = ui.item.label;
                     // устанавливаем значения скрытого поля
                     $("#CcProfile_company_city_id").val(ui.item.id);
+                    //Ищем город
+                    searchFromGeocoder(ui.item.label);
                     return false;
                 }',
                 'search' => 'js:function( event, ui ) {
@@ -193,17 +197,7 @@ if(isset($profileCC->company_country_id)){
     appLng = '<?php echo Yii::app()->language; ?>';
     $(function(){
         $("#CcProfile_company_full_addres").change(function(event){
-            var a = $(this).val();
-            geocoder.geocode( { 'address':a}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    marker.setPosition(results[0].geometry.location);
-                    map.panTo(marker.getPosition());
-                    $("#CcProfile_longitude").val(results[0].geometry.location.mb);
-                    $("#CcProfile_latitude").val(results[0].geometry.location.nb);
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
+            searchFromGeocoder($(this).val(),true);
         });
         $('#company_tabs').tabs({
             activate: function(event,ui) {
