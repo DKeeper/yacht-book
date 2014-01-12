@@ -12,6 +12,8 @@ var marker;
 var geocoder;
 var city_id=-1;
 var country_id=-1;
+var geoFieldName;
+var appLng;
 function createAddForm(o,type,currObj,success){
     $(o).empty();
     var model, pId, pLink;
@@ -132,14 +134,17 @@ function moveMarker(latLng){
     $("#CcProfile_latitude").val(latLng.lat);
     var addressForDb = {};
     map.panTo(marker.getPosition());
+    if(map.getZoom()<6){
+        map.setZoom(11);
+    }
     $.ajax({
         url:'http://maps.googleapis.com/maps/api/geocode/json',
-        data: {latlng:latLng.lat+','+latLng.lng,sensor:false},
+        data: {latlng:latLng.lat+','+latLng.lng,sensor:false,language:appLng},
         success:function(answer){
             if(answer.status === "OK"){
                 $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
                 $(".aL").remove();
-                $("#CcProfile_company_country_id").after("<img class=aL src=/i/indicator.gif />");
+                $("#company_country").after("<img class=aL src=/i/indicator.gif />");
                 $.each(answer.results[0].address_components,function(){
                     switch(this.types[0]){
                         case 'street_number':
@@ -169,26 +174,37 @@ function moveMarker(latLng){
                     }
                 }
                 if(city===''){
-                    city = addressForDb.city.replace(/город\s/,'');
+                    switch(appLng){
+                        case 'en':
+                            city = addressForDb.city.replace(/\scity/,'');
+                            city = addressForDb.city.replace(/gorod\s/,'');
+                            break;
+                        case 'ru':
+                            city = addressForDb.city.replace(/город\s/,'');
+                            break;
+                    }
                 }
                 // Поиск города
                 $.ajax({
                     url:'/ajax/findgeoobject',
-                    data: {type:'city',value:city},
+                    data: {type:'city',value:city,field:geoFieldName},
                     success:function(answer){
                         if(answer.success){
-                            city_id = answer.data;
+                            city_id = answer.data.id;
+                            $("#company_city").val(answer.data.value);
+                            $("#CcProfile_company_city_id").val(city_id).change();
                         } else {
                             alert(answer.data)
                         }
                         //Поиск страны
                         $.ajax({
                             url:'/ajax/findgeoobject',
-                            data: {type:'country',value:addressForDb.country},
+                            data: {type:'country',value:addressForDb.country,field:geoFieldName},
                             success:function(answer){
                                 if(answer.success){
-                                    country_id = answer.data;
-                                    $("#CcProfile_company_country_id").val(answer.data).change();
+                                    country_id = answer.data.id;
+                                    $("#company_country").val(answer.data.value);
+                                    $("#CcProfile_company_country_id").val(country_id).change();
                                     $(".aL").remove();
                                 } else {
                                     alert(answer.data)

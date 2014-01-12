@@ -222,10 +222,9 @@ class AjaxController extends Controller
         if(Yii::app()->request->isAjaxRequest){
             $t = Yii::app()->request->getPost("type");
             $v = Yii::app()->request->getPost("value");
+            $f = Yii::app()->request->getPost("field");
             $criteria = new CDbCriteria();
-            for($i = 1; $i<71; $i++){
-                $criteria->compare('nazvanie_'.$i,$v,true,'OR');
-            }
+            $criteria->compare($f,$v,true);
             switch($t){
                 case 'country':
                     $model = Strana::model()->find($criteria);
@@ -235,7 +234,7 @@ class AjaxController extends Controller
                     break;
             }
             if(isset($model)){
-                echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$model->id));
+                echo CJavaScript::jsonEncode(array('success'=>true,'data'=>array('id'=>$model->id,'value'=>$model->$f)));
             } else {
                 echo CJavaScript::jsonEncode(array('success'=>false,'data'=>Yii::t("view","No data for {ext}",array('{ext}'=>$v))));
             }
