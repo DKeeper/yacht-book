@@ -8,10 +8,19 @@
 /* @var $this RegisterController */
 /* @var $profileCC CCProfile */
 /* @var $form CActiveForm */
-$countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'nazvanie_1'));
-$cityList = array();
+$geoField = Yii::app()->params['paramName'];
+if(isset($geoField[Yii::app()->language])){
+    $geoField = 'nazvanie_'.$geoField[Yii::app()->language];
+} else {
+    $geoField = 'nazvanie_2';
+}
+$country = '';
 if(isset($profileCC->company_country_id)){
-    $cityList = Gorod::model()->getModelList('nazvanie_1',' - ',array('condition'=>'region_id > 0 and strana_id = :sid','order'=>'nazvanie_1','params'=>array(':sid'=>$profileCC->company_country_id)));
+    $country = Strana::model()->findByPk($profileCC->company_country_id)->$geoField;
+}
+$city = '';
+if(isset($profileCC->company_city_id)){
+    $city = Gorod::model()->findByPk($profileCC->company_city_id)->$geoField;
 }
 ?>
     <?php echo $form->hiddenField($profileCC,'cc_id'); ?>
@@ -27,6 +36,7 @@ if(isset($profileCC->company_country_id)){
         <?php
         $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
             'name'=>'company_country',
+            'value'=>$country,
             'source'=>"js:function(request, response) {
                 $.getJSON('".$this->createUrl('ajax/autocomplete')."', {
                     term: request.term.split(/,s*/).pop(),
@@ -71,6 +81,7 @@ if(isset($profileCC->company_country_id)){
         <?php
         $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
             'name'=>'company_city',
+            'value'=>$city,
             'source'=>"js:function(request, response) {
                 $.getJSON('".$this->createUrl('ajax/autocomplete')."', {
                     term: request.term.split(/,s*/).pop(),

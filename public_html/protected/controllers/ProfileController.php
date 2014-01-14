@@ -177,7 +177,32 @@ class ProfileController extends Controller
                             $profileUser->attributes=$_POST['Profile'];
                             $profileCC->attributes=((isset($_POST['CcProfile'])?$_POST['CcProfile']:array()));
 
-                            if($modelUser->validate()&&$profileUser->validate()&&$profileCC->validate()) {
+                            $validate = true;
+                            $validate = $validate && $modelUser->validate();
+                            $validate = $validate && $profileUser->validate();
+                            $validate = $validate && $profileCC->validate();
+                            $validate = $validate && $profileUser->validate();
+                            $validate = $validate && $profileCC->validate();
+                            foreach($paymentsPeriods as $i => $period){
+                                $validate = $validate && $paymentsPeriods[$i]->validate();
+                            }
+                            foreach($cancelPeriods as $i => $period){
+                                $validate = $validate && $cancelPeriods[$i]->validate();
+                            }
+                            foreach($longPeriods as $i => $period){
+                                $validate = $validate && $longPeriods[$i]->validate();
+                            }
+                            foreach($earlyPeriods as $i => $period){
+                                $validate = $validate && $earlyPeriods[$i]->validate();
+                            }
+                            foreach($transitLogs as $i => $log){
+                                $validate = $validate && $transitLogs[$i]->validate();
+                            }
+                            foreach($orderOptions as $i => $option){
+                                $validate = $validate && $orderOptions[$i]->validate();
+                            }
+
+                            if($validate) {
                                 $modelUser->save();
                                 $profileUser->save();
                                 $profileCC->save();
@@ -227,27 +252,6 @@ class ProfileController extends Controller
                                 Yii::app()->user->updateSession();
                                 Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
                                 $this->redirect(array('/profile'));
-                            } else {
-                                $profileUser->validate();
-                                $profileCC->validate();
-                                foreach($paymentsPeriods as $i => $period){
-                                    $paymentsPeriods[$i]->validate();
-                                }
-                                foreach($cancelPeriods as $i => $period){
-                                    $cancelPeriods[$i]->validate();
-                                }
-                                foreach($longPeriods as $i => $period){
-                                    $longPeriods[$i]->validate();
-                                }
-                                foreach($earlyPeriods as $i => $period){
-                                    $earlyPeriods[$i]->validate();
-                                }
-                                foreach($transitLogs as $i => $log){
-                                    $transitLogs[$i]->validate();
-                                }
-                                foreach($orderOptions as $i => $option){
-                                    $orderOptions[$i]->validate();
-                                }
                             }
                         }
                         $this->render('edit_company',

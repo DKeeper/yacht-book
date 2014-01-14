@@ -32,7 +32,10 @@ $a->onBeginRequest = function ($event) {
         $_SERVER['REQUEST_URI'] = preg_replace('/^\/\w{2}/','',$_SERVER['REQUEST_URI']);
         $_SERVER['REDIRECT_URL'] = $_SERVER['REQUEST_URI'];
     } else {
-        $lang = $app->request->cookies['lang']->value;
+        $lang = $app->request->cookies['lang'];
+        if(isset($lang)){
+            $lang = $lang->value;
+        }
     }
     if(isset($lang)){
         if(array_search($lang,$enabledLang)>=0){

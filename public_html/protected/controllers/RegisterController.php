@@ -234,8 +234,32 @@ class RegisterController extends Controller
                 $profileUser->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
                 $profileCC->attributes=((isset($_POST['CcProfile'])?$_POST['CcProfile']:array()));
 
-                if($modelUser->validate()&&$profileUser->validate()&&$profileCC->validate())
-                {
+                $validate = true;
+                $validate = $validate && $modelUser->validate();
+                $validate = $validate && $profileUser->validate();
+                $validate = $validate && $profileCC->validate();
+                $validate = $validate && $profileUser->validate();
+                $validate = $validate && $profileCC->validate();
+                foreach($paymentsPeriods as $i => $period){
+                    $validate = $validate && $paymentsPeriods[$i]->validate();
+                }
+                foreach($cancelPeriods as $i => $period){
+                    $validate = $validate && $cancelPeriods[$i]->validate();
+                }
+                foreach($longPeriods as $i => $period){
+                    $validate = $validate && $longPeriods[$i]->validate();
+                }
+                foreach($earlyPeriods as $i => $period){
+                    $validate = $validate && $earlyPeriods[$i]->validate();
+                }
+                foreach($transitLogs as $i => $log){
+                    $validate = $validate && $transitLogs[$i]->validate();
+                }
+                foreach($orderOptions as $i => $option){
+                    $validate = $validate && $orderOptions[$i]->validate();
+                }
+
+                if($validate) {
                     $modelUser->setScenario(null);
                     $soucePassword = $modelUser->password;
                     $modelUser->activkey=UserModule::encrypting(microtime().$modelUser->password);
@@ -315,27 +339,6 @@ class RegisterController extends Controller
                             }
                             $this->refresh();
                         }
-                    }
-                } else {
-                    $profileUser->validate();
-                    $profileCC->validate();
-                    foreach($paymentsPeriods as $i => $period){
-                        $paymentsPeriods[$i]->validate();
-                    }
-                    foreach($cancelPeriods as $i => $period){
-                        $cancelPeriods[$i]->validate();
-                    }
-                    foreach($longPeriods as $i => $period){
-                        $longPeriods[$i]->validate();
-                    }
-                    foreach($earlyPeriods as $i => $period){
-                        $earlyPeriods[$i]->validate();
-                    }
-                    foreach($transitLogs as $i => $log){
-                        $transitLogs[$i]->validate();
-                    }
-                    foreach($orderOptions as $i => $option){
-                        $orderOptions[$i]->validate();
                     }
                 }
             }

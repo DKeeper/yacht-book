@@ -9,7 +9,7 @@
 /* @var $i integer */
 /* @var $model CcEarlyPeriod */
 /* @var $form CActiveForm */
-$durationTypeList = DurationType::model()->getModelList();
+$durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
 ?>
 <div class="row early_period num_<?php echo $i;?>">
     <?php

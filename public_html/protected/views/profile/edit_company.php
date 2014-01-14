@@ -24,7 +24,35 @@
     'htmlOptions' => array('enctype'=>'multipart/form-data'),
 ));
     ?>
-    <?php echo $form->errorSummary(array($modelUser,$profileUser,$profileCC)); ?>
+    <?php
+    /** @var $models CActiveRecord[] */
+    $models = array(
+        $modelUser,
+        $profileUser,
+        $profileCC,
+    );
+
+    foreach($paymentsPeriods as $model){
+        array_push($models,$model);
+    }
+    foreach($cancelPeriods as $model){
+        array_push($models,$model);
+    }
+    foreach($longPeriods as $model){
+        array_push($models,$model);
+    }
+    foreach($earlyPeriods as $model){
+        array_push($models,$model);
+    }
+    foreach($transitLogs as $model){
+        array_push($models,$model);
+    }
+    foreach($orderOptions as $model){
+        array_push($models,$model);
+    }
+
+    echo $form->errorSummary($models);
+    ?>
     <?php
     $this->widget('zii.widgets.jui.CJuiTabs',array(
         'tabs'=>array(

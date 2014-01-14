@@ -23,12 +23,12 @@ $this->breadcrumbs=array(
 ?>
 
 <h1><?php echo UserModule::t("Registration company"); ?></h1>
-<h3 style="color:red;"><?php echo Yii::t("view","You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available.")?></h3>
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="success">
     <?php echo Yii::app()->user->getFlash('registration'); ?>
 </div>
 <?php else: ?>
+<h3 style="color:red;"><?php echo Yii::t("view","You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available.")?></h3>
 <div class="form">
 <?php $form=$this->beginWidget('UActiveForm', array(
         'id'=>'registration-form',
