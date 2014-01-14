@@ -219,6 +219,10 @@ if(isset($profileCC->company_city_id)){
                 }
             }
         });
+        $("#CcProfile_company_name").change(function(event){
+            marker.setTitle($(this).val());
+        });
+        $("#recaptcha_response_field").attr("placeholder","");
     });
 </script>
 

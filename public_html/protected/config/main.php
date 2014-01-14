@@ -6,6 +6,7 @@ Yii::setPathOfAlias('fancyapps',dirname(__FILE__).'/../extensions/fancyapps');
 Yii::setPathOfAlias('autocombobox',dirname(__FILE__).'/../extensions/autocombobox');
 Yii::setPathOfAlias('ckeditor',dirname(__FILE__).'/../extensions/ckeditor');
 Yii::setPathOfAlias('recaptcha',dirname(__FILE__).'/../extensions/recaptcha');
+Yii::setPathOfAlias('fileuploader',dirname(__FILE__).'/../extensions/fileuploader');
 if(preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])){
     $db = array(
         'connectionString' => 'mysql:host=localhost;dbname=yacht-book',
