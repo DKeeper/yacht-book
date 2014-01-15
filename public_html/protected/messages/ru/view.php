@@ -66,4 +66,23 @@ return array(
     "gas" => "газ",
 
     "You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available."=>"Вы можете заполнить прочие данные профиля после регистрации, в личном кабинете.<br/>Напоминаем, что без полностью заполненного профиля часть функционала сайта будет не доступна.",
+
+    "Upload a file" => "Загрузить файл",
+    "Cancel" => "Отмена",
+    "Retry" => "Повтор",
+    "Upload failed" => "Ошибка загрузки",
+    "Drop files here to upload" => "Перетащите файлы сюда для загрузки",
+    "Processing dropped files..." => "Обработка файлов",
+    "{percent}% of {total_size}" => "{percent}% из {total_size}",
+    "Processing..." => "Обработка...",
+
+    "File name empty."=>"Пустое имя файла",
+    "File is empty."=>"Файл пуст",
+    "File is too large."=>"Файл слишком большой",
+
+    "File {file} has an incorrect extension. Allowed only files with the following extensions: {extensions}."=>"Файл {file} имеет неверное расширение. Разрешены файлы только с расширениями: {extensions}.",
+    "File size {file} is large, the maximum size of {sizeLimit}."=>"Размер файла {file} велик, максимальный размер {sizeLimit}.",
+    "File size {file} is small, the minimum size {minSizeLimit}."=>"Размер файла {file} мал, минимальный размер {minSizeLimit}.",
+    "{file} is empty, please select files again without it."=>"{file} пуст, выберите файлы снова без него.",
+    "The files are being uploaded, if you leave now the upload will be cancelled."=>"Файлы загружаются, если вы остановите сейчас, загрузка будет отменена.",
 );

@@ -73,51 +73,64 @@ $this->widget('ext.EFineUploader.EFineUploader',
 */
 class EFineUploader extends CWidget
 {
-        public $version="3.4.1";
-        public $id="fineUploader";
+    public $version="3.4.1";
+    public $id="fineUploader";
 	public $config=array();
 	public $css=null;
         
-        public function run()
-        {
-		if(empty($this->config['request']['endpoint']))
-		{
-		      throw new CException('EFineUploader: param "request::endpoint" cannot be empty.');
-                }
+    public function run(){
+		if(empty($this->config['request']['endpoint'])){
+            throw new CException('EFineUploader: param "request::endpoint" cannot be empty.');
+        }
 
-		if(!is_array($this->config['validation']['allowedExtensions']))
-		{
-		      throw new CException('EFineUploader: param "validation::allowedExtensions" must be an array.');
-                }
+		if(!is_array($this->config['validation']['allowedExtensions'])){
+            throw new CException('EFineUploader: param "validation::allowedExtensions" must be an array.');
+        }
 
-		if(empty($this->config['validation']['sizeLimit']))
-		{
+		if(empty($this->config['validation']['sizeLimit'])){
 		      throw new CException('EFineUploader: param "validation::sizeLimit" cannot be empty.');
-                }
+        }
 
-                unset($this->config['element']);
+        unset($this->config['element']);
 
-                echo '<div id="'.$this->id.'"><noscript><p>Please enable JavaScript to use file uploader.</p></noscript></div>';
+        echo '<div id="'.$this->id.'"><noscript><p>Please enable JavaScript to use file uploader.</p></noscript></div>';
 
 		$assets = dirname(__FILE__).'/assets';
-                $baseUrl = Yii::app()->assetManager->publish($assets);
+        $baseUrl = Yii::app()->assetManager->publish($assets);
 
-                $fJs=(YII_DEBUG)?$baseUrl."/jquery.fineuploader-{$this->version}.js":$baseUrl."/jquery.fineuploader-{$this->version}.min.js";
-                Yii::app()->clientScript->registerScriptFile($fJs, CClientScript::POS_HEAD);
+        $fJs=(YII_DEBUG)?$baseUrl."/jquery.fineuploader-{$this->version}.js":$baseUrl."/jquery.fineuploader-{$this->version}.min.js";
+        Yii::app()->clientScript->registerScriptFile($fJs, CClientScript::POS_HEAD);
 
-                $this->css=(!empty($this->css))?$this->css:$baseUrl."/fineuploader-{$this->version}.css";
-                Yii::app()->clientScript->registerCssFile($this->css);
+        $this->css=(!empty($this->css))?$this->css:$baseUrl."/fineuploader-{$this->version}.css";
+        Yii::app()->clientScript->registerCssFile($this->css);
 
 		$config = array(
-                                'element'=>'js:document.getElementById("'.$this->id.'")',
-                                'debug'=>false,
-                                'multiple'=>false
-                               );
-		$config = array_merge($config, $this->config);
-		$config['params']=$postParams;
+            'element'=>'js:document.getElementById("'.$this->id.'")',
+            'debug'=>false,
+            'multiple'=>false,
+            'text'=>array(
+                'uploadButton'=> Yii::t('view','Upload a file'),
+                'cancelButton'=> Yii::t('view','Cancel'),
+                'retryButton'=> Yii::t('view','Retry'),
+                'deleteButton'=> Yii::t('view','Delete'),
+                'failUpload'=> Yii::t('view','Upload failed'),
+                'dragZone'=> Yii::t('view','Drop files here to upload'),
+                'dropProcessing'=>Yii::t('view','Processing dropped files...'),
+                'formatProgress'=> Yii::t('view',"{percent}% of {total_size}"),
+                'waitingForResponse'=> Yii::t('view',"Processing..."),
+            ),
+            'messages'=>array(
+                'typeError'=>Yii::t("view","File {file} has an incorrect extension. Allowed only files with the following extensions: {extensions}."),
+                'sizeError'=>Yii::t("view","File size {file} is large, the maximum size of {sizeLimit}."),
+                'minSizeError'=>Yii::t("view","File size {file} is small, the minimum size {minSizeLimit}."),
+                'emptyError'=>Yii::t("view","{file} is empty, please select files again without it."),
+                'onLeave'=>Yii::t("view","The files are being uploaded, if you leave now the upload will be cancelled."),
+            ),
+        );
+
+        $config = array_merge($config, $this->config);
+//		$config['params']=$postParams;
 		$config = CJavaScript::encode($config);
-                Yii::app()->getClientScript()->registerScript("FineUploader_".$this->id, "var FineUploader_".$this->id." = new qq.FineUploader($config);",CClientScript::POS_LOAD);
+        Yii::app()->getClientScript()->registerScript("FineUploader_".$this->id, "var FineUploader_".$this->id." = new qq.FineUploader($config);",CClientScript::POS_LOAD);
 	}
-
-
 }

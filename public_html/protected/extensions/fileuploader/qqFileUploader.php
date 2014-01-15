@@ -85,17 +85,17 @@ class qqFileUploader {
         // Validate name
 
         if ($name === null || $name === ''){
-            return array('error' => 'File name empty.');
+            return array('error' => Yii::t("view",'File name empty.'));
         }
 
         // Validate file size
 
         if ($size == 0){
-            return array('error' => 'File is empty.');
+            return array('error' => Yii::t("view",'File is empty.'));
         }
 
         if ($size > $this->sizeLimit){
-            return array('error' => 'File is too large.');
+            return array('error' => Yii::t("view",'File is too large.'));
         }
 
         // Validate file extension

@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete, icreate, getcityll, getmodelbynum, findgeoobject';
+        return 'autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
     }
 
     public function actionAutocomplete(){
@@ -246,5 +246,34 @@ class AjaxController extends Controller
             }
             Yii::app()->end();
         }
+    }
+
+    public function actionUpload(){
+        Yii::import('fileuploader.qqFileUploader');
+
+        $tempFolder=Yii::getPathOfAlias('webroot').'/upload/temp/';
+
+        if(!is_dir($tempFolder)){
+            mkdir($tempFolder, 0777, TRUE);
+        }
+        if(!is_dir($tempFolder.'chunks')){
+            mkdir($tempFolder.'chunks', 0777, TRUE);
+        }
+
+        $uploader = new qqFileUploader();
+        $uploader->allowedExtensions = array('jpg','jpeg','png','gif');
+        $uploader->sizeLimit = 10 * 1024 * 1024;//maximum file size in bytes
+        $uploader->chunksFolder = $tempFolder.'chunks';
+
+        $result = $uploader->handleUpload($tempFolder);
+        $result['filename'] = $uploader->getUploadName();
+//        $result['folder'] = $webFolder;
+
+        $uploadedFile=$tempFolder.$result['filename'];
+
+        header("Content-Type: text/plain");
+        $result=htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+        echo $result;
+        Yii::app()->end();
     }
 }

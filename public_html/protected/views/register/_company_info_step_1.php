@@ -186,7 +186,42 @@ if(isset($profileCC->company_city_id)){
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_logo'); ?>
-        <?php echo $form->fileField($profileCC,'company_logo'); ?>
+        <?php echo $form->hiddenField($profileCC,'company_logo'); ?>
+        <?php
+        $this->widget('fileuploader.EFineUploader',
+            array(
+                'id'=>'FineUploader',
+                'config'=>array(
+                    'autoUpload'=>true,
+                    'request'=>array(
+                        'endpoint'=>'/ajax/upload',// OR $this->createUrl('files/upload'),
+                        'params'=>array('YII_CSRF_TOKEN'=>Yii::app()->request->csrfToken),
+                    ),
+                    'retry'=>array(
+                        'enableAuto'=>false,
+                        'preventRetryResponseProperty'=>true
+                    ),
+                    'chunking'=>array(
+                        'enable'=>true,
+                        'partSize'=>100
+                    ),//bytes
+                    'callbacks'=>array(
+                        'onComplete'=>"js:function(id, name, response){
+                            var t = 0;
+                        }",
+                        'onError'=>"js:function(id, name, errorReason){
+                            var t = 0;
+                        }",
+                    ),
+                    'validation'=>array(
+                        'allowedExtensions'=>array('jpg','jpeg','png','gif'),
+                        'sizeLimit'=>10*1024*1024,//maximum file size in bytes
+                        'minSizeLimit'=>1*1024*1024,// minimum file size in bytes
+                    ),
+                )
+            )
+        );
+        ?>
         <?php echo $form->error($profileCC,'company_logo'); ?>
     </div>
 
