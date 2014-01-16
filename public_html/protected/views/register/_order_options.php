@@ -12,6 +12,7 @@
 /* @var $ajax boolean */
 $orderOptionList = array(Yii::t("view","Create"));
 $orderOptionList += OrderOptions::model()->getModelList();
+$durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
 ?>
 <div class="row order_options num_<?php echo $i;?>">
     <?php echo $form->labelEx($model,"[$i]order_option_id"); ?>
@@ -74,6 +75,8 @@ $orderOptionList += OrderOptions::model()->getModelList();
     <?php echo $form->labelEx($model,"[$i]price"); ?>
     <?php echo $form->textField($model,"[$i]price"); ?>
     <?php echo $form->error($model,"[$i]price"); ?>
+    <?php echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList); ?>
+    <?php echo $form->error($model,"[$i]duration_type_id"); ?>
     <?php
     echo CHtml::image("/i/def/minus.png","",array(
         'onclick'=>'delRow(this)',

@@ -21,6 +21,7 @@ return array(
     'Obligatory' => 'Обязательно',
     'Included' => 'Включено',
     'Price' => 'Стоимость',
+    'Price per' => 'Стоимость за',
     'Order option' => 'Опция заказа',
     'Is active' => 'Активен',
     'Is trash' => 'Удален',

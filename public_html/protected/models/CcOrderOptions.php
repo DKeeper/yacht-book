@@ -10,10 +10,12 @@
  * @property integer $obligatory
  * @property integer $included
  * @property double $price
+ * @property integer $duration_period_id
  *
  * The followings are the available model relations:
  * @property CcProfile $ccProfile
  * @property OrderOptions $orderOption
+ * @property DurationType $durationType
  */
 class CcOrderOptions extends BaseModel
 {
@@ -34,7 +36,7 @@ class CcOrderOptions extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_profile_id, order_option_id, price', 'required'),
-			array('cc_profile_id, order_option_id, obligatory, included', 'numerical', 'integerOnly'=>true),
+			array('cc_profile_id, order_option_id, obligatory, included, duration_type_id', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -52,6 +54,7 @@ class CcOrderOptions extends BaseModel
 		return array(
 			'ccProfile' => array(self::BELONGS_TO, 'CcProfile', 'cc_profile_id'),
 			'orderOption' => array(self::BELONGS_TO, 'OrderOptions', 'order_option_id'),
+            'durationType' => array(self::BELONGS_TO, 'DurationType', 'duration_type_id'),
 		);
 	}
 
@@ -66,7 +69,8 @@ class CcOrderOptions extends BaseModel
 			'order_option_id' => Yii::t('model','Order option'),
 			'obligatory' => Yii::t('model','Obligatory'),
 			'included' => Yii::t('model','Included'),
-			'price' => Yii::t('model','Price'),
+			'price' => Yii::t('model','Price per'),
+            'duration_type_id' => Yii::t('model','Duration type'),
 		);
 	}
 
@@ -94,6 +98,7 @@ class CcOrderOptions extends BaseModel
 		$criteria->compare('obligatory',$this->obligatory);
 		$criteria->compare('included',$this->included);
 		$criteria->compare('price',$this->price);
+		$criteria->compare('duration_type_id',$this->duration_period_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

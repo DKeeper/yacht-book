@@ -56,7 +56,9 @@
         <?php echo $form->textField($profileCC,'iban'); ?>
         <?php echo $form->error($profileCC,'iban'); ?>
     </div>
-
+    <div class="row">
+        <h4><?php echo Yii::t("view","We are accept for payment:"); ?></h4>
+    </div>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'visa'); ?>
         <?php echo $form->checkBox($profileCC,'visa'); ?>
