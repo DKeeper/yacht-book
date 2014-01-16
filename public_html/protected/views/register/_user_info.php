@@ -81,5 +81,6 @@
 <script>
     $(function(){
         $("span.required").remove();
+        $("#recaptcha_response_field").attr("placeholder","");
     });
 </script>

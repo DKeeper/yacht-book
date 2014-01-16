@@ -185,6 +185,7 @@ $this->breadcrumbs=array(
                         $('#company_tabs').tabs("option","active",currTabNum+1);
                     } else {
                         alert("<?php echo Yii::t("view","All fields are required or eliminate input errors"); ?>");
+                        $("#registration-form").submit();
                     }
                 },
                 type:'POST',

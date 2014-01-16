@@ -15,11 +15,11 @@ if(isset($geoField[Yii::app()->language])){
     $geoField = 'nazvanie_2';
 }
 $country = '';
-if(isset($profileCC->company_country_id)){
+if(isset($profileCC->company_country_id) && !empty($profileCC->company_country_id)){
     $country = Strana::model()->findByPk($profileCC->company_country_id)->$geoField;
 }
 $city = '';
-if(isset($profileCC->company_city_id)){
+if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     $city = Gorod::model()->findByPk($profileCC->company_city_id)->$geoField;
 }
 ?>
@@ -268,7 +268,6 @@ if(isset($profileCC->company_city_id)){
         $("#CcProfile_company_name").change(function(event){
             marker.setTitle($(this).val());
         });
-        $("#recaptcha_response_field").attr("placeholder","");
     });
 </script>
 
