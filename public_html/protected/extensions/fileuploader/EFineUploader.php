@@ -74,9 +74,9 @@ $this->widget('ext.EFineUploader.EFineUploader',
 class EFineUploader extends CWidget
 {
     public $version="3.4.1";
-    public $id="fineUploader";
 	public $config=array();
 	public $css=null;
+    public $htmlOptions=array();
         
     public function run(){
 		if(empty($this->config['request']['endpoint'])){
@@ -93,7 +93,11 @@ class EFineUploader extends CWidget
 
         unset($this->config['element']);
 
-        echo '<div id="'.$this->id.'"><noscript><p>Please enable JavaScript to use file uploader.</p></noscript></div>';
+        if(!isset($this->htmlOptions['id'])){
+            $this->htmlOptions['id'] = "fineUploader";
+        }
+
+        echo CHtml::tag('div',$this->htmlOptions,'<noscript><p>Please enable JavaScript to use file uploader.</p></noscript>');
 
 		$assets = dirname(__FILE__).'/assets';
         $baseUrl = Yii::app()->assetManager->publish($assets);
@@ -105,7 +109,7 @@ class EFineUploader extends CWidget
         Yii::app()->clientScript->registerCssFile($this->css);
 
 		$config = array(
-            'element'=>'js:document.getElementById("'.$this->id.'")',
+            'element'=>'js:document.getElementById("'.$this->htmlOptions['id'].'")',
             'debug'=>false,
             'multiple'=>false,
             'text'=>array(
@@ -131,6 +135,6 @@ class EFineUploader extends CWidget
         $config = array_merge($config, $this->config);
 //		$config['params']=$postParams;
 		$config = CJavaScript::encode($config);
-        Yii::app()->getClientScript()->registerScript("FineUploader_".$this->id, "var FineUploader_".$this->id." = new qq.FineUploader($config);",CClientScript::POS_LOAD);
+        Yii::app()->getClientScript()->registerScript("FineUploader_".$this->htmlOptions['id'], "var FineUploader_".$this->htmlOptions['id']." = new qq.FineUploader($config);",CClientScript::POS_LOAD);
 	}
 }

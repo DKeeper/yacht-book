@@ -186,11 +186,13 @@ if(isset($profileCC->company_city_id)){
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_logo'); ?>
-        <?php echo $form->hiddenField($profileCC,'company_logo'); ?>
+        <?php
+            echo CHtml::image(isset($profileCC->company_logo)?$profileCC->company_logo:'/i/def/avatar.png','',array('id'=>'CompanyLogo','class'=>'avatar_img'));
+            echo $form->hiddenField($profileCC,'company_logo');
+        ?>
         <?php
         $this->widget('fileuploader.EFineUploader',
             array(
-                'id'=>'FineUploader',
                 'config'=>array(
                     'autoUpload'=>true,
                     'request'=>array(
@@ -207,10 +209,15 @@ if(isset($profileCC->company_city_id)){
                     ),//bytes
                     'callbacks'=>array(
                         'onComplete'=>"js:function(id, name, response){
-                            var t = 0;
+                            if(response.success){
+                                $('#CcProfile_company_logo').val(response.link);
+                                $('#CompanyLogo').attr('src',response.link);
+                                $('.qq-upload-list').children().fadeOut(1000,function(){ $('.qq-upload-list').empty() });
+                            }
                         }",
                         'onError'=>"js:function(id, name, errorReason){
-                            var t = 0;
+                            $('#CcProfile_company_logo').val();
+                            alert(errorReason);
                         }",
                     ),
                     'validation'=>array(
@@ -218,7 +225,11 @@ if(isset($profileCC->company_city_id)){
                         'sizeLimit'=>10*1024*1024,//maximum file size in bytes
                         'minSizeLimit'=>1*1024*1024,// minimum file size in bytes
                     ),
-                )
+                ),
+                'htmlOptions'=>array(
+                    'id'=>'UploadCompanyLogo',
+                    'style'=>'margin-top:5px;'
+                ),
             )
         );
         ?>

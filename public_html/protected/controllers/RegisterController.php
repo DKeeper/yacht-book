@@ -70,22 +70,33 @@ class RegisterController extends Controller
                         // Отправляем письмо администратору
                         UserModule::sendMail(Yii::app()->params['adminEmail'],'Регистрация новой учетной записи','Зарегистрирован новый <a href="'.$this->createAbsoluteUrl('user/admin/view',array('id'=>$modelUser->id)).'">капитан</a>');
                         $profileC->c_id = $modelUser->id;
-                        $avatar = CUploadedFile::getInstance($profileC,'avatar');
-                        if(isset($avatar)){
-                            $ext = preg_replace('/image\/|application\//','',$avatar->getType());
-                            $avatarName = '/i/c/'.md5(time()+rand()).'.'.$ext;
-                            if($avatar->saveAs(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
-                                $profileC->avatar = $avatarName;
+
+                        if(!empty($profileC->avatar)){
+                            if(preg_match('/\/upload/',$profileC->avatar)){
+                                $ext = preg_replace('/.+?\./','',$profileC->avatar);
+                                $avatarName = '/i/c/'.md5(time()+rand()).'.'.$ext;
+                                if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->avatar,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
+                                    unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->avatar);
+                                    $profileC->avatar = $avatarName;
+                                } else {
+                                    $profileC->avatar = null;
+                                }
                             }
                         }
-                        $scan_of_license = CUploadedFile::getInstance($profileC,'scan_of_license');
-                        if(isset($scan_of_license)){
-                            $ext = preg_replace('/image\/|application\//','',$scan_of_license->getType());
-                            $scanOfLicenseName = '/i/c/'.md5(time()+rand()).'.'.$ext;
-                            if($scan_of_license->saveAs(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanOfLicenseName)){
-                                $profileC->scan_of_license = $scanOfLicenseName;
+
+                        if(!empty($profileC->scan_of_license)){
+                            if(preg_match('/\/upload/',$profileC->scan_of_license)){
+                                $ext = preg_replace('/.+?\./','',$profileC->scan_of_license);
+                                $scanOfLicenseName = '/i/c/'.md5(time()+rand()).'.'.$ext;
+                                if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->scan_of_license,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanOfLicenseName)){
+                                    unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->scan_of_license);
+                                    $profileC->scan_of_license = $scanOfLicenseName;
+                                } else {
+                                    $profileC->scan_of_license = null;
+                                }
                             }
                         }
+                        
                         $profileC->save(false);
 
                         $profileUser->user_id=$modelUser->id;
@@ -274,12 +285,17 @@ class RegisterController extends Controller
                         // Отправляем письмо администратору
                         UserModule::sendMail(Yii::app()->params['adminEmail'],'Регистрация новой учетной записи','Зарегистрирована новая <a href="'.$this->createAbsoluteUrl('user/admin/view',array('id'=>$modelUser->id)).'">чартерная компания</a>');
                         $profileCC->cc_id = $modelUser->id;
-                        $companyLogo = CUploadedFile::getInstance($profileCC,'company_logo');
-                        if(isset($companyLogo)){
-                            $ext = preg_replace('/image\//','',$companyLogo->getType());
-                            $logoName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
-                            if($companyLogo->saveAs(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$logoName)){
-                                $profileCC->company_logo = $logoName;
+
+                        if(!empty($profileCC->company_logo)){
+                            if(preg_match('/\/upload/',$profileCC->company_logo)){
+                                $ext = preg_replace('/.+?\./','',$profileCC->company_logo);
+                                $logoName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
+                                if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->company_logo,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$logoName)){
+                                    unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->company_logo);
+                                    $profileCC->company_logo = $logoName;
+                                } else {
+                                    $profileCC->company_logo = null;
+                                }
                             }
                         }
                         $profileCC->save(false);
@@ -392,14 +408,20 @@ class RegisterController extends Controller
                     UserModule::sendMail(Yii::app()->params['adminEmail'],'Регистрация новой учетной записи','Зарегистрирован новый <a href="'.$this->createAbsoluteUrl('user/admin/view',array('id'=>$modelUser->id)).'">менеджер</a>');
                     $profileM->m_id = $modelUser->id;
                     $profileM->cc_id = Yii::app()->user->id;
-                    $avatar = CUploadedFile::getInstance($profileM,'avatar');
-                    if(isset($avatar)){
-                        $ext = preg_replace('/image\//','',$avatar->getType());
-                        $avatarName = '/i/m/'.md5(time()+rand()).'.'.$ext;
-                        if($avatar->saveAs(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
-                            $profileM->avatar = $avatarName;
+
+                    if(!empty($profileM->avatar)){
+                        if(preg_match('/\/upload/',$profileM->avatar)){
+                            $ext = preg_replace('/.+?\./','',$profileM->avatar);
+                            $avatarName = '/i/c/'.md5(time()+rand()).'.'.$ext;
+                            if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileM->avatar,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
+                                unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileM->avatar);
+                                $profileM->avatar = $avatarName;
+                            } else {
+                                $profileM->avatar = null;
+                            }
                         }
                     }
+
                     $profileM->save(false);
 
                     $profileUser->user_id=$modelUser->id;

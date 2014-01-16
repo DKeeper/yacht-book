@@ -11,7 +11,7 @@
 <div class="view_user">
     <div class="avatar pull-left">
         <?php
-        echo CHtml::image(isset($model->company_logo)?$model->company_logo:'/i/def/avatar.png');
+        echo CHtml::image(isset($model->company_logo)?$model->company_logo:'/i/def/avatar.png','',array('class'=>'avatar_img'));
         ?>
     </div>
     <div class="info">

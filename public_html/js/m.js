@@ -122,6 +122,7 @@ function initialize(param) {
         moveMarker({lat:event.latLng.lat(),lng:event.latLng.lng()});
     });
     $("#map_canvas").show();
+    $("#CcProfile_company_name").change();
     if(typeof param != "undefined"){
         $("#CcProfile_longitude").val(param.longitude);
         $("#CcProfile_latitude").val(param.latitude);

@@ -261,15 +261,15 @@ class AjaxController extends Controller
         }
 
         $uploader = new qqFileUploader();
-        $uploader->allowedExtensions = array('jpg','jpeg','png','gif');
+        $uploader->allowedExtensions = array('jpg','jpeg','png','gif','pdf');
         $uploader->sizeLimit = 10 * 1024 * 1024;//maximum file size in bytes
         $uploader->chunksFolder = $tempFolder.'chunks';
 
         $result = $uploader->handleUpload($tempFolder);
         $result['filename'] = $uploader->getUploadName();
-//        $result['folder'] = $webFolder;
+        $result['link'] = '/upload/temp/'.$result['filename'];
 
-        $uploadedFile=$tempFolder.$result['filename'];
+//        $uploadedFile=$tempFolder.$result['filename'];
 
         header("Content-Type: text/plain");
         $result=htmlspecialchars(json_encode($result), ENT_NOQUOTES);

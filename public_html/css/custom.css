@@ -38,6 +38,15 @@ span[role='status']{
 .flash.success { color:#007700; background-color:#e0f8dd; }
 .flash.error { color:#7a0000; background-color:#fdd9d9; }
 
+.avatar_img{
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
 #company_tabs table th{
     width: 250px;
 }

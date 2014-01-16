@@ -175,6 +175,8 @@ class ProfileController extends Controller
                         {
                             $modelUser->attributes=$_POST['User'];
                             $profileUser->attributes=$_POST['Profile'];
+
+                            $oldLogo = $profileCC->company_logo;
                             $profileCC->attributes=((isset($_POST['CcProfile'])?$_POST['CcProfile']:array()));
 
                             $validate = true;
@@ -205,6 +207,21 @@ class ProfileController extends Controller
                             if($validate) {
                                 $modelUser->save();
                                 $profileUser->save();
+
+                                if(!empty($profileCC->company_logo)){
+                                    if(preg_match('/\/upload/',$profileCC->company_logo)){
+                                        $ext = preg_replace('/.+?\./','',$profileCC->company_logo);
+                                        $logoName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
+                                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->company_logo,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$logoName)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->company_logo);
+                                            $profileCC->company_logo = $logoName;
+                                        } else {
+                                            $profileCC->company_logo = null;
+                                        }
+                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo);
+                                    }
+                                }
+
                                 $profileCC->save();
 
                                 foreach($profileCC->ccPaymentsPeriods as $period){

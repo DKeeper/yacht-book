@@ -107,7 +107,53 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'avatar'); ?>
-        <?php echo $form->fileField($profileC,'avatar'); ?>
+        <?php
+            echo CHtml::image(isset($profileC->avatar)?$profileC->avatar:'/i/def/avatar.png','',array('id'=>'CaptainAvatar','class'=>'avatar_img'));
+            echo $form->hiddenField($profileC,'avatar');
+        ?>
+        <?php
+        $this->widget('fileuploader.EFineUploader',
+            array(
+                'config'=>array(
+                    'autoUpload'=>true,
+                    'request'=>array(
+                        'endpoint'=>'/ajax/upload',// OR $this->createUrl('files/upload'),
+                        'params'=>array('YII_CSRF_TOKEN'=>Yii::app()->request->csrfToken),
+                    ),
+                    'retry'=>array(
+                        'enableAuto'=>false,
+                        'preventRetryResponseProperty'=>true
+                    ),
+                    'chunking'=>array(
+                        'enable'=>true,
+                        'partSize'=>100
+                    ),//bytes
+                    'callbacks'=>array(
+                        'onComplete'=>"js:function(id, name, response){
+                            if(response.success){
+                                $('#CProfile_avatar').val(response.link);
+                                $('#CaptainAvatar').attr('src',response.link);
+                                $('.qq-upload-list').children().fadeOut(1000,function(){ $('.qq-upload-list').empty() });
+                            }
+                        }",
+                        'onError'=>"js:function(id, name, errorReason){
+                            $('#CcProfile_avatar').val();
+                            alert(errorReason);
+                        }",
+                    ),
+                    'validation'=>array(
+                        'allowedExtensions'=>array('jpg','jpeg','png','gif'),
+                        'sizeLimit'=>10*1024*1024,//maximum file size in bytes
+                        'minSizeLimit'=>1*1024*1024,// minimum file size in bytes
+                    ),
+                ),
+                'htmlOptions'=>array(
+                    'id'=>'UploadCaptainAvatar',
+                    'style'=>'margin-top:5px;'
+                ),
+            )
+        );
+        ?>
         <?php echo $form->error($profileC,'avatar'); ?>
     </div>
     <div class="row">
@@ -143,7 +189,48 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'scan_of_license'); ?>
-        <?php echo $form->fileField($profileC,'scan_of_license'); ?>
+        <?php echo $form->hiddenField($profileC,'scan_of_license'); ?>
+        <?php
+        $this->widget('fileuploader.EFineUploader',
+            array(
+                'config'=>array(
+                    'autoUpload'=>true,
+                    'request'=>array(
+                        'endpoint'=>'/ajax/upload',// OR $this->createUrl('files/upload'),
+                        'params'=>array('YII_CSRF_TOKEN'=>Yii::app()->request->csrfToken),
+                    ),
+                    'retry'=>array(
+                        'enableAuto'=>false,
+                        'preventRetryResponseProperty'=>true
+                    ),
+                    'chunking'=>array(
+                        'enable'=>true,
+                        'partSize'=>100
+                    ),//bytes
+                    'callbacks'=>array(
+                        'onComplete'=>"js:function(id, name, response){
+                            if(response.success){
+                                $('#CProfile_scan_of_license').val(response.link);
+                            }
+                        }",
+                        'onError'=>"js:function(id, name, errorReason){
+                            $('#CcProfile_scan_of_license').val();
+                            alert(errorReason);
+                        }",
+                    ),
+                    'validation'=>array(
+                        'allowedExtensions'=>array('jpg','jpeg','png','gif','pdf'),
+                        'sizeLimit'=>10*1024*1024,//maximum file size in bytes
+                        'minSizeLimit'=>1*1024*1024,// minimum file size in bytes
+                    ),
+                ),
+                'htmlOptions'=>array(
+                    'id'=>'UploadCaptainScanOfLicense',
+                    'style'=>'margin-top:5px;'
+                ),
+            )
+        );
+        ?>
         <?php echo $form->error($profileC,'scan_of_license'); ?>
     </div>
     <div class="row">
