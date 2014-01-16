@@ -77,8 +77,8 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
-                'minDate' => '-70y',
-                'yearRange' => 'c-70:c+10',
+                'minDate' => '-13y',
+                'yearRange' => 'c-13:c+10',
                 'changeMonth' => true,
                 'changeYear' => true,
             ),
@@ -175,7 +175,8 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
-                'minDate' => 0,
+                'minDate' => '-13y',
+                'yearRange' => 'c-13:c+10',
                 'changeMonth' => true,
                 'changeYear' => true,
             ),
@@ -252,16 +253,6 @@ $nationalityList = Nationality::model()->getModelList();
         <?php echo $form->labelEx($profileC,'amateur_regatta'); ?>
         <?php echo $form->checkBox($profileC,'amateur_regatta'); ?>
         <?php echo $form->error($profileC,'amateur_regatta'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($profileC,'repeater'); ?>
-        <?php echo $form->textField($profileC,'repeater'); ?>
-        <?php echo $form->error($profileC,'repeater'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($profileC,'extra'); ?>
-        <?php echo $form->textField($profileC,'extra'); ?>
-        <?php echo $form->error($profileC,'extra'); ?>
     </div>
 <?php if($this->id=="register"){?>
     <div class="row submit">

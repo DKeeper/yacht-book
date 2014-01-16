@@ -28,6 +28,8 @@ return array(
 	"This user's email address already exists." => 'Пользователь с таким электронным адресом уже существует.',
 	'You registered from {site_name}' => 'Вы зарегистрировались на сайте {site_name}',
 	'Please activate you account go to <a href="{activation_url}">link</a>' => 'Для активации аккаунта пожалуйста перейдите по следующей <a href="{activation_url}">ссылке</a>',
+    'You have requested the password recovery site {site_name}. To receive a new password, go to <a href="{activation_url}">link</a>.'=>'Вы запросили восстановление пароля для сайта {site_name}. Для создания нового пароля, перейдите по <a href="{activation_url}">ссылке</a>',
+	'You have requested the password recovery site {site_name}' => 'Вы запросили восстановление пароля для сайта {site_name}.',
 	'You account is not activated.' => 'Ваш аккаунт не активирован.',
 	'You account is blocked.' => 'Ваш аккаунт заблокирован.',
 	'Password is incorrect.' => 'Неверный пароль.',
