@@ -41,7 +41,3 @@
         <?php echo $form->textField($modelUser,'email',array('size'=>60,'maxlength'=>128)); ?>
         <?php echo $form->error($modelUser,'email'); ?>
     </div>
-
-    <div class="row submit">
-        <button data-type="submit" class="btn btn-default"><?php echo UserModule::t("Save"); ?></button>
-    </div>

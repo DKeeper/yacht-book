@@ -263,7 +263,9 @@ $nationalityList = Nationality::model()->getModelList();
         <?php echo $form->textField($profileC,'extra'); ?>
         <?php echo $form->error($profileC,'extra'); ?>
     </div>
+<?php if($this->id=="register"){?>
     <div class="row submit">
         <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
         <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button></div>
     </div>
+<?php } ?>

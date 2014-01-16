@@ -65,7 +65,33 @@ if(isset($no_load)){
 <?php
     switch($view){
         case 'C': // Профиль капитана
-
+            $this->widget('zii.widgets.jui.CJuiTabs',array(
+                'tabs'=>array(
+                    UserModule::t("User info")=>array(
+                        'content'=>$this->renderPartial(
+                            '_c_user_info',
+                            array('model'=>$profileC),
+                            true
+                        ),
+                        'id'=>'tab1'
+                    ),
+                    UserModule::t("Captain info")=>array(
+                        'content'=>$this->renderPartial(
+                            '_c_captain_info',
+                            array('model'=>$profileC),
+                            true
+                        ),
+                        'id'=>'tab2'
+                    ),
+                ),
+                // additional javascript options for the tabs plugin
+                'options'=>array(
+                    //'collapsible'=>true,
+                ),
+                'htmlOptions'=>array(
+                    'id'=>'captain_profile_tabs',
+                ),
+            ));
             break;
         case 'CC': // Профиль компании
             $modelUser = new RegistrationForm;

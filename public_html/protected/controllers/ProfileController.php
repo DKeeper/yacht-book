@@ -68,6 +68,90 @@ class ProfileController extends Controller
                 $this->redirect("/");
             }
             switch($view){
+                /** Блок редактирования Капитана */
+                case 'C':
+                    if($role === "C" || $role === "A"){
+                        if($role === "C" && !$owner){
+                            $this->redirect("/profile/edit/".Yii::app()->user->id);
+                        }
+                        /** @var $profileC CProfile */
+                        $profileC = CProfile::model()->findByAttributes(array("c_id"=>$modelUser->id));
+                        // ajax validator
+                        if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
+                        {
+                            echo UActiveForm::validate(array($modelUser,$profileUser,$profileC));
+                            Yii::app()->end();
+                        }
+                        if(isset($_POST['User']))
+                        {
+                            $modelUser->attributes=$_POST['User'];
+                            $profileUser->attributes=$_POST['Profile'];
+
+                            $oldAvatar = $profileC->avatar;
+                            $oldScanOfLicense = $profileC->scan_of_license;
+
+                            $profileC->attributes=((isset($_POST['CProfile'])?$_POST['CProfile']:array()));
+
+                            $validate = true;
+                            $validate = $validate && $modelUser->validate();
+                            $validate = $validate && $profileUser->validate();
+                            $validate = $validate && $profileC->validate();
+
+                            if($validate) {
+                                $modelUser->save();
+                                $profileUser->save();
+
+                                if(!empty($profileC->avatar)){
+                                    if(preg_match('/\/upload/',$profileC->avatar)){
+                                        $ext = preg_replace('/.+?\./','',$profileC->avatar);
+                                        $avatarName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
+                                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->avatar,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->avatar);
+                                            $profileC->avatar = $avatarName;
+                                        } else {
+                                            $profileC->avatar = null;
+                                        }
+                                        if(file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
+                                        }
+                                    }
+                                }
+
+                                if(!empty($profileC->scan_of_license)){
+                                    if(preg_match('/\/upload/',$profileC->scan_of_license)){
+                                        $ext = preg_replace('/.+?\./','',$profileC->scan_of_license);
+                                        $scanOfLicenseName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
+                                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->scan_of_license,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanOfLicenseName)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->scan_of_license);
+                                            $profileC->scan_of_license = $scanOfLicenseName;
+                                        } else {
+                                            $profileC->scan_of_license = null;
+                                        }
+                                        if(file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense);
+                                        }
+                                    }
+                                }
+
+                                $profileC->save();
+
+                                Yii::app()->user->updateSession();
+                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
+                                $this->redirect(array('/profile'));
+                            }
+                        }
+                        $this->render('edit_captain',
+                            array(
+                                'modelUser'=>$modelUser,
+                                'profileUser'=>$profileUser,
+                                'profileC'=>$profileC,
+                            )
+                        );
+                    } else {
+                        $this->redirect("/profile/edit/".Yii::app()->user->id);
+                    }
+                    break;
+                /** Конец блока редактирования Капитана */
                 /** Блок редактирования ЧК */
                 case 'CC':
                     if($role === "CC" || $role === "A"){
@@ -183,8 +267,6 @@ class ProfileController extends Controller
                             $validate = $validate && $modelUser->validate();
                             $validate = $validate && $profileUser->validate();
                             $validate = $validate && $profileCC->validate();
-                            $validate = $validate && $profileUser->validate();
-                            $validate = $validate && $profileCC->validate();
                             foreach($paymentsPeriods as $i => $period){
                                 $validate = $validate && $paymentsPeriods[$i]->validate();
                             }
@@ -218,7 +300,9 @@ class ProfileController extends Controller
                                         } else {
                                             $profileCC->company_logo = null;
                                         }
-                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo);
+                                        if(file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo);
+                                        }
                                     }
                                 }
 

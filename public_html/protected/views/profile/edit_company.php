@@ -115,5 +115,8 @@
         ),
     ));
     ?>
+    <div class="row submit">
+        <button data-type="submit" class="btn btn-default"><?php echo UserModule::t("Save"); ?></button>
+    </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->

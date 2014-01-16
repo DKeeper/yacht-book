@@ -60,7 +60,7 @@ $this->menu=array(
 
 
     <div class="row submit">
-        <?php echo CHtml::submitButton(UserModule::t("Save")); ?>
+        <button data-type="submit" class="btn btn-default"><?php echo UserModule::t("Save"); ?></button>
     </div>
 
     <?php $this->endWidget(); ?>
