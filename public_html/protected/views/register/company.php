@@ -16,6 +16,10 @@
 /* @var $earlyPeriods CcEarlyPeriod[] */
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
+
+$scriptLink = Yii::app()->clientScript->getCoreScriptUrl().'/jui/js/jquery-ui-i18n.min.js';
+Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD);
+
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration company");
 $this->breadcrumbs=array(
     UserModule::t("Registration company"),

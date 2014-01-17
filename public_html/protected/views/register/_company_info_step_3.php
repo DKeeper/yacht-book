@@ -15,19 +15,24 @@
 ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
-        <?php echo $form->textField($profileCC,'checkin_day'); ?>
+        <?php echo $form->dropDownList($profileCC,'checkin_day',array()); ?>
         <?php echo $form->error($profileCC,'checkin_day'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkin_hour'); ?>
-        <?php echo $form->textField($profileCC,'checkin_hour'); ?>
+        <?php
+        $this->widget('timepicker.EDateTimePicker', array(
+            'model'=>$profileCC,
+            'attribute'=>'checkin_hour',
+        ));
+        ?>
         <?php echo $form->error($profileCC,'checkin_hour'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkout_day'); ?>
-        <?php echo $form->textField($profileCC,'checkout_day'); ?>
+        <?php echo $form->dropDownList($profileCC,'checkout_day',array()); ?>
         <?php echo $form->error($profileCC,'checkout_day'); ?>
     </div>
 
@@ -153,6 +158,15 @@
     </div>
 <?php } ?>
 <script>
+    $(function(){
+        var s = $.datepicker.regional[appLng];
+        var o = '';
+        $.each(s.dayNames,function(i){
+            o += "<option value='"+i+"'>"+this+"</option>";
+        });
+        $("#CcProfile_checkin_day").append(o);
+        $("#CcProfile_checkout_day").append(o);
+    });
     function addPaymentPeriod(o){
         var n = $(".payment_period").last().attr("class");
         if(typeof n === "undefined"){
