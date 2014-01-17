@@ -25,6 +25,9 @@
         $this->widget('timepicker.EDateTimePicker', array(
             'model'=>$profileCC,
             'attribute'=>'checkin_hour',
+            'htmlOptions'=>array(
+                'style'=>'width:100px;',
+            ),
         ));
         ?>
         <?php echo $form->error($profileCC,'checkin_hour'); ?>
@@ -38,7 +41,15 @@
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'checkout_hour'); ?>
-        <?php echo $form->textField($profileCC,'checkout_hour'); ?>
+        <?php
+        $this->widget('timepicker.EDateTimePicker', array(
+            'model'=>$profileCC,
+            'attribute'=>'checkout_hour',
+            'htmlOptions'=>array(
+                'style'=>'width:100px;',
+            ),
+        ));
+        ?>
         <?php echo $form->error($profileCC,'checkout_hour'); ?>
     </div>
 

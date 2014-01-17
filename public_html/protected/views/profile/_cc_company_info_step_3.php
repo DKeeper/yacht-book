@@ -11,6 +11,7 @@ $attributes = array(
     array(
         'label'=>$model->getAttributeLabel('checkin_day'),
         'value'=>!empty($model->checkin_day)?$model->checkin_day:Yii::t("view","No data"),
+        'cssClass'=>'chind',
     ),
     array(
         'label'=>$model->getAttributeLabel('checkin_hour'),
@@ -19,6 +20,7 @@ $attributes = array(
     array(
         'label'=>$model->getAttributeLabel('checkout_day'),
         'value'=>!empty($model->checkout_day)?$model->checkout_day:Yii::t("view","No data"),
+        'cssClass'=>'choutd',
     ),
     array(
         'label'=>$model->getAttributeLabel('checkout_hour'),
@@ -104,3 +106,17 @@ $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
     'attributes'=>$attributes,
 ));
+?>
+<script>
+    appLng = '<?php echo Yii::app()->language; ?>';
+    $(function(){
+        if(appLng=='en'){
+            appLng += '-GB';
+        }
+        var s = $.datepicker.regional[appLng];
+        var chIn = $(".chind td").text();
+        var chOut = $(".choutd td").text();
+        $(".chind td").empty().append(s.dayNames[chIn]);
+        $(".choutd td").empty().append(s.dayNames[chOut]);
+    });
+</script>

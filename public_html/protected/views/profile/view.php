@@ -22,6 +22,8 @@ $this->breadcrumbs=array(
 if(isset($no_load)){
     echo Yii::t('view','Profile not found');
 } else {
+    $scriptLink = Yii::app()->clientScript->getCoreScriptUrl().'/jui/js/jquery-ui-i18n.min.js';
+    Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD);
     $this->menu=array(
         array('label'=>UserModule::t('Edit'), 'url'=>array('edit')),
         array('label'=>UserModule::t('Change password'), 'url'=>array('changepassword')),

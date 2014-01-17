@@ -40,9 +40,9 @@
  * @property integer $contact
  * @property string $others
  * @property integer $checkin_day
- * @property integer $checkin_hour
+ * @property string $checkin_hour
  * @property integer $checkout_day
- * @property integer $checkout_hour
+ * @property string $checkout_hour
  * @property string $payment_other
  * @property string $cancel_other
  * @property integer $repeater_discount
@@ -84,20 +84,13 @@ class CcProfile extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_id', 'required'),
-			array('cc_id, isActive, q_boat, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
+			array('cc_id, isActive, q_boat, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkout_day, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
 			array('company_postal_code', 'length', 'max'=>10),
             array('longitude, latitude', 'numerical'),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
             array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
-			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, company_speak, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other', 'safe'),
-//            array('company_logo', 'file',
-//                'allowEmpty' => true,
-//                'mimeTypes'=> 'image/jpg,image/jpeg,image/gif,image/png',
-//                'maxSize' => 1024 * 1024 * 5, // 5MB
-//                'tooLarge' => Yii::t('view','The file was larger than {limit} byte. Please upload a smaller file'),
-//                'wrongMimeType' => Yii::t('view','The format of the selected file does not correspond to valid: jpg, png, gif'),
-//            ),
+			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, company_speak, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, company_speak, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount', 'safe', 'on'=>'search'),
@@ -237,9 +230,9 @@ class CcProfile extends BaseModel
 		$criteria->compare('contact',$this->contact);
 		$criteria->compare('others',$this->others,true);
 		$criteria->compare('checkin_day',$this->checkin_day);
-		$criteria->compare('checkin_hour',$this->checkin_hour);
+		$criteria->compare('checkin_hour',$this->checkin_hour,true);
 		$criteria->compare('checkout_day',$this->checkout_day);
-		$criteria->compare('checkout_hour',$this->checkout_hour);
+		$criteria->compare('checkout_hour',$this->checkout_hour,true);
 		$criteria->compare('payment_other',$this->payment_other,true);
 		$criteria->compare('cancel_other',$this->cancel_other,true);
 		$criteria->compare('repeater_discount',$this->repeater_discount);
