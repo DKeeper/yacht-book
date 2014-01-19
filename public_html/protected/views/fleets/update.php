@@ -9,10 +9,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List CcFleets', 'url'=>array('index')),
-	array('label'=>'Create CcFleets', 'url'=>array('create')),
-	array('label'=>'View CcFleets', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage CcFleets', 'url'=>array('admin')),
+    array('label'=>Yii::t('view','List'), 'url'=>array('index')),
+    array('label'=>Yii::t('view','Create'), 'url'=>array('create')),
+    array('label'=>Yii::t('view','View'), 'url'=>array('view', 'id'=>$model->id)),
+    array('label'=>Yii::t('view','Manage'), 'url'=>array('admin')),
 );
 ?>
 

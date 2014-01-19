@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List CcFleets', 'url'=>array('index')),
-	array('label'=>'Create CcFleets', 'url'=>array('create')),
-	array('label'=>'Update CcFleets', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete CcFleets', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage CcFleets', 'url'=>array('admin')),
+    array('label'=>Yii::t('view','List'), 'url'=>array('index')),
+    array('label'=>Yii::t('view','Create'), 'url'=>array('create')),
+    array('label'=>Yii::t('view','Update'), 'url'=>array('update', 'id'=>$model->id)),
+    array('label'=>Yii::t('view','Delete'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+    array('label'=>Yii::t('view','Manage'), 'url'=>array('admin')),
 );
 ?>
 

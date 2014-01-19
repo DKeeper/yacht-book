@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create CcFleets', 'url'=>array('create')),
-	array('label'=>'Manage CcFleets', 'url'=>array('admin')),
+    array('label'=>Yii::t('view','Create'), 'url'=>array('create')),
+    array('label'=>Yii::t('view','Manage'), 'url'=>array('admin')),
 );
 ?>
 

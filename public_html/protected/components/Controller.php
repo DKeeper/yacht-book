@@ -48,7 +48,14 @@ class Controller extends RController
      */
     protected function checkAccess($model){
         if(Rights::getAuthorizer()->isSuperuser($model->id)===true){
-            $this->redirect('/');
+            return array(
+                null,
+                null,
+                null,
+                null,
+                'A',
+                true
+            );
         }
         $id = $model->id;
         $profileCC=$profileC=$profileM=null;
