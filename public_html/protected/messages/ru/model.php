@@ -7,8 +7,10 @@
  */
 return array(
     'ID' => 'ID',
+    'Code' => 'Код',
     'Name' => 'Название',
     'Value' => 'Значение',
+    'Language' => 'Язык',
     'Before duration' => 'Время до',
     'Duration type' => 'Тип периода',
     'CC profile' => 'Профиль ЧК',

@@ -19,7 +19,6 @@
  * @property string $vat
  * @property string $company_logo
  * @property integer $q_boat
- * @property string $company_speak
  * @property double $longitude
  * @property double $latitude
  * @property string $bank_name
@@ -59,6 +58,7 @@
  * @property Strana $country
  * @property Gorod $city
  * @property CcTransitLog[] $ccTransitLogs
+ * @property CcLanguage[] $ccLanguages
  */
 class CcProfile extends BaseModel
 {
@@ -90,10 +90,10 @@ class CcProfile extends BaseModel
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
             array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
-			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, company_speak, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
+			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, company_speak, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount', 'safe', 'on'=>'search'),
+			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -115,6 +115,7 @@ class CcProfile extends BaseModel
 			'country' => array(self::BELONGS_TO, 'Strana', 'company_country_id'),
 			'city' => array(self::BELONGS_TO, 'Gorod', 'company_city_id'),
 			'ccTransitLogs' => array(self::HAS_MANY, 'CcTransitLog', 'cc_profile_id'),
+            'ccLanguages' => array(self::HAS_MANY, 'CcLanguage', 'cc_profile_id'),
 		);
 	}
 
@@ -139,7 +140,7 @@ class CcProfile extends BaseModel
 			'vat' => Yii::t('model','Vat'),
 			'company_logo' => Yii::t('model','Company logo'),
 			'q_boat' => Yii::t('model','Q boat'),
-			'company_speak' => Yii::t('model','Company speak'),
+			'ccLanguages' => Yii::t('model','Company speak'),
 			'longitude' => Yii::t('model','Longitude'),
 			'latitude' => Yii::t('model','Latitude'),
 			'bank_name' => Yii::t('model','Bank name'),
@@ -209,7 +210,6 @@ class CcProfile extends BaseModel
 		$criteria->compare('vat',$this->vat,true);
 		$criteria->compare('company_logo',$this->company_logo,true);
 		$criteria->compare('q_boat',$this->q_boat);
-		$criteria->compare('company_speak',$this->company_speak,true);
 		$criteria->compare('longitude',$this->longitude);
 		$criteria->compare('latitude',$this->latitude);
 		$criteria->compare('bank_name',$this->bank_name,true);
@@ -253,4 +253,16 @@ class CcProfile extends BaseModel
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * @return array
+     */
+    public function getSelectedLanguage(){
+        $selItems = array();
+        /** @var $Lang CcLanguage */
+        foreach($this->ccLanguages as $Lang){
+            $selItems[$Lang->language_id] = array('selected' => 'selected');
+        }
+        return $selItems;
+    }
 }

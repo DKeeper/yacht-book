@@ -237,9 +237,19 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($profileCC,'company_speak'); ?>
-        <?php echo $form->textField($profileCC,'company_speak'); ?>
-        <?php echo $form->error($profileCC,'company_speak'); ?>
+        <?php echo $form->labelEx($profileCC,'ccLanguages'); ?>
+        <?php
+        echo CHtml::activeDropDownList($profileCC,'ccLanguages',
+            Language::model()->getModelList(),
+            array(
+                'multiple'=>'multiple',
+                'class'=>'multiselect',
+                'options' => $profileCC->getSelectedLanguage(),
+                'key'=>'language_id',
+                'style'=>'height:350px!important;'
+            ));
+        ?>
+        <?php echo $form->error($profileCC,'ccLanguages'); ?>
     </div>
 <?php if($this->id=="register"){?>
     <div class="row">

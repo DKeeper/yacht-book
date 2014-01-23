@@ -27,8 +27,6 @@ return array(
     'Fields with <span class="required">*</span> are required.' => '<span class="required">*</span> Обязательные поля.',
     'Female' => 'Жен.',
     'Male' => 'Муж.',
-    'English' => 'Англичанин',
-    'Russian' => 'Русский',
     'Select country' => 'Выберите страну',
     'Select company' => 'Выберите компанию',
     'Select options' => 'Выберите опцию',
@@ -86,4 +84,9 @@ return array(
     "File size {file} is small, the minimum size {minSizeLimit}."=>"Размер файла {file} мал, минимальный размер {minSizeLimit}.",
     "{file} is empty, please select files again without it."=>"{file} пуст, выберите файлы снова без него.",
     "The files are being uploaded, if you leave now the upload will be cancelled."=>"Файлы загружаются, если вы остановите сейчас, загрузка будет отменена.",
+
+    // Названия языков
+    "Abkhazian"=>"Абхазский",
+    'English' => 'Английский',
+    'Russian' => 'Русский',
 );

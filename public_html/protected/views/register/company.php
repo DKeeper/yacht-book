@@ -198,6 +198,9 @@ $this->breadcrumbs=array(
             });
             return false;
         });
+        $("#RegistrationForm_email").on("change",function(){
+            $("#CcProfile_company_email").val($(this).val());
+        });
     });
 </script>
 <?php endif; ?>

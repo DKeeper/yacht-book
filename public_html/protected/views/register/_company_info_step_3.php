@@ -170,6 +170,9 @@
 <?php } ?>
 <script>
     $(function(){
+        if(appLng=='en'){
+            appLng += '-GB';
+        }
         var s = $.datepicker.regional[appLng];
         var o = '';
         $.each(s.dayNames,function(i){
