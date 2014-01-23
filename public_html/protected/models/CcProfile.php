@@ -59,6 +59,7 @@
  * @property Gorod $city
  * @property CcTransitLog[] $ccTransitLogs
  * @property CcLanguage[] $ccLanguages
+ * @property Language[] $languages
  */
 class CcProfile extends BaseModel
 {
@@ -116,6 +117,8 @@ class CcProfile extends BaseModel
 			'city' => array(self::BELONGS_TO, 'Gorod', 'company_city_id'),
 			'ccTransitLogs' => array(self::HAS_MANY, 'CcTransitLog', 'cc_profile_id'),
             'ccLanguages' => array(self::HAS_MANY, 'CcLanguage', 'cc_profile_id'),
+            'languages'=>array(self::MANY_MANY, 'Language',
+                'cc_language(cc_profile_id, language_id)'),
 		);
 	}
 

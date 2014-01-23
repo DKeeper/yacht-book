@@ -110,7 +110,7 @@ class ProfileController extends Controller
                                         } else {
                                             $profileC->avatar = null;
                                         }
-                                        if(file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
+                                        if(!empty($oldAvatar) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
                                         }
                                     }
@@ -126,7 +126,7 @@ class ProfileController extends Controller
                                         } else {
                                             $profileC->scan_of_license = null;
                                         }
-                                        if(file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense)){
+                                        if(!empty($oldScanOfLicense) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense)){
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense);
                                         }
                                     }
@@ -171,6 +171,15 @@ class ProfileController extends Controller
                         $transitLogs = $profileCC->ccTransitLogs;
                         /** @var $orderOptions CcOrderOptions[] */
                         $orderOptions = $profileCC->ccOrderOptions;
+                        /** @var $languages CcLanguage[] */
+                        $languages = $profileCC->ccLanguages;
+                        if(isset($_POST['CcProfile']['ccLanguages'])){
+                            foreach($_POST['CcProfile']['ccLanguages'] as $i => $item){
+                                $languages[$i] = new CcLanguage;
+                                $languages[$i]->cc_profile_id = $profileCC->id;
+                                $languages[$i]->language_id = $item;
+                            }
+                        }
                         if(isset($_POST['CcPaymentsPeriod'])){
                             foreach($_POST['CcPaymentsPeriod'] as $i => $item){
                                 $paymentsPeriods[$i] = new CcPaymentsPeriod;
@@ -299,13 +308,20 @@ class ProfileController extends Controller
                                         } else {
                                             $profileCC->company_logo = null;
                                         }
-                                        if(file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo)){
+                                        if(!empty($oldLogo) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo)){
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo);
                                         }
                                     }
                                 }
 
                                 $profileCC->save();
+
+                                foreach($profileCC->ccLanguages as $language){
+                                    $language->delete();
+                                }
+                                foreach($languages as $language){
+                                    $language->save(false);
+                                }
 
                                 foreach($profileCC->ccPaymentsPeriods as $period){
                                     $period->delete();

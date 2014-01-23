@@ -55,6 +55,24 @@ class BaseModel extends CActiveRecord
         return $n;
     }
 
+    public function getPropertyAsString($prop, $field='name', $delemiter=', ') {
+        $s = '';
+        if(is_string($prop) && isset($this->$prop) && is_array($this->$prop)){
+            $values = array();
+            foreach($this->$prop as $_){
+                /** @var $_ BaseModel */
+                if(isset($_->$field)){
+                    array_push($values,Yii::t("view",$_->$field));
+                }
+            }
+            $s = implode($delemiter,$values);
+        }
+        if(empty($s)){
+            $s = Yii::t("view","No data");
+        }
+        return $s;
+    }
+
     public function rules(){
         $purifier = new CHtmlPurifier();
         $purifier->options = array(

@@ -16,6 +16,8 @@
 /* @var $earlyPeriods CcEarlyPeriod[] */
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
+$scriptLink = Yii::app()->clientScript->getCoreScriptUrl().'/jui/js/jquery-ui-i18n.min.js';
+Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD);
 ?>
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(

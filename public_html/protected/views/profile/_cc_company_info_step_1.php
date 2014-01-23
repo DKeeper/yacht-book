@@ -57,8 +57,8 @@ $this->widget('zii.widgets.CDetailView', array(
             'value'=>!empty($model->q_boat)?$model->q_boat:Yii::t("view","No data"),
         ),
         array(
-            'label'=>$model->getAttributeLabel('company_speak'),
-            'value'=>!empty($model->company_speak)?$model->company_speak:Yii::t("view","No data"),
+            'label'=>$model->getAttributeLabel('ccLanguages'),
+            'value'=>$model->getPropertyAsString('languages'),
         ),
     ),
 ));
