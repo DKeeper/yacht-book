@@ -20,10 +20,15 @@ class JuiAutoComboBox extends CJuiAutoComplete
         if(isset($this->htmlOptions['name']))
             $name=$this->htmlOptions['name'];
 
+        echo CHtml::openTag("div",array("class"=>"input-group"));
         if($this->hasModel())
             echo CHtml::activeTextField($this->model,$this->attribute,$this->htmlOptions);
         else
             echo CHtml::textField($name,$this->value,$this->htmlOptions);
+        echo CHtml::openTag("span",array("class"=>"input-group-btn"));
+        echo CHtml::tag("button",array("class"=>"btn btn-default","onclick"=>"$('#{$id}').autocomplete('search',''); return false;"),"<span class=caret></span>");
+        echo CHtml::closeTag("span");
+        echo CHtml::closeTag("div");
 
         if($this->sourceUrl!==null)
             $this->options['source']=CHtml::normalizeUrl($this->sourceUrl);
@@ -37,26 +42,6 @@ class JuiAutoComboBox extends CJuiAutoComplete
         $options=CJavaScript::encode($this->options);
         Yii::app()->getClientScript()->registerScript(__CLASS__.'#'.$id,"
             jQuery('#{$id}').autocomplete($options);
-            jQuery('<button type=button>&nbsp;</button>')
-			.attr('tabIndex', -1 )
-			.attr('title', 'Show All Items')
-			.attr('id', 'btn')
-			.insertAfter(jQuery('#{$id}'))
-			.button({
-				icons: {
-					primary: 'ui-icon-triangle-1-s'
-				},
-				text: false
-			})
-			.removeClass('ui-corner-all')
-			.addClass('ui-corner-right ui-button-icon')
-			.click(function(event){
-			    $('#{$id}').autocomplete('search','');
-			    return false;
-			});
-			jQuery('body').click(function(event){
-			    $('#{$id}').autocomplete('close');
-			});
         ");
     }
 }

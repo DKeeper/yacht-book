@@ -18,7 +18,7 @@ $statusList = BaseModel::getFilters('status');
 	'enableAjaxValidation'=>true,
     'htmlOptions' => array(
         'enctype'=>'multipart/form-data',
-        'class'=>'fleets_form'
+        'class'=>'fleets_form form-horizontal'
     ),
 )); ?>
 
