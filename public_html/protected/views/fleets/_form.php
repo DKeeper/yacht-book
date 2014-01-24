@@ -1,7 +1,10 @@
 <?php
 /* @var $this FleetsController */
 /* @var $model CcFleets */
+/* @var $profile SyProfile */
+/* @var $profileCC CcProfile */
 /* @var $form CActiveForm */
+$statusList = BaseModel::getFilters('status');
 ?>
 
 <div class="form">
@@ -13,38 +16,75 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>true,
+    'htmlOptions' => array(
+        'enctype'=>'multipart/form-data',
+        'class'=>'fleets_form'
+    ),
 )); ?>
 
-    <p class="note"><?php echo Yii::t('view','Fields with <span class="required">*</span> are required.'); ?></p>
-
 	<?php echo $form->errorSummary($model); ?>
+    <?php echo $form->hiddenField($model,'cc_id'); ?>
+    <?php echo $form->hiddenField($model,'profile_id'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'cc_id'); ?>
-		<?php echo $form->textField($model,'cc_id'); ?>
-		<?php echo $form->error($model,'cc_id'); ?>
-	</div>
+    <?php
+    $this->widget('zii.widgets.jui.CJuiTabs',array(
+        'tabs'=>array(
+            Yii::t("model","Details {n}",array('{n}'=>1))=>array(
+                'content'=>$this->renderPartial(
+                    '_fleets_detail_1',
+                    array('profile'=>$profile,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab1'
+            ),
+            Yii::t("model","Details {n}",array('{n}'=>2))=>array(
+                'content'=>$this->renderPartial(
+                    '_fleets_detail_2',
+                    array('profile'=>$profile,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab2'
+            ),
+            Yii::t("model","Photo")=>array(
+                'content'=>$this->renderPartial(
+                    '_fleets_photo',
+                    array('profile'=>$profile,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab3'
+            ),
+            Yii::t("model","Price")=>array(
+                'content'=>$this->renderPartial(
+                    '_fleets_price',
+                    array('profile'=>$profile,'form'=>$form),
+                    true
+                ),
+                'id'=>'tab4'
+            ),
+        ),
+        // additional javascript options for the tabs plugin
+        'htmlOptions'=>array(
+            'id'=>'fleets_tabs',
+        ),
+    ));
+    ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'profile_id'); ?>
-		<?php echo $form->textField($model,'profile_id'); ?>
-		<?php echo $form->error($model,'profile_id'); ?>
-	</div>
-
+    <?php if(Rights::getAuthorizer()->isSuperuser(Yii::app()->user->id)) { ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'isActive'); ?>
-		<?php echo $form->textField($model,'isActive'); ?>
+		<?php echo $form->dropDownList($model,'isActive',$statusList); ?>
 		<?php echo $form->error($model,'isActive'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'isTrash'); ?>
-		<?php echo $form->textField($model,'isTrash'); ?>
+		<?php echo $form->dropDownList($model,'isTrash',$statusList); ?>
 		<?php echo $form->error($model,'isTrash'); ?>
 	</div>
+    <?php } ?>
 
 	<div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save')); ?>
+        <button data-type="submit" class="btn btn-default"><?php echo $model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save'); ?></button>
 	</div>
 
 <?php $this->endWidget(); ?>

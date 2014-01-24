@@ -8,6 +8,20 @@
 class BaseModel extends CActiveRecord
 {
     /**
+     * @param $type string
+     * @return array|bool
+     */
+    public static function getFilters($type){
+        $_filters = array(
+            'status' => array(
+                '0' => Yii::t('view','No'),
+                '1' => Yii::t('view','Yes'),
+            )
+        );
+        return isset($_filters[$type]) ? $_filters[$type] : false;
+    }
+
+    /**
      * @param array|string $fields
      * @param string $delimiter
      * @param array|string $condition

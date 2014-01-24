@@ -85,6 +85,9 @@ return array(
     "{file} is empty, please select files again without it."=>"{file} пуст, выберите файлы снова без него.",
     "The files are being uploaded, if you leave now the upload will be cancelled."=>"Файлы загружаются, если вы остановите сейчас, загрузка будет отменена.",
 
+    'Company fleets'=>'Флот компании',
+    'Fleet' => 'Флот',
+
     // Названия языков
     "Abkhazian"=>"Абхазский",
     'English' => 'Английский',

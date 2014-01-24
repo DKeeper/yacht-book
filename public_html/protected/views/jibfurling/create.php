@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Jib Furlings'=>array('index'),
-	'Create',
+	Yii::t('view','Create'),
 );
 
 $this->menu=array(

@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Cc Order Options'=>array('index'),
-	'Create',
+	Yii::t('view','Create'),
 );
 
 $this->menu=array(

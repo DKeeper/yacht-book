@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Questions'=>array('index'),
-	'Create',
+	Yii::t('view','Create'),
 );
 
 $this->menu=array(

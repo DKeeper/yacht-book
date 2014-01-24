@@ -1,10 +1,12 @@
 <?php
 /* @var $this FleetsController */
 /* @var $model CcFleets */
+/* @var $profile SyProfile */
+/* @var $profileCC CcProfile */
 
 $this->breadcrumbs=array(
-	'Cc Fleets'=>array('index'),
-	'Create',
+    Yii::t("view","Company fleets")=>array('index'),
+	Yii::t('view','Create'),
 );
 
 $this->menu=array(
@@ -13,6 +15,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create CcFleets</h1>
+<h1>Create <?php echo Yii::t("view","Fleet"); ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'profileCC'=>$profileCC,'profile'=>$profile)); ?>

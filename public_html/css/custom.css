@@ -50,3 +50,6 @@ span[role='status']{
 #company_tabs table th{
     width: 250px;
 }
+.fleets_form label{
+    display: inline-block !important;
+}

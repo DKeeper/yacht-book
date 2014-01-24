@@ -202,7 +202,7 @@ class SyProfile extends BaseModel
 			'_index_id' => Yii::t('model','Index'),
 			'modification_id' => Yii::t('model','Modification'),
 			'built_date' => Yii::t('model','Built date'),
-			'renovation_datee' => Yii::t('model','Renovation date'),
+			'renovation_date' => Yii::t('model','Renovation date'),
 			'double_cabins' => Yii::t('model','Double cabins'),
 			'bunk_cabins' => Yii::t('model','Bunk cabins'),
 			'twin_cabins' => Yii::t('model','Twin cabins'),

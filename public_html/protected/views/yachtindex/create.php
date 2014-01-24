@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Yacht Indexes'=>array('index'),
-	'Create',
+	Yii::t('view','Create'),
 );
 
 $this->menu=array(

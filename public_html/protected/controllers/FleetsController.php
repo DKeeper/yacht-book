@@ -27,28 +27,29 @@ class FleetsController extends Controller
 	public function actionCreate()
 	{
 		$model=new CcFleets;
+        $profile=new SyProfile;
 
-        $modelUser = $this->loadUser();
+        /** @var $profileCC CcProfile */
+        list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess(Yii::app()->user);
 
-        list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess($modelUser);
+        $model->cc_id = $profileCC->cc_id;
+        $model->profile_id = -1;
 
-        if($role === "CC" || $role === "A"){
-            // Uncomment the following line if AJAX validation is needed
-            $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        $this->performAjaxValidation($model);
 
-            if(isset($_POST['CcFleets']))
-            {
-                $model->attributes=$_POST['CcFleets'];
-                if($model->save())
-                    $this->redirect(array('view','id'=>$model->id));
-            }
-
-            $this->render('create',array(
-                'model'=>$model,
-            ));
-        } else {
-            $this->redirect('/');
+        if(isset($_POST['CcFleets']))
+        {
+            $model->attributes=$_POST['CcFleets'];
+            if($model->save())
+                $this->redirect(array('view','id'=>$model->id));
         }
+
+        $this->render('create',array(
+            'model'=>$model,
+            'profile'=>$profile,
+            'profileCC'=>$profileCC,
+        ));
 	}
 
 	/**
@@ -114,7 +115,24 @@ class FleetsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('CcFleets');
+        $uid = Yii::app()->user->id;
+        /** @var $profileCC CcProfile */
+        list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess(Yii::app()->user);
+        if($role == 'M'){
+            $uid = $profileCC->cc_id;
+        }
+
+		$dataProvider=new CActiveDataProvider(
+            'CcFleets',
+            array(
+                'criteria'=>array(
+                    'condition' => 'cc_id = :ccid',
+                    'params' => array(
+                        ':ccid' => $uid,
+                    ),
+                ),
+            )
+        );
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
