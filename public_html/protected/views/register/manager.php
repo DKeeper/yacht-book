@@ -36,7 +36,10 @@ if(empty($this->breadcrumbs)){
     'clientOptions'=>array(
         'validateOnSubmit'=>true,
     ),
-    'htmlOptions' => array('enctype'=>'multipart/form-data'),
+    'htmlOptions' => array(
+        'enctype'=>'multipart/form-data',
+        'class'=>'form-horizontal'
+    ),
 ));
     ?>
     <?php echo $form->errorSummary(array($modelUser,$profileUser,$profileM)); ?>

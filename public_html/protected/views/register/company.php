@@ -41,7 +41,10 @@ $this->breadcrumbs=array(
         'clientOptions'=>array(
             'validateOnSubmit'=>false,
         ),
-        'htmlOptions' => array('enctype'=>'multipart/form-data'),
+        'htmlOptions' => array(
+            'enctype'=>'multipart/form-data',
+            'class'=>'form-horizontal'
+        ),
     ));
 ?>
 <?php

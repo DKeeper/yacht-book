@@ -14,52 +14,55 @@
 /* @var $earlyPeriods CcEarlyPeriod[] */
 ?>
     <div class="row">
+        <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
-        <?php echo $form->dropDownList($profileCC,'checkin_day',array()); ?>
+        <?php echo $form->dropDownList($profileCC,'checkin_day',array(),array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'checkin_day'); ?>
-    </div>
-
-    <div class="row">
+        </div><div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkin_hour'); ?>
         <?php
         $this->widget('timepicker.EDateTimePicker', array(
             'model'=>$profileCC,
             'attribute'=>'checkin_hour',
             'htmlOptions'=>array(
-                'style'=>'width:100px;',
+                'class'=>'form-control'
             ),
         ));
         ?>
         <?php echo $form->error($profileCC,'checkin_hour'); ?>
+        </div>
     </div>
 
     <div class="row">
+        <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkout_day'); ?>
-        <?php echo $form->dropDownList($profileCC,'checkout_day',array()); ?>
+        <?php echo $form->dropDownList($profileCC,'checkout_day',array(),array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'checkout_day'); ?>
-    </div>
-
-    <div class="row">
+        </div><div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkout_hour'); ?>
         <?php
         $this->widget('timepicker.EDateTimePicker', array(
             'model'=>$profileCC,
             'attribute'=>'checkout_hour',
             'htmlOptions'=>array(
-                'style'=>'width:100px;',
+                'class'=>'form-control'
             ),
         ));
         ?>
         <?php echo $form->error($profileCC,'checkout_hour'); ?>
+        </div>
     </div>
 
     <?php
         echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addPaymentPeriod(this)',
-            'style'=>'cursor:pointer;',
-            'class'=>'add_payment'
-        ));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default add_payment btn-xs",
+                'onclick'=>'addPaymentPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
         foreach($paymentsPeriods as $i=>$period){
             $this->renderPartial("/register/_payment_period",array(
                 "i"=>$i,
@@ -88,11 +91,14 @@
 
     <?php
         echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addCancelPeriod(this)',
-            'style'=>'cursor:pointer;',
-            'class'=>'add_cancel'
-        ));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default add_cancel btn-xs",
+                'onclick'=>'addCancelPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
         foreach($cancelPeriods as $i=>$period){
             $this->renderPartial("/register/_cancel_period",array(
                 "i"=>$i,
@@ -121,11 +127,14 @@
 
     <?php
         echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addLongPeriod(this)',
-            'style'=>'cursor:pointer;',
-            'class'=>'add_long'
-        ));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default add_long btn-xs",
+                'onclick'=>'addLongPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
         foreach($longPeriods as $i=>$period){
             $this->renderPartial("/register/_long_period",array(
                 "i"=>$i,
@@ -137,11 +146,14 @@
     <div class="row"></div>
     <?php
         echo CHtml::label(Yii::t("view","Early period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addEarlyPeriod(this)',
-            'style'=>'cursor:pointer;',
-            'class'=>'add_early'
-        ));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default add_early btn-xs",
+                'onclick'=>'addEarlyPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
         foreach($earlyPeriods as $i=>$period){
             $this->renderPartial("/register/_early_period",array(
                 "i"=>$i,
@@ -153,13 +165,13 @@
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'repeater_discount'); ?>
-        <?php echo $form->textField($profileCC,'repeater_discount'); ?>
+        <?php echo $form->textField($profileCC,'repeater_discount',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'repeater_discount'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'max_discount'); ?>
-        <?php echo $form->textField($profileCC,'max_discount'); ?>
+        <?php echo $form->textField($profileCC,'max_discount',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'max_discount'); ?>
     </div>
 <?php if($this->id=="register"){?>
@@ -208,8 +220,8 @@
                 }
                 o = $(".payment_period");
                 o.parent().find(".aL").remove();
-                o.last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',
             dataType:'html',
@@ -242,8 +254,8 @@
                 }
                 o = $(".cancel_period");
                 o.parent().find(".aL").remove();
-                o.last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',
             dataType:'html',
@@ -277,8 +289,8 @@
                 }
                 o = $(".long_period");
                 o.parent().find(".aL").remove();
-                o.last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',
             dataType:'html',
@@ -311,8 +323,8 @@
                 }
                 o = $(".early_period");
                 o.parent().find(".aL").remove();
-                o.last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',
             dataType:'html',
@@ -320,6 +332,6 @@
         });
     }
     function delRow(o){
-        var n = $(o).parent().remove();
+        var n = $(o).parent().parent().remove();
     }
 </script>

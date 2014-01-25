@@ -34,24 +34,24 @@
  * @license http://www.yiiframework.com/license/
  */
 
-div.form
-{
-}
+/*div.form*/
+/*{*/
+/*}*/
 
-div.form input,
-div.form textarea,
-div.form select
-{
-	margin: 0.2em 0 0.5em 0;
-}
+/*div.form input,*/
+/*div.form textarea,*/
+/*div.form select*/
+/*{*/
+	/*margin: 0.2em 0 0.5em 0;*/
+/*}*/
 
-div.form fieldset
-{
-	border: 1px solid #DDD;
-	padding: 10px;
-	margin: 0 0 10px 0;
-    -moz-border-radius:7px;
-}
+/*div.form fieldset*/
+/*{*/
+	/*border: 1px solid #DDD;*/
+	/*padding: 10px;*/
+	/*margin: 0 0 10px 0;*/
+    /*-moz-border-radius:7px;*/
+/*}*/
 
 div.form label
 {

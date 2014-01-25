@@ -13,12 +13,16 @@
 ?>
 <div class="row">
 <?php
-    echo CHtml::label(Yii::t("model","transit log"),"",array("style"=>"display:inline-block;"));
-    echo CHtml::image("/i/def/plus.png","",array(
-        'onclick'=>'addTransitLog(this)',
-        'style'=>'cursor:pointer;',
-        'class'=>'add_transit_log'
-    ));
+    echo CHtml::tag(
+        "button",
+        array(
+            "class"=>"btn btn-default add_transit_log",
+            'onclick'=>'addTransitLog(this);return false;'
+        ),
+        Yii::t("model","transit log")."
+        <span class='glyphicon glyphicon-plus'></span>
+        "
+    );
     foreach($transitLogs as $i=>$log){
         $this->renderPartial("/register/_transit_log",array(
             "i"=>$i,
@@ -30,12 +34,16 @@
 </div>
 <div class="row">
     <?php
-        echo CHtml::label(Yii::t("view","Options"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::image("/i/def/plus.png","",array(
-            'onclick'=>'addOptions(this)',
-            'style'=>'cursor:pointer;',
-            'class'=>'add_options'
-        ));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default add_options",
+                'onclick'=>'addOptions(this);return false;'
+            ),
+            Yii::t("model","Options")."
+            <span class='glyphicon glyphicon-plus'></span>
+            "
+        );
         foreach($orderOptions as $i=>$option){
             $this->renderPartial("/register/_order_options",array(
                 "i"=>$i,
@@ -96,8 +104,8 @@ $this->widget('fancyapps.EFancyApps', array(
                 }
                 o = $(".transit_log");
                 o.parent().find(".aL").remove();
-                o.last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',
             dataType:'html',
@@ -130,8 +138,8 @@ $this->widget('fancyapps.EFancyApps', array(
                 }
                 o = $(".order_options");
                 o.parent().find(".aL").remove();
-                o.last().find('div').addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.last().find('input, select'));
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',
             dataType:'html',

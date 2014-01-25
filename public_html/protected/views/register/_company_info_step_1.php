@@ -26,7 +26,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     <?php echo $form->hiddenField($profileCC,'cc_id'); ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_name'); ?>
-        <?php echo $form->textField($profileCC,'company_name'); ?>
+        <?php echo $form->textField($profileCC,'company_name',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_name'); ?>
     </div>
 
@@ -128,13 +128,13 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_full_addres'); ?>
-        <?php echo $form->textField($profileCC,'company_full_addres',array('style'=>'width:500px;')); ?>
+        <?php echo $form->textField($profileCC,'company_full_addres',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_full_addres'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_postal_code'); ?>
-        <?php echo $form->textField($profileCC,'company_postal_code'); ?>
+        <?php echo $form->textField($profileCC,'company_postal_code',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_postal_code'); ?>
     </div>
 
@@ -144,43 +144,43 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'longitude'); ?>
-        <?php echo $form->textField($profileCC,'longitude'); ?>
+        <?php echo $form->textField($profileCC,'longitude',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'longitude'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'latitude'); ?>
-        <?php echo $form->textField($profileCC,'latitude'); ?>
+        <?php echo $form->textField($profileCC,'latitude',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'latitude'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_web_site'); ?>
-        <?php echo $form->textField($profileCC,'company_web_site'); ?>
+        <?php echo $form->textField($profileCC,'company_web_site',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_web_site'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_email'); ?>
-        <?php echo $form->textField($profileCC,'company_email'); ?>
+        <?php echo $form->textField($profileCC,'company_email',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_email'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_phone'); ?>
-        <?php echo $form->textField($profileCC,'company_phone'); ?>
+        <?php echo $form->textField($profileCC,'company_phone',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_phone'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_faxe'); ?>
-        <?php echo $form->textField($profileCC,'company_faxe'); ?>
+        <?php echo $form->textField($profileCC,'company_faxe',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'company_faxe'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'q_boat'); ?>
-        <?php echo $form->textField($profileCC,'q_boat'); ?>
+        <?php echo $form->textField($profileCC,'q_boat',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'q_boat'); ?>
     </div>
 
@@ -243,10 +243,9 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
             Language::model()->getModelList(),
             array(
                 'multiple'=>'multiple',
-                'class'=>'multiselect',
+                'class'=>'multiselect form-control',
                 'options' => $profileCC->getSelectedLanguage(),
                 'key'=>'language_id',
-                'style'=>'height:350px!important;'
             ));
         ?>
         <?php echo $form->error($profileCC,'ccLanguages'); ?>

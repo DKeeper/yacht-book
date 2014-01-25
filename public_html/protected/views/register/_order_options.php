@@ -15,7 +15,8 @@ $orderOptionList += OrderOptions::model()->getModelList();
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
 ?>
 <div class="row order_options num_<?php echo $i;?>">
-    <?php echo $form->labelEx($model,"[$i]order_option_id"); ?>
+    <div class="row">
+    <div class="col-md-4">
     <?php
     echo $form->dropDownList(
         $model,
@@ -24,65 +25,59 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
         array(
             "prompt"=>Yii::t("view","Select options"),
             "onchange"=>"createOptions(this)",
+            "class"=>"form-control",
         )
     );
-//    $this->widget('autocombobox.JuiAutoComboBox', array(
-//        'model'=>YachtShipyard::model(),   // модель
-//        'attribute'=>'name',  // атрибут модели
-//        // "источник" данных для выборки
-//        'source' =>'js:function(request, response) {
-//                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
-//                    term: request.term.split(/,s*/).pop(),
-//                    modelClass: "OrderOptions",
-//                    sql: false
-//                }, response);
-//            }',
-//        // параметры, подробнее можно посмотреть на сайте
-//        // http://jqueryui.com/demos/autocomplete/
-//        'options'=>array(
-//            'minLength'=>0,
-//            'delay'=>0,
-//            'showAnim'=>'fold',
-//            'click'=>'js: function(event, ui) {
-//                    $(this).val("");
-//                    return false;
-//                }',
-//            'select' =>'js: function(event, ui) {
-//                    if(!ui.item.id){
-//                        createAddForm("#c","order_options");
-//                        $(".custom_create").click();
-//                    } else {
-//                        this.value = ui.item.value;
-//                        // записываем полученный id в скрытое поле
-//                        $("#SyProfile_shipyard_id").val(ui.item.id);
-//                    }
-//                    return false;
-//                }',
-//
-//        ),
-//        'htmlOptions' => array(
-//            'maxlength'=>50,
-//        ),
-//    ));
     ?>
     <?php echo $form->error($model,"[$i]order_option_id"); ?>
-    <?php echo $form->labelEx($model,"[$i]obligatory"); ?>
-    <?php echo $form->checkBox($model,"[$i]obligatory"); ?>
-    <?php echo $form->error($model,"[$i]obligatory"); ?>
-    <?php echo $form->labelEx($model,"[$i]included"); ?>
-    <?php echo $form->checkBox($model,"[$i]included"); ?>
-    <?php echo $form->error($model,"[$i]included"); ?>
-    <?php echo $form->labelEx($model,"[$i]price"); ?>
-    <?php echo $form->textField($model,"[$i]price"); ?>
+    </div>
+    <div class="col-md-4">
+    <?php echo $form->textField($model,"[$i]price",array("class"=>"form-control","placeholder"=>$model->getAttributeLabel("price"))); ?>
     <?php echo $form->error($model,"[$i]price"); ?>
-    <?php echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList); ?>
+    </div>
+    <div class="col-md-4">
+    <?php echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList,array("class"=>"form-control")); ?>
     <?php echo $form->error($model,"[$i]duration_type_id"); ?>
-    <?php
-    echo CHtml::image("/i/def/minus.png","",array(
-        'onclick'=>'delRow(this)',
-        'style'=>'cursor:pointer;',
-    ));
-    ?>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-4">
+        <div class="checkbox">
+            <?php
+            echo CHtml::openTag("label");
+            echo $form->checkBox($model,"[$i]obligatory",array('uncheckValue'=>null));
+            echo $model->getAttributeLabel("obligatory");
+            echo CHtml::closeTag("label");
+            echo $form->error($model,"[$i]obligatory");
+            ?>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="checkbox">
+            <?php
+            echo CHtml::openTag("label");
+            echo $form->checkBox($model,"[$i]included",array('uncheckValue'=>null));
+            echo $model->getAttributeLabel("included");
+            echo CHtml::closeTag("label");
+            echo $form->error($model,"[$i]included");
+            ?>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <?php
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default",
+                'onclick'=>'delRow($(this).parent());return false;'
+            ),
+            Yii::t("view","Delete")."
+            <span class='glyphicon glyphicon-minus'></span>
+            "
+        );
+        ?>
+    </div>
+    </div>
 </div>
 <?php
 //if(isset($ajax) && $ajax){

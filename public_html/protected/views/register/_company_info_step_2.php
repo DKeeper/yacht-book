@@ -11,106 +11,137 @@
 ?>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'vat'); ?>
-        <?php echo $form->textField($profileCC,'vat'); ?>
+        <?php echo $form->textField($profileCC,'vat',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'vat'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'bank_name'); ?>
-        <?php echo $form->textField($profileCC,'bank_name'); ?>
+        <?php echo $form->textField($profileCC,'bank_name',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'bank_name'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'bank_addres'); ?>
-        <?php echo $form->textField($profileCC,'bank_addres'); ?>
+        <?php echo $form->textField($profileCC,'bank_addres',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'bank_addres'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'beneficiary'); ?>
-        <?php echo $form->textField($profileCC,'beneficiary'); ?>
+        <?php echo $form->textField($profileCC,'beneficiary',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'beneficiary'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'beneficiary_addres'); ?>
-        <?php echo $form->textField($profileCC,'beneficiary_addres'); ?>
+        <?php echo $form->textField($profileCC,'beneficiary_addres',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'beneficiary_addres'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'account_no'); ?>
-        <?php echo $form->textField($profileCC,'account_no'); ?>
+        <?php echo $form->textField($profileCC,'account_no',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'account_no'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'swift'); ?>
-        <?php echo $form->textField($profileCC,'swift'); ?>
+        <?php echo $form->textField($profileCC,'swift',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'swift'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'iban'); ?>
-        <?php echo $form->textField($profileCC,'iban'); ?>
+        <?php echo $form->textField($profileCC,'iban',array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'iban'); ?>
     </div>
+
     <div class="row">
         <h4><?php echo Yii::t("view","We are accept for payment:"); ?></h4>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'visa'); ?>
-        <?php echo $form->checkBox($profileCC,'visa'); ?>
-        <?php echo $form->error($profileCC,'visa'); ?>
-    </div>
 
     <div class="row">
-        <?php echo $form->labelEx($profileCC,'visa_percent'); ?>
-        <?php echo $form->textField($profileCC,'visa_percent'); ?>
+    <div class="col-md-2">
+        <div class="row checkbox">
+        <?php echo CHtml::openTag("label"); ?>
+        <?php echo $form->checkBox($profileCC,'visa',array('uncheckValue'=>null)); ?>
+        <?php echo $profileCC->getAttributeLabel("visa"); ?>
+        <?php echo CHtml::closeTag("label"); ?>
+        </div>
+        <?php echo $form->error($profileCC,'visa'); ?>
+    </div>
+    <div class="col-md-2">
+        <div class="input-group">
+        <?php echo $form->textField($profileCC,'visa_percent',array('class'=>'form-control')); ?>
+        <span class="input-group-addon">%</span>
+        </div>
         <?php echo $form->error($profileCC,'visa_percent'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'mastercard'); ?>
-        <?php echo $form->checkBox($profileCC,'mastercard'); ?>
+    <div class="col-md-2">
+        <div class="row checkbox">
+            <?php echo CHtml::openTag("label"); ?>
+            <?php echo $form->checkBox($profileCC,'mastercard',array('uncheckValue'=>null)); ?>
+            <?php echo $profileCC->getAttributeLabel("mastercard"); ?>
+            <?php echo CHtml::closeTag("label"); ?>
+        </div>
         <?php echo $form->error($profileCC,'mastercard'); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'mastercard_percent'); ?>
-        <?php echo $form->textField($profileCC,'mastercard_percent'); ?>
+    <div class="col-md-2">
+        <div class="input-group">
+            <?php echo $form->textField($profileCC,'mastercard_percent',array('class'=>'form-control')); ?>
+            <span class="input-group-addon">%</span>
+        </div>
         <?php echo $form->error($profileCC,'mastercard_percent'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'amex'); ?>
-        <?php echo $form->checkBox($profileCC,'amex'); ?>
+    <div class="col-md-2">
+        <div class="row checkbox">
+            <?php echo CHtml::openTag("label"); ?>
+            <?php echo $form->checkBox($profileCC,'amex',array('uncheckValue'=>null)); ?>
+            <?php echo $profileCC->getAttributeLabel("amex"); ?>
+            <?php echo CHtml::closeTag("label"); ?>
+        </div>
         <?php echo $form->error($profileCC,'amex'); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'amex_percent'); ?>
-        <?php echo $form->textField($profileCC,'amex_percent'); ?>
+    <div class="col-md-2">
+        <div class="input-group">
+            <?php echo $form->textField($profileCC,'amex_percent',array('class'=>'form-control')); ?>
+            <span class="input-group-addon">%</span>
+        </div>
         <?php echo $form->error($profileCC,'amex_percent'); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'bank_transfer'); ?>
-        <?php echo $form->checkBox($profileCC,'bank_transfer'); ?>
-        <?php echo $form->error($profileCC,'bank_transfer'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($profileCC,'western_union'); ?>
-        <?php echo $form->checkBox($profileCC,'western_union'); ?>
-        <?php echo $form->error($profileCC,'western_union'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profileCC,'contact'); ?>
-        <?php echo $form->checkBox($profileCC,'contact'); ?>
-        <?php echo $form->error($profileCC,'contact'); ?>
+        <div class="col-md-4">
+            <div class="row checkbox">
+                <?php echo CHtml::openTag("label"); ?>
+                <?php echo $form->checkBox($profileCC,'bank_transfer',array('uncheckValue'=>null)); ?>
+                <?php echo $profileCC->getAttributeLabel("bank_transfer"); ?>
+                <?php echo CHtml::closeTag("label"); ?>
+            </div>
+            <?php echo $form->error($profileCC,'bank_transfer'); ?>
+        </div>
+        <div class="col-md-4">
+            <div class="row checkbox">
+                <?php echo CHtml::openTag("label"); ?>
+                <?php echo $form->checkBox($profileCC,'western_union',array('uncheckValue'=>null)); ?>
+                <?php echo $profileCC->getAttributeLabel("western_union"); ?>
+                <?php echo CHtml::closeTag("label"); ?>
+            </div>
+            <?php echo $form->error($profileCC,'western_union'); ?>
+        </div>
+        <div class="col-md-4">
+            <div class="row checkbox">
+                <?php echo CHtml::openTag("label"); ?>
+                <?php echo $form->checkBox($profileCC,'contact',array('uncheckValue'=>null)); ?>
+                <?php echo $profileCC->getAttributeLabel("contact"); ?>
+                <?php echo CHtml::closeTag("label"); ?>
+            </div>
+            <?php echo $form->error($profileCC,'contact'); ?>
+        </div>
     </div>
 
     <div class="row">
