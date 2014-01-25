@@ -14,6 +14,9 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>true,
+    'htmlOptions'=>array(
+        'class'=>'form-horizontal'
+    )
 )); ?>
 
     <p class="note"><?php echo Yii::t('view','Fields with <span class="required">*</span> are required.'); ?></p>
@@ -24,7 +27,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name'); ?>
+		<?php echo $form->textField($model,'name',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
@@ -46,7 +49,7 @@
 	</div>
 
 	<div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save')); ?>
+        <button data-type="submit" class="btn btn-default"><?php echo $model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save'); ?></button>
 	</div>
 
 <?php $this->endWidget(); ?>
