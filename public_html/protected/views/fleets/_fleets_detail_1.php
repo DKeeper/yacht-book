@@ -10,6 +10,9 @@
 /* @var $form CActiveForm */
 Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 $yachtTypeList = YachtType::model()->getModelList();
+$furlingList = SailFurling::model()->getModelList();
+$sailMaterialList = SailMaterial::model()->getModelList();
+$jibTypeList = JibType::model()->getModelList();
 ?>
 <div class="form-group">
     <div class="col-md-12">
@@ -24,8 +27,77 @@ $yachtTypeList = YachtType::model()->getModelList();
     <div class="col-md-4">
         <h3>MODEL</h3>
         <div class="row">
-            <?php echo $form->dropDownList($profile,'type_id',$yachtTypeList,array("prompt"=>$profile->getAttributeLabel("type_id"),'class'=>"form-control")); ?>
-            <?php echo $form->error($profile,'type_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'type_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>YachtType::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "YachtType",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}',
+                // параметры, подробнее можно посмотреть на сайте
+                // http://jqueryui.com/demos/autocomplete/
+                'options'=>array(
+                    'minLength'=>0,
+                    'delay'=>0,
+                    'showAnim'=>'fold',
+                    'click'=>'js: function(event, ui) {
+                        $(this).val("");
+                        $("#YachtType_name").autocomplete( "search","");
+                        return false;}',
+                    'select' =>'js: function(event, ui) {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#SyProfile_type_id").val(ui.item.id);
+                        $("#SyProfile_shipyard_id").val("");
+                        $("#SyProfile_model_id").val("");
+                        $("#SyProfile__index_id").val("");
+                        $("#YachtShipyard_name").val("");
+                        $("#YachtModel_name").val("");
+                        $("#YachtIndex_name").val("");
+                        return false;}',
+                    'change' => 'js: function(event, ui) {
+                        if(ui.item===null){
+                            $("#SyProfile_type_id").val("");
+                        }
+                        return false;}',
+                    'response' => 'js: function( event, ui ) {
+                        if(autoFind){
+                            var s = ui.content[0];
+                            $("#SyProfile_type_id").val(s.id);
+                            this.value = s.value;
+                            autoFind = false;
+                            return false;
+                        }}',
+                    'open' => 'js: function( event, ui ) {
+                        if(hideSearchResult){
+                            $(this).autocomplete("close");
+                            hideSearchResult = false;
+                        }}',
+                    'close' => 'js: function( event, ui ) {
+                            if($(this).val()===""){
+                                $("#SyProfile_type_id").val("");
+                                $("#SyProfile_shipyard_id").val("");
+                                $("#SyProfile_model_id").val("");
+                                $("#SyProfile__index_id").val("");
+                                $("#YachtShipyard_name").val("");
+                                $("#YachtModel_name").val("");
+                                $("#YachtIndex_name").val("");
+                        }}',
+                ),
+                'htmlOptions' => array(
+                    'maxlength'=>50,
+                    'placeholder'=>$profile->getAttributeLabel("type_id"),
+                    'class'=>'form-control'
+                ),
+            ));
+            ?>
         </div>
         <div class="row">
             <?php
@@ -37,6 +109,9 @@ $yachtTypeList = YachtType::model()->getModelList();
                 'source' =>'js:function(request, response) {
                     $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
                     term: request.term.split(/,s*/).pop(),
+                    parent_id: $("#SyProfile_type_id").val(),
+                    parent_link: "yacht_type_id",
+                    parent_model: "yachtType",
                     modelClass: "YachtShipyard",
                     field: {yachtType: "name"},
                     sql: false
@@ -49,10 +124,10 @@ $yachtTypeList = YachtType::model()->getModelList();
                     'delay'=>0,
                     'showAnim'=>'fold',
                     'click'=>'js: function(event, ui) {
-                    $(this).val("");
-                    $("#YachtShipyard_name").autocomplete( "search","");
-                    return false;
-                }',
+                        $(this).val("");
+                        $("#YachtShipyard_name").autocomplete( "search","");
+                        return false;
+                    }',
                     'select' =>'js: function(event, ui) {
                     if(!ui.item.id){
                         createAddForm("#c","shipyard");
@@ -65,6 +140,9 @@ $yachtTypeList = YachtType::model()->getModelList();
                         $("#SyProfile__index_id").val("");
                         $("#YachtModel_name").val("");
                         $("#YachtIndex_name").val("");
+                        autoFind = true;
+                        hideSearchResult = true;
+                        $("#YachtType_name").autocomplete( "search",ui.item.parent_name);
                     }
                     return false;
                 }',
@@ -79,14 +157,13 @@ $yachtTypeList = YachtType::model()->getModelList();
                         var s = ui.content[1];
                         $("#SyProfile_shipyard_id").val(s.id);
                         this.value = s.value;
-                        autoFind = false;
+                        $("#YachtType_name").autocomplete( "search",s.parent_name);
                         return false;
                     }
                 }',
                     'open' => 'js: function( event, ui ) {
                     if(hideSearchResult){
                         $(this).autocomplete("close");
-                        hideSearchResult = false;
                     }
                 }',
 
@@ -124,10 +201,10 @@ $yachtTypeList = YachtType::model()->getModelList();
                     'delay'=>0,
                     'showAnim'=>'fold',
                     'click'=>'js: function(event, ui) {
-                    $(this).val("");
-                    $("#YachtModel_name").autocomplete( "search","");
-                    return false;
-                }',
+                        $(this).val("");
+                        $("#YachtModel_name").autocomplete( "search","");
+                        return false;
+                    }',
                     'select' =>'js: function(event, ui) {
                     if(!ui.item.id){
                         createAddForm("#c","model");
@@ -140,6 +217,7 @@ $yachtTypeList = YachtType::model()->getModelList();
                         $("#SyProfile__index_id").val("");
                         $("#YachtIndex_name").val("");
                         autoFind = true;
+                        hideSearchResult = true;
                         $("#YachtShipyard_name").autocomplete( "search",ui.item.parent_name);
                     }
                     return false;
@@ -198,10 +276,10 @@ $yachtTypeList = YachtType::model()->getModelList();
                     'delay'=>0,
                     'showAnim'=>'fold',
                     'click'=>'js: function(event, ui) {
-                    $(this).val("");
-                    $("#YachtIndex_name").autocomplete( "search","");
-                    return false;
-                }',
+                        $(this).val("");
+                        $("#YachtIndex_name").autocomplete( "search","");
+                        return false;
+                    }',
                     'select' =>'js: function(event, ui) {
                     if(!ui.item.id){
                         createAddForm("#c","index");
@@ -397,38 +475,100 @@ $yachtTypeList = YachtType::model()->getModelList();
     <div class="col-md-4">
         <h3>SAILS</h3>
         <div class="row">
-            <?php echo $form->labelEx($profile,'main_sail_area'); ?>
-            <?php echo $form->textField($profile,'main_sail_area',array('style'=>'width:50px;')); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'main_sail_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("main_sail_area"))); ?>
+                <span class="input-group-addon">m<sup>2</sup></span>
+            </div>
             <?php echo $form->error($profile,'main_sail_area'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->checkBox($profile,'main_sail_full_battened'); ?>
             <?php echo $form->labelEx($profile,'main_sail_full_battened'); ?>
-            <?php echo $form->textField($profile,'main_sail_full_battened'); ?>
             <?php echo $form->error($profile,'main_sail_full_battened'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'main_sail_furling_id'); ?>
-            <?php echo $form->textField($profile,'main_sail_furling_id'); ?>
-            <?php echo $form->error($profile,'main_sail_furling_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'main_sail_furling_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>SailFurling::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'main_sail_furling_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "SailFurling",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}',
+                'htmlOptions' => array(
+                    'maxlength'=>50,
+                    'placeholder'=>$profile->getAttributeLabel("main_sail_furling_id"),
+                    'class'=>'form-control'
+                ),
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'main_sail_material_id'); ?>
-            <?php echo $form->textField($profile,'main_sail_material_id'); ?>
-            <?php echo $form->error($profile,'main_sail_material_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'main_sail_material_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>SailMaterial::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'main_sail_material_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "SailMaterial",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}',
+                'htmlOptions' => array(
+                    'maxlength'=>50,
+                    'placeholder'=>$profile->getAttributeLabel("main_sail_material_id"),
+                    'class'=>'form-control'
+                ),
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'jib_type_id'); ?>
-            <?php echo $form->textField($profile,'jib_type_id'); ?>
-            <?php echo $form->error($profile,'jib_type_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'jib_type_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>JibType::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'jib_type_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "JibType",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}',
+                'htmlOptions' => array(
+                    'maxlength'=>50,
+                    'placeholder'=>$profile->getAttributeLabel("jib_type_id"),
+                    'class'=>'form-control'
+                ),
+            ));
+            ?>
         </div>
 
         <div class="row">
             <?php echo $form->labelEx($profile,'jib_area'); ?>
-            <?php echo $form->textField($profile,'jib_area'); ?>
+            <?php echo $form->textField($profile,'jib_area',array('class'=>'form-control')); ?>
             <?php echo $form->error($profile,'jib_area'); ?>
         </div>
 

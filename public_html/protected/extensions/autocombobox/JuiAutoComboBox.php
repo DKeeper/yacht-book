@@ -9,9 +9,14 @@ Yii::import('zii.widgets.jui.CJuiAutoComplete');
 
 class JuiAutoComboBox extends CJuiAutoComplete
 {
+    public $parentModel;
+    public $parentAttribute;
+
     public function run()
     {
         list($name,$id)=$this->resolveNameID();
+        $parentName = CHtml::activeName($this->parentModel,$this->parentAttribute);
+        $parentId = CHtml::getIdByName($parentName);
 
         if(isset($this->htmlOptions['id']))
             $id=$this->htmlOptions['id'];
@@ -29,6 +34,32 @@ class JuiAutoComboBox extends CJuiAutoComplete
         echo CHtml::tag("button",array("class"=>"btn btn-default","onclick"=>"$('#{$id}').autocomplete('search',''); return false;"),"<span class=caret></span>");
         echo CHtml::closeTag("span");
         echo CHtml::closeTag("div");
+
+        $baseOptions = array(
+            'minLength'=>0,
+            'delay'=>0,
+            'showAnim'=>'fold',
+            'click'=>'js: function(event, ui) {
+                        $(this).val("");
+                        $("#'.$id.'").autocomplete( "search","");
+                        return false;}',
+            'select' =>'js: function(event, ui) {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#'.$parentId.'").val(ui.item.id);
+                        return false;}',
+            'change' => 'js: function(event, ui) {
+                        if(ui.item===null){
+                            $("#'.$parentId.'").val("");
+                        }
+                        return false;}',
+            'close' => 'js: function( event, ui ) {
+                            if($(this).val()===""){
+                                $("#'.$parentId.'").val("");
+                        }}',
+        );
+
+        $this->options = array_merge($baseOptions,$this->options);
 
         if($this->sourceUrl!==null)
             $this->options['source']=CHtml::normalizeUrl($this->sourceUrl);
