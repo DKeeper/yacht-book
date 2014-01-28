@@ -142,6 +142,9 @@ class AjaxController extends Controller
                 unset($label);
             }
 
+            if(empty($result)){
+                $result[] = array('id','label'=>Yii::t("view","No results"),'value'=>Yii::t("view","No results"));
+            }
             echo CJSON::encode($result);
             Yii::app()->end();
         }

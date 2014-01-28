@@ -36,7 +36,7 @@ class FleetsController extends Controller
         $model->profile_id = -1;
 
         // Uncomment the following line if AJAX validation is needed
-        $this->performAjaxValidation($model);
+        $this->performAjaxValidation(array($model,$profile));
 
         if(isset($_POST['CcFleets']))
         {
@@ -170,7 +170,7 @@ class FleetsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param CcFleets $model the model to be validated
+	 * @param BaseModel $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{

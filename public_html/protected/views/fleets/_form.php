@@ -5,6 +5,7 @@
 /* @var $profileCC CcProfile */
 /* @var $form CActiveForm */
 $statusList = BaseModel::getFilters('status');
+Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 ?>
 
 <div class="form">

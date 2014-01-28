@@ -18,6 +18,14 @@ class JuiAutoComboBox extends CJuiAutoComplete
         $parentName = CHtml::activeName($this->parentModel,$this->parentAttribute);
         $parentId = CHtml::getIdByName($parentName);
 
+        if(isset($this->parentModel)){
+            $baseHtmlOptions = array(
+                'placeholder'=>$this->parentModel->getAttributeLabel($this->parentAttribute),
+                'class'=>'form-control'
+            );
+            $this->htmlOptions = array_merge($baseHtmlOptions,$this->htmlOptions);
+        }
+
         if(isset($this->htmlOptions['id']))
             $id=$this->htmlOptions['id'];
         else
@@ -44,9 +52,11 @@ class JuiAutoComboBox extends CJuiAutoComplete
                         $("#'.$id.'").autocomplete( "search","");
                         return false;}',
             'select' =>'js: function(event, ui) {
-                        this.value = ui.item.value;
-                        // записываем полученный id в скрытое поле
-                        $("#'.$parentId.'").val(ui.item.id);
+                        if(typeof ui.item.id !== "undefined"){
+                            this.value = ui.item.value;
+                            // записываем полученный id в скрытое поле
+                            $("#'.$parentId.'").val(ui.item.id);
+                        }
                         return false;}',
             'change' => 'js: function(event, ui) {
                         if(ui.item===null){

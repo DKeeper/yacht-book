@@ -8,11 +8,6 @@
 /* @var $this FleetsController */
 /* @var $profile SyProfile */
 /* @var $form CActiveForm */
-Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
-$yachtTypeList = YachtType::model()->getModelList();
-$furlingList = SailFurling::model()->getModelList();
-$sailMaterialList = SailMaterial::model()->getModelList();
-$jibTypeList = JibType::model()->getModelList();
 ?>
 <div class="form-group">
     <div class="col-md-12">
@@ -92,7 +87,6 @@ $jibTypeList = JibType::model()->getModelList();
                         }}',
                 ),
                 'htmlOptions' => array(
-                    'maxlength'=>50,
                     'placeholder'=>$profile->getAttributeLabel("type_id"),
                     'class'=>'form-control'
                 ),
@@ -169,7 +163,6 @@ $jibTypeList = JibType::model()->getModelList();
 
                 ),
                 'htmlOptions' => array(
-                    'maxlength'=>50,
                     'placeholder'=>$profile->getAttributeLabel("shipyard_id"),
                     'class'=>'form-control'
                 ),
@@ -244,7 +237,6 @@ $jibTypeList = JibType::model()->getModelList();
                 }',
                 ),
                 'htmlOptions' => array(
-                    'maxlength'=>50,
                     'placeholder'=>$profile->getAttributeLabel("model_id"),
                     'class'=>'form-control'
                 ),
@@ -304,7 +296,6 @@ $jibTypeList = JibType::model()->getModelList();
 
                 ),
                 'htmlOptions' => array(
-                    'maxlength'=>50,
                     'placeholder'=>$profile->getAttributeLabel("_index_id"),
                     'class'=>'form-control'
                 ),
@@ -364,7 +355,7 @@ $jibTypeList = JibType::model()->getModelList();
 
                 ),
                 'htmlOptions' => array(
-                    'maxlength'=>50,
+
                     'placeholder'=>$profile->getAttributeLabel("modification_id"),
                     'class'=>'form-control'
                 ),
@@ -483,9 +474,10 @@ $jibTypeList = JibType::model()->getModelList();
         </div>
 
         <div class="row">
-            <?php echo $form->checkBox($profile,'main_sail_full_battened'); ?>
-            <?php echo $form->labelEx($profile,'main_sail_full_battened'); ?>
-            <?php echo $form->error($profile,'main_sail_full_battened'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'main_sail_full_battened'); ?></span>
+                <?php echo CHtml::textField('checkbox_main_sail_full_battened',$profile->getAttributeLabel("main_sail_full_battened"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
         </div>
 
         <div class="row">
@@ -505,11 +497,6 @@ $jibTypeList = JibType::model()->getModelList();
                     create_include: false,
                     sql: false
                 }, response);}',
-                'htmlOptions' => array(
-                    'maxlength'=>50,
-                    'placeholder'=>$profile->getAttributeLabel("main_sail_furling_id"),
-                    'class'=>'form-control'
-                ),
             ));
             ?>
         </div>
@@ -531,11 +518,6 @@ $jibTypeList = JibType::model()->getModelList();
                     create_include: false,
                     sql: false
                 }, response);}',
-                'htmlOptions' => array(
-                    'maxlength'=>50,
-                    'placeholder'=>$profile->getAttributeLabel("main_sail_material_id"),
-                    'class'=>'form-control'
-                ),
             ));
             ?>
         </div>
@@ -557,99 +539,120 @@ $jibTypeList = JibType::model()->getModelList();
                     create_include: false,
                     sql: false
                 }, response);}',
-                'htmlOptions' => array(
-                    'maxlength'=>50,
-                    'placeholder'=>$profile->getAttributeLabel("jib_type_id"),
-                    'class'=>'form-control'
-                ),
             ));
             ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'jib_area'); ?>
-            <?php echo $form->textField($profile,'jib_area',array('class'=>'form-control')); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'jib_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("jib_area"))); ?>
+                <span class="input-group-addon">m<sup>2</sup></span>
+            </div>
             <?php echo $form->error($profile,'jib_area'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'jib_automatic'); ?>
-            <?php echo $form->textField($profile,'jib_automatic'); ?>
-            <?php echo $form->error($profile,'jib_automatic'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'jib_automatic'); ?></span>
+                <?php echo CHtml::textField('checkbox_jib_automatic',$profile->getAttributeLabel("jib_automatic"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'jib_furling_id'); ?>
-            <?php echo $form->textField($profile,'jib_furling_id'); ?>
-            <?php echo $form->error($profile,'jib_furling_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'jib_furling_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>JibFurling::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'jib_furling_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "JibFurling",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}',
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'jib_material_id'); ?>
-            <?php echo $form->textField($profile,'jib_material_id'); ?>
-            <?php echo $form->error($profile,'jib_material_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'jib_material_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>SailMaterial::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'jib_material_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "SailMaterial",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}',
+                'htmlOptions'=>array(
+                    'id'=> get_class(SailMaterial::model())."name_1",
+                )
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'winches'); ?>
-            <?php echo $form->textField($profile,'winches'); ?>
+            <?php echo $form->textField($profile,'winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("winches"))); ?>
             <?php echo $form->error($profile,'winches'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'el_winches'); ?>
-            <?php echo $form->textField($profile,'el_winches'); ?>
+            <?php echo $form->textField($profile,'el_winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("el_winches"))); ?>
             <?php echo $form->error($profile,'el_winches'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'spinnaker'); ?>
-            <?php echo $form->textField($profile,'spinnaker'); ?>
-            <?php echo $form->error($profile,'spinnaker'); ?>
-        </div>
-
-        <div class="row">
-            <?php echo $form->labelEx($profile,'spinnaker_area'); ?>
-            <?php echo $form->textField($profile,'spinnaker_area'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'spinnaker'); ?></span>
+                <?php echo $form->textField($profile,'spinnaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_area"))); ?>
+                <span class="input-group-addon">m<sup>2</sup></span>
+            </div>
             <?php echo $form->error($profile,'spinnaker_area'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'spinnaker_price'); ?>
-            <?php echo $form->textField($profile,'spinnaker_price'); ?>
+            <?php echo $form->textField($profile,'spinnaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_price"))); ?>
             <?php echo $form->error($profile,'spinnaker_price'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'spinnaker_deposiit'); ?>
-            <?php echo $form->textField($profile,'spinnaker_deposiit'); ?>
+            <?php echo $form->textField($profile,'spinnaker_deposiit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_deposiit"))); ?>
             <?php echo $form->error($profile,'spinnaker_deposiit'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'gennaker'); ?>
-            <?php echo $form->textField($profile,'gennaker'); ?>
-            <?php echo $form->error($profile,'gennaker'); ?>
-        </div>
-
-        <div class="row">
-            <?php echo $form->labelEx($profile,'gennaker_area'); ?>
-            <?php echo $form->textField($profile,'gennaker_area'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'gennaker'); ?></span>
+                <?php echo $form->textField($profile,'gennaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_area"))); ?>
+                <span class="input-group-addon">m<sup>2</sup></span>
+            </div>
             <?php echo $form->error($profile,'gennaker_area'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'gennaker_price'); ?>
-            <?php echo $form->textField($profile,'gennaker_price'); ?>
+            <?php echo $form->textField($profile,'gennaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_price"))); ?>
             <?php echo $form->error($profile,'gennaker_price'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'gennaker_deposit'); ?>
-            <?php echo $form->textField($profile,'gennaker_deposit'); ?>
+            <?php echo $form->textField($profile,'gennaker_deposit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_deposit"))); ?>
             <?php echo $form->error($profile,'gennaker_deposit'); ?>
         </div>
-
+    </div>
+    <div class="col-md-4">
+        <h3>PROPORTIONS</h3>
         <div class="row">
             <?php echo $form->labelEx($profile,'length_m'); ?>
             <?php echo $form->textField($profile,'length_m'); ?>
@@ -745,9 +748,6 @@ $jibTypeList = JibType::model()->getModelList();
             <?php echo $form->textField($profile,'auto_pilot'); ?>
             <?php echo $form->error($profile,'auto_pilot'); ?>
         </div>
-    </div>
-    <div class="col-md-4">
-        <h3>PROPORTIONS</h3>
     </div>
 </div>
     <?php
