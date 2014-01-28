@@ -20,7 +20,9 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <h3>MODEL</h3>
+        <div class="row">
+            <h3>MODEL</h3>
+        </div>
         <div class="row">
             <?php
             echo CHtml::activeHiddenField($profile,'type_id');
@@ -464,7 +466,9 @@
         </div>
     </div>
     <div class="col-md-4">
-        <h3>SAILS</h3>
+        <div class="row">
+            <h3>SAILS</h3>
+        </div>
         <div class="row">
             <div class="input-group">
                 <?php echo $form->textField($profile,'main_sail_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("main_sail_area"))); ?>
@@ -652,101 +656,164 @@
         </div>
     </div>
     <div class="col-md-4">
-        <h3>PROPORTIONS</h3>
         <div class="row">
-            <?php echo $form->labelEx($profile,'length_m'); ?>
-            <?php echo $form->textField($profile,'length_m'); ?>
+            <h3>PROPORTIONS</h3>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <?php echo $form->textField($profile,'length_m',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("length_m"))); ?>
+                <span class="input-group-addon">m</span>
+            </div>
             <?php echo $form->error($profile,'length_m'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'beam'); ?>
-            <?php echo $form->textField($profile,'beam'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'beam',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("beam"))); ?>
+                <span class="input-group-addon">m</span>
+            </div>
             <?php echo $form->error($profile,'beam'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'draft'); ?>
-            <?php echo $form->textField($profile,'draft'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'draft',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("draft"))); ?>
+                <span class="input-group-addon">m</span>
+            </div>
             <?php echo $form->error($profile,'draft'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'mast_draught'); ?>
-            <?php echo $form->textField($profile,'mast_draught'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'mast_draught',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("mast_draught"))); ?>
+                <span class="input-group-addon">m</span>
+            </div>
             <?php echo $form->error($profile,'mast_draught'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'displacement'); ?>
-            <?php echo $form->textField($profile,'displacement'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'displacement',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("displacement"))); ?>
+                <span class="input-group-addon">t</span>
+            </div>
             <?php echo $form->error($profile,'displacement'); ?>
         </div>
-
         <div class="row">
-            <?php echo $form->labelEx($profile,'no_of_engine'); ?>
-            <?php echo $form->textField($profile,'no_of_engine'); ?>
+            <h3>CONTROL</h3>
+        </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'no_of_engine',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("no_of_engine"))); ?>
             <?php echo $form->error($profile,'no_of_engine'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'engine_type_id'); ?>
-            <?php echo $form->textField($profile,'engine_type_id'); ?>
-            <?php echo $form->error($profile,'engine_type_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'engine_type_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>EngineType::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'engine_type_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "EngineType",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}'
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'engine_mark_id'); ?>
-            <?php echo $form->textField($profile,'engine_mark_id'); ?>
-            <?php echo $form->error($profile,'engine_mark_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'engine_mark_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>EngineMark::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'engine_mark_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "EngineMark",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}'
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'engine_power_hp'); ?>
-            <?php echo $form->textField($profile,'engine_power_hp'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'engine_power_hp',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"))); ?>
+                <span class="input-group-addon"><?php echo Yii::t("model","HP");?></span>
+            </div>
             <?php echo $form->error($profile,'engine_power_hp'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'engine_power_kW'); ?>
-            <?php echo $form->textField($profile,'engine_power_kW'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($profile,'engine_power_kW',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"))); ?>
+                <span class="input-group-addon"><?php echo Yii::t("model","kW");?></span>
+            </div>
             <?php echo $form->error($profile,'engine_power_kW'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'wheel_type_id'); ?>
-            <?php echo $form->textField($profile,'wheel_type_id'); ?>
-            <?php echo $form->error($profile,'wheel_type_id'); ?>
+            <?php
+            echo CHtml::activeHiddenField($profile,'wheel_type_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>WheelType::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'wheel_type_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "WheelType",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}'
+            ));
+            ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'wheel_no'); ?>
-            <?php echo $form->textField($profile,'wheel_no'); ?>
+            <?php echo $form->textField($profile,'wheel_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("wheel_no"))); ?>
             <?php echo $form->error($profile,'wheel_no'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'rudder'); ?>
-            <?php echo $form->textField($profile,'rudder'); ?>
+            <?php echo $form->textField($profile,'rudder',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("rudder"))); ?>
             <?php echo $form->error($profile,'rudder'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'folding_propeller'); ?>
-            <?php echo $form->textField($profile,'folding_propeller'); ?>
-            <?php echo $form->error($profile,'folding_propeller'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'folding_propeller'); ?></span>
+                <?php echo CHtml::textField('checkbox_folding_propeller',$profile->getAttributeLabel("folding_propeller"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'bow_thruster'); ?>
-            <?php echo $form->textField($profile,'bow_thruster'); ?>
-            <?php echo $form->error($profile,'bow_thruster'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'bow_thruster'); ?></span>
+                <?php echo CHtml::textField('checkbox_bow_thruster',$profile->getAttributeLabel("bow_thruster"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($profile,'auto_pilot'); ?>
-            <?php echo $form->textField($profile,'auto_pilot'); ?>
-            <?php echo $form->error($profile,'auto_pilot'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'auto_pilot'); ?></span>
+                <?php echo CHtml::textField('checkbox_auto_pilot',$profile->getAttributeLabel("auto_pilot"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
         </div>
     </div>
 </div>

@@ -53,3 +53,9 @@ span[role='status']{
 .fleets_form label{
     display: inline-block !important;
 }
+
+.row > h3 {
+    height: 34px;
+    margin: 0;
+    padding: 5px;
+}

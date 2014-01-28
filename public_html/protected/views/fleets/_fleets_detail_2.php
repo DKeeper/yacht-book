@@ -9,239 +9,312 @@
 /* @var $profile SyProfile */
 /* @var $form CActiveForm */
 ?>
-    <div class="row">
-        <?php echo $form->checkBox($profile,'GPS'); ?>
-        <?php echo $form->labelEx($profile,'GPS'); ?>
-        <?php echo $form->error($profile,'GPS'); ?>
-    </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <h3>INSTRUMENTS</h3>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'GPS',array('onclick'=>'if($(this).is(":checked")){$("#SyProfile_in_cockpit").prop("disabled",false)}else{$("#SyProfile_in_cockpit").prop("disabled",true)}')); ?></span>
+                <?php echo CHtml::textField('checkbox_GPS',$profile->getAttributeLabel("GPS"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'in_cockpit'); ?>
-        <?php echo $form->labelEx($profile,'in_cockpit'); ?>
-        <?php echo $form->error($profile,'in_cockpit'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'in_cockpit',array('disabled'=>true)); ?></span>
+                <?php echo CHtml::textField('checkbox_in_cockpit',$profile->getAttributeLabel("in_cockpit"),array('class'=>'form-control','disabled'=>true)); ?>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-up"></span></span>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'wind'); ?>
-        <?php echo $form->labelEx($profile,'wind'); ?>
-        <?php echo $form->error($profile,'wind'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'wind'); ?></span>
+                <?php echo CHtml::textField('checkbox_wind',$profile->getAttributeLabel("wind"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'speed'); ?>
-        <?php echo $form->labelEx($profile,'speed'); ?>
-        <?php echo $form->error($profile,'speed'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'speed'); ?></span>
+                <?php echo CHtml::textField('checkbox_speed',$profile->getAttributeLabel("speed"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'depht'); ?>
-        <?php echo $form->labelEx($profile,'depht'); ?>
-        <?php echo $form->error($profile,'depht'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'depht'); ?></span>
+                <?php echo CHtml::textField('checkbox_depht',$profile->getAttributeLabel("depht"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'compass'); ?>
-        <?php echo $form->labelEx($profile,'compass'); ?>
-        <?php echo $form->error($profile,'compass'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'compass'); ?></span>
+                <?php echo CHtml::textField('checkbox_compass',$profile->getAttributeLabel("compass"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'VHF'); ?>
-        <?php echo $form->labelEx($profile,'VHF'); ?>
-        <?php echo $form->error($profile,'VHF'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'VHF'); ?></span>
+                <?php echo CHtml::textField('checkbox_VHF',$profile->getAttributeLabel("VHF"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'radio'); ?>
-        <?php echo $form->labelEx($profile,'radio'); ?>
-        <?php echo $form->error($profile,'radio'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'radio'); ?></span>
+                <?php echo CHtml::textField('checkbox_radio',$profile->getAttributeLabel("radio"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'inverter'); ?>
-        <?php echo $form->labelEx($profile,'inverter'); ?>
-        <?php echo $form->error($profile,'inverter'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'inverter'); ?></span>
+                <?php echo CHtml::textField('checkbox_inverter',$profile->getAttributeLabel("inverter"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'radar'); ?>
-        <?php echo $form->labelEx($profile,'radar'); ?>
-        <?php echo $form->error($profile,'radar'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'radar'); ?></span>
+                <?php echo CHtml::textField('checkbox_radar',$profile->getAttributeLabel("radar"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'local_charts'); ?>
-        <?php echo $form->labelEx($profile,'local_charts'); ?>
-        <?php echo $form->error($profile,'local_charts'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'local_charts'); ?></span>
+                <?php echo CHtml::textField('checkbox_local_charts',$profile->getAttributeLabel("local_charts"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'local_pilot'); ?>
-        <?php echo $form->labelEx($profile,'local_pilot'); ?>
-        <?php echo $form->error($profile,'local_pilot'); ?>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'local_pilot'); ?></span>
+                <?php echo CHtml::textField('checkbox_local_pilot',$profile->getAttributeLabel("local_pilot"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
     </div>
+    <div class="col-md-4">
+        <div class="row">
+            <h3>EXTERIER</h3>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'tick_cockpit'); ?></span>
+                <?php echo CHtml::textField('checkbox_tick_cockpit',$profile->getAttributeLabel("tick_cockpit"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'tick_cockpit'); ?>
-        <?php echo $form->labelEx($profile,'tick_cockpit'); ?>
-        <?php echo $form->error($profile,'tick_cockpit'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'tick_deck'); ?></span>
+                <?php echo CHtml::textField('checkbox_tick_deck',$profile->getAttributeLabel("tick_deck"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'tick_deck'); ?>
-        <?php echo $form->labelEx($profile,'tick_deck'); ?>
-        <?php echo $form->error($profile,'tick_deck'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'sprayhood'); ?></span>
+                <?php echo CHtml::textField('checkbox_sprayhood',$profile->getAttributeLabel("sprayhood"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'sprayhood'); ?>
-        <?php echo $form->labelEx($profile,'sprayhood'); ?>
-        <?php echo $form->error($profile,'sprayhood'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'bimini'); ?></span>
+                <?php echo CHtml::textField('checkbox_bimini',$profile->getAttributeLabel("bimini"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'bimini'); ?>
-        <?php echo $form->labelEx($profile,'bimini'); ?>
-        <?php echo $form->error($profile,'bimini'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'hard_top'); ?></span>
+                <?php echo CHtml::textField('checkbox_hard_top',$profile->getAttributeLabel("hard_top"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'hard_top'); ?>
-        <?php echo $form->labelEx($profile,'hard_top'); ?>
-        <?php echo $form->error($profile,'hard_top'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'flybridge'); ?></span>
+                <?php echo CHtml::textField('checkbox_flybridge',$profile->getAttributeLabel("flybridge"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'flybridge'); ?>
-        <?php echo $form->labelEx($profile,'flybridge'); ?>
-        <?php echo $form->error($profile,'flybridge'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'cockpit_table',array('onclick'=>'if($(this).is(":checked")){$("#SyProfile_moveable").prop("disabled",false)}else{$("#SyProfile_moveable").prop("disabled",true)}')); ?></span>
+                <?php echo CHtml::textField('checkbox_cockpit_table',$profile->getAttributeLabel("cockpit_table"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'cockpit_table'); ?>
-        <?php echo $form->labelEx($profile,'cockpit_table'); ?>
-        <?php echo $form->error($profile,'cockpit_table'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'moveable',array('disabled'=>true)); ?></span>
+                <?php echo CHtml::textField('checkbox_moveable',$profile->getAttributeLabel("moveable"),array('class'=>'form-control','disabled'=>true)); ?>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-up"></span></span>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'moveable'); ?>
-        <?php echo $form->labelEx($profile,'moveable'); ?>
-        <?php echo $form->error($profile,'moveable'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'cockpit_speakers'); ?></span>
+                <?php echo CHtml::textField('checkbox_cockpit_speakers',$profile->getAttributeLabel("cockpit_speakers"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'cockpit_speakers'); ?>
-        <?php echo $form->labelEx($profile,'cockpit_speakers'); ?>
-        <?php echo $form->error($profile,'cockpit_speakers'); ?>
-    </div>
+        <div class="row">
+            <h3>TANKS</h3>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'water_tank'); ?></span>
+                <?php echo CHtml::textField('checkbox_water_tank',$profile->getAttributeLabel("water_tank"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'hot_water'); ?>
-        <?php echo $form->labelEx($profile,'hot_water'); ?>
-        <?php echo $form->error($profile,'hot_water'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'fuel_tank'); ?></span>
+                <?php echo CHtml::textField('checkbox_fuel_tank',$profile->getAttributeLabel("fuel_tank"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'heater'); ?>
-        <?php echo $form->labelEx($profile,'heater'); ?>
-        <?php echo $form->error($profile,'heater'); ?>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'grey_tank'); ?></span>
+                <?php echo CHtml::textField('checkbox_grey_tank',$profile->getAttributeLabel("grey_tank"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
     </div>
+    <div class="col-md-4">
+        <div class="row">
+            <h3>INTERIER</h3>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'hot_water'); ?></span>
+                <?php echo CHtml::textField('checkbox_hot_water',$profile->getAttributeLabel("hot_water"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'aircon'); ?>
-        <?php echo $form->labelEx($profile,'aircon'); ?>
-        <?php echo $form->error($profile,'aircon'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'heater'); ?></span>
+                <?php echo CHtml::textField('checkbox_heater',$profile->getAttributeLabel("heater"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'water_maker'); ?>
-        <?php echo $form->labelEx($profile,'water_maker'); ?>
-        <?php echo $form->error($profile,'water_maker'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'aircon'); ?></span>
+                <?php echo CHtml::textField('checkbox_aircon',$profile->getAttributeLabel("aircon"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'generator'); ?>
-        <?php echo $form->labelEx($profile,'generator'); ?>
-        <?php echo $form->error($profile,'generator'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'water_maker'); ?></span>
+                <?php echo CHtml::textField('checkbox_water_maker',$profile->getAttributeLabel("water_maker"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($profile,'media_type_id'); ?>
-        <?php echo $form->textField($profile,'media_type_id'); ?>
-        <?php echo $form->error($profile,'media_type_id'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'generator'); ?></span>
+                <?php echo CHtml::textField('checkbox_generator',$profile->getAttributeLabel("generator"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'aux'); ?>
-        <?php echo $form->labelEx($profile,'aux'); ?>
-        <?php echo $form->error($profile,'aux'); ?>
-    </div>
+        <div class="row">
+            <?php
+            echo CHtml::activeHiddenField($profile,'media_type_id');
+            $this->widget('autocombobox.JuiAutoComboBox', array(
+                'model'=>MediaType::model(),   // модель
+                'attribute'=>'name',  // атрибут модели
+                'parentModel' => $profile,
+                'parentAttribute' => 'media_type_id',
+                // "источник" данных для выборки
+                'source' =>'js:function(request, response) {
+                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+                    term: request.term.split(/,s*/).pop(),
+                    modelClass: "MediaType",
+                    parent_include: false,
+                    create_include: false,
+                    sql: false
+                }, response);}'
+            ));
+            ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'usb'); ?>
-        <?php echo $form->labelEx($profile,'usb'); ?>
-        <?php echo $form->error($profile,'usb'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'aux'); ?></span>
+                <?php echo CHtml::textField('checkbox_aux',$profile->getAttributeLabel("aux"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'TV'); ?>
-        <?php echo $form->labelEx($profile,'TV'); ?>
-        <?php echo $form->error($profile,'TV'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'usb'); ?></span>
+                <?php echo CHtml::textField('checkbox_usb',$profile->getAttributeLabel("usb"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'water_tank'); ?>
-        <?php echo $form->labelEx($profile,'water_tank'); ?>
-        <?php echo $form->error($profile,'water_tank'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'TV'); ?></span>
+                <?php echo CHtml::textField('checkbox_TV',$profile->getAttributeLabel("TV"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
+        <div class="row">
+            <h3>KITCHEN</h3>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'fridge'); ?></span>
+                <?php echo CHtml::textField('checkbox_fridge',$profile->getAttributeLabel("fridge"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'fuel_tank'); ?>
-        <?php echo $form->labelEx($profile,'fuel_tank'); ?>
-        <?php echo $form->error($profile,'fuel_tank'); ?>
-    </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'fridge_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("fridge_no"))); ?>
+            <?php echo $form->error($profile,'fridge_no'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'grey_tank'); ?>
-        <?php echo $form->labelEx($profile,'grey_tank'); ?>
-        <?php echo $form->error($profile,'grey_tank'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'freeser'); ?></span>
+                <?php echo CHtml::textField('checkbox_freeser',$profile->getAttributeLabel("freeser"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'fridge'); ?>
-        <?php echo $form->labelEx($profile,'fridge'); ?>
-        <?php echo $form->error($profile,'fridge'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'gas_cooker'); ?></span>
+                <?php echo CHtml::textField('checkbox_gas_cooker',$profile->getAttributeLabel("gas_cooker"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($profile,'fridge_no'); ?>
-        <?php echo $form->textField($profile,'fridge_no'); ?>
-        <?php echo $form->error($profile,'fridge_no'); ?>
-    </div>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'microwave'); ?></span>
+                <?php echo CHtml::textField('checkbox_microwave',$profile->getAttributeLabel("microwave"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->checkBox($profile,'freeser'); ?>
-        <?php echo $form->labelEx($profile,'freeser'); ?>
-        <?php echo $form->error($profile,'freeser'); ?>
+        <div class="row">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'kit_equip'); ?></span>
+                <?php echo CHtml::textField('checkbox_kit_equip',$profile->getAttributeLabel("kit_equip"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
     </div>
-
-    <div class="row">
-        <?php echo $form->checkBox($profile,'gas_cooker'); ?>
-        <?php echo $form->labelEx($profile,'gas_cooker'); ?>
-        <?php echo $form->error($profile,'gas_cooker'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->checkBox($profile,'microwave'); ?>
-        <?php echo $form->labelEx($profile,'microwave'); ?>
-        <?php echo $form->error($profile,'microwave'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->checkBox($profile,'kit_equip'); ?>
-        <?php echo $form->labelEx($profile,'kit_equip'); ?>
-        <?php echo $form->error($profile,'kit_equip'); ?>
-    </div>
+</div>
 
     <div class="row">
         <?php echo $form->checkBox($profile,'local_skipper'); ?>
