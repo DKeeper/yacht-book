@@ -458,7 +458,7 @@
                 });
                 if (!has)
                 {
-                    $s.attributes[$s.attributes.length] = $.extend({
+                    var attribute = $.extend({
                         validationDelay:$s.validationDelay,
                         validateOnChange:$s.validateOnChange,
                         validateOnType:$s.validateOnType,
@@ -479,11 +479,29 @@
                         status:1,
                         value:$field.val()
                     });
+                    $s.attributes[$s.attributes.length] = attribute;
                     $form.data('settings', $s);
+                    if ($s.validateOnChange) {
+                        $form.find('#' + attribute.inputID).change(function () {
+                            $.fn.yiiactiveform.validateAttributes($form,attribute, false);
+                        }).blur(function () {
+                                if (attribute.status !== 2 && attribute.status !== 3) {
+                                    $.fn.yiiactiveform.validateAttributes($form,attribute, !attribute.status);
+                                }
+                            });
+                    }
+                    if ($s.validateOnType) {
+                        $form.find('#' + attribute.inputID).keyup(function () {
+                            if (attribute.value !== getAFValue($(this))) {
+                                $.fn.yiiactiveform.validateAttributes($form,attribute, false);
+                            }
+                        });
+                    }
                 }
             });
         }
-    }
+    };
+
     $.fn.yiiactiveform.removeFields = function(form, fields){
         var $form = $(form);
         var $s = $form.data('settings');
@@ -503,5 +521,52 @@
             });
             $form.data('settings', $s);
         }
-    }
+    };
+
+    $.fn.yiiactiveform.validateAttributes = function (form, attribute, forceValidate) {
+        var $form = $(form);
+        var $s = $form.data('settings');
+        if ($s != undefined){
+            if (forceValidate) {
+                attribute.status = 2;
+            }
+            $.each($s.attributes, function () {
+                if (this.value !== getAFValue($form.find('#' + this.inputID))) {
+                    this.status = 2;
+                    forceValidate = true;
+                }
+            });
+            if (!forceValidate) {
+                return;
+            }
+
+            if ($s.timer !== undefined) {
+                clearTimeout($s.timer);
+            }
+            $s.timer = setTimeout(function () {
+                if ($s.submitting || $form.is(':hidden')) {
+                    return;
+                }
+                if (attribute.beforeValidateAttribute === undefined || attribute.beforeValidateAttribute($form, attribute)) {
+                    $.each($s.attributes, function () {
+                        if (this.status === 2) {
+                            this.status = 3;
+                            $.fn.yiiactiveform.getInputContainer(this, $form).addClass(this.validatingCssClass);
+                        }
+                    });
+                    $.fn.yiiactiveform.validate($form, function (data) {
+                        var hasError = false;
+                        $.each($s.attributes, function () {
+                            if (this.status === 2 || this.status === 3) {
+                                hasError = $.fn.yiiactiveform.updateInput(this, data, $form) || hasError;
+                            }
+                        });
+                        if (attribute.afterValidateAttribute !== undefined) {
+                            attribute.afterValidateAttribute($form, attribute, data, hasError);
+                        }
+                    });
+                }
+            }, attribute.validationDelay);
+        }
+    };
 })(jQuery);
