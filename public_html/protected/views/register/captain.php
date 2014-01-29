@@ -10,6 +10,7 @@
 /* @var $profileUser Profile */
 /* @var $profileC CProfile */
 /* @var $form UActiveForm */
+/* @var $validate boolean */
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration captain");
 $this->breadcrumbs=array(
     UserModule::t("Registration captain"),
@@ -29,7 +30,7 @@ $this->breadcrumbs=array(
         'enableAjaxValidation'=>true,
         'disableAjaxValidationAttributes'=>array('RegistrationForm_verifyCode'),
         'clientOptions'=>array(
-            'validateOnSubmit'=>true,
+            'validateOnSubmit'=>false,
         ),
         'htmlOptions' => array(
             'enctype'=>'multipart/form-data',
@@ -67,7 +68,7 @@ $this->breadcrumbs=array(
             UserModule::t("User info")=>array(
                 'content'=>$this->renderPartial(
                     '_user_info',
-                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form,'validate'=>$validate),
                     true
                 ),
                 'id'=>'tab1'

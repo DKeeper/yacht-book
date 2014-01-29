@@ -41,6 +41,7 @@ class RegisterController extends Controller
         $profileUser->regMode = true;
         $profileC = new CProfile;
         $profileC->c_id = -1;
+        $validate=null;
         if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
         {
             echo UActiveForm::validate(array($modelUser,$profileUser,$profileC));
@@ -54,7 +55,8 @@ class RegisterController extends Controller
                 $modelUser->attributes=$_POST['RegistrationForm'];
                 $profileUser->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
                 $profileC->attributes=((isset($_POST['CProfile'])?$_POST['CProfile']:array()));
-                if($modelUser->validate()&&$profileUser->validate()&&$profileC->validate())
+                $validate = $modelUser->validate()&&$profileUser->validate()&&$profileC->validate();
+                if($validate)
                 {
                     $modelUser->setScenario(null);
                     $soucePassword = $modelUser->password;
@@ -129,7 +131,7 @@ class RegisterController extends Controller
                     $profileC->validate();
                 }
             }
-            $this->render('captain',array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'profileC'=>$profileC));
+            $this->render('captain',array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'profileC'=>$profileC,'validate'=>$validate));
         }
     }
 
@@ -151,6 +153,8 @@ class RegisterController extends Controller
         $transitLogs = array();
         /** @var $orderOptions CcOrderOptions[] */
         $orderOptions = array();
+
+        $validate=null;
 
         if(isset($_POST['CcPaymentsPeriod'])){
             foreach($_POST['CcPaymentsPeriod'] as $i => $item){
@@ -247,8 +251,6 @@ class RegisterController extends Controller
 
                 $validate = true;
                 $validate = $validate && $modelUser->validate();
-                $validate = $validate && $profileUser->validate();
-                $validate = $validate && $profileCC->validate();
                 $validate = $validate && $profileUser->validate();
                 $validate = $validate && $profileCC->validate();
                 foreach($paymentsPeriods as $i => $period){
@@ -355,6 +357,27 @@ class RegisterController extends Controller
                             }
                             $this->refresh();
                         }
+                    }
+                } else {
+                    $profileUser->validate();
+                    $profileCC->validate();
+                    foreach($paymentsPeriods as $i => $period){
+                        $paymentsPeriods[$i]->validate();
+                    }
+                    foreach($cancelPeriods as $i => $period){
+                        $cancelPeriods[$i]->validate();
+                    }
+                    foreach($longPeriods as $i => $period){
+                        $longPeriods[$i]->validate();
+                    }
+                    foreach($earlyPeriods as $i => $period){
+                        $earlyPeriods[$i]->validate();
+                    }
+                    foreach($transitLogs as $i => $log){
+                        $transitLogs[$i]->validate();
+                    }
+                    foreach($orderOptions as $i => $option){
+                        $orderOptions[$i]->validate();
                     }
                 }
             }

@@ -57,7 +57,7 @@ class CProfile extends BaseModel
 		return array(
 			array('c_id', 'required'),
 			array('c_id, isActive, sex_id, nationality_id, site_commission, receive_news, professional_regatta, amateur_regatta, repeater, extra', 'numerical', 'integerOnly'=>true),
-			array('name_eng, name_rus, last_name_eng, last_name_rus, zagran_passport, expire_date, date_of_birth, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'safe'),
+			array('name_eng, name_rus, last_name_eng, last_name_rus, zagran_passport, expire_date, date_of_birth, phone, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'safe'),
             array('site_commission, repeater, extra, zagran_passport, expire_date, date_of_birth, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'default', 'value' => null),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
