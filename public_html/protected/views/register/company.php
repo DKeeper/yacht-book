@@ -166,39 +166,24 @@ $this->breadcrumbs=array(
             $('#company_tabs').tabs("option","active",currTabNum-1);
         });
         $('button[data-type="next"]').on("click",function(event){
-            var o = $('#company_tabs li.ui-state-disabled a');
-            var disabledDiv = [];
-            var Field = [];
-            $.each(o,function(){
-                disabledDiv.push($(this).attr("title"));
-            });
-            $.each($('#company_tabs div[role="tabpanel"]'),function(){
-                if(disabledDiv.indexOf($(this).attr("id"))==-1){
-                    var f = $(this).find("input").serializeArray();
-                    Field = Field.concat(f);
-                }
-            });
-            var currTabNum = +$('#company_tabs').tabs("option","active");
-            var data = {ajax:'registration-form'};
-            $.each(Field,function(){
-                data[this.name]=this.value;
-            });
-            $.ajax({
-                url:'/register/company',
-                data: data,
-                success:function(answer){
-                    if(emptyObject(answer)){
-                        $('#company_tabs').tabs("enable",currTabNum+1);
-                        $('#company_tabs').tabs("option","active",currTabNum+1);
-                    } else {
-                        alert("<?php echo Yii::t("view","All fields are required or eliminate input errors"); ?>");
-                        $("#registration-form").submit();
+            event.preventDefault();
+            $('#registration-form').data('settings')['submitting'] = true;
+            $.fn.yiiactiveform.validate(
+                    '#registration-form',
+                    function(messages){
+                        var hasError = false;
+                        $.each($('#registration-form').data('settings')['attributes'], function () {
+                            hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#registration-form')) || hasError;
+                        });
+                        $.fn.yiiactiveform.updateSummary($('#registration-form'), messages);
+                        if(!hasError){
+                            var currTabNum = +$('#company_tabs').tabs("option","active");
+                            $('#company_tabs').tabs("enable",currTabNum+1);
+                            $('#company_tabs').tabs("option","active",currTabNum+1);
+                        }
                     }
-                },
-                type:'POST',
-                dataType:'json',
-                async:true
-            });
+            );
+            $('#registration-form').data('settings')['submitting'] = false;
             return false;
         });
         $("#RegistrationForm_email").on("change",function(){

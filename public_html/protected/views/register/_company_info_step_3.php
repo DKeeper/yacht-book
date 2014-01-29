@@ -24,6 +24,12 @@
         $this->widget('timepicker.EDateTimePicker', array(
             'model'=>$profileCC,
             'attribute'=>'checkin_hour',
+            'config'=>array(
+                'timeFormat' => 'H:i',
+                'step' => 60,
+                'minTime' => '8:00',
+                'maxTime' => '20:00',
+            ),
             'htmlOptions'=>array(
                 'class'=>'form-control'
             ),
@@ -44,6 +50,12 @@
         $this->widget('timepicker.EDateTimePicker', array(
             'model'=>$profileCC,
             'attribute'=>'checkout_hour',
+            'config'=>array(
+                'timeFormat' => 'H:i',
+                'step' => 60,
+                'minTime' => '8:00',
+                'maxTime' => '20:00',
+            ),
             'htmlOptions'=>array(
                 'class'=>'form-control'
             ),
@@ -145,7 +157,7 @@
     ?>
     <div class="row"></div>
     <?php
-        echo CHtml::label(Yii::t("view","Early period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
+        echo CHtml::label(Yii::t("view","Early booking - [%][before][type]"),"",array("style"=>"display:inline-block;"));
         echo CHtml::tag(
             "button",
             array(
@@ -186,7 +198,7 @@
             appLng += '-GB';
         }
         var s = $.datepicker.regional[appLng];
-        var o = '';
+        var o = "<option value=''><?php echo Yii::t("view","Any"); ?></option>";
         $.each(s.dayNames,function(i){
             o += "<option value='"+i+"'>"+this+"</option>";
         });

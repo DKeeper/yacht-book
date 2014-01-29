@@ -14,6 +14,7 @@ var city_id=-1;
 var country_id=-1;
 var geoFieldName;
 var appLng;
+var selectedLanguage = [];
 function createAddForm(o,type,currObj,success){
     $(o).empty();
     var model, pId, pLink;

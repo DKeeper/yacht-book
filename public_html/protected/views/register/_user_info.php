@@ -10,13 +10,21 @@
 /* @var $profileUser Profile */
 /* @var $form UActiveForm */
 ?>
-    <div class="row error">
+<div class="row">
+    <div class="col-md-6 error">
         <?php echo $form->labelEx($modelUser,'username'); ?>
         <?php echo $form->textField($modelUser,'username',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'username'); ?>
     </div>
 
-    <div class="row error">
+    <div class="col-md-6 error">
+        <?php echo $form->labelEx($modelUser,'email'); ?>
+        <?php echo $form->textField($modelUser,'email',array('class'=>'form-control')); ?>
+        <?php echo $form->error($modelUser,'email'); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 error">
         <?php echo $form->labelEx($modelUser,'password'); ?>
         <?php echo $form->passwordField($modelUser,'password',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'password'); ?>
@@ -25,24 +33,18 @@
         </p>
     </div>
 
-    <div class="row error">
+    <div class="col-md-6 error">
         <?php echo $form->labelEx($modelUser,'verifyPassword'); ?>
         <?php echo $form->passwordField($modelUser,'verifyPassword',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'verifyPassword'); ?>
     </div>
-
-    <div class="row error">
-        <?php echo $form->labelEx($modelUser,'email'); ?>
-        <?php echo $form->textField($modelUser,'email',array('class'=>'form-control')); ?>
-        <?php echo $form->error($modelUser,'email'); ?>
-    </div>
-
+</div>
     <?php
     $profileFields=$profileUser->getFields();
     if ($profileFields) {
         foreach($profileFields as $field) {
             ?>
-        <div class="row error">
+        <div class="row col-md-12 error">
             <?php echo $form->labelEx($profileUser,$field->varname); ?>
             <?php
             if ($widgetEdit = $field->widgetEdit($profileUser)) {
@@ -61,7 +63,7 @@
         }
     }
     ?>
-<div class="row">
+<div class="row col-md-12">
     <?php echo $form->labelEx($modelUser,'verifyCode'); ?>
     <?php $this->widget('recaptcha.EReCaptcha',
         array(

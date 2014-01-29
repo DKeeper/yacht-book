@@ -52,7 +52,8 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
-                'minDate' => 0,
+                'minDate' => '-13y',
+                'yearRange' => 'c-13:c',
                 'changeMonth' => true,
                 'changeYear' => true,
             ),
@@ -81,7 +82,8 @@ $nationalityList = Nationality::model()->getModelList();
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
                 'minDate' => '-13y',
-                'yearRange' => 'c-13:c+10',
+                'maxDate' => 'd',
+                'yearRange' => 'c-13:c',
                 'changeMonth' => true,
                 'changeYear' => true,
             ),
@@ -143,7 +145,7 @@ $nationalityList = Nationality::model()->getModelList();
                     'validation'=>array(
                         'allowedExtensions'=>array('jpg','jpeg','png','gif'),
                         'sizeLimit'=>10*1024*1024,//maximum file size in bytes
-                        'minSizeLimit'=>1*1024*1024,// minimum file size in bytes
+                        'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
                     ),
                 ),
                 'htmlOptions'=>array(
@@ -223,7 +225,7 @@ $nationalityList = Nationality::model()->getModelList();
                     'validation'=>array(
                         'allowedExtensions'=>array('jpg','jpeg','png','gif','pdf'),
                         'sizeLimit'=>10*1024*1024,//maximum file size in bytes
-                        'minSizeLimit'=>1*1024*1024,// minimum file size in bytes
+                        'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
                     ),
                 ),
                 'htmlOptions'=>array(

@@ -4,6 +4,7 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 Yii::setPathOfAlias('fancyapps',dirname(__FILE__).'/../extensions/fancyapps');
 Yii::setPathOfAlias('autocombobox',dirname(__FILE__).'/../extensions/autocombobox');
+Yii::setPathOfAlias('selectable',dirname(__FILE__).'/../extensions/selectable');
 Yii::setPathOfAlias('ckeditor',dirname(__FILE__).'/../extensions/ckeditor');
 Yii::setPathOfAlias('recaptcha',dirname(__FILE__).'/../extensions/recaptcha');
 Yii::setPathOfAlias('fileuploader',dirname(__FILE__).'/../extensions/fileuploader');

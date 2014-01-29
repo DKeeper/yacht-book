@@ -237,17 +237,65 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($profileCC,'ccLanguages'); ?>
         <?php
-        echo CHtml::activeDropDownList($profileCC,'ccLanguages',
-            Language::model()->getModelList(),
-            array(
-                'multiple'=>'multiple',
-                'class'=>'multiselect form-control',
-                'options' => $profileCC->getSelectedLanguage(),
-                'key'=>'language_id',
-            ));
+        $this->widget('fancyapps.EFancyApps', array(
+            'mode'=>'inline',
+            'id'=>'selectLanguage',
+            'config'=>array(
+                'maxWidth'	=> '80%',
+                'maxHeight'	=> '80%',
+            ),
+            'options' => array(
+                'url' => '#modal_lang',
+                'label' => $profileCC->getAttributeLabel('ccLanguages'),
+                'afterShow' => 'function(){$("#select_languages").selectable("refresh");}',
+            ),
+            'htmlOptions' => array(
+                'class' => 'btn btn-default',
+            )
+        ));
         ?>
+        <div style="display:none;" id="modal_lang">
+            <h3 style="text-align: center;"><?php echo Yii::t("view","To select a language, click on it. For multiple selections, hold down Ctrl."); ?></h3>
+            <?php
+            $availableLang = Language::model()->getModelList('name','',array('order'=>'name','condition'=>'isActive = 1'));
+            $this->widget('selectable.EJuiSelectable',array(
+                    'id' => 'select_languages',
+                    'model'=>$profileCC,
+                    'attribute'=>'ccLanguages',
+                    'modelData'=>$availableLang,
+                    'hiddenHtmlOptions'=>array(
+                        'multiple'=>'multiple',
+                        'class'=>'multiselect',
+                        'options' => $profileCC->getSelectedLanguage(),
+                        'key'=>'language_id',
+                    ),
+                    'items'=>array(
+                        'data'=>$availableLang,
+                        'htmlOptions'=>array(
+                            'class'=>'form-control'
+                        ),
+                    ),
+                    'options'=>array(
+                        'autoRefresh' => false,
+                        'selected' => 'js: function( event, ui ) {
+                        if(selectedLanguage.indexOf(+ui.selected.id)==-1){
+                            selectedLanguage.push(+ui.selected.id);
+                        }
+                    }',
+                        'unselected' => 'js: function( event, ui ) {
+                        if(selectedLanguage.indexOf(+ui.unselected.id)!=-1){
+                            selectedLanguage.splice(selectedLanguage.indexOf(+ui.unselected.id),1);
+                        }
+                    }',
+                        'stop' => 'js: function( event, ui ) {
+                        $("#CcProfile_ccLanguages").val(selectedLanguage);
+                    }',
+                    )
+                )
+            );
+            ?>
+        </div>
         <?php echo $form->error($profileCC,'ccLanguages'); ?>
     </div>
 <?php if($this->id=="register"){?>

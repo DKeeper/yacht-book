@@ -62,19 +62,18 @@ class EFancyApps extends CWidget
             }
         }
         $this->config = array_merge($defaultConfig,$this->config);
+        $id = $this->getId();
+        if(!isset($this->htmlOptions['id'])){
+            $this->htmlOptions['id'] = $id;
+        } else {
+            $id = $this->htmlOptions['id'];
+        }
         switch($this->mode){
             case 'inline':
-                if(!isset($this->htmlOptions['class'])){
-                    $this->htmlOptions['class'] = "fancyapps";
-                    $selectors = "fancyapps";
-                } else {
-                    $selectors = preg_split('/\s/',$this->htmlOptions['class']);
-                    $selectors = implode('.',$selectors);
-                }
                 echo CHtml::link($this->options['label'],$this->options['url'],$this->htmlOptions);
                 $jsConfig = CJavaScript::encode($this->config);
                 $script = "
-                    $('.{$selectors}').fancybox({$jsConfig});
+                    $('#{$id}').fancybox({$jsConfig});
                 ";
                 Yii::app()->clientScript->registerScript($this->htmlOptions['class'],$script,CClientScript::POS_LOAD);
                 break;

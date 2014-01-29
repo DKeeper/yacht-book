@@ -272,8 +272,6 @@ class AjaxController extends Controller
         $result['filename'] = $uploader->getUploadName();
         $result['link'] = '/upload/temp/'.$result['filename'];
 
-//        $uploadedFile=$tempFolder.$result['filename'];
-
         header("Content-Type: text/plain");
         $result=htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         echo $result;

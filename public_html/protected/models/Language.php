@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $code
  * @property string $name
+ * @property integer $isActive
  *
  * The followings are the available model relations:
  * @property CcLanguage[] $ccLanguages
@@ -31,9 +32,10 @@ class Language extends BaseModel
 		return array(
 			array('code, name', 'required'),
 			array('code', 'length', 'max'=>2),
+            array('isActive','numerical','integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, code, name', 'safe', 'on'=>'search'),
+			array('id, code, name, isActive', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +60,7 @@ class Language extends BaseModel
 			'id' => Yii::t("model",'ID'),
 			'code' => Yii::t("model",'Code'),
 			'name' => Yii::t("model",'Name'),
+            'isActive' => Yii::t('model','Is active'),
 		);
 	}
 
@@ -82,6 +85,7 @@ class Language extends BaseModel
 		$criteria->compare('id',$this->id);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('name',$this->name,true);
+        $criteria->compare('isActive',$this->isActive);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -85,9 +85,9 @@ class CcProfile extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_id', 'required'),
-			array('cc_id, isActive, q_boat, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkout_day, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
+			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, checkin_day, checkout_day, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
 			array('company_postal_code', 'length', 'max'=>10),
-            array('longitude, latitude', 'numerical'),
+            array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'numerical'),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
 			array('vat', 'length', 'max'=>20),
             array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
