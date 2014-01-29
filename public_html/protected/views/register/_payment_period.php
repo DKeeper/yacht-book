@@ -32,7 +32,9 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
         "button",
         array(
             "class"=>"btn btn-default",
-            'onclick'=>'delRow(this);return false;'
+            "type" => "button",
+            "data-type" => "delRows",
+            "onclick"=>"delRow(this);return false;",
         ),
         "<span class='glyphicon glyphicon-minus'></span>"
     );

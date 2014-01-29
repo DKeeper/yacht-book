@@ -441,7 +441,8 @@
      */
     $.fn.yiiactiveform.addFields = function(form, fields)
     {
-        var $s = form.data('settings');
+        var $form = $(form);
+        var $s = $form.data('settings');
         if ($s != undefined)
         {
             fields.each(function()
@@ -478,9 +479,29 @@
                         status:1,
                         value:$field.val()
                     });
-                    form.data('settings', $s);
+                    $form.data('settings', $s);
                 }
             });
+        }
+    }
+    $.fn.yiiactiveform.removeFields = function(form, fields){
+        var $form = $(form);
+        var $s = $form.data('settings');
+        if ($s != undefined)
+        {
+            fields.each(function()
+            {
+                var $field = $(this);
+                $.each($s.attributes, function(i, o)
+                {
+                    if (o.id == $field.attr('id'))
+                    {
+                        $s.attributes.splice(i,1);
+                        return false;
+                    }
+                });
+            });
+            $form.data('settings', $s);
         }
     }
 })(jQuery);

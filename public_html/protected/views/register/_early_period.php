@@ -13,9 +13,6 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
 ?>
 <div class="row early_period num_<?php echo $i;?>">
     <?php
-    echo $form->error($model,"[$i]value");
-    echo $form->error($model,"[$i]before_duration");
-    echo $form->error($model,"[$i]duration_type_id");
     echo "<div class='col-md-3'>";
     ?>
     <div class="input-group">
@@ -35,7 +32,9 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
         "button",
         array(
             "class"=>"btn btn-default",
-            'onclick'=>'delRow(this);return false;'
+            "type" => "button",
+            "data-type" => "delRows",
+            "onclick"=>"delRow(this);return false;",
         ),
         "<span class='glyphicon glyphicon-minus'></span>"
     );

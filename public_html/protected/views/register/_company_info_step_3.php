@@ -343,7 +343,4 @@
             async:true
         });
     }
-    function delRow(o){
-        var n = $(o).parent().parent().remove();
-    }
 </script>

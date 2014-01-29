@@ -214,7 +214,7 @@ class RegisterController extends Controller
             }
             $earlyValidate = array();
             if(!empty($earlyPeriods)){
-                $earlyValidate = json_decode(CActiveForm::validateTabular($longPeriods),true);
+                $earlyValidate = json_decode(CActiveForm::validateTabular($earlyPeriods),true);
             }
             $transitLogValidate = array();
             if(!empty($transitLogs)){
@@ -369,6 +369,7 @@ class RegisterController extends Controller
                     'earlyPeriods'=>$earlyPeriods,
                     'transitLogs'=>$transitLogs,
                     'orderOptions'=>$orderOptions,
+                    'validate'=>$validate,
                 )
             );
         }

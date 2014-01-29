@@ -16,6 +16,7 @@
 /* @var $earlyPeriods CcEarlyPeriod[] */
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
+/* @var $validate boolean */
 
 $scriptLink = Yii::app()->clientScript->getCoreScriptUrl().'/jui/js/jquery-ui-i18n.min.js';
 Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD);
@@ -76,6 +77,7 @@ $this->breadcrumbs=array(
     }
 
     echo $form->errorSummary($models);
+
     $err = false;
     foreach($models as $m){
         $e = $m->getErrors();
@@ -98,7 +100,7 @@ $this->breadcrumbs=array(
             UserModule::t("User info")=>array(
                 'content'=>$this->renderPartial(
                     '_user_info',
-                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form),
+                    array('modelUser'=>$modelUser,'profileUser'=>$profileUser,'form'=>$form,'validate'=>$validate),
                     true
                 ),
                 'id'=>'tab1'
@@ -190,5 +192,10 @@ $this->breadcrumbs=array(
             $("#CcProfile_company_email").val($(this).val());
         });
     });
+    function delRow(o){
+        var $o = $(o);
+        $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
+        $o.parent().parent().remove();
+    }
 </script>
 <?php endif; ?>

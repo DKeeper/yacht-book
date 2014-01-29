@@ -9,22 +9,44 @@
 /* @var $modelUser RegistrationForm */
 /* @var $profileUser Profile */
 /* @var $form UActiveForm */
+/* @var $validate boolean */
 ?>
 <div class="row">
-    <div class="col-md-6 error">
+    <?php
+        if(isset($validate)){
+            $class = $modelUser->getError('username')?'error':'success';
+        } else {
+            $class = 'error';
+        }
+    ?>
+    <div class="col-md-6 <?php echo $class;?>">
         <?php echo $form->labelEx($modelUser,'username'); ?>
         <?php echo $form->textField($modelUser,'username',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'username'); ?>
     </div>
 
-    <div class="col-md-6 error">
+    <?php
+        if(isset($validate)){
+            $class = $modelUser->getError('email')?'error':'success';
+        } else {
+            $class = 'error';
+        }
+    ?>
+    <div class="col-md-6 <?php echo $class;?>">
         <?php echo $form->labelEx($modelUser,'email'); ?>
         <?php echo $form->textField($modelUser,'email',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'email'); ?>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 error">
+    <?php
+        if(isset($validate)){
+            $class = $modelUser->getError('password')?'error':'success';
+        } else {
+            $class = 'error';
+        }
+    ?>
+    <div class="col-md-6 <?php echo $class;?>">
         <?php echo $form->labelEx($modelUser,'password'); ?>
         <?php echo $form->passwordField($modelUser,'password',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'password'); ?>
@@ -33,7 +55,14 @@
         </p>
     </div>
 
-    <div class="col-md-6 error">
+    <?php
+        if(isset($validate)){
+            $class = $modelUser->getError('verifyPassword')?'error':'success';
+        } else {
+            $class = 'error';
+        }
+    ?>
+    <div class="col-md-6 <?php echo $class;?>">
         <?php echo $form->labelEx($modelUser,'verifyPassword'); ?>
         <?php echo $form->passwordField($modelUser,'verifyPassword',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'verifyPassword'); ?>
@@ -44,7 +73,14 @@
     if ($profileFields) {
         foreach($profileFields as $field) {
             ?>
-        <div class="row col-md-12 error">
+        <?php
+            if(isset($validate)){
+                $class = $profileUser->getError($field->varname)?'error':'success';
+            } else {
+                $class = 'error';
+            }
+        ?>
+        <div class="row col-md-12 <?php echo $class;?>">
             <?php echo $form->labelEx($profileUser,$field->varname); ?>
             <?php
             if ($widgetEdit = $field->widgetEdit($profileUser)) {
