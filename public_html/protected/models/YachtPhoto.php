@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'yacht_photo':
  * @property integer $id
  * @property integer $yacht_id
+ * @property integer $type
  * @property string $link
  *
  * The followings are the available model relations:
@@ -30,10 +31,10 @@ class YachtPhoto extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('yacht_id, link', 'required'),
-			array('yacht_id', 'numerical', 'integerOnly'=>true),
+			array('yacht_id, type', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, yacht_id, link', 'safe', 'on'=>'search'),
+			array('id, yacht_id, type, link', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +59,7 @@ class YachtPhoto extends BaseModel
 			'id' => Yii::t('model','ID'),
 			'yacht_id' => Yii::t('model','Yacht'),
 			'link' => Yii::t('model','Link'),
+			'type' => Yii::t('model','Type'),
 		);
 	}
 
@@ -81,6 +83,7 @@ class YachtPhoto extends BaseModel
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('yacht_id',$this->yacht_id);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('link',$this->link,true);
 
 		return new CActiveDataProvider($this, array(

@@ -4,6 +4,7 @@
 /* @var $profile SyProfile */
 /* @var $profileCC CcProfile */
 /* @var $form CActiveForm */
+/* @var $yachtFoto array */
 $statusList = BaseModel::getFilters('status');
 Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 ?>
@@ -49,7 +50,7 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
             Yii::t("model","Photo")=>array(
                 'content'=>$this->renderPartial(
                     '_fleets_photo',
-                    array('profile'=>$profile,'form'=>$form),
+                    array('profile'=>$profile,'form'=>$form,'yachtFoto'=>$yachtFoto),
                     true
                 ),
                 'id'=>'tab3'

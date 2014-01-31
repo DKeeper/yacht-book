@@ -29,6 +29,37 @@ class FleetsController extends Controller
 		$model=new CcFleets;
         $profile=new SyProfile;
 
+        $yachtFoto = array(
+            1 => new YachtPhoto,
+            2 => new YachtPhoto,
+            3 => new YachtPhoto,
+            4 => new YachtPhoto,
+            5 => array(
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+            ),
+            6 => array(
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+            ),
+            7 => array(
+                new YachtPhoto,
+                new YachtPhoto,
+            ),
+            8 => array(
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+                new YachtPhoto,
+            ),
+        );
+
         /** @var $profileCC CcProfile */
         list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess(Yii::app()->user);
 
@@ -49,6 +80,7 @@ class FleetsController extends Controller
             'model'=>$model,
             'profile'=>$profile,
             'profileCC'=>$profileCC,
+            'yachtFoto'=>$yachtFoto,
         ));
 	}
 

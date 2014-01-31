@@ -43,7 +43,6 @@ $this->breadcrumbs=array(
             'validateOnSubmit'=>false,
         ),
         'htmlOptions' => array(
-            'enctype'=>'multipart/form-data',
             'class'=>'form-horizontal'
         ),
     ));

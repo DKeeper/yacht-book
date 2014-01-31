@@ -56,6 +56,17 @@ return array(
     'All fields are required or eliminate input errors' => 'Необходимо заполнить все поля или устранить ошибки ввода',
     'We are accept for payment:'=>'Мы принимаем к оплате',
 
+    'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
+    'Preview uploaded images'=>'Предпросмотр загруженных изображений',
+    'stem (with name of boat)'=>'',
+    'starboard'=>'',
+    'portside'=>'',
+    'cockpit'=>'',
+    'layout'=>'',
+    'interior (state-room)'=>'',
+    'the photos of cabins'=>'',
+    'particular photo (optional)'=>'',
+
     "bedsheets" => "постельное белье",
     "towels" => "полотенца",
     "taxes" => "туристический налог",
