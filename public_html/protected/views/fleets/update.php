@@ -1,6 +1,8 @@
 <?php
 /* @var $this FleetsController */
 /* @var $model CcFleets */
+/* @var $profile SyProfile */
+/* @var $yachtFoto array */
 
 $this->breadcrumbs=array(
 	'Cc Fleets'=>array('index'),
@@ -18,4 +20,4 @@ $this->menu=array(
 
 <h1>Update CcFleets <?php echo $model->id; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile,'yachtFoto'=>$yachtFoto)); ?>

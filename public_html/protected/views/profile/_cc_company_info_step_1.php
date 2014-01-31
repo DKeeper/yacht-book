@@ -7,6 +7,7 @@
  */
 /* @var $this ProfileController */
 /* @var $model CcProfile */
+$geoField = "nazvanie_".Yii::app()->params['geoFieldName'][Yii::app()->language];
 $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
     'attributes'=>array(
@@ -20,11 +21,11 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('company_country_id'),
-            'value'=>isset($model->country)?$model->country->nazvanie_1:Yii::t("view","No data"),
+            'value'=>isset($model->country)?$model->country->$geoField:Yii::t("view","No data"),
         ),
         array(
             'label'=>$model->getAttributeLabel('company_city_id'),
-            'value'=>isset($model->city)?$model->city->nazvanie_1:Yii::t("view","No data"),
+            'value'=>isset($model->city)?$model->city->$geoField:Yii::t("view","No data"),
         ),
         'longitude',
         'latitude',

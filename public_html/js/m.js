@@ -156,9 +156,10 @@ function moveMarker(latLng){
     if(map.getZoom()<6){
         map.setZoom(11);
     }
+    var l = appLng.slice(0,2);
     $.ajax({
         url:'http://maps.googleapis.com/maps/api/geocode/json',
-        data: {latlng:latLng.lat+','+latLng.lng,sensor:false,language:appLng},
+        data: {latlng:latLng.lat+','+latLng.lng,sensor:false,language:l},
         success:function(answer){
             if(answer.status === "OK"){
                 $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
@@ -196,6 +197,7 @@ function moveMarker(latLng){
                     if(city===''){
                         switch(appLng){
                             case 'en':
+                            case 'en-GB':
                                 city = addressForDb.city.replace(/\scity/,'');
                                 city = addressForDb.city.replace(/gorod\s/,'');
                                 break;

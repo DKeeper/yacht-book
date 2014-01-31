@@ -2,7 +2,6 @@
 /* @var $this FleetsController */
 /* @var $model CcFleets */
 /* @var $profile SyProfile */
-/* @var $profileCC CcProfile */
 /* @var $yachtFoto array */
 
 $this->breadcrumbs=array(
@@ -18,4 +17,4 @@ $this->menu=array(
 
 <h1>Create <?php echo Yii::t("view","Fleet"); ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'profileCC'=>$profileCC,'profile'=>$profile,'yachtFoto'=>$yachtFoto)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile,'yachtFoto'=>$yachtFoto)); ?>

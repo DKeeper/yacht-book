@@ -17,25 +17,49 @@
                 <?php echo $form->hiddenField($yachtFoto[1],"[1]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[1],"[1]type",array("value"=>1)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","stem (with name of boat)")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[1]->link)){
+                    echo "<li class='images'><img src='".$yachtFoto[1]->link."' class='img-thumbnail'></li>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <div class="col-md-3 cell ui-widget-content">
                 <?php echo $form->hiddenField($yachtFoto[2],"[2]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[2],"[2]type",array("value"=>2)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","starboard")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[2]->link)){
+                    echo "<li class='images'><img src='".$yachtFoto[2]->link."' class='img-thumbnail'></li>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <div class="col-md-3 cell ui-widget-content">
                 <?php echo $form->hiddenField($yachtFoto[3],"[3]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[3],"[3]type",array("value"=>3)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","portside")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[3]->link)){
+                    echo "<li class='images'><img src='".$yachtFoto[3]->link."' class='img-thumbnail'></li>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <div class="col-md-3 cell ui-widget-content">
                 <?php echo $form->hiddenField($yachtFoto[4],"[4]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[4],"[4]type",array("value"=>4)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","cockpit")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[4]->link)){
+                    echo "<li class='images'><img src='".$yachtFoto[4]->link."' class='img-thumbnail'></li>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <?php
                 foreach($yachtFoto[5] as $i => $foto){
@@ -44,7 +68,13 @@
                 <?php echo $form->hiddenField($foto,"[5][$i]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($foto,"[5][$i]type",array("value"=>5)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","interior (state-room)")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[5][$i]->link)){
+                    echo "<li class='images'><img src='".$yachtFoto[5][$i]->link."' class='img-thumbnail'></li>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <?php
                 }
@@ -53,7 +83,13 @@
                 <?php echo $form->hiddenField($yachtFoto[7][0],"[7][0]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[7][0],"[7][0]type",array("value"=>7)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","layout")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[7][0]->link)){
+                    echo "<li class='images'><img src='".$yachtFoto[7][0]->link."' class='img-thumbnail'></li>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <?php
             foreach($yachtFoto[6] as $i => $foto){
@@ -62,7 +98,13 @@
                     <?php echo $form->hiddenField($foto,"[6][$i]link",array('class'=>'link')); ?>
                     <?php echo $form->hiddenField($foto,"[6][$i]type",array("value"=>6)); ?>
                     <h5 class="ui-widget-header"><?php echo Yii::t("view","the photos of cabins")?></h5>
-                    <span class="glyphicon glyphicon-picture"></span>
+                    <?php
+                    if(!empty($yachtFoto[6][$i]->link)){
+                        echo "<li class='images'><img src='".$yachtFoto[6][$i]->link."' class='img-thumbnail'></li>";
+                    } else {
+                        echo "<span class='glyphicon glyphicon-picture'></span>";
+                    }
+                    ?>
                 </div>
                 <?php
             }
@@ -71,7 +113,13 @@
                 <?php echo $form->hiddenField($yachtFoto[7][1],"[7][1]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[7][1],"[7][1]type",array("value"=>7)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","layout")?></h5>
-                <span class="glyphicon glyphicon-picture"></span>
+                <?php
+                if(!empty($yachtFoto[7][1]->link)){
+                        echo "<li class='images'><img src='".$yachtFoto[7][1]->link."' class='img-thumbnail'></li>";
+                    } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
             </div>
             <?php
             foreach($yachtFoto[8] as $i => $foto){
@@ -80,7 +128,13 @@
                     <?php echo $form->hiddenField($foto,"[8][$i]link",array('class'=>'link')); ?>
                     <?php echo $form->hiddenField($foto,"[8][$i]type",array("value"=>8)); ?>
                     <h5 class="ui-widget-header"><?php echo Yii::t("view","particular photo (optional)")?></h5>
-                    <span class="glyphicon glyphicon-picture"></span>
+                    <?php
+                    if(!empty($yachtFoto[8][$i]->link)){
+                        echo "<li class='images'><img src='".$yachtFoto[8][$i]->link."' class='img-thumbnail'></li>";
+                    } else {
+                        echo "<span class='glyphicon glyphicon-picture'></span>";
+                    }
+                    ?>
                 </div>
                 <?php
             }
@@ -187,5 +241,7 @@
                 addImage(event.target, ui.draggable,'preview');
             }
         });
+        refreshUploadPreview($(".gallery li"));
+        refreshUploadPreview($("#upload_preview li"));
     });
 </script>

@@ -25,9 +25,15 @@
         </div>
         <div class="row">
             <?php
+            $type = '';
+            if(isset($profile->type_id) && !empty($profile->type_id)){
+                $type = YachtType::model()->findByPk($profile->type_id)->name;
+            }
             echo CHtml::activeHiddenField($profile,'type_id');
+            $model = YachtType::model();
+            $model->name=$type;
             $this->widget('autocombobox.JuiAutoComboBox', array(
-                'model'=>YachtType::model(),   // модель
+                'model'=>$model,   // модель
                 'attribute'=>'name',  // атрибут модели
                 // "источник" данных для выборки
                 'source' =>'js:function(request, response) {

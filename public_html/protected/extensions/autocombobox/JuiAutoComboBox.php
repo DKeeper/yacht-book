@@ -39,7 +39,7 @@ class JuiAutoComboBox extends CJuiAutoComplete
         else
             echo CHtml::textField($name,$this->value,$this->htmlOptions);
         echo CHtml::openTag("span",array("class"=>"input-group-btn"));
-        echo CHtml::tag("button",array("class"=>"btn btn-default","onclick"=>"$('#{$id}').autocomplete('search',''); return false;"),"<span class=caret></span>");
+        echo CHtml::tag("button",array("class"=>"btn btn-default","onclick"=>"$(this).parents('.input-group').find('input').focus();$('#{$id}').autocomplete('search',''); return false;"),"<span class=caret></span>");
         echo CHtml::closeTag("span");
         echo CHtml::closeTag("div");
 

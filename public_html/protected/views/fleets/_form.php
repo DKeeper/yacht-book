@@ -2,7 +2,6 @@
 /* @var $this FleetsController */
 /* @var $model CcFleets */
 /* @var $profile SyProfile */
-/* @var $profileCC CcProfile */
 /* @var $form CActiveForm */
 /* @var $yachtFoto array */
 $statusList = BaseModel::getFilters('status');

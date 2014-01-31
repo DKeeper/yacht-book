@@ -90,6 +90,9 @@ span[role='status']{
     margin: 0;
     padding: 0.5em 0;
 }
+#upload_preview{
+    height: 100%;
+}
 #upload_preview img{
     width: 100px;
     height: 100px;
