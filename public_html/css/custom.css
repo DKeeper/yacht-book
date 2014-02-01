@@ -105,3 +105,20 @@ span[role='status']{
 .images{
     z-index: 1000;
 }
+.layout_preview div.qq-upload-button{
+    width: 100% !important;
+}
+.layout_preview span.glyphicon{
+    font-size: 50px;
+    margin-top: 30px;
+}
+.layout_preview div.panel-body {
+    height: 140px;
+}
+.layout_preview div.panel-body img {
+    width: 100%;
+    height: 100%;
+}
+.layout_preview ul.qq-upload-list {
+    display: none !important;
+}

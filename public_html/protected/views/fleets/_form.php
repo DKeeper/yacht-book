@@ -33,7 +33,7 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
             Yii::t("model","Details {n}",array('{n}'=>1))=>array(
                 'content'=>$this->renderPartial(
                     '_fleets_detail_1',
-                    array('profile'=>$profile,'form'=>$form),
+                    array('profile'=>$profile,'form'=>$form,'yachtFoto'=>$yachtFoto),
                     true
                 ),
                 'id'=>'tab1'

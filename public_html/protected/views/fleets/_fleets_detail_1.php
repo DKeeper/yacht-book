@@ -8,6 +8,7 @@
 /* @var $this FleetsController */
 /* @var $profile SyProfile */
 /* @var $form CActiveForm */
+/* @var $yachtFoto array */
 ?>
 <div class="form-group">
     <div class="col-md-12">
@@ -835,6 +836,76 @@
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'auto_pilot'); ?></span>
                 <?php echo CHtml::textField('checkbox_auto_pilot',$profile->getAttributeLabel("auto_pilot"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 layout_preview">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <?php echo Yii::t("view","layout")?>
+            </div>
+            <div class="panel-body text-center">
+                <?php
+                if(!empty($yachtFoto[7][0]->link)){
+                    echo "<img src='".$yachtFoto[7][0]->link."' class='img-thumbnail'>";
+                } else {
+                    echo "<span class='glyphicon glyphicon-picture'></span>";
+                }
+                ?>
+            </div>
+            <div class="panel-footer">
+                <?php
+                $this->widget('fileuploader.EFineUploader',
+                    array(
+                        'config'=>array(
+                            'multiple'=>false,
+                            'autoUpload'=>true,
+                            'request'=>array(
+                                'endpoint'=>'/ajax/upload',// OR $this->createUrl('files/upload'),
+                                'params'=>array('YII_CSRF_TOKEN'=>Yii::app()->request->csrfToken),
+                            ),
+                            'retry'=>array(
+                                'enableAuto'=>false,
+                                'preventRetryResponseProperty'=>true
+                            ),
+                            'chunking'=>array(
+                                'enable'=>true,
+                                'partSize'=>100
+                            ),//bytes
+                            'callbacks'=>array(
+                                'onComplete'=>"js:function(id, name, response){
+                            if(response.success){
+                                $('.qq-upload-list').children('.qq-upload-success').fadeOut(1000,function(){ $(this).remove() });
+                                $(this._element).parent().parent().find('.panel-body').empty().append(
+                                    '<img src=\"'+response.link+'\" \/>'
+                                );
+                                $('#YachtPhoto_7_0_link').val(response.link);
+                                $('#YachtPhoto_7_0_link').parent().find('span.glyphicon').remove();
+                                $('#YachtPhoto_7_0_link').parent().find('li.images').remove();
+                                $('#YachtPhoto_7_0_link').parent().append(
+                                    '<li class=\"images\"><img src=\"'+response.link+'\" class=\"img-thumbnail\" \/><\/li>'
+                                );
+                                refreshUploadPreview($('.gallery li'));
+                            }
+                        }",
+                                'onError'=>"js:function(id, name, errorReason){
+                            alert(errorReason);
+                        }",
+                            ),
+                            'validation'=>array(
+                                'allowedExtensions'=>array('jpg','jpeg','png','gif'),
+                                'sizeLimit'=>10*1024*1024,//maximum file size in bytes
+                                'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
+                            ),
+                        ),
+                        'htmlOptions'=>array(
+                            'id'=>'UploadLayoutPhoto',
+                        ),
+                    )
+                );
+                ?>
             </div>
         </div>
     </div>

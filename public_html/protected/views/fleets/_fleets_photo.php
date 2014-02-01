@@ -208,7 +208,7 @@
             switch(mode){
                 case 'gallery':
                     var link = $item.find("img").attr("src");
-                    $o.find(".link").val(link);
+                    $o.find(".link").val(link).change();
                     $item.remove();
                     $o.find("span.glyphicon").remove();
                     $copy.appendTo($o);
@@ -216,7 +216,7 @@
                     break;
                 case 'preview':
                     $item.parents(".cell").append('<span class="glyphicon glyphicon-picture"></span>');
-                    $item.parents(".cell").find(".link").val("");
+                    $item.parents(".cell").find(".link").val("").change();
                     $item.remove();
                     $copy.appendTo($o.find('ul'));
                     refreshUploadPreview($("#upload_preview li"));
@@ -225,6 +225,16 @@
         });
     }
     $(function(){
+        $(".link").change(function(){
+            if(this.id=="YachtPhoto_7_0_link"){
+                var v = $(this).val();
+                if(v!==""){
+                    $(".layout_preview .panel-body").empty().append("<img src='"+v+"' />");
+                } else {
+                    $(".layout_preview .panel-body").empty().append("<span class='glyphicon glyphicon-picture'></span>");
+                }
+            }
+        });
         $(".cell").droppable({
             accept: "#upload_preview > li",
             drop: function(event,ui){
