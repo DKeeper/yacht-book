@@ -18,12 +18,18 @@ class JuiAutoComboBox extends CJuiAutoComplete
         $parentName = CHtml::activeName($this->parentModel,$this->parentAttribute);
         $parentId = CHtml::getIdByName($parentName);
 
-        if(isset($this->parentModel)){
+        if(isset($this->parentModel) && isset($this->parentAttribute)){
+            $name = '';
             $baseHtmlOptions = array(
                 'placeholder'=>$this->parentModel->getAttributeLabel($this->parentAttribute),
                 'class'=>'form-control'
             );
             $this->htmlOptions = array_merge($baseHtmlOptions,$this->htmlOptions);
+            echo CHtml::activeHiddenField($this->parentModel,$this->parentAttribute);
+            if(isset($this->parentModel[$this->parentAttribute])){
+                $name = $this->model->findByPk($this->parentModel[$this->parentAttribute])->name;
+            }
+            $this->model->name = $name;
         }
 
         if(isset($this->htmlOptions['id']))

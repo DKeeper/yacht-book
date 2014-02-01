@@ -146,7 +146,7 @@ class FleetsController extends Controller
                 case 2:
                 case 3:
                 case 4:
-                    $yachtFoto[$photo->type]->attributes = $photo->attributes;
+                    $yachtFoto[$photo->type] = $photo;
                     break;
                 case 5:
                 case 6:
@@ -155,9 +155,7 @@ class FleetsController extends Controller
                     if(!isset($yachtFoto[$photo->type])){
                         $yachtFoto[$photo->type] = array();
                     }
-                    $t = new YachtPhoto;
-                    $t->attributes = $photo->attributes;
-                    array_push($yachtFoto[$photo->type],$t);
+                    array_push($yachtFoto[$photo->type],$photo);
                     break;
             }
         }
@@ -210,16 +208,81 @@ class FleetsController extends Controller
             }
         }
 
-        $modelUser = $this->loadUser();
-
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation(array($model,$profile));
 
-        if(isset($_POST['CcFleets']))
+        if(isset($_POST['CcFleets']) && isset($_POST['SyProfile']))
         {
             $model->attributes=$_POST['CcFleets'];
-            if($model->save())
+            $profile->attributes=$_POST['SyProfile'];
+            //TODO Продумать механизм удаления не используемых фото
+            if($profile->save() && $model->save()){
+                foreach($_POST['YachtPhoto'] as $type => $items){
+                    if(!isset($items['link'])){
+                        foreach($items as $i => $item){
+                            if(isset($yachtFoto[$type][$i]->link)){
+                                $oldFoto = $yachtFoto[$type][$i]->link;
+                            }
+                            if(!empty($item['link'])){
+                                $yachtFoto[$type][$i]->attributes = $item;
+                                $yachtFoto[$type][$i]->yacht_id = $model->id;
+
+                                if(preg_match('/\/upload/',$yachtFoto[$type][$i]->link)){
+                                    $ext = preg_replace('/.+?\./','',$yachtFoto[$type][$i]->link);
+                                    $fotoName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
+                                    if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$yachtFoto[$type][$i]->link,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$fotoName)){
+                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$yachtFoto[$type][$i]->link);
+                                        $yachtFoto[$type][$i]->link = $fotoName;
+                                    } else {
+                                        $yachtFoto[$type][$i]->link = "";
+                                    }
+                                }
+
+                                $yachtFoto[$type][$i]->save();
+                            } else {
+//                                if(!empty($oldFoto) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldFoto)){
+//                                    unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldFoto);
+//                                }
+                                if(!$yachtFoto[$type][$i]->isNewRecord){
+                                    $yachtFoto[$type][$i]->delete();
+                                }
+                            }
+                        }
+                    } else {
+                        if(isset($yachtFoto[$type]->link)){
+                            $oldFoto = $yachtFoto[$type]->link;
+                        }
+                        if(!empty($items['link'])){
+                            $yachtFoto[$type]->attributes = $items;
+                            $yachtFoto[$type]->yacht_id = $model->id;
+
+                            if(preg_match('/\/upload/',$yachtFoto[$type]->link)){
+                                $ext = preg_replace('/.+?\./','',$yachtFoto[$type]->link);
+                                $fotoName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
+                                if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$yachtFoto[$type]->link,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$fotoName)){
+                                    unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$yachtFoto[$type]->link);
+                                    $yachtFoto[$type]->link = $fotoName;
+                                } else {
+                                    $yachtFoto[$type]->link = "";
+                                }
+                            }
+
+                            $yachtFoto[$type]->save();
+                        } else {
+//                            if(!empty($oldFoto) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldFoto)){
+//                                unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldFoto);
+//                            }
+                            if(!$yachtFoto[$type]->isNewRecord){
+                                $yachtFoto[$type]->delete();
+                            }
+                        }
+                    }
+                }
                 $this->redirect(array('view','id'=>$model->id));
+            } else {
+                $model->validate();
+                $profile->validate();
+            }
         }
 
         $this->render('update',array(

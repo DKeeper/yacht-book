@@ -40,6 +40,7 @@ return array(
     'The format of the selected file does not correspond to valid: jpg, png, gif' => 'Формат выбранного файла не соответсвует допустимым: jpg, png, gif',
     'Accounts admin' => 'Управление аккаунтами',
     'Fleets admin' => 'Управление флотом',
+    'Fleets' => 'Флот',
     'System settings' => 'Настройки системы',
     'Captain admin' => 'Капитаны',
     'Company admin' => 'Компании',

@@ -25,13 +25,13 @@
         </div>
         <div class="row">
             <?php
-            $type = '';
+            $name = '';
             if(isset($profile->type_id) && !empty($profile->type_id)){
-                $type = YachtType::model()->findByPk($profile->type_id)->name;
+                $name = YachtType::model()->findByPk($profile->type_id)->name;
             }
             echo CHtml::activeHiddenField($profile,'type_id');
             $model = YachtType::model();
-            $model->name=$type;
+            $model->name=$name;
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>$model,   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -103,9 +103,15 @@
         </div>
         <div class="row">
             <?php
+            $name = '';
+            if(isset($profile->shipyard_id) && !empty($profile->shipyard_id)){
+                $name = YachtShipyard::model()->findByPk($profile->shipyard_id)->name;
+            }
             echo CHtml::activeHiddenField($profile,'shipyard_id');
+            $model = YachtShipyard::model();
+            $model->name=$name;
             $this->widget('autocombobox.JuiAutoComboBox', array(
-                'model'=>YachtShipyard::model(),   // модель
+                'model'=>$model,   // модель
                 'attribute'=>'name',  // атрибут модели
                 // "источник" данных для выборки
                 'source' =>'js:function(request, response) {
@@ -179,9 +185,15 @@
         </div>
         <div class="row">
             <?php
+            $name = '';
+            if(isset($profile->model_id) && !empty($profile->model_id)){
+                $name = YachtModel::model()->findByPk($profile->model_id)->name;
+            }
             echo CHtml::activeHiddenField($profile,'model_id');
+            $model = YachtModel::model();
+            $model->name=$name;
             $this->widget('autocombobox.JuiAutoComboBox', array(
-                'model'=>YachtModel::model(),   // модель
+                'model'=>$model,   // модель
                 'attribute'=>'name',  // атрибут модели
                 // "источник" данных для выборки
                 'source' =>'js:function(request, response) {
@@ -253,9 +265,15 @@
         </div>
         <div class="row">
             <?php
+            $name = '';
+            if(isset($profile->_index_id) && !empty($profile->_index_id)){
+                $name = YachtIndex::model()->findByPk($profile->_index_id)->name;
+            }
             echo CHtml::activeHiddenField($profile,'_index_id');
+            $model = YachtIndex::model();
+            $model->name=$name;
             $this->widget('autocombobox.JuiAutoComboBox', array(
-                'model'=>YachtIndex::model(),   // модель
+                'model'=>$model,   // модель
                 'attribute'=>'name',  // атрибут модели
                 // "источник" данных для выборки
                 'source' =>'js:function(request, response) {
@@ -312,9 +330,15 @@
         </div>
         <div class="row">
             <?php
+            $name = '';
+            if(isset($profile->modification_id) && !empty($profile->modification_id)){
+                $name = YachtModification::model()->findByPk($profile->modification_id)->name;
+            }
             echo CHtml::activeHiddenField($profile,'modification_id');
+            $model = YachtModification::model();
+            $model->name=$name;
             $this->widget('autocombobox.JuiAutoComboBox', array(
-                'model'=>YachtModification::model(),   // модель
+                'model'=>$model,   // модель
                 'attribute'=>'name',  // атрибут модели
                 // "источник" данных для выборки
                 'source' =>'js:function(request, response) {
@@ -492,7 +516,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'main_sail_furling_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>SailFurling::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -513,7 +536,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'main_sail_material_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>SailMaterial::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -534,7 +556,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'jib_type_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>JibType::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -570,7 +591,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'jib_furling_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>JibFurling::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -591,7 +611,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'jib_material_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>SailMaterial::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -714,7 +733,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'engine_type_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>EngineType::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -735,7 +753,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'engine_mark_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>EngineMark::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
@@ -772,7 +789,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'wheel_type_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>WheelType::model(),   // модель
                 'attribute'=>'name',  // атрибут модели

@@ -42,6 +42,7 @@
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>Yii::t("view",'Fleets'), 'url'=>array('/fleets')),
                 array('url'=>Yii::app()->getModule('user')->loginUrl, 'label'=>UserModule::t("Login"), 'visible'=>Yii::app()->user->isGuest),
                 array('url'=>Yii::app()->getModule('user')->profileUrl, 'label'=>UserModule::t("Profile"), 'visible'=>!Yii::app()->user->isGuest),
                 array('url'=>Yii::app()->getModule('user')->logoutUrl, 'label'=>UserModule::t("Logout").' ('.Yii::app()->user->name.')', 'visible'=>!Yii::app()->user->isGuest),
