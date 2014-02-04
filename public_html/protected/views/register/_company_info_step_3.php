@@ -177,13 +177,19 @@
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'repeater_discount'); ?>
-        <?php echo $form->textField($profileCC,'repeater_discount',array('class'=>'form-control')); ?>
+        <div class="input-group">
+            <?php echo $form->textField($profileCC,'repeater_discount',array('class'=>'form-control')); ?>
+            <span class="input-group-addon">%</span>
+        </div>
         <?php echo $form->error($profileCC,'repeater_discount'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'max_discount'); ?>
-        <?php echo $form->textField($profileCC,'max_discount',array('class'=>'form-control')); ?>
+        <div class="input-group">
+            <?php echo $form->textField($profileCC,'max_discount',array('class'=>'form-control')); ?>
+            <span class="input-group-addon">%</span>
+        </div>
         <?php echo $form->error($profileCC,'max_discount'); ?>
     </div>
 <?php if($this->id=="register"){?>

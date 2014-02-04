@@ -114,9 +114,13 @@ $this->widget('zii.widgets.CDetailView', array(
             appLng += '-GB';
         }
         var s = $.datepicker.regional[appLng];
-        var chIn = $(".chind td").text();
-        var chOut = $(".choutd td").text();
-        $(".chind td").empty().append(s.dayNames[chIn]);
-        $(".choutd td").empty().append(s.dayNames[chOut]);
+        var chIn = +$(".chind td").text();
+        var chOut = +$(".choutd td").text();
+        if(!isNaN(chIn)){
+            $(".chind td").empty().append(s.dayNames[chIn]);
+        }
+        if(!isNaN(chOut)){
+            $(".choutd td").empty().append(s.dayNames[chOut]);
+        }
     });
 </script>

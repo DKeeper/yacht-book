@@ -326,11 +326,12 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
             marker.setTitle($(this).val());
         });
         $(".geo").change(function(){
-            var pattern = /^\d+?\.\d+?$/;
+            var pattern = /^\d+(\.\d+)?$/;
             var lat = $("#CcProfile_latitude").val();
             var lon = $("#CcProfile_longitude").val();
             if(pattern.test(lat) && pattern.test(lon)){
                 initialize({latitude:lat,longitude:lon});
+                moveMarker({lat:lat,lng:lon});
             }
         });
     });

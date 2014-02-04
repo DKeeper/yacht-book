@@ -88,7 +88,7 @@ class CcProfile extends BaseModel
 			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, checkin_day, checkout_day, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
 			array('company_postal_code', 'length', 'max'=>10),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
-            array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'match', 'pattern'=>'/^\d+?\.\d+?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
+            array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'match', 'pattern'=>'/^\d+(\.\d+)?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
 			array('vat', 'length', 'max'=>20),
             array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
 			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
