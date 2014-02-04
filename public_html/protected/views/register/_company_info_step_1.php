@@ -144,13 +144,13 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'longitude'); ?>
-        <?php echo $form->textField($profileCC,'longitude',array('class'=>'form-control')); ?>
+        <?php echo $form->textField($profileCC,'longitude',array('class'=>'form-control geo')); ?>
         <?php echo $form->error($profileCC,'longitude'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profileCC,'latitude'); ?>
-        <?php echo $form->textField($profileCC,'latitude',array('class'=>'form-control')); ?>
+        <?php echo $form->textField($profileCC,'latitude',array('class'=>'form-control geo')); ?>
         <?php echo $form->error($profileCC,'latitude'); ?>
     </div>
 
@@ -324,6 +324,14 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
         });
         $("#CcProfile_company_name").change(function(event){
             marker.setTitle($(this).val());
+        });
+        $(".geo").change(function(){
+            var pattern = /^\d+?\.\d+?$/;
+            var lat = $("#CcProfile_latitude").val();
+            var lon = $("#CcProfile_longitude").val();
+            if(pattern.test(lat) && pattern.test(lon)){
+                initialize({latitude:lat,longitude:lon});
+            }
         });
     });
 </script>
