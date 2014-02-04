@@ -196,7 +196,7 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'scan_of_license'); ?>
-        <?php echo $form->hiddenField($profileC,'scan_of_license'); ?>
+        <?php echo $form->textField($profileC,'scan_of_license',array('class'=>'form-control','readonly'=>true)); ?>
         <?php
         $this->widget('fileuploader.EFineUploader',
             array(
