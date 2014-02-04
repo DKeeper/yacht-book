@@ -82,9 +82,9 @@ $nationalityList = Nationality::model()->getModelList();
             'language' => Yii::app()->language,
             'options' => array(
                 'dateFormat' => 'yy-mm-dd',
-                'minDate' => 'js: new Date(1940, 0, 1)',
+                'minDate' => '-75y',
                 'maxDate' => '-14y',
-                'yearRange' => '1940:-14',
+                'yearRange' => '-75:-14',
                 'changeMonth' => true,
                 'changeYear' => true,
             ),
