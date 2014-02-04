@@ -16,6 +16,7 @@
     <div class="row">
         <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
+        <?php echo $form->hiddenField($profileCC,'checkin_day',array('id'=>'ckeckin_day_val','name'=>'ckeckin_day_val')); ?>
         <?php echo $form->dropDownList($profileCC,'checkin_day',array(),array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'checkin_day'); ?>
         </div><div class="col-md-6">
@@ -42,6 +43,7 @@
     <div class="row">
         <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkout_day'); ?>
+            <?php echo $form->hiddenField($profileCC,'checkout_day',array('id'=>'ckeckout_day_val','name'=>'ckeckout_day_val')); ?>
         <?php echo $form->dropDownList($profileCC,'checkout_day',array(),array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'checkout_day'); ?>
         </div><div class="col-md-6">
@@ -204,12 +206,22 @@
             appLng += '-GB';
         }
         var s = $.datepicker.regional[appLng];
-        var o = "<option value=''><?php echo Yii::t("view","Any"); ?></option>";
+        var o1, o2;
+        o1 = o2 = "<option value=''><?php echo Yii::t("view","Any"); ?></option>";
         $.each(s.dayNames,function(i){
-            o += "<option value='"+i+"'>"+this+"</option>";
+            if($("#ckeckin_day_val").val()==i){
+                o1 += "<option value='"+i+"' selected>"+this+"</option>";
+            } else {
+                o1 += "<option value='"+i+"'>"+this+"</option>";
+            }
+            if($("#ckeckout_day_val").val()==i){
+                o2 += "<option value='"+i+"' selected>"+this+"</option>";
+            } else {
+                o2 += "<option value='"+i+"'>"+this+"</option>";
+            }
         });
-        $("#CcProfile_checkin_day").append(o);
-        $("#CcProfile_checkout_day").append(o);
+        $("#CcProfile_checkin_day").append(o1);
+        $("#CcProfile_checkout_day").append(o2);
     });
     function addPaymentPeriod(o){
         var n = $(".payment_period").last().attr("class");

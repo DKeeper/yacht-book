@@ -32,6 +32,8 @@ class EDateTimePicker extends CInputWidget
             $this->htmlOptions['name'] = $name;
         }
 
+        $this->htmlOptions['value'] = $this->model[$this->attribute];
+
         echo CHtml::tag("input",$this->htmlOptions);
 
         $config = '';
