@@ -52,6 +52,13 @@ class EJuiSelectable extends CJuiSelectable
             if(isset($this->items['data'])){
                 foreach($this->items['data'] as $id=>$data){
                     $htmlOptions = array_merge($this->items['htmlOptions'],array('id'=>$id));
+                    if(array_key_exists($id,$this->hiddenHtmlOptions['options'])){
+                        if(!isset($htmlOptions['class'])){
+                            $htmlOptions['class'] = "ui-selected";
+                        } else {
+                            $htmlOptions['class'] .= " ui-selected";
+                        }
+                    }
                     echo CHtml::tag($this->childrenTag,$htmlOptions,$data);
                 }
             } else {
