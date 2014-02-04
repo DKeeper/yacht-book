@@ -68,7 +68,7 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('bank_transfer'),
-            'value'=>!empty($model->bank_transfer)?$model->bank_transfer:Yii::t("view","No data"),
+            'value'=>$model->bank_transfer?Yii::t("view","Yes"):Yii::t("view","No"),
         ),
         array(
             'label'=>$model->getAttributeLabel('western_union'),
