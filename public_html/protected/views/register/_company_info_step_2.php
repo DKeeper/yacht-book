@@ -65,7 +65,7 @@
     <div class="col-md-2">
         <div class="row checkbox">
         <?php echo CHtml::openTag("label"); ?>
-        <?php echo $form->checkBox($profileCC,'visa',array('uncheckValue'=>null)); ?>
+        <?php echo $form->checkBox($profileCC,'visa'); ?>
         <?php echo $profileCC->getAttributeLabel("visa"); ?>
         <?php echo CHtml::closeTag("label"); ?>
         </div>
@@ -82,7 +82,7 @@
     <div class="col-md-2">
         <div class="row checkbox">
             <?php echo CHtml::openTag("label"); ?>
-            <?php echo $form->checkBox($profileCC,'mastercard',array('uncheckValue'=>null)); ?>
+            <?php echo $form->checkBox($profileCC,'mastercard'); ?>
             <?php echo $profileCC->getAttributeLabel("mastercard"); ?>
             <?php echo CHtml::closeTag("label"); ?>
         </div>
@@ -99,7 +99,7 @@
     <div class="col-md-2">
         <div class="row checkbox">
             <?php echo CHtml::openTag("label"); ?>
-            <?php echo $form->checkBox($profileCC,'amex',array('uncheckValue'=>null)); ?>
+            <?php echo $form->checkBox($profileCC,'amex'); ?>
             <?php echo $profileCC->getAttributeLabel("amex"); ?>
             <?php echo CHtml::closeTag("label"); ?>
         </div>
@@ -118,7 +118,7 @@
         <div class="col-md-4">
             <div class="row checkbox">
                 <?php echo CHtml::openTag("label"); ?>
-                <?php echo $form->checkBox($profileCC,'bank_transfer',array('uncheckValue'=>null)); ?>
+                <?php echo $form->checkBox($profileCC,'bank_transfer'); ?>
                 <?php echo $profileCC->getAttributeLabel("bank_transfer"); ?>
                 <?php echo CHtml::closeTag("label"); ?>
             </div>
@@ -127,7 +127,7 @@
         <div class="col-md-4">
             <div class="row checkbox">
                 <?php echo CHtml::openTag("label"); ?>
-                <?php echo $form->checkBox($profileCC,'western_union',array('uncheckValue'=>null)); ?>
+                <?php echo $form->checkBox($profileCC,'western_union'); ?>
                 <?php echo $profileCC->getAttributeLabel("western_union"); ?>
                 <?php echo CHtml::closeTag("label"); ?>
             </div>
@@ -136,7 +136,7 @@
         <div class="col-md-4">
             <div class="row checkbox">
                 <?php echo CHtml::openTag("label"); ?>
-                <?php echo $form->checkBox($profileCC,'contact',array('uncheckValue'=>null)); ?>
+                <?php echo $form->checkBox($profileCC,'contact'); ?>
                 <?php echo $profileCC->getAttributeLabel("contact"); ?>
                 <?php echo CHtml::closeTag("label"); ?>
             </div>
