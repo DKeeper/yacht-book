@@ -132,8 +132,9 @@ return array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning, trace, info',
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'error, warning, trace, profile, info',
+                    'filter'=>'CLogFilter',
 				),
 				// uncomment the following to show log messages on web pages
 				array(

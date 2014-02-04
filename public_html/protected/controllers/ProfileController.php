@@ -103,9 +103,9 @@ class ProfileController extends Controller
                                 if(!empty($profileC->avatar)){
                                     if(preg_match('/\/upload/',$profileC->avatar)){
                                         $ext = preg_replace('/.+?\./','',$profileC->avatar);
-                                        $avatarName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
+                                        $avatarName = '/i/c/'.md5(time()+rand()).'.'.$ext;
                                         if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->avatar,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
-                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->avatar);
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->avatar);
                                             $profileC->avatar = $avatarName;
                                         } else {
                                             $profileC->avatar = null;
@@ -119,9 +119,9 @@ class ProfileController extends Controller
                                 if(!empty($profileC->scan_of_license)){
                                     if(preg_match('/\/upload/',$profileC->scan_of_license)){
                                         $ext = preg_replace('/.+?\./','',$profileC->scan_of_license);
-                                        $scanOfLicenseName = '/i/cc/'.md5(time()+rand()).'.'.$ext;
+                                        $scanOfLicenseName = '/i/c/'.md5(time()+rand()).'.'.$ext;
                                         if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->scan_of_license,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanOfLicenseName)){
-                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileCC->scan_of_license);
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileC->scan_of_license);
                                             $profileC->scan_of_license = $scanOfLicenseName;
                                         } else {
                                             $profileC->scan_of_license = null;
