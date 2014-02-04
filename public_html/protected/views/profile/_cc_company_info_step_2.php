@@ -72,11 +72,11 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('western_union'),
-            'value'=>!empty($model->western_union)?$model->western_union:Yii::t("view","No data"),
+            'value'=>$model->western_union?Yii::t("view","Yes"):Yii::t("view","No"),
         ),
         array(
             'label'=>$model->getAttributeLabel('contact'),
-            'value'=>!empty($model->contact)?$model->contact:Yii::t("view","No data"),
+            'value'=>$model->contact?Yii::t("view","Yes"):Yii::t("view","No"),
         ),
         array(
             'label'=>$model->getAttributeLabel('others'),

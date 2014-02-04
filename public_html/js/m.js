@@ -283,6 +283,11 @@ function moveMarker(latLng){
         async:true
     });
 }
+function delRow(o){
+    var $o = $(o);
+    $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
+    $o.parent().parent().remove();
+}
 /** **/
 function emptyObject(obj) {
     for (var i in obj) {

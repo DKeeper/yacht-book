@@ -29,11 +29,11 @@
  * @property string $swift
  * @property string $iban
  * @property integer $visa
- * @property integer $visa_percent
+ * @property double $visa_percent
  * @property integer $mastercard
- * @property integer $mastercard_percent
+ * @property double $mastercard_percent
  * @property integer $amex
- * @property integer $amex_percent
+ * @property double $amex_percent
  * @property integer $bank_transfer
  * @property integer $western_union
  * @property integer $contact

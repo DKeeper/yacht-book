@@ -191,10 +191,5 @@ $this->breadcrumbs=array(
             $("#CcProfile_company_email").val($(this).val());
         });
     });
-    function delRow(o){
-        var $o = $(o);
-        $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
-        $o.parent().parent().remove();
-    }
 </script>
 <?php endif; ?>
