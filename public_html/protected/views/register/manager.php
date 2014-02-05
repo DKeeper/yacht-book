@@ -37,7 +37,6 @@ if(empty($this->breadcrumbs)){
         'validateOnSubmit'=>true,
     ),
     'htmlOptions' => array(
-        'enctype'=>'multipart/form-data',
         'class'=>'form-horizontal'
     ),
 ));

@@ -140,7 +140,12 @@ return array(
 				array(
 					'class'=>'CWebLogRoute',
 				),
-
+                array(
+                    'class'=>'CProfileLogRoute',
+                    'report'=>'summary',
+                    // Показывает время выполнения каждого отмеченного блока кода.
+                    // Значение "report" также можно указать как "callstack".
+                ),
 			),
 		),
 	),

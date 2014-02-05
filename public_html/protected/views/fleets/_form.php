@@ -18,7 +18,6 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>true,
     'htmlOptions' => array(
-        'enctype'=>'multipart/form-data',
         'class'=>'fleets_form form-horizontal'
     ),
 )); ?>
