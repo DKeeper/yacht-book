@@ -1,6 +1,7 @@
 <?php
 /* @var $this FleetsController */
 /* @var $model CcFleets */
+/* @var $uid integer */
 $ccList = CcProfile::model()->getModelList("company_name",' - ',array('order'=>'company_name'));
 $fleetList = SyProfile::model()->getModelList("name",' - ',array('order'=>'name'));
 
@@ -45,7 +46,7 @@ $('.search-form form').submit(function(){
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'cc-fleets-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search($uid),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',

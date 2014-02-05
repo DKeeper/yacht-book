@@ -9,17 +9,6 @@
 /* @var $profile SyProfile */
 /* @var $form CActiveForm */
 ?>
-    <div class="row">
-        <?php echo $form->labelEx($profile,'latitude'); ?>
-        <?php echo $form->textField($profile,'latitude'); ?>
-        <?php echo $form->error($profile,'latitude'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profile,'longitude'); ?>
-        <?php echo $form->textField($profile,'longitude'); ?>
-        <?php echo $form->error($profile,'longitude'); ?>
-    </div>
 
     <div class="row">
         <?php echo $form->checkBox($profile,'last_cleaning_incl'); ?>

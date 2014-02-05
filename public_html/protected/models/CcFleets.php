@@ -88,17 +88,18 @@ class CcFleets extends BaseModel
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
+     * @param integer $uid
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($uid)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('cc_id',$this->cc_id);
+		$criteria->compare('cc_id',$uid);
 		$criteria->compare('profile_id',$this->profile_id);
         $criteria->compare('isActive',$this->isActive);
         $criteria->compare('isTrash',$this->isTrash);

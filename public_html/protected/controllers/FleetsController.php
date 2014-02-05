@@ -29,6 +29,8 @@ class FleetsController extends Controller
 		$model=new CcFleets;
         $profile=new SyProfile;
 
+
+
         $yachtFoto = array(
             1 => new YachtPhoto,
             2 => new YachtPhoto,
@@ -350,6 +352,13 @@ class FleetsController extends Controller
 	 */
 	public function actionAdmin()
 	{
+        $uid = Yii::app()->user->id;
+        /** @var $profileCC CcProfile */
+        list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess(Yii::app()->user);
+        if($role == 'M'){
+            $uid = $profileCC->cc_id;
+        }
+
 		$model=new CcFleets('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['CcFleets']))
@@ -357,6 +366,7 @@ class FleetsController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+            'uid'=>$uid,
 		));
 	}
 
