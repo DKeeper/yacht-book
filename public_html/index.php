@@ -17,9 +17,9 @@ class Yii extends YiiBase {
 $config=dirname(__FILE__).'/protected/config/main.php';
 
 // remove the following lines when in production mode
-define('YII_DEBUG',true);
+defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
-define('YII_TRACE_LEVEL',3);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 //require_once($yii);
 $a = Yii::createWebApplication($config);
