@@ -9,12 +9,28 @@
 /* @var $i integer */
 /* @var $model CcTransitLog */
 /* @var $form CActiveForm */
-$countryList = Strana::model()->getModelList('nazvanie_1',' - ',array('order'=>'nazvanie_1'));
+$countryList = Strana::model()->getModelList('nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language],'',array('order'=>'nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language]));
 ?>
 <div class="row transit_log num_<?php echo $i;?>">
     <div class="row">
     <div class="col-md-12">
     <?php
+//        $this->widget('autocombobox.JuiAutoComboBox', array(
+//            'model'=>Strana::model(),   // модель
+//            'attribute'=>'nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language],  // атрибут модели
+//            'parentModel' => $model,
+//            'parentAttribute' => "[$i]country_id",
+//            // "источник" данных для выборки
+//            'source' =>'js:function(request, response) {
+//                    $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
+//                    term: request.term.split(/,s*/).pop(),
+//                    modelClass: "Strana",
+//                    fName: "nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language].'",
+//                    parent_include: false,
+//                    create_include: false,
+//                    sql: false
+//                }, response);}',
+//        ));
     echo $form->labelEx($model,"[$i]country_id");
     echo $form->dropDownList($model,"[$i]country_id",$countryList,array("class"=>"form-control","prompt"=>Yii::t("view","Select country")));
     echo $form->error($model,"[$i]country_id");

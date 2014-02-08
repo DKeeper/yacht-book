@@ -27,9 +27,9 @@ class JuiAutoComboBox extends CJuiAutoComplete
             $this->htmlOptions = array_merge($baseHtmlOptions,$this->htmlOptions);
             echo CHtml::activeHiddenField($this->parentModel,$this->parentAttribute);
             if(isset($this->parentModel[$this->parentAttribute])){
-                $name = $this->model->findByPk($this->parentModel[$this->parentAttribute])->name;
+                $name = $this->model->findByPk($this->parentModel[$this->parentAttribute])[$this->attribute];
             }
-            $this->model->name = $name;
+            $this->model[$this->attribute] = $name;
         }
 
         if(isset($this->htmlOptions['id']))

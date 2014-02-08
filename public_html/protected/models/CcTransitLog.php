@@ -13,6 +13,7 @@
  *
  * The followings are the available model relations:
  * @property CcProfile $ccProfile
+ * @property Strana $country
  */
 class CcTransitLog extends BaseModel
 {
@@ -50,6 +51,7 @@ class CcTransitLog extends BaseModel
 		// class name for the relations automatically generated below.
 		return array(
 			'ccProfile' => array(self::BELONGS_TO, 'CcProfile', 'cc_profile_id'),
+			'country' => array(self::BELONGS_TO, 'Strana', 'country_id'),
 		);
 	}
 
