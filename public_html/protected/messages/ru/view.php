@@ -57,6 +57,8 @@ return array(
     'All fields are required or eliminate input errors' => 'Необходимо заполнить все поля или устранить ошибки ввода',
     'We are accept for payment:'=>'Мы принимаем к оплате',
 
+    '{p} for {v} {d}' => '{p} за {v} {d}',
+
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',
     'stem (with name of boat)'=>'',

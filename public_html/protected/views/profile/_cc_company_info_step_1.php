@@ -39,11 +39,13 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('company_web_site'),
-            'value'=>!empty($model->company_web_site)?$model->company_web_site:Yii::t("view","No data"),
+            'value'=>!empty($model->company_web_site)?(CHtml::link($model->company_web_site,!preg_match('/http/',$model->company_web_site)?'http://'.$model->company_web_site:$model->company_web_site,array('target'=>'_blank'))):Yii::t("view","No data"),
+            'type'=>'raw',
         ),
         array(
             'label'=>$model->getAttributeLabel('company_email'),
-            'value'=>!empty($model->company_email)?$model->company_email:Yii::t("view","No data"),
+            'value'=>!empty($model->company_email)?(CHtml::mailto($model->company_email,$model->company_email)):Yii::t("view","No data"),
+            'type'=>'raw',
         ),
         array(
             'label'=>$model->getAttributeLabel('company_phone'),

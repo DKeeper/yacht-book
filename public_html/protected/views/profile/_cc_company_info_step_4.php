@@ -7,3 +7,6 @@
  */
 /* @var $this ProfileController */
 /* @var $model CcProfile */
+$attributes = array(
+
+);

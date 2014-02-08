@@ -33,7 +33,7 @@ foreach($model->ccPaymentsPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Payment period #{n}',array('{n}'=>$i+1)),
-                'value'=>$data->value.'% за '.$data->before_duration.' '.mb_strtolower($data->durationType->name),
+                'value'=>Yii::t('view','{p} for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
@@ -44,6 +44,7 @@ $attributes = array_merge(
         array(
             'label'=>$model->getAttributeLabel('payment_other'),
             'value'=>!empty($model->payment_other)?$model->payment_other:Yii::t("view","No data"),
+            'type'=>'raw',
         ),
     )
 );
@@ -53,7 +54,7 @@ foreach($model->ccCancelPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Cancel period #{n}',array('{n}'=>$i+1)),
-                'value'=>$data->value.'% за '.$data->before_duration.' '.mb_strtolower($data->durationType->name),
+                'value'=>Yii::t('view','{p} for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
@@ -64,6 +65,7 @@ $attributes = array_merge(
         array(
             'label'=>$model->getAttributeLabel('cancel_other'),
             'value'=>!empty($model->cancel_other)?$model->cancel_other:Yii::t("view","No data"),
+            'type'=>'raw',
         ),
     )
 );
@@ -73,7 +75,7 @@ foreach($model->ccLongPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Long period #{n}',array('{n}'=>$i+1)),
-                'value'=>$data->value.'% за '.$data->before_duration.' '.mb_strtolower($data->durationType->name),
+                'value'=>Yii::t('view','{p} for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
@@ -84,7 +86,7 @@ foreach($model->ccEarlyPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Early period #{n}',array('{n}'=>$i+1)),
-                'value'=>$data->value.'% за '.$data->before_duration.' '.mb_strtolower($data->durationType->name),
+                'value'=>Yii::t('view','{p} for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
