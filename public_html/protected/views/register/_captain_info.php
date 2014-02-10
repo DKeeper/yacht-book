@@ -146,7 +146,7 @@ $nationalityList = Nationality::model()->getModelList();
                     'validation'=>array(
                         'allowedExtensions'=>array('jpg','jpeg','png','gif'),
                         'sizeLimit'=>10*1024*1024,//maximum file size in bytes
-                        'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
+//                        'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
                     ),
                 ),
                 'htmlOptions'=>array(

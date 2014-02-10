@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkout_day'); ?>
-            <?php echo $form->hiddenField($profileCC,'checkout_day',array('id'=>'ckeckout_day_val','name'=>'ckeckout_day_val')); ?>
+        <?php echo $form->hiddenField($profileCC,'checkout_day',array('id'=>'ckeckout_day_val','name'=>'ckeckout_day_val')); ?>
         <?php echo $form->dropDownList($profileCC,'checkout_day',array(),array('class'=>'form-control')); ?>
         <?php echo $form->error($profileCC,'checkout_day'); ?>
         </div><div class="col-md-6">
