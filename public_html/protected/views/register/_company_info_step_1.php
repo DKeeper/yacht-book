@@ -48,7 +48,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
             }",
             // additional javascript options for the autocomplete plugin
             'options'=>array(
-                'minLength'=>'3',
+                'minLength'=>'2',
                 'select' =>'js: function(event, ui) {
                     // действие по умолчанию, значение текстового поля
                     // устанавливается в значение выбранного пункта
@@ -95,7 +95,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
             }",
             // additional javascript options for the autocomplete plugin
             'options'=>array(
-                'minLength'=>'3',
+                'minLength'=>'2',
                 'select' =>'js: function(event, ui) {
                     // действие по умолчанию, значение текстового поля
                     // устанавливается в значение выбранного пункта
