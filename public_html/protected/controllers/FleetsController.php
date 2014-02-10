@@ -82,7 +82,6 @@ class FleetsController extends Controller
                             if(!empty($item['link'])){
                                 $yachtFoto[$type][$i]->attributes = $item;
                                 $yachtFoto[$type][$i]->yacht_id = $model->id;
-
                                 if(preg_match('/\/upload/',$yachtFoto[$type][$i]->link)){
                                     $ext = preg_replace('/.+?\./','',$yachtFoto[$type][$i]->link);
                                     $fotoName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
@@ -93,7 +92,6 @@ class FleetsController extends Controller
                                         $yachtFoto[$type][$i]->link = "";
                                     }
                                 }
-
                                 $yachtFoto[$type][$i]->save();
                             }
                         }
