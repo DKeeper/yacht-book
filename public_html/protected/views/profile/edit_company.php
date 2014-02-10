@@ -122,3 +122,10 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
     </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->
+<script>
+    $(function(){
+        $("#User_email").on("change",function(){
+            $("#CcProfile_company_email").val($(this).val());
+        });
+    });
+</script>
