@@ -72,14 +72,14 @@ $this->breadcrumbs=array(
                 ),
                 'id'=>'tab1'
             ),
-            UserModule::t("Captain info")=>array(
+            /*UserModule::t("Captain info")=>array(
                 'content'=>$this->renderPartial(
                     '_captain_info',
                     array('profileC'=>$profileC,'form'=>$form),
                     true
                 ),
                 'id'=>'tab2'
-            ),
+            ),*/
         ),
         // additional javascript options for the tabs plugin
         'options'=>$options,
