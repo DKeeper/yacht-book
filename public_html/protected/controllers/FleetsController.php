@@ -29,8 +29,6 @@ class FleetsController extends Controller
 		$model=new CcFleets;
         $profile=new SyProfile;
 
-
-
         $yachtFoto = array(
             1 => new YachtPhoto,
             2 => new YachtPhoto,
@@ -79,7 +77,7 @@ class FleetsController extends Controller
                 $model->profile_id = $profile->id;
                 $model->save();
                 foreach($_POST['YachtPhoto'] as $type => $items){
-                    if(is_array($items)){
+                    if(is_array($items) && !isset($items['link'])){
                         foreach($items as $i => $item){
                             if(!empty($item['link'])){
                                 $yachtFoto[$type][$i]->attributes = $item;
