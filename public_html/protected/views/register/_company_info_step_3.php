@@ -82,6 +82,7 @@
     </div>
 
     <?php
+        echo CHtml::label(Yii::t("view","Payment period"),"");
         foreach($paymentsPeriods as $i=>$period){
             $this->renderPartial("/register/_payment_period",array(
                 "i"=>$i,
@@ -89,7 +90,7 @@
                 "form"=>$form,
             ));
         }
-        echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"",array("style"=>"display:inline-block;",'class'=>'add_payment'));
+        echo CHtml::label(Yii::t("view","[%][before][type]"),"",array("style"=>"display:inline-block;",'class'=>'add_payment'));
         echo CHtml::tag(
             "button",
             array(
@@ -116,6 +117,7 @@
     </div>
 
     <?php
+        echo CHtml::label(Yii::t("view","Cancel period"),"");
         foreach($cancelPeriods as $i=>$period){
             $this->renderPartial("/register/_cancel_period",array(
                 "i"=>$i,
@@ -123,7 +125,7 @@
                 "form"=>$form,
             ));
         }
-        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"",array("style"=>"display:inline-block;","class"=>"add_cancel"));
+        echo CHtml::label(Yii::t("view","[%][before][type]"),"",array("style"=>"display:inline-block;","class"=>"add_cancel"));
         echo CHtml::tag(
             "button",
             array(
@@ -150,6 +152,7 @@
     </div>
 
     <?php
+        echo CHtml::label(Yii::t("view","Long period"),"");
         foreach($longPeriods as $i=>$period){
             $this->renderPartial("/register/_long_period",array(
                 "i"=>$i,
@@ -157,7 +160,7 @@
                 "form"=>$form,
             ));
         }
-        echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"",array("style"=>"display:inline-block;","class"=>"add_long"));
+        echo CHtml::label(Yii::t("view","[%][value][type]"),"",array("style"=>"display:inline-block;","class"=>"add_long"));
         echo CHtml::tag(
             "button",
             array(
@@ -169,6 +172,7 @@
     ?>
     <div class="row"></div>
     <?php
+        echo CHtml::label(Yii::t("view","Early booking"),"");
         foreach($earlyPeriods as $i=>$period){
             $this->renderPartial("/register/_early_period",array(
                 "i"=>$i,
@@ -176,7 +180,7 @@
                 "form"=>$form,
             ));
         }
-        echo CHtml::label(Yii::t("view","Early booking - [%][before][type]"),"",array("style"=>"display:inline-block;","class"=>"add_early"));
+        echo CHtml::label(Yii::t("view","[%][before][type]"),"",array("style"=>"display:inline-block;","class"=>"add_early"));
         echo CHtml::tag(
             "button",
             array(
