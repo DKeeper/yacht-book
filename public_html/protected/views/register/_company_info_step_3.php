@@ -16,8 +16,15 @@
     <div class="row">
         <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkin_day'); ?>
-        <?php echo $form->hiddenField($profileCC,'checkin_day',array('id'=>'ckeckin_day_val','name'=>'ckeckin_day_val')); ?>
-        <?php echo $form->dropDownList($profileCC,'checkin_day',array(),array('class'=>'form-control')); ?>
+            <div class="btn-group" data-toggle="buttons">
+                <?php
+                $name = "CcProfile[checkin_day]";
+                echo CHtml::label(CHtml::radioButton($name,!isset($profileCC->checkin_day),array('value'=>'')),'',array('class'=>'btn btn-default checkin_day_radio'.(!isset($profileCC->checkin_day)?' active':'')));
+                for($i=0;$i<7;$i++){
+                    echo CHtml::label(CHtml::radioButton($name,$i==$profileCC->checkin_day?true:false,array('value'=>$i)),'',array('class'=>'btn btn-default checkin_day_radio'.($i==$profileCC->checkin_day?' active':'')));
+                }
+                ?>
+            </div>
         <?php echo $form->error($profileCC,'checkin_day'); ?>
         </div><div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkin_hour'); ?>
@@ -43,8 +50,15 @@
     <div class="row">
         <div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkout_day'); ?>
-        <?php echo $form->hiddenField($profileCC,'checkout_day',array('id'=>'ckeckout_day_val','name'=>'ckeckout_day_val')); ?>
-        <?php echo $form->dropDownList($profileCC,'checkout_day',array(),array('class'=>'form-control')); ?>
+            <div class="btn-group" data-toggle="buttons">
+                <?php
+                $name = "CcProfile[checkout_day]";
+                echo CHtml::label(CHtml::radioButton($name,!isset($profileCC->checkout_day),array('value'=>'')),'',array('class'=>'btn btn-default checkout_day_radio'.(!isset($profileCC->checkout_day)?' active':'')));
+                for($i=0;$i<7;$i++){
+                    echo CHtml::label(CHtml::radioButton($name,$i==$profileCC->checkout_day?true:false,array('value'=>$i)),'',array('class'=>'btn btn-default checkout_day_radio'.($i==$profileCC->checkout_day?' active':'')));
+                }
+                ?>
+            </div>
         <?php echo $form->error($profileCC,'checkout_day'); ?>
         </div><div class="col-md-6">
         <?php echo $form->labelEx($profileCC,'checkout_hour'); ?>
@@ -206,22 +220,14 @@
             appLng += '-GB';
         }
         var s = $.datepicker.regional[appLng];
-        var o1, o2;
-        o1 = o2 = "<option value=''><?php echo Yii::t("view","Any"); ?></option>";
-        $.each(s.dayNames,function(i){
-            if($("#ckeckin_day_val").val()==i){
-                o1 += "<option value='"+i+"' selected>"+this+"</option>";
-            } else {
-                o1 += "<option value='"+i+"'>"+this+"</option>";
-            }
-            if($("#ckeckout_day_val").val()==i){
-                o2 += "<option value='"+i+"' selected>"+this+"</option>";
-            } else {
-                o2 += "<option value='"+i+"'>"+this+"</option>";
-            }
+        var o = ['<?php echo Yii::t("view","Any"); ?>'];
+        $.each(s.dayNamesMin,function(i){
+            o.push(this);
         });
-        $("#CcProfile_checkin_day").append(o1);
-        $("#CcProfile_checkout_day").append(o2);
+        $.each(o,function(i){
+            $($(".checkin_day_radio")[i]).append(this);
+            $($(".checkout_day_radio")[i]).append(this);
+        });
     });
     function addPaymentPeriod(o){
         var n = $(".payment_period").last().attr("class");

@@ -10,7 +10,7 @@
 $attributes = array(
     array(
         'label'=>$model->getAttributeLabel('checkin_day'),
-        'value'=>!empty($model->checkin_day)?$model->checkin_day:Yii::t("view","No data"),
+        'value'=>isset($model->checkin_day)?$model->checkin_day:Yii::t("view","Any"),
         'cssClass'=>'chind',
     ),
     array(
@@ -19,7 +19,7 @@ $attributes = array(
     ),
     array(
         'label'=>$model->getAttributeLabel('checkout_day'),
-        'value'=>!empty($model->checkout_day)?$model->checkout_day:Yii::t("view","No data"),
+        'value'=>isset($model->checkout_day)?$model->checkout_day:Yii::t("view","Any"),
         'cssClass'=>'choutd',
     ),
     array(

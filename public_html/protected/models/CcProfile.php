@@ -85,7 +85,7 @@ class CcProfile extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_id', 'required'),
-			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, checkin_day, checkout_day, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
+			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
 			array('company_postal_code', 'length', 'max'=>10),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
             array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'match', 'pattern'=>'/^\d+(\.\d+)?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
