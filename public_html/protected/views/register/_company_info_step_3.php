@@ -82,15 +82,6 @@
     </div>
 
     <?php
-        echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::tag(
-            "button",
-            array(
-                "class"=>"btn btn-default add_payment btn-xs",
-                'onclick'=>'addPaymentPeriod(this);return false;'
-            ),
-            "<span class='glyphicon glyphicon-plus'></span>"
-        );
         foreach($paymentsPeriods as $i=>$period){
             $this->renderPartial("/register/_payment_period",array(
                 "i"=>$i,
@@ -98,6 +89,15 @@
                 "form"=>$form,
             ));
         }
+        echo CHtml::label(Yii::t("view","Payment period - [%][before][type]"),"",array("style"=>"display:inline-block;",'class'=>'add_payment'));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default btn-xs",
+                'onclick'=>'addPaymentPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
     ?>
 
     <div class="row">
@@ -116,15 +116,6 @@
     </div>
 
     <?php
-        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::tag(
-            "button",
-            array(
-                "class"=>"btn btn-default add_cancel btn-xs",
-                'onclick'=>'addCancelPeriod(this);return false;'
-            ),
-            "<span class='glyphicon glyphicon-plus'></span>"
-        );
         foreach($cancelPeriods as $i=>$period){
             $this->renderPartial("/register/_cancel_period",array(
                 "i"=>$i,
@@ -132,6 +123,15 @@
                 "form"=>$form,
             ));
         }
+        echo CHtml::label(Yii::t("view","Cancel period - [%][before][type]"),"",array("style"=>"display:inline-block;","class"=>"add_cancel"));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default btn-xs",
+                'onclick'=>'addCancelPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
     ?>
 
     <div class="row">
@@ -150,15 +150,6 @@
     </div>
 
     <?php
-        echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"",array("style"=>"display:inline-block;"));
-        echo CHtml::tag(
-            "button",
-            array(
-                "class"=>"btn btn-default add_long btn-xs",
-                'onclick'=>'addLongPeriod(this);return false;'
-            ),
-            "<span class='glyphicon glyphicon-plus'></span>"
-        );
         foreach($longPeriods as $i=>$period){
             $this->renderPartial("/register/_long_period",array(
                 "i"=>$i,
@@ -166,18 +157,18 @@
                 "form"=>$form,
             ));
         }
-    ?>
-    <div class="row"></div>
-    <?php
-        echo CHtml::label(Yii::t("view","Early booking - [%][before][type]"),"",array("style"=>"display:inline-block;"));
+        echo CHtml::label(Yii::t("view","Long period - [%][value][type]"),"",array("style"=>"display:inline-block;","class"=>"add_long"));
         echo CHtml::tag(
             "button",
             array(
-                "class"=>"btn btn-default add_early btn-xs",
-                'onclick'=>'addEarlyPeriod(this);return false;'
+                "class"=>"btn btn-default btn-xs",
+                'onclick'=>'addLongPeriod(this);return false;'
             ),
             "<span class='glyphicon glyphicon-plus'></span>"
         );
+    ?>
+    <div class="row"></div>
+    <?php
         foreach($earlyPeriods as $i=>$period){
             $this->renderPartial("/register/_early_period",array(
                 "i"=>$i,
@@ -185,6 +176,15 @@
                 "form"=>$form,
             ));
         }
+        echo CHtml::label(Yii::t("view","Early booking - [%][before][type]"),"",array("style"=>"display:inline-block;","class"=>"add_early"));
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default btn-xs",
+                'onclick'=>'addEarlyPeriod(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
     ?>
 
     <div class="row">
@@ -248,7 +248,7 @@
                 if(o.length != 0){
                     o.last().after(answer);
                 } else {
-                    $(".add_payment").after(answer);
+                    $(".add_payment").before(answer);
                 }
                 o = $(".payment_period");
                 o.parent().find(".aL").remove();
@@ -282,7 +282,7 @@
                 if(o.length != 0){
                     o.last().after(answer);
                 } else {
-                    $(".add_cancel").after(answer);
+                    $(".add_cancel").before(answer);
                 }
                 o = $(".cancel_period");
                 o.parent().find(".aL").remove();
@@ -317,7 +317,7 @@
                 if(o.length != 0){
                     o.last().after(answer);
                 } else {
-                    $(".add_long").after(answer);
+                    $(".add_long").before(answer);
                 }
                 o = $(".long_period");
                 o.parent().find(".aL").remove();
@@ -351,7 +351,7 @@
                 if(o.length != 0){
                     o.last().after(answer);
                 } else {
-                    $(".add_early").after(answer);
+                    $(".add_early").before(answer);
                 }
                 o = $(".early_period");
                 o.parent().find(".aL").remove();
