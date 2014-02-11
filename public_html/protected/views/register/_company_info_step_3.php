@@ -108,9 +108,7 @@
             'attribute'=>'payment_other',
             'config'=> array(
                 'height' => 100,
-                'toolbar' => array(
-                    array('Bold','Italic','Underline'),
-                ),
+                'toolbar' => array(),
             ),
         ));
         ?>
@@ -144,9 +142,7 @@
             'attribute'=>'cancel_other',
             'config'=> array(
                 'height' => 100,
-                'toolbar' => array(
-                    array('Bold','Italic','Underline'),
-                ),
+                'toolbar' => array(),
             ),
         ));
         ?>

@@ -152,9 +152,7 @@
             'attribute'=>'others',
             'config'=> array(
                 'height' => 100,
-                'toolbar' => array(
-                    array('Bold','Italic','Underline'),
-                ),
+                'toolbar' => array(),
             ),
         ));
         ?>
