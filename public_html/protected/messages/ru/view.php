@@ -29,6 +29,7 @@ return array(
     'Female' => 'Жен.',
     'Male' => 'Муж.',
     'Select country' => 'Выберите страну',
+    'Select city' => 'Выберите город',
     'Select company' => 'Выберите компанию',
     'Select options' => 'Выберите опцию',
     'Options' => 'Опции',
@@ -84,7 +85,7 @@ return array(
     "You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available."=>"Вы можете заполнить прочие данные профиля после регистрации, в личном кабинете.<br/>Напоминаем, что без полностью заполненного профиля часть функционала сайта будет не доступна.",
 
     "No results" => "Нет результатов",
-    "To select a language, click on it. For multiple selections, hold down Ctrl." => "Для выбора языка щелкните по нему. Для множественного выбора удерживайте клавишу Ctrl.",
+    "To select a language, click on it." => "Для выбора языка щелкните по нему.",
 
     "Upload a file" => "Загрузить файл",
     "Cancel" => "Отмена",

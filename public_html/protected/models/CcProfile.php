@@ -8,7 +8,7 @@
  * @property integer $cc_id
  * @property integer $isActive
  * @property string $company_name
- * @property string $company_country_id
+ * @property integer $company_country_id
  * @property integer $company_city_id
  * @property string $company_postal_code
  * @property string $company_full_addres

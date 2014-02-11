@@ -245,6 +245,10 @@ return array(
     'Hull cleaning' => 'Стоимость чистки дна',
     'Crew license' => 'Максимум человек',
 
+    'Price per week'=>'Стоимость за неделю',
+    'This year'=>'Текущий год',
+    'Next year'=>'Следующий год',
+
     'Today' => 'сегодня',
     'You have' => 'у вас',
     'new messages' => 'новых сообщений',

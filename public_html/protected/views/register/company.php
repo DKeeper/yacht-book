@@ -104,7 +104,7 @@ $this->breadcrumbs=array(
                 ),
                 'id'=>'tab1'
             ),
-            /*UserModule::t("Company info")=>array(
+            UserModule::t("Company info")=>array(
                 'content'=>$this->renderPartial(
                     '_company_info_step_1',
                     array('profileCC'=>$profileCC,'form'=>$form),
@@ -147,7 +147,7 @@ $this->breadcrumbs=array(
                     true
                 ),
                 'id'=>'tab5'
-            ),*/
+            ),
         ),
         // additional javascript options for the tabs plugin
         'options'=>$options,

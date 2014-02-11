@@ -56,6 +56,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                     // устанавливаем значения скрытого поля
                     $("#CcProfile_company_country_id").val(ui.item.id);
                     $("#CcProfile_company_city_id").val(undefined);
+                    $("#company_city").attr("placeholder","'.Yii::t('view','Select city').'");
                     $("#company_city").val("");
                     $("#CcProfile_company_full_addres").val("");
                     //Ищем страну
@@ -119,7 +120,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                 }',
             ),
             'htmlOptions' => array(
-                'placeholder' => Yii::t('view','Select country'),
+                'placeholder' => isset($profileCC->company_country_id)?Yii::t('view','Select city'):Yii::t('view','Select country'),
             ),
         ));
         ?>
@@ -237,64 +238,18 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     </div>
 
     <div class="row">
-        <?php
-        $this->widget('fancyapps.EFancyApps', array(
-            'mode'=>'inline',
-            'id'=>'selectLanguage',
-            'config'=>array(
-                'maxWidth'	=> '80%',
-                'maxHeight'	=> '80%',
-            ),
-            'options' => array(
-                'url' => '#modal_lang',
-                'label' => $profileCC->getAttributeLabel('ccLanguages'),
-                'afterShow' => 'function(){$("#select_languages").selectable("refresh");}',
-            ),
-            'htmlOptions' => array(
-                'class' => 'btn btn-default',
-            )
-        ));
-        ?>
-        <div style="display:none;" id="modal_lang">
-            <h3 style="text-align: center;"><?php echo Yii::t("view","To select a language, click on it. For multiple selections, hold down Ctrl."); ?></h3>
-            <?php
-            $availableLang = Language::model()->getModelList('name','',array('order'=>'name','condition'=>'isActive = 1'));
-            $this->widget('selectable.EJuiSelectable',array(
-                    'id' => 'select_languages',
-                    'model'=>$profileCC,
-                    'attribute'=>'ccLanguages',
-                    'modelData'=>$availableLang,
-                    'hiddenHtmlOptions'=>array(
-                        'multiple'=>'multiple',
-                        'class'=>'multiselect',
-                        'options' => $profileCC->getSelectedLanguage(),
-                        'key'=>'language_id',
-                    ),
-                    'items'=>array(
-                        'data'=>$availableLang,
-                        'htmlOptions'=>array(
-                            'class'=>'form-control'
-                        ),
-                    ),
-                    'options'=>array(
-                        'autoRefresh' => false,
-                        'selected' => 'js: function( event, ui ) {
-                        if(selectedLanguage.indexOf(+ui.selected.id)==-1){
-                            selectedLanguage.push(+ui.selected.id);
-                        }
-                    }',
-                        'unselected' => 'js: function( event, ui ) {
-                        if(selectedLanguage.indexOf(+ui.unselected.id)!=-1){
-                            selectedLanguage.splice(selectedLanguage.indexOf(+ui.unselected.id),1);
-                        }
-                    }',
-                        'stop' => 'js: function( event, ui ) {
-                        $("#CcProfile_ccLanguages").val(selectedLanguage);
-                    }',
-                    )
-                )
-            );
-            ?>
+        <?php echo $form->labelEx($profileCC,'ccLanguages'); ?>
+        <div class="row">
+            <div class="btn-group" data-toggle="buttons">
+                <?php
+                $availableLang = Language::model()->getModelList('name','',array('order'=>'name','condition'=>'isActive = 1'));
+                $selectedLang = $profileCC->getSelectedLanguage();
+                $name = "CcProfile[ccLanguages][]";
+                foreach($availableLang as $i => $l){
+                    echo CHtml::label(CHtml::checkBox($name,isset($selectedLang[$i]),array('value'=>$i)).$l,'',array('class'=>'btn btn-default lang_check'.(isset($selectedLang[$i])?' active':'')));
+                }
+                ?>
+            </div>
         </div>
         <?php echo $form->error($profileCC,'ccLanguages'); ?>
     </div>
@@ -312,6 +267,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     ?>';
     appLng = '<?php echo Yii::app()->language; ?>';
     $(function(){
+        $('.lang_check').button();
         $("#CcProfile_company_full_addres").change(function(event){
             searchFromGeocoder($(this).val(),true);
         });
