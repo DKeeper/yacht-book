@@ -81,7 +81,7 @@ $this->widget('zii.widgets.CDetailView', array(
         array(
             'label'=>$model->getAttributeLabel('others'),
             'value'=>!empty($model->others)?$model->others:Yii::t("view","No data"),
-            'type'=>'raw',
+            'type'=>'html',
         ),
     ),
 ));

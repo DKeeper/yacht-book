@@ -44,7 +44,7 @@ $attributes = array_merge(
         array(
             'label'=>$model->getAttributeLabel('payment_other'),
             'value'=>!empty($model->payment_other)?$model->payment_other:Yii::t("view","No data"),
-            'type'=>'raw',
+            'type'=>'html',
         ),
     )
 );
@@ -65,7 +65,7 @@ $attributes = array_merge(
         array(
             'label'=>$model->getAttributeLabel('cancel_other'),
             'value'=>!empty($model->cancel_other)?$model->cancel_other:Yii::t("view","No data"),
-            'type'=>'raw',
+            'type'=>'html',
         ),
     )
 );
