@@ -268,9 +268,9 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     appLng = '<?php echo Yii::app()->language; ?>';
     $(function(){
         $('.lang_check').button();
-        $("#CcProfile_company_full_addres").change(function(event){
+        /*$("#CcProfile_company_full_addres").change(function(event){
             searchFromGeocoder($(this).val(),true);
-        });
+        });*/
         $('#company_tabs').tabs({
             activate: function(event,ui) {
                 if(ui.newPanel.selector=="#tab2"){
