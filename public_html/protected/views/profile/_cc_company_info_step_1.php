@@ -34,7 +34,7 @@ $this->widget('zii.widgets.CDetailView', array(
             'value'=>!empty($model->company_postal_code)?$model->company_postal_code:Yii::t("view","No data"),
         ),
         array(
-            'label'=>$model->getAttributeLabel('company_city_id'),
+            'label'=>$model->getAttributeLabel('company_full_addres'),
             'value'=>!empty($model->company_full_addres)?$model->company_full_addres:Yii::t("view","No data"),
         ),
         array(

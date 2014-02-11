@@ -8,7 +8,7 @@
 /* @var $this RegisterController */
 /* @var $profileCC CCProfile */
 /* @var $form CActiveForm */
-$geoField = Yii::app()->params['paramName'];
+$geoField = Yii::app()->params['geoFieldName'];
 if(isset($geoField[Yii::app()->language])){
     $geoField = 'nazvanie_'.$geoField[Yii::app()->language];
 } else {
@@ -268,9 +268,9 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     appLng = '<?php echo Yii::app()->language; ?>';
     $(function(){
         $('.lang_check').button();
-        /*$("#CcProfile_company_full_addres").change(function(event){
-            searchFromGeocoder($(this).val(),true);
-        });*/
+        $("#CcProfile_company_full_addres").change(function(event){
+            searchFromGeocoder($(this).val());
+        });
         $('#company_tabs').tabs({
             activate: function(event,ui) {
                 if(ui.newPanel.selector=="#tab2"){
