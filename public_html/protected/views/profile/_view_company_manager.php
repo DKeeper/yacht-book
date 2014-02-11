@@ -14,6 +14,9 @@
         echo CHtml::image(isset($data->avatar)?$data->avatar:'/i/def/avatar.png');
         ?>
     </div>
+    <div class="pull-right">
+        <button class="btn btn-default remove_manager" data-uid="<?php echo $data->m_id; ?>"><?php echo Yii::t('view','Delete'); ?></button>
+    </div>
     <div class="info">
         <b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
         <?php echo CHtml::link(CHtml::encode($data->m->id), array('view', 'id'=>$data->m->id)); ?>
@@ -29,3 +32,24 @@
         <br />
     </div>
 </div>
+<script>
+    $(function(){
+        $(".remove_manager").on("click",function(event){
+            var $self = $(this);
+            $.ajax({
+                url:'/ajax/rm',
+                data:{uid:$self.data("uid")},
+                success:function(answer){
+                    if(!answer.success){
+                        alert(answer.data);
+                    } else {
+                        location.reload();
+                    }
+                },
+                type:'GET',
+                dataType:'json',
+                async:true
+            });
+        });
+    });
+</script>

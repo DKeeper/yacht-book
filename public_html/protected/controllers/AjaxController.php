@@ -18,6 +18,17 @@ class AjaxController extends Controller
         return 'autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
     }
 
+    public function actionRm($uid){
+        $model = User::model()->findByPk($uid);
+        if(isset($model)){
+            $model->delete();
+            echo CJavaScript::jsonEncode(array('success'=>true));
+        } else {
+            echo CJavaScript::jsonEncode(array('success'=>false,'data'=>Yii::t("view","No data for {ext}",array('{ext}'=>$uid))));
+        }
+        Yii::app()->end();
+    }
+
     public function actionAutocomplete(){
         $term = Yii::app()->getRequest()->getParam('term');
         $modelClass = Yii::app()->getRequest()->getParam('modelClass');

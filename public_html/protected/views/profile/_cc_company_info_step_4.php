@@ -15,7 +15,7 @@ foreach($model->ccTransitLogs as $i => $transitLog){
             array(
                 'label'=>Yii::t('model','Transit log #{n}',array('{n}'=>$i+1)),
                 'value'=>Yii::t(
-                    'view',
+                    'model',
                     '{c} (Price: {v}, Obligatory: {o}, Included: {i})',
                     array(
                         '{c}'=>$transitLog->country['nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language]],
@@ -35,7 +35,7 @@ foreach($model->ccOrderOptions as $i => $options){
             array(
                 'label'=>Yii::t('model','Order options #{n}',array('{n}'=>$i+1)),
                 'value'=>Yii::t(
-                    'view',
+                    'model',
                     '{opt} - {v} for {d} (Obligatory: {o}, Included: {i})',
                     array(
                         '{opt}'=>$options->orderOption->name,

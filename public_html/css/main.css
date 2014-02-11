@@ -238,6 +238,10 @@ div.search-form
     width: 100px;
     height: 100px;
 }
+.avatar img{
+    width: 100px;
+    height: 100px;
+}
 .info{
     margin-left: 110px;
 }
