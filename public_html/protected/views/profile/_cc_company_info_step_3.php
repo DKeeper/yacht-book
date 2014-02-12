@@ -85,7 +85,7 @@ foreach($model->ccLongPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Long period #{n}',array('{n}'=>$i+1)),
-                'value'=>Yii::t('view','{p}% in {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>strtolower(Yii::t('view',$data->durationType->name)))),
+                'value'=>Yii::t('view','{p}% for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );

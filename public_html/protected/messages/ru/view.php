@@ -71,6 +71,7 @@ return array(
     '{v}% on spot'=>'{v}% на месте',
 
     '{p}% in {v} {d}' => '{p}% за {v} {d}',
+    '{p}% for {v} {d}' => '{p}% за {v} {d}',
 
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',
