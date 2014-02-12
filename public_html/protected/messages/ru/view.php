@@ -64,11 +64,11 @@ return array(
     'All fields are required or eliminate input errors' => 'Необходимо заполнить все поля или устранить ошибки ввода',
     'We are accept for payment:'=>'Мы принимаем к оплате',
     'AC'=>'ПП',
-    'After confirmation {v}%'=>'После подтверждения {v}%',
+    '{v}% after confirmation'=>'{v}% после подтверждения',
     'BC'=>'ПЧ',
     'Before charter'=>'Перед чартером',
     'OS'=>'НМ',
-    'On spot {v}%'=>'На месте {v}%',
+    '{v}% on spot'=>'{v}% на месте',
 
     '{p}% in {v} {d}' => '{p}% за {v} {d}',
 

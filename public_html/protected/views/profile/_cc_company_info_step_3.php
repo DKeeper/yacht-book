@@ -33,9 +33,9 @@ foreach($model->ccPaymentsPeriods as $i => $data){
     if($data->before_duration<0){
         $params = array();
         if($data->before_duration==-2){
-            $value = Yii::t("view","After confirmation {v}%",array('{v}'=>$data->value));
+            $value = Yii::t("view","{v}% after confirmation",array('{v}'=>$data->value));
         } else {
-            $value = Yii::t("view","On spot {v}%",array('{v}'=>$data->value));
+            $value = Yii::t("view","{v}% on spot",array('{v}'=>$data->value));
         }
     }
     $attributes = array_merge(
