@@ -28,14 +28,14 @@ $attributes = array(
     ),
 );
 foreach($model->ccPaymentsPeriods as $i => $data){
-    $value = '{p}% for {v} {d}';
+    $value = '{p}% in {v} {d}';
     $params = array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)));
     if($data->before_duration<0){
         $params = array();
         if($data->before_duration==-2){
-            $value = Yii::t("view","After confirmation");
+            $value = Yii::t("view","After confirmation {v}%",array('{v}'=>$data->value));
         } else {
-            $value = Yii::t("view","On spot");
+            $value = Yii::t("view","On spot {v}%",array('{v}'=>$data->value));
         }
     }
     $attributes = array_merge(
@@ -64,7 +64,7 @@ foreach($model->ccCancelPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Cancel period #{n}',array('{n}'=>$i+1)),
-                'value'=>Yii::t('view','{p}% for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
+                'value'=>Yii::t('view','{p}% in {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
@@ -85,7 +85,7 @@ foreach($model->ccLongPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Long period #{n}',array('{n}'=>$i+1)),
-                'value'=>Yii::t('view','{p}% for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
+                'value'=>Yii::t('view','{p}% in {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
@@ -96,7 +96,7 @@ foreach($model->ccEarlyPeriods as $i => $data){
         array(
             array(
                 'label'=>Yii::t('model','Early booking #{n}',array('{n}'=>$i+1)),
-                'value'=>Yii::t('view','{p}% for {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
+                'value'=>Yii::t('view','{p}% in {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>mb_strtolower(Yii::t('view',$data->durationType->name)))),
             ),
         )
     );
