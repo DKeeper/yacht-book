@@ -63,8 +63,14 @@ return array(
     'Drag the marker to select the desired address' => 'Перетащите маркер для выбора нужного адреса',
     'All fields are required or eliminate input errors' => 'Необходимо заполнить все поля или устранить ошибки ввода',
     'We are accept for payment:'=>'Мы принимаем к оплате',
+    'AC'=>'ПП',
+    'After confirmation'=>'После подтверждения',
+    'BC'=>'ПЧ',
+    'Before charter'=>'Перед чартером',
+    'OS'=>'НМ',
+    'On spot'=>'На месте',
 
-    '{p} for {v} {d}' => '{p} за {v} {d}',
+    '{p}% for {v} {d}' => '{p}% за {v} {d}',
 
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',

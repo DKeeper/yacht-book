@@ -71,7 +71,7 @@ return array(
     'Cancel period #{n}' => 'Период отмены №{n}',
     'Cancel other' => 'Прочие варианты отмены',
     'Long period #{n}' => 'Скидки за длительность №{n}',
-    'Early period #{n}' => 'Скидки за раннее бронирование №{n}',
+    'Early booking #{n}' => 'Скидки за раннее бронирование №{n}',
     'Transit log #{n}' => 'Транзитлог №{n}',
     '{c} (Price: {v}, Obligatory: {o}, Included: {i})' => '{c} (Цена: {v}, Обязательно: {o}, Включено: {i})',
     'Order options #{n}' => 'Опции заказа №{n}',

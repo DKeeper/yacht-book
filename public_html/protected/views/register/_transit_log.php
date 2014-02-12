@@ -9,7 +9,16 @@
 /* @var $i integer */
 /* @var $model CcTransitLog */
 /* @var $form CActiveForm */
-$countryList = Strana::model()->getModelList('nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language],'',array('order'=>'nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language]));
+$geoField = Yii::app()->params['geoFieldName'];
+if(isset($geoField[Yii::app()->language])){
+    $geoField = 'nazvanie_'.$geoField[Yii::app()->language];
+} else {
+    $geoField = 'nazvanie_2';
+}
+$country = '';
+if(isset($model->country_id) && !empty($model->country_id)){
+    $country = Strana::model()->findByPk($model->country_id)->$geoField;
+}
 ?>
 <div class="row transit_log num_<?php echo $i;?>">
     <div class="row">
@@ -32,7 +41,39 @@ $countryList = Strana::model()->getModelList('nazvanie_'.Yii::app()->params['geo
 //                }, response);}',
 //        ));
     echo $form->labelEx($model,"[$i]country_id");
-    echo $form->dropDownList($model,"[$i]country_id",$countryList,array("class"=>"form-control","prompt"=>Yii::t("view","Select country")));
+    echo $form->hiddenField($model,"[$i]country_id");
+    $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+        'name'=>'transit_log_country_'.$i,
+        'value'=>$country,
+        'source'=>"js:function(request, response) {
+            $.getJSON('".$this->createUrl('ajax/autocomplete')."', {
+                term: request.term.split(/,s*/).pop(),
+                modelClass : 'Strana',
+                fName: geoFieldName,
+                create_include : false,
+                sql : false,
+            }, response);
+        }",
+        // additional javascript options for the autocomplete plugin
+        'options'=>array(
+            'minLength'=>'2',
+            'select' =>'js: function(event, ui) {
+                // действие по умолчанию, значение текстового поля
+                // устанавливается в значение выбранного пункта
+                this.value = ui.item.label;
+                // устанавливаем значения скрытого поля
+                $("#CcTransitLog_'.$i.'_country_id").val(ui.item.id);
+                return false;
+            }',
+            'search' => 'js:function( event, ui ) {
+                $(".aL").remove();
+                $("#transit_log_country_'.$i.'").after("<img class=aL src=/i/indicator.gif />");
+            }',
+            'response' => 'js:function( event, ui ) {
+                $(".aL").remove();
+            }',
+        ),
+    ));
     echo $form->error($model,"[$i]country_id");
     ?>
     </div>
