@@ -123,18 +123,10 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 <script>
+    var checker = {};
     $(function(){
         $("#User_email").on("change",function(){
             $("#CcProfile_company_email").val($(this).val());
-        });
-        $(".payment_before_duration").on("click",function(){
-            if(+$(this).find("input").val()<0){
-                $(this).parents("div.input-group").find(".payment_period_value").prop("disabled",true).val("");
-                $(this).parents("div.payment_period").find("select").prop("disabled",true).val(1);
-            } else {
-                $(this).parents("div.input-group").find(".payment_period_value").prop("disabled",false);
-                $(this).parents("div.payment_period").find("select").prop("disabled",false);
-            }
         });
     });
 </script>

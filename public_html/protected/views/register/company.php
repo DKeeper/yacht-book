@@ -159,6 +159,7 @@ $this->breadcrumbs=array(
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 <script>
+    var checker = {};
     $(function(){
         $('button[data-type="next"]').tooltip();
         $('button[data-type="submit"]').tooltip();

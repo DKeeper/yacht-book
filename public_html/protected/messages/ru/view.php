@@ -65,13 +65,18 @@ return array(
     'We are accept for payment:'=>'Мы принимаем к оплате',
     'AC'=>'ПП',
     '{v}% after confirmation'=>'{v}% после подтверждения',
+    'After confirmation' => 'После подтверждения',
+    'On spot' => 'На месте',
     'BC'=>'ПЧ',
     'Before charter'=>'Перед чартером',
     'OS'=>'НМ',
+    'To date'=>'До даты',
+    'TD'=>'ДД',
     '{v}% on spot'=>'{v}% на месте',
 
     '{p}% in {v} {d}' => '{p}% за {v} {d}',
     '{p}% for {v} {d}' => '{p}% за {v} {d}',
+    '{p}% to {d}' => '{p}% до {d}',
 
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',

@@ -91,12 +91,25 @@ foreach($model->ccLongPeriods as $i => $data){
     );
 }
 foreach($model->ccEarlyPeriods as $i => $data){
+    $value = '{p}% in {v} {d}';
+    $params = array(
+        '{p}'=>$data->value,
+        '{v}'=>$data->before_duration,
+        '{d}'=>strtolower(Yii::t('view',$data->durationType->name))
+    );
+    if($data->before_duration=="0"){
+        $value = '{p}% to {d}';
+        $params = array(
+            '{p}'=>$data->value,
+            '{d}'=>$data->date_value
+        );
+    }
     $attributes = array_merge(
         $attributes,
         array(
             array(
                 'label'=>Yii::t('model','Early booking #{n}',array('{n}'=>$i+1)),
-                'value'=>Yii::t('view','{p}% in {v} {d}',array('{p}'=>$data->value,'{v}'=>$data->before_duration,'{d}'=>strtolower(Yii::t('view',$data->durationType->name)))),
+                'value'=>Yii::t('view',$value,$params),
             ),
         )
     );

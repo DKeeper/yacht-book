@@ -359,7 +359,7 @@
                 }
                 o = $(".early_period");
                 o.parent().find(".aL").remove();
-                o.find("div:hidden").addClass("errorMessage");
+                o.find("div.eraly_em").addClass("errorMessage");
                 $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
             },
             type:'POST',

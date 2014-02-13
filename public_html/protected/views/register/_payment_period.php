@@ -48,8 +48,13 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
     </div>
     <?php
     echo $form->error($model,"[$i]before_duration");
+    if($model->before_duration<0){
+        $style = "display:none;";
+    } else {
+        $style = "";
+    }
     echo "</div><div class='col-md-3'>";
-    echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList,array('class'=>'form-control'));
+    echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList,array('class'=>'form-control','style'=>$style));
     echo $form->error($model,"[$i]duration_type_id");
     echo "</div><div class='col-md-2'>";
     echo CHtml::tag(
@@ -68,5 +73,14 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
 <script>
     $(function(){
         $(".payment_before_duration").tooltip();
+        $(".payment_before_duration").on("click",function(){
+            if(+$(this).find("input").val()<0){
+                $(this).parents("div.input-group").find(".payment_period_value").prop("disabled",true).val("");
+                $(this).parents("div.payment_period").find("select").val(1).fadeOut();
+            } else {
+                $(this).parents("div.input-group").find(".payment_period_value").prop("disabled",false);
+                $(this).parents("div.payment_period").find("select").fadeIn();
+            }
+        });
     });
 </script>

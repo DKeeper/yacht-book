@@ -7,6 +7,7 @@
  * @property integer $id
  * @property integer $cc_profile_id
  * @property double $value
+ * @property string $date_value
  * @property integer $before_duration
  * @property integer $duration_type_id
  *
@@ -35,9 +36,11 @@ class CcEarlyPeriod extends BaseModel
 			array('cc_profile_id, value, before_duration, duration_type_id', 'required'),
 			array('cc_profile_id, before_duration, duration_type_id', 'numerical', 'integerOnly'=>true),
 			array('value', 'numerical'),
+			array('date_value', 'safe'),
+			array('date_value', 'default', 'value' => null),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cc_profile_id, value, before_duration, duration_type_id', 'safe', 'on'=>'search'),
+			array('id, cc_profile_id, value, date_value, before_duration, duration_type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +66,7 @@ class CcEarlyPeriod extends BaseModel
 			'id' => Yii::t('model','ID'),
 			'cc_profile_id' => Yii::t('model','СС profile'),
 			'value' => Yii::t('model','Value'),
+			'date_value' => Yii::t('model','Date'),
 			'before_duration' => Yii::t('model','Before duration'),
 			'duration_type_id' => Yii::t('model','Duration type'),
 		);
@@ -89,6 +93,7 @@ class CcEarlyPeriod extends BaseModel
 		$criteria->compare('id',$this->id);
 		$criteria->compare('cc_profile_id',$this->cc_profile_id);
 		$criteria->compare('value',$this->value);
+		$criteria->compare('date_value',$this->date_value);
 		$criteria->compare('before_duration',$this->before_duration);
 		$criteria->compare('duration_type_id',$this->duration_type_id);
 
