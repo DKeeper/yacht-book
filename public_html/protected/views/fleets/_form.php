@@ -4,6 +4,8 @@
 /* @var $profile SyProfile */
 /* @var $form CActiveForm */
 /* @var $yachtFoto array */
+/* @var $priceCurrYear PriceCurrentYear[] */
+/* @var $priceNextYear PriceNextYear[] */
 $statusList = BaseModel::getFilters('status');
 Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 ?>
@@ -56,7 +58,7 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
             Yii::t("model","Price")=>array(
                 'content'=>$this->renderPartial(
                     '_fleets_price',
-                    array('profile'=>$profile,'form'=>$form),
+                    array('profile'=>$profile,'form'=>$form,'model'=>$model,'priceCurrYear'=>$priceCurrYear,'priceNextYear'=>$priceNextYear),
                     true
                 ),
                 'id'=>'tab4'
@@ -90,3 +92,9 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<script>
+    $(function(){
+        $(".fleets_form input").tooltip();
+        $(".fleets_form select").tooltip();
+    });
+</script>

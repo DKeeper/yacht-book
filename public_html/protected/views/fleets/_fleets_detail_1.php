@@ -401,54 +401,50 @@
         </div>
 
         <div class="row">
-            <div class="input-group">
             <?php
-            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'model' => $profile,
-                'attribute' => 'built_date',
-                'language' => Yii::app()->language,
-                'options' => array(
-                    'dateFormat' => 'yy-mm-dd',
-                    'minDate' => '-13y',
-                    'yearRange' => 'c-13:c+10',
-                    'changeMonth' => true,
-                    'changeYear' => true,
-                ),
-                'htmlOptions' => array(
-                    'placeholder' => $profile->getAttributeLabel("built_date"),
-                    'title' => $profile->getAttributeLabel("built_date"),
-                    'class'=>'form-control'
-                ),
-            ));
+                echo $form->dropDownList($profile,'built_date',BaseModel::getYearRange(),array('class'=>'form-control','prompt' => $profile->getAttributeLabel("built_date"),'title' => $profile->getAttributeLabel("built_date")));
+//            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+//                'model' => $profile,
+//                'attribute' => 'built_date',
+//                'language' => Yii::app()->language,
+//                'options' => array(
+//                    'dateFormat' => 'yy-mm-dd',
+//                    'minDate' => '-13y',
+//                    'yearRange' => 'c-13:c+10',
+//                    'changeMonth' => true,
+//                    'changeYear' => true,
+//                ),
+//                'htmlOptions' => array(
+//                    'placeholder' => $profile->getAttributeLabel("built_date"),
+//                    'title' => $profile->getAttributeLabel("built_date"),
+//                    'class'=>'form-control'
+//                ),
+//            ));
             ?>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
             <?php echo $form->error($profile,'built_date'); ?>
         </div>
 
         <div class="row">
-            <div class="input-group">
             <?php
-            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'model' => $profile,
-                'attribute' => 'renovation_date',
-                'language' => Yii::app()->language,
-                'options' => array(
-                    'dateFormat' => 'yy-mm-dd',
-                    'minDate' => '-13y',
-                    'yearRange' => 'c-13:c+10',
-                    'changeMonth' => true,
-                    'changeYear' => true,
-                ),
-                'htmlOptions' => array(
-                    'placeholder' => $profile->getAttributeLabel("renovation_date"),
-                    'title' => $profile->getAttributeLabel("renovation_date"),
-                    'class'=>'form-control'
-                ),
-            ));
+                echo $form->dropDownList($profile,'renovation_date',BaseModel::getYearRange(),array('class'=>'form-control','prompt' => $profile->getAttributeLabel("renovation_date"),'title' => $profile->getAttributeLabel("renovation_date")));
+//            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+//                'model' => $profile,
+//                'attribute' => 'renovation_date',
+//                'language' => Yii::app()->language,
+//                'options' => array(
+//                    'dateFormat' => 'yy-mm-dd',
+//                    'minDate' => '-13y',
+//                    'yearRange' => 'c-13:c+10',
+//                    'changeMonth' => true,
+//                    'changeYear' => true,
+//                ),
+//                'htmlOptions' => array(
+//                    'placeholder' => $profile->getAttributeLabel("renovation_date"),
+//                    'title' => $profile->getAttributeLabel("renovation_date"),
+//                    'class'=>'form-control'
+//                ),
+//            ));
             ?>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
             <?php echo $form->error($profile,'renovation_date'); ?>
         </div>
 

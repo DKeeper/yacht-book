@@ -3,6 +3,8 @@
 /* @var $model CcFleets */
 /* @var $profile SyProfile */
 /* @var $yachtFoto array */
+/* @var $priceCurrYear PriceCurrentYear[] */
+/* @var $priceNextYear PriceNextYear[] */
 
 $this->breadcrumbs=array(
 	'Cc Fleets'=>array('index'),
@@ -20,4 +22,4 @@ $this->menu=array(
 
 <h1>Update CcFleets <?php echo $model->id; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile,'yachtFoto'=>$yachtFoto)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile,'yachtFoto'=>$yachtFoto,'priceCurrYear'=>$priceCurrYear,'priceNextYear'=>$priceNextYear)); ?>

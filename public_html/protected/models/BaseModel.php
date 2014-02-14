@@ -8,6 +8,25 @@
 class BaseModel extends CActiveRecord
 {
     /**
+     * @param null $from
+     * @param null $to
+     * @return array
+     */
+    public static function getYearRange($from=null,$to=null){
+        if(!isset($from)){
+            $from = intval(date('Y',strtotime('1980/01/01')));
+        }
+        if(!isset($to)){
+            $to = intval(date('Y',time()));
+        }
+        $r = array();
+        for(;$from<=$to;$from++){
+            $r[$from]=$from;
+        }
+        return $r;
+    }
+
+    /**
      * @param $type string
      * @return array|bool
      */
