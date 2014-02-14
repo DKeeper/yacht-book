@@ -97,6 +97,7 @@
                 ),
                 'htmlOptions' => array(
                     'placeholder'=>$profile->getAttributeLabel("type_id"),
+                    'title'=>$profile->getAttributeLabel("type_id"),
                     'class'=>'form-control'
                 ),
             ));
@@ -179,6 +180,7 @@
                 ),
                 'htmlOptions' => array(
                     'placeholder'=>$profile->getAttributeLabel("shipyard_id"),
+                    'title'=>$profile->getAttributeLabel("shipyard_id"),
                     'class'=>'form-control'
                 ),
             ));
@@ -259,6 +261,7 @@
                 ),
                 'htmlOptions' => array(
                     'placeholder'=>$profile->getAttributeLabel("model_id"),
+                    'title'=>$profile->getAttributeLabel("model_id"),
                     'class'=>'form-control'
                 ),
             ));
@@ -324,6 +327,7 @@
                 ),
                 'htmlOptions' => array(
                     'placeholder'=>$profile->getAttributeLabel("_index_id"),
+                    'title'=>$profile->getAttributeLabel("_index_id"),
                     'class'=>'form-control'
                 ),
             ));
@@ -388,8 +392,8 @@
 
                 ),
                 'htmlOptions' => array(
-
                     'placeholder'=>$profile->getAttributeLabel("modification_id"),
+                    'title'=>$profile->getAttributeLabel("modification_id"),
                     'class'=>'form-control'
                 ),
             ));
@@ -412,6 +416,7 @@
                 ),
                 'htmlOptions' => array(
                     'placeholder' => $profile->getAttributeLabel("built_date"),
+                    'title' => $profile->getAttributeLabel("built_date"),
                     'class'=>'form-control'
                 ),
             ));
@@ -437,6 +442,7 @@
                 ),
                 'htmlOptions' => array(
                     'placeholder' => $profile->getAttributeLabel("renovation_date"),
+                    'title' => $profile->getAttributeLabel("renovation_date"),
                     'class'=>'form-control'
                 ),
             ));
@@ -447,52 +453,52 @@
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'double_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("double_cabins"))); ?>
+            <?php echo $form->textField($profile,'double_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("double_cabins"),'title' => $profile->getAttributeLabel("double_cabins"))); ?>
             <?php echo $form->error($profile,'double_cabins'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'bunk_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("bunk_cabins"))); ?>
+            <?php echo $form->textField($profile,'bunk_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("bunk_cabins"),'title' => $profile->getAttributeLabel("bunk_cabins"))); ?>
             <?php echo $form->error($profile,'bunk_cabins'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'twin_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("twin_cabins"))); ?>
+            <?php echo $form->textField($profile,'twin_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("twin_cabins"),'title' => $profile->getAttributeLabel("twin_cabins"))); ?>
             <?php echo $form->error($profile,'twin_cabins'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'single_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("single_cabins"))); ?>
+            <?php echo $form->textField($profile,'single_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("single_cabins"),'title' => $profile->getAttributeLabel("single_cabins"))); ?>
             <?php echo $form->error($profile,'single_cabins'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'berth_cabin',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("berth_cabin"))); ?>
+            <?php echo $form->textField($profile,'berth_cabin',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("berth_cabin"),'title' => $profile->getAttributeLabel("berth_cabin"))); ?>
             <?php echo $form->error($profile,'berth_cabin'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'berth_salon',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("berth_salon"))); ?>
+            <?php echo $form->textField($profile,'berth_salon',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("berth_salon"),'title' => $profile->getAttributeLabel("berth_salon"))); ?>
             <?php echo $form->error($profile,'berth_salon'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'crew_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_cabins"))); ?>
+            <?php echo $form->textField($profile,'crew_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_cabins"),'title' => $profile->getAttributeLabel("crew_cabins"))); ?>
             <?php echo $form->error($profile,'crew_cabins'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'crew_berth',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_berth"))); ?>
+            <?php echo $form->textField($profile,'crew_berth',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_berth"),'title' => $profile->getAttributeLabel("crew_berth"))); ?>
             <?php echo $form->error($profile,'crew_berth'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'WC',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("WC"))); ?>
+            <?php echo $form->textField($profile,'WC',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("WC"),'title' => $profile->getAttributeLabel("WC"))); ?>
             <?php echo $form->error($profile,'WC'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'shower',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("shower"))); ?>
+            <?php echo $form->textField($profile,'shower',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("shower"),'title' => $profile->getAttributeLabel("shower"))); ?>
             <?php echo $form->error($profile,'shower'); ?>
         </div>
     </div>
@@ -502,7 +508,7 @@
         </div>
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'main_sail_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("main_sail_area"))); ?>
+                <?php echo $form->textField($profile,'main_sail_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("main_sail_area"),'title' => $profile->getAttributeLabel("main_sail_area"))); ?>
                 <span class="input-group-addon">m<sup>2</sup></span>
             </div>
             <?php echo $form->error($profile,'main_sail_area'); ?>
@@ -577,7 +583,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'jib_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("jib_area"))); ?>
+                <?php echo $form->textField($profile,'jib_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("jib_area"),'title' => $profile->getAttributeLabel("jib_area"))); ?>
                 <span class="input-group-addon">m<sup>2</sup></span>
             </div>
             <?php echo $form->error($profile,'jib_area'); ?>
@@ -634,50 +640,50 @@
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("winches"))); ?>
+            <?php echo $form->textField($profile,'winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("winches"),'title' => $profile->getAttributeLabel("winches"))); ?>
             <?php echo $form->error($profile,'winches'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'el_winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("el_winches"))); ?>
+            <?php echo $form->textField($profile,'el_winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("el_winches"),'title' => $profile->getAttributeLabel("el_winches"))); ?>
             <?php echo $form->error($profile,'el_winches'); ?>
         </div>
 
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'spinnaker'); ?></span>
-                <?php echo $form->textField($profile,'spinnaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_area"))); ?>
+                <?php echo $form->textField($profile,'spinnaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_area"),'title' => $profile->getAttributeLabel("spinnaker_area"))); ?>
                 <span class="input-group-addon">m<sup>2</sup></span>
             </div>
             <?php echo $form->error($profile,'spinnaker_area'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'spinnaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_price"))); ?>
+            <?php echo $form->textField($profile,'spinnaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_price"),'title' => $profile->getAttributeLabel("spinnaker_price"))); ?>
             <?php echo $form->error($profile,'spinnaker_price'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'spinnaker_deposiit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_deposiit"))); ?>
+            <?php echo $form->textField($profile,'spinnaker_deposiit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_deposiit"),'title' => $profile->getAttributeLabel("spinnaker_deposiit"))); ?>
             <?php echo $form->error($profile,'spinnaker_deposiit'); ?>
         </div>
 
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'gennaker'); ?></span>
-                <?php echo $form->textField($profile,'gennaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_area"))); ?>
+                <?php echo $form->textField($profile,'gennaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_area"),'title' => $profile->getAttributeLabel("gennaker_area"))); ?>
                 <span class="input-group-addon">m<sup>2</sup></span>
             </div>
             <?php echo $form->error($profile,'gennaker_area'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'gennaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_price"))); ?>
+            <?php echo $form->textField($profile,'gennaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_price"),'title' => $profile->getAttributeLabel("gennaker_price"))); ?>
             <?php echo $form->error($profile,'gennaker_price'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'gennaker_deposit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_deposit"))); ?>
+            <?php echo $form->textField($profile,'gennaker_deposit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_deposit"),'title' => $profile->getAttributeLabel("gennaker_deposit"))); ?>
             <?php echo $form->error($profile,'gennaker_deposit'); ?>
         </div>
     </div>
@@ -687,7 +693,7 @@
         </div>
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'length_m',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("length_m"))); ?>
+                <?php echo $form->textField($profile,'length_m',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("length_m"),'title' => $profile->getAttributeLabel("length_m"))); ?>
                 <span class="input-group-addon">m</span>
             </div>
             <?php echo $form->error($profile,'length_m'); ?>
@@ -695,7 +701,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'beam',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("beam"))); ?>
+                <?php echo $form->textField($profile,'beam',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("beam"),'title' => $profile->getAttributeLabel("beam"))); ?>
                 <span class="input-group-addon">m</span>
             </div>
             <?php echo $form->error($profile,'beam'); ?>
@@ -703,7 +709,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'draft',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("draft"))); ?>
+                <?php echo $form->textField($profile,'draft',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("draft"),'title' => $profile->getAttributeLabel("draft"))); ?>
                 <span class="input-group-addon">m</span>
             </div>
             <?php echo $form->error($profile,'draft'); ?>
@@ -711,7 +717,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'mast_draught',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("mast_draught"))); ?>
+                <?php echo $form->textField($profile,'mast_draught',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("mast_draught"),'title' => $profile->getAttributeLabel("mast_draught"))); ?>
                 <span class="input-group-addon">m</span>
             </div>
             <?php echo $form->error($profile,'mast_draught'); ?>
@@ -719,7 +725,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'displacement',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("displacement"))); ?>
+                <?php echo $form->textField($profile,'displacement',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("displacement"),'title' => $profile->getAttributeLabel("displacement"))); ?>
                 <span class="input-group-addon">t</span>
             </div>
             <?php echo $form->error($profile,'displacement'); ?>
@@ -728,7 +734,7 @@
             <h3>CONTROL</h3>
         </div>
         <div class="row">
-            <?php echo $form->textField($profile,'no_of_engine',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("no_of_engine"))); ?>
+            <?php echo $form->textField($profile,'no_of_engine',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("no_of_engine"),'title' => $profile->getAttributeLabel("no_of_engine"))); ?>
             <?php echo $form->error($profile,'no_of_engine'); ?>
         </div>
 
@@ -774,7 +780,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'engine_power_hp',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"))); ?>
+                <?php echo $form->textField($profile,'engine_power_hp',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"),'title' => Yii::t("model","Engine power"))); ?>
                 <span class="input-group-addon"><?php echo Yii::t("model","HP");?></span>
             </div>
             <?php echo $form->error($profile,'engine_power_hp'); ?>
@@ -782,7 +788,7 @@
 
         <div class="row">
             <div class="input-group">
-                <?php echo $form->textField($profile,'engine_power_kW',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"))); ?>
+                <?php echo $form->textField($profile,'engine_power_kW',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"),'title' => Yii::t("model","Engine power"))); ?>
                 <span class="input-group-addon"><?php echo Yii::t("model","kW");?></span>
             </div>
             <?php echo $form->error($profile,'engine_power_kW'); ?>
@@ -809,12 +815,12 @@
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'wheel_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("wheel_no"))); ?>
+            <?php echo $form->textField($profile,'wheel_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("wheel_no"),'title' => $profile->getAttributeLabel("wheel_no"))); ?>
             <?php echo $form->error($profile,'wheel_no'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'rudder',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("rudder"))); ?>
+            <?php echo $form->textField($profile,'rudder',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("rudder"),'title' => $profile->getAttributeLabel("rudder"))); ?>
             <?php echo $form->error($profile,'rudder'); ?>
         </div>
 

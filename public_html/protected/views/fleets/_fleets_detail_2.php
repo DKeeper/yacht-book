@@ -282,7 +282,7 @@
         </div>
 
         <div class="row">
-            <?php echo $form->textField($profile,'fridge_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("fridge_no"))); ?>
+            <?php echo $form->textField($profile,'fridge_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("fridge_no"),'title' => $profile->getAttributeLabel("fridge_no"))); ?>
             <?php echo $form->error($profile,'fridge_no'); ?>
         </div>
 

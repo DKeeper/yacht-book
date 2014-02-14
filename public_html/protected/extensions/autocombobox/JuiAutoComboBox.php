@@ -22,6 +22,7 @@ class JuiAutoComboBox extends CJuiAutoComplete
             $name = '';
             $baseHtmlOptions = array(
                 'placeholder'=>$this->parentModel->getAttributeLabel($this->parentAttribute),
+                'title'=>$this->parentModel->getAttributeLabel($this->parentAttribute),
                 'class'=>'form-control'
             );
             $this->htmlOptions = array_merge($baseHtmlOptions,$this->htmlOptions);
