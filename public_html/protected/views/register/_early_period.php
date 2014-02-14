@@ -69,7 +69,11 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
     <?php
     echo $form->error($model,"[$i]before_duration",array("class"=>"eraly_em"));
     echo "</div><div class='col-md-2'>";
-    echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList,array('class'=>'form-control'));
+    $htmlOptions = array('class'=>'form-control');
+    if($model->before_duration==-1){
+        $htmlOptions['style'] = "display:none;";
+    }
+    echo $form->dropDownList($model,"[$i]duration_type_id",$durationTypeList,$htmlOptions);
     echo $form->error($model,"[$i]duration_type_id",array("class"=>"eraly_em"));
     echo "</div><div class='col-md-3'>";
     echo CHtml::tag(
@@ -96,14 +100,15 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
             id = +id[1];
             if(checker[id]!=-1){
                 checker[id] = -1;
-                $_.find(".before_duration_value").val(0).fadeOut(function(){
+                $_.find(".before_duration_value").fadeOut(function(){
+                    $(this).val(-1);
                     $_.find(".input-group").fadeIn();
                 });
                 $_.parents("div.early_period").find("select").val(1).fadeOut();
             } else {
                 checker[id] = 0;
                 $_.find(".input-group").fadeOut(function(){
-                    $_.find(".before_duration_value").fadeIn();
+                    $_.find(".before_duration_value").val('').fadeIn();
                 });
                 $_.parents("div.early_period").find("select").fadeIn();
             }

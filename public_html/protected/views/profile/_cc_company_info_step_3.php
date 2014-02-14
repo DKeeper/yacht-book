@@ -97,7 +97,7 @@ foreach($model->ccEarlyPeriods as $i => $data){
         '{v}'=>$data->before_duration,
         '{d}'=>strtolower(Yii::t('view',$data->durationType->name))
     );
-    if($data->before_duration=="0"){
+    if($data->before_duration=="-1"){
         $value = '{p}% to {d}';
         $params = array(
             '{p}'=>$data->value,

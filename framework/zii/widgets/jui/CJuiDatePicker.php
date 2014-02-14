@@ -48,7 +48,7 @@ class CJuiDatePicker extends CJuiInputWidget
 	 * If this property is not set, I18N will not be involved. That is, the date picker will show in English.
 	 * You can force English language by setting the language attribute as '' (empty string)
 	 */
-	public $language;
+	public $language='';
 	/**
 	 * @var string The i18n Jquery UI script file. It uses scriptUrl property as base url.
 	 */
@@ -110,11 +110,12 @@ class CJuiDatePicker extends CJuiInputWidget
 		$options=CJavaScript::encode($this->options);
 		$js = "jQuery('#{$id}').datepicker($options);";
 
-		if($this->language!='' && $this->language!='en')
-		{
+        if($this->language=='en')$this->language='';
+//		if($this->language!='' && $this->language!='en')
+//		{
 			$this->registerScriptFile($this->i18nScriptFile);
 			$js = "jQuery('#{$id}').datepicker(jQuery.extend({showMonthAfterYear:false},jQuery.datepicker.regional['{$this->language}'],{$options}));";
-		}
+//		}
 
 		$cs = Yii::app()->getClientScript();
 
