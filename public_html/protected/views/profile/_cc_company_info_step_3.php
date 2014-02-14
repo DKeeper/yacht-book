@@ -137,6 +137,16 @@ $attributes = array_merge(
         ),
     )
 );
+$attributes = array_merge(
+    $attributes,
+    array(
+        array(
+            'label'=>$model->getAttributeLabel('discount_other'),
+            'value'=>!empty($model->discount_other)?$model->discount_other:Yii::t("view","No data"),
+            'type'=>'html',
+        ),
+    )
+);
 $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
     'attributes'=>$attributes,
