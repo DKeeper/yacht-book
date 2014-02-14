@@ -109,7 +109,13 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
             }
         });
         <?php
-        $t = 0;
+        if(Yii::app()->request->isAjaxRequest){
+            foreach(Yii::app()->clientScript->scripts as $positions){
+                foreach($positions as $script){
+                    echo $script;
+                }
+            }
+        }
         ?>
     });
 </script>
