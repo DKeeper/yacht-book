@@ -136,7 +136,7 @@ $this->widget('zii.widgets.CDetailView', array(
     appLng = '<?php echo Yii::app()->language; ?>';
     $(function(){
         if(appLng=='en'){
-            appLng += '-GB';
+            appLng = '';
         }
         var s = $.datepicker.regional[appLng];
         var chIn = +$(".chind td").text();

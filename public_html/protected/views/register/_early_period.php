@@ -108,5 +108,8 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                 $_.parents("div.early_period").find("select").fadeIn();
             }
         });
+        <?php
+        $t = 0;
+        ?>
     });
 </script>

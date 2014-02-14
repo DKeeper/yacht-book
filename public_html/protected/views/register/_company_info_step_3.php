@@ -21,7 +21,7 @@
                 $name = "CcProfile[checkin_day]";
                 echo CHtml::label(CHtml::radioButton($name,!isset($profileCC->checkin_day),array('value'=>'')),'',array('class'=>'btn btn-default checkin_day_radio'.(!isset($profileCC->checkin_day)?' active':'')));
                 for($i=0;$i<7;$i++){
-                    echo CHtml::label(CHtml::radioButton($name,$i==$profileCC->checkin_day?true:false,array('value'=>$i)),'',array('class'=>'btn btn-default checkin_day_radio'.($i==$profileCC->checkin_day?' active':'')));
+                    echo CHtml::label(CHtml::radioButton($name,($i==$profileCC->checkin_day&&isset($profileCC->checkin_day))?true:false,array('value'=>$i)),'',array('class'=>'btn btn-default checkin_day_radio'.(($i==$profileCC->checkin_day&&isset($profileCC->checkin_day))?' active':'')));
                 }
                 ?>
             </div>
@@ -55,7 +55,7 @@
                 $name = "CcProfile[checkout_day]";
                 echo CHtml::label(CHtml::radioButton($name,!isset($profileCC->checkout_day),array('value'=>'')),'',array('class'=>'btn btn-default checkout_day_radio'.(!isset($profileCC->checkout_day)?' active':'')));
                 for($i=0;$i<7;$i++){
-                    echo CHtml::label(CHtml::radioButton($name,$i==$profileCC->checkout_day?true:false,array('value'=>$i)),'',array('class'=>'btn btn-default checkout_day_radio'.($i==$profileCC->checkout_day?' active':'')));
+                    echo CHtml::label(CHtml::radioButton($name,($i==$profileCC->checkout_day&&isset($profileCC->checkout_day))?true:false,array('value'=>$i)),'',array('class'=>'btn btn-default checkout_day_radio'.(($i==$profileCC->checkout_day&&isset($profileCC->checkout_day))?' active':'')));
                 }
                 ?>
             </div>
@@ -217,7 +217,7 @@
 <script>
     $(function(){
         if(appLng=='en'){
-            appLng += '-GB';
+            appLng = '';
         }
         var s = $.datepicker.regional[appLng];
         var o = ['<?php echo Yii::t("view","Any"); ?>'];
