@@ -36,7 +36,7 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('expire_date'),
-            'value'=>isset($model->expire_date)?$model->expire_date:Yii::t("view","No data"),
+            'value'=>isset($model->expire_date)?(date('d.m.Y',strtotime($model->expire_date))):Yii::t("view","No data"),
         ),
         array(
             'label'=>$model->getAttributeLabel('nationality_id'),
@@ -44,7 +44,7 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('date_of_birth'),
-            'value'=>isset($model->date_of_birth)?$model->date_of_birth:Yii::t("view","No data"),
+            'value'=>isset($model->date_of_birth)?(date('d.m.Y',strtotime($model->date_of_birth))):Yii::t("view","No data"),
         ),
         array(
             'label'=>$model->getAttributeLabel('phone'),
@@ -64,7 +64,7 @@ $this->widget('zii.widgets.CDetailView', array(
         ),
         array(
             'label'=>$model->getAttributeLabel('date_issued'),
-            'value'=>isset($model->date_issued)?$model->date_issued:Yii::t("view","No data"),
+            'value'=>isset($model->date_issued)?(date('d.m.Y',strtotime($model->date_issued))):Yii::t("view","No data"),
         ),
         array(
             'label'=>$model->getAttributeLabel('website'),

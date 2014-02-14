@@ -101,7 +101,7 @@ foreach($model->ccEarlyPeriods as $i => $data){
         $value = '{p}% to {d}';
         $params = array(
             '{p}'=>$data->value,
-            '{d}'=>$data->date_value
+            '{d}'=>date('d.m.Y',strtotime($data->date_value))
         );
     }
     $attributes = array_merge(
@@ -119,11 +119,11 @@ $attributes = array_merge(
     array(
         array(
             'label'=>$model->getAttributeLabel('repeater_discount'),
-            'value'=>!empty($model->repeater_discount)?$model->repeater_discount:Yii::t("view","No data"),
+            'value'=>!empty($model->repeater_discount)?$model->repeater_discount."%":Yii::t("view","No data"),
         ),
         array(
             'label'=>$model->getAttributeLabel('max_discount'),
-            'value'=>!empty($model->max_discount)?$model->max_discount:Yii::t("view","No data"),
+            'value'=>!empty($model->max_discount)?$model->max_discount."%":Yii::t("view","No data"),
         ),
     )
 );
