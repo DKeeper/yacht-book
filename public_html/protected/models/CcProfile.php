@@ -184,9 +184,9 @@ class CcProfile extends BaseModel
 			'checkout_hour' => Yii::t('model','Checkout hour'),
 			'payment_other' => Yii::t('model','Payment other'),
 			'cancel_other' => Yii::t('model','Cancel other'),
-			'repeater_discount' => Yii::t('model','Repeater discount'),
-			'max_discount' => Yii::t('model','Max discount'),
-			'discount_other' => Yii::t('model','Discount other'),
+			'repeater_discount' => Yii::t('model','Repeater'),
+			'max_discount' => Yii::t('model','Maximum'),
+			'discount_other' => Yii::t('model','Other'),
 		);
 	}
 
