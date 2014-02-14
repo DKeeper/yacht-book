@@ -78,6 +78,7 @@ return array(
     '{opt} - {v} for {d} (Obligatory: {o}, Included: {i})' => '{opt} - {v} за {d} (Обязательно: {o}, Включено: {i})',
     'Repeater discount' => 'Скидка за повторное бронирование',
     'Max discount' => 'Максимально возможная скидка',
+    'Discount other' => 'Прочие скидки',
     'Country' => 'Страна',
     'Name (eng)' => 'Имя (анг)',
     'Name (rus)' => 'Имя (рус)',

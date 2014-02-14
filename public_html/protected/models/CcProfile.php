@@ -46,6 +46,7 @@
  * @property string $cancel_other
  * @property integer $repeater_discount
  * @property integer $max_discount
+ * @property string $discount_other
  *
  * The followings are the available model relations:
  * @property CcCancelPeriod[] $ccCancelPeriods
@@ -81,20 +82,34 @@ class CcProfile extends BaseModel
 	 */
 	public function rules()
 	{
+        $purifier = new CHtmlPurifier();
+        $purifier->options = array(
+            'HTML.AllowedElements' => array
+            (
+                'strong'    => TRUE,
+                'em'        => TRUE,
+                'ul'        => TRUE,
+                'ol'        => TRUE,
+                'li'        => TRUE,
+                'p'         => TRUE,
+                'span'      => TRUE,
+            )
+        );
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('others, payment_other, cancel_other, discount_other', 'filter', 'filter' => array($purifier, 'purify')),
 			array('cc_id', 'required'),
 			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
 			array('company_postal_code', 'length', 'max'=>10),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
             array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'match', 'pattern'=>'/^\d+(\.\d+)?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
 			array('vat', 'length', 'max'=>20),
-            array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other', 'default', 'value' => null),
+            array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other, discount_other', 'default', 'value' => null),
 			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount', 'safe', 'on'=>'search'),
+			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount, discount_other', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -171,6 +186,7 @@ class CcProfile extends BaseModel
 			'cancel_other' => Yii::t('model','Cancel other'),
 			'repeater_discount' => Yii::t('model','Repeater discount'),
 			'max_discount' => Yii::t('model','Max discount'),
+			'discount_other' => Yii::t('model','Discount other'),
 		);
 	}
 
@@ -240,6 +256,7 @@ class CcProfile extends BaseModel
 		$criteria->compare('cancel_other',$this->cancel_other,true);
 		$criteria->compare('repeater_discount',$this->repeater_discount);
 		$criteria->compare('max_discount',$this->max_discount);
+		$criteria->compare('discount_other',$this->discount_other,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

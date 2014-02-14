@@ -55,6 +55,7 @@ return array(
     'Long period' => 'Скидки за длительность',
     'Early booking - [%][before][type]' => 'Скидки за раннее бронирование - [%][до][тип]',
     'Early booking' => 'Скидки за раннее бронирование',
+    'Discount' => 'Скидки',
     'Forward' => 'Далее',
     'Backward' => 'Назад',
     'Week' => 'Неделя',

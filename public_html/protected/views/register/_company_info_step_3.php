@@ -151,6 +151,7 @@
         <?php echo $form->error($profileCC,'cancel_other'); ?>
     </div>
 
+    <h3><?php echo Yii::t("view","Discount"); ?></h3>
     <?php
         echo CHtml::label(Yii::t("view","Long period"),"");
         foreach($longPeriods as $i=>$period){
@@ -207,6 +208,21 @@
             <span class="input-group-addon">%</span>
         </div>
         <?php echo $form->error($profileCC,'max_discount'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($profileCC,'discount_other'); ?>
+        <?php
+        $this->widget('ckeditor.CKEditor', array(
+            'model'=>$profileCC,
+            'attribute'=>'discount_other',
+            'config'=> array(
+                'height' => 100,
+                'toolbar' => array(),
+            ),
+        ));
+        ?>
+        <?php echo $form->error($profileCC,'discount_other'); ?>
     </div>
 <?php if($this->id=="register"){?>
     <div class="row">

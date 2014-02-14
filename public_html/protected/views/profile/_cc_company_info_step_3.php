@@ -79,6 +79,16 @@ $attributes = array_merge(
         ),
     )
 );
+$attributes = array_merge(
+    $attributes,
+    array(
+        array(
+            'label'=>'',
+            'value'=>'<h3>'.Yii::t("view","Discount").'</h3>',
+            'type'=>'html',
+        ),
+    )
+);
 foreach($model->ccLongPeriods as $i => $data){
     $attributes = array_merge(
         $attributes,
