@@ -104,14 +104,15 @@
     <div class="row">
         <?php echo $form->labelEx($profileCC,'payment_other'); ?>
         <?php
-        $this->widget('ckeditor.CKEditor', array(
-            'model'=>$profileCC,
-            'attribute'=>'payment_other',
-            'config'=> array(
-                'height' => 100,
-                'toolbar' => array(),
-            ),
-        ));
+        echo $form->textArea($profileCC,'payment_other',array('class'=>'form-control','style'=>'max-width:100%;'));
+//        $this->widget('ckeditor.CKEditor', array(
+//            'model'=>$profileCC,
+//            'attribute'=>'payment_other',
+//            'config'=> array(
+//                'height' => 100,
+//                'toolbar' => array(),
+//            ),
+//        ));
         ?>
         <?php echo $form->error($profileCC,'payment_other'); ?>
     </div>
@@ -139,14 +140,15 @@
     <div class="row">
         <?php echo $form->labelEx($profileCC,'cancel_other'); ?>
         <?php
-        $this->widget('ckeditor.CKEditor', array(
-            'model'=>$profileCC,
-            'attribute'=>'cancel_other',
-            'config'=> array(
-                'height' => 100,
-                'toolbar' => array(),
-            ),
-        ));
+        echo $form->textArea($profileCC,'cancel_other',array('class'=>'form-control','style'=>'max-width:100%;'));
+//        $this->widget('ckeditor.CKEditor', array(
+//            'model'=>$profileCC,
+//            'attribute'=>'cancel_other',
+//            'config'=> array(
+//                'height' => 100,
+//                'toolbar' => array(),
+//            ),
+//        ));
         ?>
         <?php echo $form->error($profileCC,'cancel_other'); ?>
     </div>
@@ -213,14 +215,15 @@
     <div class="row">
         <?php echo $form->labelEx($profileCC,'discount_other'); ?>
         <?php
-        $this->widget('ckeditor.CKEditor', array(
-            'model'=>$profileCC,
-            'attribute'=>'discount_other',
-            'config'=> array(
-                'height' => 100,
-                'toolbar' => array(),
-            ),
-        ));
+        echo $form->textArea($profileCC,'discount_other',array('class'=>'form-control','style'=>'max-width:100%;'));
+//        $this->widget('ckeditor.CKEditor', array(
+//            'model'=>$profileCC,
+//            'attribute'=>'discount_other',
+//            'config'=> array(
+//                'height' => 100,
+//                'toolbar' => array(),
+//            ),
+//        ));
         ?>
         <?php echo $form->error($profileCC,'discount_other'); ?>
     </div>

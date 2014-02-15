@@ -147,14 +147,15 @@
     <div class="row">
         <?php echo $form->labelEx($profileCC,'others'); ?>
         <?php
-        $this->widget('ckeditor.CKEditor', array(
-            'model'=>$profileCC,
-            'attribute'=>'others',
-            'config'=> array(
-                'height' => 100,
-                'toolbar' => array(),
-            ),
-        ));
+        echo $form->textArea($profileCC,'others',array('class'=>'form-control','style'=>'max-width:100%;'));
+//        $this->widget('ckeditor.CKEditor', array(
+//            'model'=>$profileCC,
+//            'attribute'=>'others',
+//            'config'=> array(
+//                'height' => 100,
+//                'toolbar' => array(),
+//            ),
+//        ));
         ?>
         <?php echo $form->error($profileCC,'others'); ?>
     </div>
