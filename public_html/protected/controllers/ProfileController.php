@@ -388,6 +388,63 @@ class ProfileController extends Controller
                     }
                     break;
                 /** Конец блока редактирования ЧК */
+                case 'M':
+                    if($role === "CC" || $role === "M" || $role === "A"){
+                        /** @var $profileM MProfile */
+                        $profileM = MProfile::model()->findByAttributes(array("m_id"=>$modelUser->id));
+
+                        if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
+                        {
+                            echo UActiveForm::validate(array($modelUser,$profileUser,$profileM));
+                            Yii::app()->end();
+                        }
+                        if(isset($_POST['User'])) {
+                            $modelUser->attributes=$_POST['User'];
+                            $profileUser->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
+
+                            $oldAvatar = $profileM->avatar;
+                            $profileM->attributes=((isset($_POST['MProfile'])?$_POST['MProfile']:array()));
+
+                            $validate = true;
+                            $validate = $validate && $modelUser->validate();
+                            $validate = $validate && $profileUser->validate();
+                            $validate = $validate && $profileM->validate();
+
+                            if($validate){
+                                $modelUser->save();
+                                $profileUser->save();
+
+                                if(!empty($profileM->avatar)){
+                                    if(preg_match('/\/upload/',$profileM->avatar)){
+                                        $ext = preg_replace('/.+?\./','',$profileM->avatar);
+                                        $avatarName = '/i/m/'.md5(time()+rand()).'.'.$ext;
+                                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileM->avatar,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileM->avatar);
+                                            $profileM->avatar = $avatarName;
+                                        } else {
+                                            $profileM->avatar = null;
+                                        }
+                                    }
+                                }
+
+                                $profileM->save(false);
+
+                                Yii::app()->user->updateSession();
+                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
+                                $this->redirect(array('/profile'));
+                            }
+                        }
+                        $this->render('edit_manager',
+                            array(
+                                'modelUser'=>$modelUser,
+                                'profileUser'=>$profileUser,
+                                'profileM'=>$profileM,
+                            )
+                        );
+                    } else {
+                        $this->redirect("/profile/edit/".Yii::app()->user->id);
+                    }
+                    break;
             }
         } else {
             $this->render('view',array(

@@ -1,14 +1,14 @@
 <?php
 /**
  * @author Капенкин Дмитрий <dkapenkin@rambler.ru>
- * @date 16.01.14
- * @time 12:17
+ * @date 15.02.14
+ * @time 15:01
  * Created by JetBrains PhpStorm.
  */
 /* @var $this ProfileController */
 /* @var $modelUser User */
 /* @var $profileUser Profile */
-/* @var $profileC CProfile */
+/* @var $profileM MProfile */
 /* @var $form UActiveForm */
 ?>
 <div class="form">
@@ -22,7 +22,7 @@
     $models = array(
         $modelUser,
         $profileUser,
-        $profileC,
+        $profileM,
     );
 
     echo $form->errorSummary($models);
@@ -38,10 +38,10 @@
                 ),
                 'id'=>'tab1'
             ),
-            UserModule::t("Captain info")=>array(
+            UserModule::t("Manager info")=>array(
                 'content'=>$this->renderPartial(
-                    '/register/_captain_info',
-                    array('profileC'=>$profileC,'form'=>$form),
+                    '/register/_manager_info',
+                    array('profileM'=>$profileM,'form'=>$form),
                     true
                 ),
                 'id'=>'tab2'
@@ -49,7 +49,7 @@
         ),
         // additional javascript options for the tabs plugin
         'htmlOptions'=>array(
-            'id'=>'captain_tabs',
+            'id'=>'manager_tabs',
         ),
     ));
     ?>

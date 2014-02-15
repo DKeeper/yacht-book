@@ -16,6 +16,7 @@
     </div>
     <div class="pull-right">
         <button class="btn btn-default remove_manager" data-uid="<?php echo $data->m_id; ?>"><?php echo Yii::t('view','Delete'); ?></button>
+        <a class="btn btn-default edit_manager" href="<?php echo Yii::app()->createAbsoluteUrl('profile/edit',array('id'=>$data->m_id)); ?>"><?php echo Yii::t('view','Update'); ?></a>
     </div>
     <div class="info">
         <b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>

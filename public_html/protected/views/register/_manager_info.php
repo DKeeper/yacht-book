@@ -69,6 +69,8 @@
     ?>
     <?php echo $form->error($profileM,'avatar'); ?>
 </div>
+<?php if($this->id=="register"){?>
 <div class="row submit">
     <button data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button>
 </div>
+<?php } ?>

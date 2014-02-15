@@ -151,8 +151,8 @@ if(isset($no_load)){
                 'tabs'=>array(
                     UserModule::t("User info")=>array(
                         'content'=>$this->renderPartial(
-                            '_cc_user_info',
-                            array('model'=>$profileCC),
+                            '_m_user_info',
+                            array('model'=>$profileM),
                             true
                         ),
                         'id'=>'tab1'

@@ -436,7 +436,7 @@ class RegisterController extends Controller
                     if(!empty($profileM->avatar)){
                         if(preg_match('/\/upload/',$profileM->avatar)){
                             $ext = preg_replace('/.+?\./','',$profileM->avatar);
-                            $avatarName = '/i/c/'.md5(time()+rand()).'.'.$ext;
+                            $avatarName = '/i/m/'.md5(time()+rand()).'.'.$ext;
                             if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileM->avatar,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$avatarName)){
                                 unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profileM->avatar);
                                 $profileM->avatar = $avatarName;
