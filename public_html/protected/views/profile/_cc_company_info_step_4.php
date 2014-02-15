@@ -7,7 +7,12 @@
  */
 /* @var $this ProfileController */
 /* @var $model CcProfile */
-$attributes = array();
+$attributes = array(
+    array(
+        'label'=>$model->getAttributeLabel('currency_id'),
+        'value'=>$model->currency->name,
+    )
+);
 foreach($model->ccTransitLogs as $i => $transitLog){
     $attributes = array_merge(
         $attributes,

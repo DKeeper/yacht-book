@@ -30,6 +30,7 @@ return array(
     'Order option' => 'Опция заказа',
     'Is active' => 'Активен',
     'Is trash' => 'Удален',
+    'Currency' => 'Валюта',
     'Company name' => 'Название компании',
     'Company country' => 'Страна компании',
     'Company city' => 'Город компании',

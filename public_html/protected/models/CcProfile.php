@@ -8,6 +8,7 @@
  * @property integer $cc_id
  * @property integer $isActive
  * @property string $company_name
+ * @property integer $currency_id
  * @property integer $company_country_id
  * @property integer $company_city_id
  * @property string $company_postal_code
@@ -55,6 +56,7 @@
  * @property CcOrderComfortPacks[] $ccOrderComfortPacks
  * @property CcOrderOptions[] $ccOrderOptions
  * @property CcPaymentsPeriod[] $ccPaymentsPeriods
+ * @property Currency $currency
  * @property User $cc
  * @property Strana $country
  * @property Gorod $city
@@ -105,11 +107,11 @@ class CcProfile extends BaseModel
 			array('company_phone, company_faxe', 'length', 'max'=>15),
             array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'match', 'pattern'=>'/^\d+(\.\d+)?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
 			array('vat', 'length', 'max'=>20),
-            array('company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other, discount_other', 'default', 'value' => null),
-			array('company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
+            array('currency_id, company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other, discount_other', 'default', 'value' => null),
+			array('currency_id, company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cc_id, isActive, company_name, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount, discount_other', 'safe', 'on'=>'search'),
+			array('id, cc_id, isActive, company_name, currency_id, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount, discount_other', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -128,6 +130,7 @@ class CcProfile extends BaseModel
 			'ccOrderOptions' => array(self::HAS_MANY, 'CcOrderOptions', 'cc_profile_id'),
 			'ccPaymentsPeriods' => array(self::HAS_MANY, 'CcPaymentsPeriod', 'cc_profile_id'),
 			'cc' => array(self::BELONGS_TO, 'User', 'cc_id'),
+			'currency' => array(self::BELONGS_TO, 'Currency', 'currency_id'),
 			'country' => array(self::BELONGS_TO, 'Strana', 'company_country_id'),
 			'city' => array(self::BELONGS_TO, 'Gorod', 'company_city_id'),
 			'ccTransitLogs' => array(self::HAS_MANY, 'CcTransitLog', 'cc_profile_id'),
@@ -147,6 +150,7 @@ class CcProfile extends BaseModel
 			'cc_id' => Yii::t('model','СС'),
 			'isActive' => Yii::t('model','Is active'),
 			'company_name' => Yii::t('model','Company name'),
+			'currency_id' => Yii::t('model','Currency'),
 			'company_country_id' => Yii::t('model','Company country'),
 			'company_city_id' => Yii::t('model','Company city'),
 			'company_postal_code' => Yii::t('model','Company postal code'),
@@ -216,6 +220,7 @@ class CcProfile extends BaseModel
 		$criteria->compare('cc_id',$this->cc_id);
 		$criteria->compare('isActive',$this->isActive);
 		$criteria->compare('company_name',$this->company_name,true);
+		$criteria->compare('currency_id',$this->currency_id,true);
 		$criteria->compare('company_country_id',$this->company_country_id,true);
         $criteria->compare('country.nazvanie_1', $this->searchCountry->nazvanie_1, true);
 		$criteria->compare('company_city_id',$this->company_city_id);

@@ -10,7 +10,13 @@
 /* @var $form CActiveForm */
 /* @var $transitLogs CcTransitLog[] */
 /* @var $orderOptions CcOrderOptions[] */
+$currency = Currency::model()->getModelList();
 ?>
+<div class="row">
+    <?php echo $form->labelEx($profileCC,'currency_id'); ?>
+    <?php echo $form->dropDownList($profileCC,'currency_id',$currency,array('class'=>'form-control')); ?>
+    <?php echo $form->error($profileCC,'currency_id'); ?>
+</div>
 <div class="row">
 <?php
     echo CHtml::tag(
