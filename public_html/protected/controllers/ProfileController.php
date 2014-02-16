@@ -66,6 +66,7 @@ class ProfileController extends Controller
             if($role === ""){
                 $this->redirect("/");
             }
+            $saveMode = isset($_POST['save_mode'])?$_POST['save_mode']:-1;
             switch($view){
                 /** Блок редактирования Капитана */
                 case 'C':
@@ -134,9 +135,11 @@ class ProfileController extends Controller
 
                                 $profileC->save();
 
-                                Yii::app()->user->updateSession();
-                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
-                                $this->redirect(array('/profile'));
+                                if($saveMode==-1){
+                                    Yii::app()->user->updateSession();
+                                    Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
+                                    $this->redirect(array('/profile'));
+                                }
                             }
                         }
                         $this->render('edit_captain',
@@ -144,6 +147,7 @@ class ProfileController extends Controller
                                 'modelUser'=>$modelUser,
                                 'profileUser'=>$profileUser,
                                 'profileC'=>$profileC,
+                                'save_mode'=>$saveMode,
                             )
                         );
                     } else {
@@ -365,9 +369,11 @@ class ProfileController extends Controller
                                     $option->save(false);
                                 }
 
-                                Yii::app()->user->updateSession();
-                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
-                                $this->redirect(array('/profile'));
+                                if($saveMode==-1){
+                                    Yii::app()->user->updateSession();
+                                    Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
+                                    $this->redirect(array('/profile'));
+                                }
                             }
                         }
                         $this->render('edit_company',
@@ -381,6 +387,7 @@ class ProfileController extends Controller
                                 'earlyPeriods'=>$earlyPeriods,
                                 'transitLogs'=>$transitLogs,
                                 'orderOptions'=>$orderOptions,
+                                'save_mode'=>$saveMode,
                             )
                         );
                     } else {
@@ -429,9 +436,11 @@ class ProfileController extends Controller
 
                                 $profileM->save(false);
 
-                                Yii::app()->user->updateSession();
-                                Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
-                                $this->redirect(array('/profile'));
+                                if($saveMode==-1){
+                                    Yii::app()->user->updateSession();
+                                    Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
+                                    $this->redirect(array('/profile'));
+                                }
                             }
                         }
                         $this->render('edit_manager',
@@ -439,6 +448,7 @@ class ProfileController extends Controller
                                 'modelUser'=>$modelUser,
                                 'profileUser'=>$profileUser,
                                 'profileM'=>$profileM,
+                                'save_mode'=>$saveMode,
                             )
                         );
                     } else {

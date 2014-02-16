@@ -61,6 +61,7 @@ return array(
 	'Ok' => 'Ok',
 	'Show all'=> 'Показать все',
 	'Save' => 'Сохранить',
+	'Save and close' => 'Сохранить и закрыть',
 	'Cancel'=> 'Отмена',
 	'New password is saved.' => 'Новый пароль сохранен.',
 	'Change password' => 'Изменить пароль',
