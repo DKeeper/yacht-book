@@ -140,6 +140,15 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
 <script>
     var checker = {};
     $(function(){
+        $('button[data-type="next"]').tooltip();
+        $('button[data-type="back"]').on("click",function(event){
+            var currTabNum = +$('#company_tabs').tabs("option","active");
+            $('#company_tabs').tabs("option","active",currTabNum-1);
+        });
+        $('button[data-type="next"]').on("click",function(event){
+            $("#save_mode").val(+$('#company_tabs').tabs("option","active")+1);
+            $("#profile-form").submit();
+        });
         $("#User_email").on("change",function(){
             $("#CcProfile_company_email").val($(this).val());
         });

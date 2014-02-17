@@ -75,6 +75,15 @@
 </div><!-- form -->
 <script>
     $(function(){
+        $('button[data-type="next"]').tooltip();
+        $('button[data-type="back"]').on("click",function(event){
+            var currTabNum = +$('#captain_tabs').tabs("option","active");
+            $('#captain_tabs').tabs("option","active",currTabNum-1);
+        });
+        $('button[data-type="next"]').on("click",function(event){
+            $("#save_mode").val(+$('#captain_tabs').tabs("option","active")+1);
+            $("#profile-form").submit();
+        });
         $(".dropdown-menu a").on("click",function(event){
             if(this.id==="save_close"){
                 $("#save_mode").val(-1);

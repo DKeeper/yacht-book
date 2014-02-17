@@ -266,9 +266,8 @@ $nationalityList = Nationality::model()->getModelList();
         <?php echo CHtml::closeTag("label"); ?>
         <?php echo $form->error($profileC,'amateur_regatta'); ?>
     </div>
-<?php if($this->id=="register"){?>
+<?php if($this->id=="profile"){?>
     <div class="row submit">
         <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
-        <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button></div>
     </div>
 <?php } ?>

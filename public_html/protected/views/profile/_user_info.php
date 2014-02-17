@@ -41,3 +41,7 @@
         <?php echo $form->textField($modelUser,'email',array('class'=>'form-control')); ?>
         <?php echo $form->error($modelUser,'email'); ?>
     </div>
+
+    <div class="row">
+        <div class="pull-right"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" type="button" data-type="next" class="btn btn-default"><?php echo Yii::t("view","Forward"); ?></button></div>
+    </div>
