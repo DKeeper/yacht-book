@@ -18,3 +18,11 @@ $this->menu=array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
+<script>
+    $(function(){
+        $("div.view").on("click",function(){
+            var id = $(this).data("fleet");
+            location.href = "/fleets/"+id;
+        });
+    });
+</script>

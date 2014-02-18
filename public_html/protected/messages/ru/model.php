@@ -126,7 +126,7 @@ return array(
     'Date' => 'Дата',
     'Deposit' => 'Депозит',
     'Deposit insurance price' => 'Страховка депозита',
-    'Deposit insurance deposit' => 'Депозит',
+    'Deposit insurance deposit' => 'Депозит страховки депозита',
     'Last minute' => 'Горящее предложение',
     'Week before' => 'Недель до',
     'Count' => 'Количество',

@@ -79,7 +79,8 @@ function showAjaxForm(o,answer,success){
         return false;
     });
 }
-function initialize(param) {
+function initialize(mapId,param,search,modelPrefix) {
+    search = search || false;
     var mapOptions = {
         panControl: true,
         zoomControl: true,
@@ -94,19 +95,19 @@ function initialize(param) {
         streetViewControl: false,
         overviewMapControl: false
     };
-    if(typeof param != "undefined"){
+    if(typeof param != "undefined" && !$.isEmptyObject(param)){
         mapOptions['center'] = new google.maps.LatLng(param.latitude, param.longitude);
         mapOptions['zoom'] = 11;
     } else {
-        if($('#CcProfile_longitude').val()!="" && $('#CcProfile_latitude').val()!=""){
-            mapOptions['center'] = new google.maps.LatLng($('#CcProfile_latitude').val(), $('#CcProfile_longitude').val());
+        if($('#'+modelPrefix+'_longitude').val()!="" && $('#'+modelPrefix+'_latitude').val()!=""){
+            mapOptions['center'] = new google.maps.LatLng($('#'+modelPrefix+'_latitude').val(), $('#'+modelPrefix+'_longitude').val());
             mapOptions['zoom'] = 11;
         } else {
             mapOptions['center'] = new google.maps.LatLng(0, 0);
             mapOptions['zoom'] = 1;
         }
     }
-    map = new google.maps.Map(document.getElementById('map_canvas'),
+    map = new google.maps.Map(document.getElementById(mapId),
         mapOptions);
     marker = new google.maps.Marker({
         position: map.getCenter(),
@@ -114,19 +115,29 @@ function initialize(param) {
         draggable: true
     });
     geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(map, 'click', function(event) {
-        marker.setPosition(event.latLng);
-        map.panTo(marker.getPosition());
-        moveMarker({lat:event.latLng.lat(),lng:event.latLng.lng()});
-    });
-    google.maps.event.addListener(marker, "dragend", function(event) {
-        moveMarker({lat:event.latLng.lat(),lng:event.latLng.lng()});
-    });
-    $("#map_canvas").show();
-    $("#CcProfile_company_name").change();
-    if(typeof param != "undefined"){
-        $("#CcProfile_longitude").val(param.longitude);
-        $("#CcProfile_latitude").val(param.latitude);
+    if(search){
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+            moveMarker();
+            searchByGeocoder({lat:event.latLng.lat(),lng:event.latLng.lng()},appLng.slice(0,2));
+        });
+        google.maps.event.addListener(marker, "dragend", function(event) {
+            moveMarker();
+            searchByGeocoder({lat:event.latLng.lat(),lng:event.latLng.lng()},appLng.slice(0,2));
+        });
+    } else {
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+            moveMarker();
+        });
+        google.maps.event.addListener(marker, "dragend", function(event) {
+            moveMarker();
+        });
+    }
+    $("#"+mapId).show();
+    if(typeof param != "undefined" && !$.isEmptyObject(param)){
+        $("#"+modelPrefix+"_longitude").val(param.longitude);
+        $("#"+modelPrefix+"_latitude").val(param.latitude);
     }
 }
 
@@ -139,7 +150,8 @@ function searchFromGeocoder(a,find){
             $("#CcProfile_longitude").val(results[0].geometry.location.mb);
             $("#CcProfile_latitude").val(results[0].geometry.location.nb);
             if(find){
-                moveMarker({lat:results[0].geometry.location.nb,lng:results[0].geometry.location.mb});
+                moveMarker();
+                searchByGeocoder({lat:results[0].geometry.location.nb,lng:results[0].geometry.location.mb},appLng.slice(0,2));
             }
         } else {
             alert("Geocode was not successful for the following reason: " + status);
@@ -147,19 +159,14 @@ function searchFromGeocoder(a,find){
     });
 }
 
-function moveMarker(latLng){
+function searchByGeocoder(latLng,lang){
     $("#CcProfile_company_full_addres").after("<img class=aL src=/i/indicator.gif />");
     $("#CcProfile_longitude").val(latLng.lng);
     $("#CcProfile_latitude").val(latLng.lat);
     var addressForDb = {};
-    map.panTo(marker.getPosition());
-    if(map.getZoom()<6){
-        map.setZoom(11);
-    }
-    var l = appLng.slice(0,2);
     $.ajax({
         url:'http://maps.googleapis.com/maps/api/geocode/json',
-        data: {latlng:latLng.lat+','+latLng.lng,sensor:false,language:l},
+        data: {latlng:latLng.lat+','+latLng.lng,sensor:false,language:lang},
         success:function(answer){
             if(answer.status === "OK"){
                 $("#CcProfile_company_full_addres").val(answer.results[0].formatted_address);
@@ -282,6 +289,13 @@ function moveMarker(latLng){
         dataType:'json',
         async:true
     });
+}
+
+function moveMarker(){
+    map.panTo(marker.getPosition());
+    if(map.getZoom()<6){
+        map.setZoom(11);
+    }
 }
 function delRow(o){
     var $o = $(o);

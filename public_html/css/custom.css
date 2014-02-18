@@ -41,6 +41,13 @@ span[role='status']{
 .flash.success { color:#007700; background-color:#e0f8dd; }
 .flash.error { color:#7a0000; background-color:#fdd9d9; }
 
+.fleet_img{
+    padding-right: 5px;
+    width: auto;
+    height: auto;
+    max-width: 100px;
+    max-height: 100px;
+}
 .avatar_img{
     width: 100px;
     height: 100px;
@@ -121,4 +128,12 @@ span[role='status']{
 }
 .layout_preview ul.qq-upload-list {
     display: none !important;
+}
+
+.link_row{
+    cursor: pointer;
+}
+
+.link_row:hover{
+    background-color: #dddddd;
 }

@@ -29,6 +29,11 @@ class FleetsController extends Controller
 		$model=new CcFleets;
         $profile=new SyProfile;
 
+        /** @var $priceCurrYear PriceCurrentYear[] */
+        $priceCurrYear = array();
+        /** @var $priceNextYear PriceNextYear[] */
+        $priceNextYear = array();
+
         $yachtFoto = array(
             1 => new YachtPhoto,
             2 => new YachtPhoto,
@@ -115,6 +120,9 @@ class FleetsController extends Controller
                         }
                     }
                 }
+
+                // Сохранение цен
+
                 $this->redirect(array('view','id'=>$model->id));
             }
         }
@@ -123,6 +131,8 @@ class FleetsController extends Controller
             'model'=>$model,
             'profile'=>$profile,
             'yachtFoto'=>$yachtFoto,
+            'priceCurrYear'=>$priceCurrYear,
+            'priceNextYear'=>$priceNextYear,
         ));
 	}
 
@@ -137,6 +147,11 @@ class FleetsController extends Controller
         $profile = $model->profile;
         $photos = $model->yachtPhotos;
         $yachtFoto = array();
+
+        /** @var $priceCurrYear PriceCurrentYear[] */
+        $priceCurrYear = $model->priceCurrentYears;
+        /** @var $priceNextYear PriceNextYear[] */
+        $priceNextYear = $model->priceNextYears;
 
         foreach($photos as $photo){
             switch($photo->type){
@@ -287,6 +302,8 @@ class FleetsController extends Controller
             'model'=>$model,
             'profile'=>$profile,
             'yachtFoto'=>$yachtFoto,
+            'priceCurrYear'=>$priceCurrYear,
+            'priceNextYear'=>$priceNextYear,
         ));
 	}
 
