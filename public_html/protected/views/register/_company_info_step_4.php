@@ -78,7 +78,7 @@ $this->widget('fancyapps.EFancyApps', array(
 ?>
 <?php if($this->id=="profile"){?>
 <div class="row submit">
-    <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
+    <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
 </div>
 <?php } ?>
 <div style="display:none;" id="c"></div>

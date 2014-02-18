@@ -268,6 +268,6 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
 <?php if($this->id=="profile"){?>
     <div class="row submit">
-        <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Backward"); ?></button></div>
+        <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
     </div>
 <?php } ?>

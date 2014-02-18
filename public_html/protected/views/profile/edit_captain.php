@@ -61,15 +61,7 @@
     ));
     ?>
     <div class="row submit">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <?php echo UserModule::t("Save"); ?> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a id="save" href="#"><?php echo UserModule::t("Save"); ?></a></li>
-                <li><a id="save_close" href="#"><?php echo UserModule::t("Save and close"); ?></a></li>
-            </ul>
-        </div>
+        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button></div>
     </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->
@@ -82,14 +74,6 @@
         });
         $('button[data-type="next"]').on("click",function(event){
             $("#save_mode").val(+$('#captain_tabs').tabs("option","active")+1);
-            $("#profile-form").submit();
-        });
-        $(".dropdown-menu a").on("click",function(event){
-            if(this.id==="save_close"){
-                $("#save_mode").val(-1);
-            } else {
-                $("#save_mode").val(+$('#captain_tabs').tabs("option","active"));
-            }
             $("#profile-form").submit();
         });
     });
