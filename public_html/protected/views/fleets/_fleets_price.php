@@ -34,6 +34,27 @@
 ?>
 </div>
 <div class="row">
+    <?php
+    echo CHtml::tag(
+        "button",
+        array(
+            "class"=>"btn btn-default add_price_next_year",
+            'onclick'=>'addPriceNextYear(this);return false;'
+        ),
+        Yii::t("model","Next year")."
+        <span class='glyphicon glyphicon-plus'></span>
+        "
+    );
+    foreach($priceNextYear as $i=>$price){
+        $this->renderPartial("_fleets_price_period",array(
+            "i"=>$i,
+            "form"=>$form,
+            "model"=>$price,
+        ));
+    }
+    ?>
+</div>
+<div class="row">
     <div class="col-md-4">
         <div class="row">
             <div class="input-group">
@@ -166,6 +187,40 @@
                     $(".add_price_curr_year").after(answer);
                 }
                 o = $(".price_curr_year");
+                o.parent().find(".aL").remove();
+                o.find("div:hidden").addClass("errorMessage");
+                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
+            },
+            type:'POST',
+            dataType:'html',
+            async:true
+        });
+    }
+    function addPriceNextYear(o){
+        var n = $(".price_next_year").last().attr("class");
+        if(typeof n === "undefined"){
+            n = 0;
+        } else {
+            n = n.split(" ");
+            n = n[2].split("_");
+            n = +n[1]+1;
+        }
+        $(o).after("<img class=aL src=/i/indicator.gif />");
+        $.ajax({
+            url:'/ajax/getmodelbynum',
+            data:{
+                i:n,
+                model:"PriceNextYear",
+                view:"/fleets/_fleets_price_period"
+            },
+            success:function(answer){
+                var o =  $(".price_next_year");
+                if(o.length != 0){
+                    o.last().after(answer);
+                } else {
+                    $(".add_price_next_year").after(answer);
+                }
+                o = $(".price_next_year");
                 o.parent().find(".aL").remove();
                 o.find("div:hidden").addClass("errorMessage");
                 $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));

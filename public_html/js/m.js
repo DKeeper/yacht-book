@@ -7,7 +7,7 @@
 var autoFind = false;
 var hideSearchResult = false;
 var currentObj;
-var map;
+var map = [];
 var marker;
 var geocoder;
 var city_id=-1;
@@ -79,7 +79,15 @@ function showAjaxForm(o,answer,success){
         return false;
     });
 }
-function initialize(mapId,param,search,modelPrefix) {
+function initialize(mapData,mapId,param,search,modelPrefix) {
+    var f = false;
+    $.each(map,function(i){
+        if(this.id==mapData.id){
+            mapData=map[i];
+            f = true;
+            return false;
+        }
+    });
     search = search || false;
     var mapOptions = {
         panControl: true,
@@ -107,37 +115,43 @@ function initialize(mapId,param,search,modelPrefix) {
             mapOptions['zoom'] = 1;
         }
     }
-    map = new google.maps.Map(document.getElementById(mapId),
-        mapOptions);
-    marker = new google.maps.Marker({
-        position: map.getCenter(),
-        map: map,
+    mapData['map'] = new google.maps.Map(document.getElementById(mapId),mapOptions);
+    mapData['marker'] = new google.maps.Marker({
+        position: mapData.map.getCenter(),
+        map: mapData.map,
         draggable: true
     });
-    geocoder = new google.maps.Geocoder();
+    mapData['geocoder'] = new google.maps.Geocoder();
     if(search){
-        google.maps.event.addListener(map, 'click', function(event) {
-            marker.setPosition(event.latLng);
-            moveMarker();
+        google.maps.event.addListener(mapData.map, 'click', function(event) {
+            mapData.marker.setPosition(event.latLng);
+            moveMarker(mapData);
             searchByGeocoder({lat:event.latLng.lat(),lng:event.latLng.lng()},appLng.slice(0,2));
+            setGeoValue({lat:event.latLng.lat(),lng:event.latLng.lng()},modelPrefix);
         });
-        google.maps.event.addListener(marker, "dragend", function(event) {
-            moveMarker();
+        google.maps.event.addListener(mapData.marker, "dragend", function(event) {
+            moveMarker(mapData);
             searchByGeocoder({lat:event.latLng.lat(),lng:event.latLng.lng()},appLng.slice(0,2));
+            setGeoValue({lat:event.latLng.lat(),lng:event.latLng.lng()},modelPrefix);
         });
     } else {
-        google.maps.event.addListener(map, 'click', function(event) {
-            marker.setPosition(event.latLng);
-            moveMarker();
+        google.maps.event.addListener(mapData.map, 'click', function(event) {
+            mapData.marker.setPosition(event.latLng);
+            moveMarker(mapData);
+            setGeoValue({lat:event.latLng.lat(),lng:event.latLng.lng()},modelPrefix);
         });
-        google.maps.event.addListener(marker, "dragend", function(event) {
-            moveMarker();
+        google.maps.event.addListener(mapData.marker, "dragend", function(event) {
+            moveMarker(mapData);
+            setGeoValue({lat:event.latLng.lat(),lng:event.latLng.lng()},modelPrefix);
         });
     }
     $("#"+mapId).show();
     if(typeof param != "undefined" && !$.isEmptyObject(param)){
         $("#"+modelPrefix+"_longitude").val(param.longitude);
         $("#"+modelPrefix+"_latitude").val(param.latitude);
+    }
+    if(!f){
+        map.push(mapData);
     }
 }
 
@@ -150,7 +164,12 @@ function searchFromGeocoder(a,find){
             $("#CcProfile_longitude").val(results[0].geometry.location.mb);
             $("#CcProfile_latitude").val(results[0].geometry.location.nb);
             if(find){
-                moveMarker();
+                $.each(map,function(){
+                    if(this.id==="CcProfile"){
+                        moveMarker(this);
+                        return false;
+                    }
+                });
                 searchByGeocoder({lat:results[0].geometry.location.nb,lng:results[0].geometry.location.mb},appLng.slice(0,2));
             }
         } else {
@@ -161,8 +180,6 @@ function searchFromGeocoder(a,find){
 
 function searchByGeocoder(latLng,lang){
     $("#CcProfile_company_full_addres").after("<img class=aL src=/i/indicator.gif />");
-    $("#CcProfile_longitude").val(latLng.lng);
-    $("#CcProfile_latitude").val(latLng.lat);
     var addressForDb = {};
     $.ajax({
         url:'http://maps.googleapis.com/maps/api/geocode/json',
@@ -291,15 +308,33 @@ function searchByGeocoder(latLng,lang){
     });
 }
 
-function moveMarker(){
-    map.panTo(marker.getPosition());
-    if(map.getZoom()<6){
-        map.setZoom(11);
+function setGeoValue(latLng,model){
+    $("#"+model+"_longitude").val(latLng.lng);
+    $("#"+model+"_latitude").val(latLng.lat);
+}
+
+function moveMarker(mapData){
+    mapData.map.panTo(mapData.marker.getPosition());
+    if(mapData.map.getZoom()<6){
+        mapData.map.setZoom(11);
     }
 }
 function delRow(o){
     var $o = $(o);
     $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
+    $o.parent().parent().remove();
+}
+function delRowMap(o){
+    var $o = $(o);
+    $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
+    // Удаляем карты
+    var mapId = $o.parent().parent().attr("class").split(" ")[2];
+    $.each(map,function(i){
+        if(this.id==mapId){
+            delete map[i];
+            return false;
+        }
+    });
     $o.parent().parent().remove();
 }
 /** **/

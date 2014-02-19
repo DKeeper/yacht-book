@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="row">
-            <h3>INSTRUMENTS</h3>
+            <h3><?php echo Yii::t("view","INSTRUMENTS"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">
@@ -101,7 +101,7 @@
     </div>
     <div class="col-md-4">
         <div class="row">
-            <h3>EXTERIER</h3>
+            <h3><?php echo Yii::t("view","EXTERIOR"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">
@@ -168,7 +168,7 @@
         </div>
 
         <div class="row">
-            <h3>TANKS</h3>
+            <h3><?php echo Yii::t("view","TANKS"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">
@@ -193,7 +193,7 @@
     </div>
     <div class="col-md-4">
         <div class="row">
-            <h3>INTERIER</h3>
+            <h3><?php echo Yii::t("view","INTERIOR"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">
@@ -272,7 +272,7 @@
             </div>
         </div>
         <div class="row">
-            <h3>KITCHEN</h3>
+            <h3><?php echo Yii::t("view","KITCHEN"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">

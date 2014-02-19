@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="row">
-            <h3>MODEL</h3>
+            <h3><?php echo Yii::t("view","MODEL"); ?></h3>
         </div>
         <div class="row">
             <?php
@@ -500,7 +500,7 @@
     </div>
     <div class="col-md-4">
         <div class="row">
-            <h3>SAILS</h3>
+            <h3><?php echo Yii::t("view","SAILS"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">
@@ -685,7 +685,7 @@
     </div>
     <div class="col-md-4">
         <div class="row">
-            <h3>PROPORTIONS</h3>
+            <h3><?php echo Yii::t("view","PROPORTIONS"); ?></h3>
         </div>
         <div class="row">
             <div class="input-group">
@@ -727,7 +727,7 @@
             <?php echo $form->error($profile,'displacement'); ?>
         </div>
         <div class="row">
-            <h3>CONTROL</h3>
+            <h3><?php echo Yii::t("view","CONTROL"); ?></h3>
         </div>
         <div class="row">
             <?php echo $form->textField($profile,'no_of_engine',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("no_of_engine"),'title' => $profile->getAttributeLabel("no_of_engine"))); ?>

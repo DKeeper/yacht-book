@@ -96,5 +96,14 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
     $(function(){
         $(".fleets_form input").tooltip();
         $(".fleets_form select").tooltip();
+        $('#fleets_tabs').tabs({
+            activate: function(event,ui) {
+                if(ui.newPanel.selector=="#tab4"){
+                    $.each(map,function(){
+                        initialize({id:this.id},'map_canvas_'+this.id,{},false,this.id);
+                    });
+                }
+            }
+        });
     });
 </script>

@@ -34,6 +34,23 @@ class FleetsController extends Controller
         /** @var $priceNextYear PriceNextYear[] */
         $priceNextYear = array();
 
+        $validate=null;
+
+        if(isset($_POST['PriceCurrentYear'])){
+            foreach($_POST['PriceCurrentYear'] as $i => $item){
+                $priceCurrYear[$i] = new PriceCurrentYear;
+                $priceCurrYear[$i]->attributes = $item;
+                $priceCurrYear[$i]->yacht_id = -1;
+            }
+        }
+        if(isset($_POST['PriceNextYear'])){
+            foreach($_POST['PriceNextYear'] as $i => $item){
+                $priceNextYear[$i] = new PriceNextYear;
+                $priceNextYear[$i]->attributes = $item;
+                $priceNextYear[$i]->yacht_id = -1;
+            }
+        }
+
         $yachtFoto = array(
             1 => new YachtPhoto,
             2 => new YachtPhoto,
@@ -71,14 +88,45 @@ class FleetsController extends Controller
         $model->cc_id = $profileCC->cc_id;
         $model->profile_id = -1;
 
-        // Uncomment the following line if AJAX validation is needed
-        $this->performAjaxValidation(array($model,$profile));
+        if(isset($_POST['ajax']) && $_POST['ajax']==='cc-fleets-form')
+        {
+            $validateModels = array($model,$profile);
+
+            $firstValidate = json_decode(CActiveForm::validate($validateModels),true);
+            $priceCurrYearValidate = array();
+            if(!empty($priceCurrYear)){
+                $priceCurrYearValidate = json_decode(CActiveForm::validateTabular($priceCurrYear),true);
+            }
+            $priceNextYearValidate = array();
+            if(!empty($priceNextYear)){
+                $priceNextYearValidate = json_decode(CActiveForm::validateTabular($priceNextYear),true);
+            }
+            $result = array_merge(
+                $firstValidate,
+                $priceCurrYearValidate,
+                $priceNextYearValidate
+            );
+            echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
+            Yii::app()->end();
+        }
 
         if(isset($_POST['CcFleets']) && isset($_POST['SyProfile']))
         {
             $model->attributes=$_POST['CcFleets'];
             $profile->attributes=$_POST['SyProfile'];
-            if($profile->save()){
+
+            $validate = true;
+            $validate = $validate && $model->validate();
+            $validate = $validate && $profile->validate();
+            foreach($priceCurrYear as $i => $price){
+                $validate = $validate && $priceCurrYear[$i]->validate();
+            }
+            foreach($priceNextYear as $i => $price){
+                $validate = $validate && $priceNextYear[$i]->validate();
+            }
+
+            if($validate){
+                $profile->save();
                 $model->profile_id = $profile->id;
                 $model->save();
                 foreach($_POST['YachtPhoto'] as $type => $items){
@@ -121,9 +169,25 @@ class FleetsController extends Controller
                     }
                 }
 
-                // Сохранение цен
+                foreach($priceCurrYear as $price){
+                    $price->yacht_id = $model->id;
+                    $price->save(false);
+                }
+                foreach($priceNextYear as $price){
+                    $price->yacht_id = $model->id;
+                    $price->save(false);
+                }
 
                 $this->redirect(array('view','id'=>$model->id));
+            } else {
+                $model->validate();
+                $profile->validate();
+                foreach($priceCurrYear as $price){
+                    $price->validate();
+                }
+                foreach($priceNextYear as $price){
+                    $price->validate();
+                }
             }
         }
 
@@ -152,6 +216,23 @@ class FleetsController extends Controller
         $priceCurrYear = $model->priceCurrentYears;
         /** @var $priceNextYear PriceNextYear[] */
         $priceNextYear = $model->priceNextYears;
+
+        $validate=null;
+
+        if(isset($_POST['PriceCurrentYear'])){
+            foreach($_POST['PriceCurrentYear'] as $i => $item){
+                $priceCurrYear[$i] = new PriceCurrentYear;
+                $priceCurrYear[$i]->attributes = $item;
+                $priceCurrYear[$i]->yacht_id = $model->id;
+            }
+        }
+        if(isset($_POST['PriceNextYear'])){
+            foreach($_POST['PriceNextYear'] as $i => $item){
+                $priceNextYear[$i] = new PriceNextYear;
+                $priceNextYear[$i]->attributes = $item;
+                $priceNextYear[$i]->yacht_id = $model->id;
+            }
+        }
 
         foreach($photos as $photo){
             switch($photo->type){
@@ -221,15 +302,48 @@ class FleetsController extends Controller
             }
         }
 
-        // Uncomment the following line if AJAX validation is needed
-        $this->performAjaxValidation(array($model,$profile));
+        if(isset($_POST['ajax']) && $_POST['ajax']==='cc-fleets-form')
+        {
+            $validateModels = array($model,$profile);
+
+            $firstValidate = json_decode(CActiveForm::validate($validateModels),true);
+            $priceCurrYearValidate = array();
+            if(!empty($priceCurrYear)){
+                $priceCurrYearValidate = json_decode(CActiveForm::validateTabular($priceCurrYear),true);
+            }
+            $priceNextYearValidate = array();
+            if(!empty($priceNextYear)){
+                $priceNextYearValidate = json_decode(CActiveForm::validateTabular($priceNextYear),true);
+            }
+            $result = array_merge(
+                $firstValidate,
+                $priceCurrYearValidate,
+                $priceNextYearValidate
+            );
+            echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
+            Yii::app()->end();
+        }
 
         if(isset($_POST['CcFleets']) && isset($_POST['SyProfile']))
         {
             $model->attributes=$_POST['CcFleets'];
             $profile->attributes=$_POST['SyProfile'];
+
+            $validate = true;
+            $validate = $validate && $model->validate();
+            $validate = $validate && $profile->validate();
+            foreach($priceCurrYear as $i => $price){
+                $validate = $validate && $priceCurrYear[$i]->validate();
+            }
+            foreach($priceNextYear as $i => $price){
+                $validate = $validate && $priceNextYear[$i]->validate();
+            }
+
             //TODO Продумать механизм удаления не используемых фото
-            if($profile->save() && $model->save()){
+            if($validate){
+                $profile->save();
+                $model->save();
+
                 foreach($_POST['YachtPhoto'] as $type => $items){
                     if(!isset($items['link'])){
                         foreach($items as $i => $item){
@@ -291,10 +405,22 @@ class FleetsController extends Controller
                         }
                     }
                 }
+
+                foreach($model->priceCurrentYears as $price){
+                    $price->delete();
+                }
+                foreach($priceCurrYear as $price){
+                    $price->save(false);
+                }
+
+                foreach($model->priceNextYears as $price){
+                    $price->delete();
+                }
+                foreach($priceNextYear as $price){
+                    $price->save(false);
+                }
+
                 $this->redirect(array('view','id'=>$model->id));
-            } else {
-                $model->validate();
-                $profile->validate();
             }
         }
 
@@ -396,18 +522,5 @@ class FleetsController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param BaseModel $model the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='cc-fleets-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
 	}
 }

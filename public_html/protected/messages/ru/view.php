@@ -81,14 +81,14 @@ return array(
 
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',
-    'stem (with name of boat)'=>'',
-    'starboard'=>'',
-    'portside'=>'',
-    'cockpit'=>'',
-    'layout'=>'',
-    'interior (state-room)'=>'',
-    'the photos of cabins'=>'',
-    'particular photo (optional)'=>'',
+    'stem (with name of boat)'=>'основная (с названием)',
+    'starboard'=>'правый борт',
+    'portside'=>'левый борт',
+    'cockpit'=>'кокпит',
+    'layout'=>'планировка',
+    'interior (state-room)'=>'интерьер (основная каюта)',
+    'the photos of cabins'=>'фотографии кают',
+    'particular photo (optional)'=>'прочие фото (опционально)',
 
     "bedsheets" => "постельное белье",
     "towels" => "полотенца",
@@ -127,6 +127,16 @@ return array(
 
     'Company fleets'=>'Флот компании',
     'Fleet' => 'Флот',
+
+    'MODEL'=>'МОДЕЛЬ',
+    'SAILS'=>'ПАРУСА',
+    'PROPORTIONS'=>'РАЗМЕРЫ',
+    'CONTROL'=>'УПРАВЛЕНИЕ',
+    'INSTRUMENTS'=>'ИНСТРУМЕНТЫ',
+    'EXTERIOR'=>'ЭКСТЕРЬЕР',
+    'TANKS'=>'БАКИ',
+    'INTERIOR'=>'ИНТЕРЬЕР',
+    'KITCHEN'=>'КУХНЯ',
 
     // Названия языков
     "Abkhazian"=>"Абхазский",

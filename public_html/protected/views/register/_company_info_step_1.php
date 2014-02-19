@@ -274,21 +274,32 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
         $('#company_tabs').tabs({
             activate: function(event,ui) {
                 if(ui.newPanel.selector=="#tab2"){
-                    initialize('map_canvas',{},true,'CcProfile');
+                    initialize({id:'CcProfile'},'map_canvas',{},true,'CcProfile');
                     $("#CcProfile_company_name").change();
                 }
             }
         });
         $("#CcProfile_company_name").change(function(event){
-            marker.setTitle($(this).val());
+            var v = $(this).val();
+            $.each(map,function(){
+                if(this.id==="CcProfile"){
+                    this.marker.setTitle(v);
+                    return false;
+                }
+            });
         });
         $(".geo").change(function(){
             var pattern = /^\d+(\.\d+)?$/;
             var lat = $("#CcProfile_latitude").val();
             var lon = $("#CcProfile_longitude").val();
             if(pattern.test(lat) && pattern.test(lon)){
-                initialize('map_canvas',{latitude:lat,longitude:lon},true,'CcProfile');
-                moveMarker();
+                initialize({id:'CcProfile'},'map_canvas',{latitude:lat,longitude:lon},true,'CcProfile');
+                $.each(map,function(){
+                    if(this.id==="CcProfile"){
+                        moveMarker(this);
+                        return false;
+                    }
+                });
                 searchByGeocoder({lat:lat,lng:lon},appLng.slice(0,2));
             }
         });

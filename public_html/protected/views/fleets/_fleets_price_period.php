@@ -11,16 +11,16 @@
 /* @var $i integer */
 
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
-
+$class = get_class($model)."_".$i;
 if($model instanceof PriceCurrentYear){
-    $class = 'price_curr_year';
+    $class .= " price_curr_year";
     $options = array(
         'minDate' => 'y',
         'maxDate' => '+1y',
         'yearRange' => 'c:c+1',
     );
 } else {
-    $class = 'price_next_year';
+    $class .= " price_next_year";
     $options = array(
         'minDate' => 'y',
         'maxDate' => 'y',
@@ -30,6 +30,10 @@ if($model instanceof PriceCurrentYear){
 ?>
 <div class="row num_<?php echo $i." ".$class; ?>">
     <div class="col-md-8">
+        <?php
+        echo $form->hiddenField($model,"[$i]latitude");
+        echo $form->hiddenField($model,"[$i]longitude");
+        ?>
         <div class="row">
             <div class="col-md-6">
                 <div class="input-group">
@@ -98,9 +102,21 @@ if($model instanceof PriceCurrentYear){
                 <?php echo $form->error($model,"[$i]week_before"); ?>
             </div>
         </div>
+        <?php
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default",
+                "type" => "button",
+                "data-type" => "delRows",
+                "onclick"=>"delRowMap(this);return false;",
+            ),
+            "<span class='glyphicon glyphicon-minus'></span>"
+        );
+        ?>
     </div>
     <div class="col-md-4">
-        <div id="map_canvas_<?php echo $i; ?>" style="width:200px; height:200px; display: none;"></div>
+        <div id="map_canvas_<?php echo get_class($model)."_".$i; ?>" style="width:255px; height:200px; display: none;"></div>
     </div>
 </div>
 <script>
@@ -113,12 +129,12 @@ if($model instanceof PriceCurrentYear){
         }
         ?>
     $(".fleets_form input").tooltip();
-    initialize('map_canvas_<?php echo $i; ?>',{},false,"<?php echo get_class($model)."_".$i; ?>");
+    initialize({id:'<?php echo get_class($model)."_".$i; ?>'},'map_canvas_<?php echo get_class($model)."_".$i; ?>',{},false,"<?php echo get_class($model)."_".$i; ?>");
         <?php
     } else {
         ?>
     $(function(){
-        initialize('map_canvas_<?php echo $i; ?>',{},false,"<?php echo get_class($model)."_".$i; ?>");
+        initialize({id:'<?php echo get_class($model)."_".$i; ?>'},'map_canvas_<?php echo get_class($model)."_".$i; ?>',{},false,"<?php echo get_class($model)."_".$i; ?>");
     });
         <?php
     }
