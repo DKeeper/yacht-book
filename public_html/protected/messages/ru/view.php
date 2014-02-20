@@ -131,7 +131,7 @@ return array(
 
     'MODEL'=>'МОДЕЛЬ',
     'SAILS'=>'ПАРУСА',
-    'MAIN SAIL'=>'ГЛАВНЫЙ ПАРУС',
+    'MAIN SAILS'=>'ГЛАВНЫЙ ПАРУС',
     'PROPORTIONS'=>'РАЗМЕРЫ',
     'CONTROL'=>'УПРАВЛЕНИЕ',
     'INSTRUMENTS'=>'ИНСТРУМЕНТЫ',
@@ -155,6 +155,10 @@ return array(
     'beam' => 'ширина',
     'draft' => 'осадка',
     'displacement' => 'водоизмещение',
+    'engine' => 'двигатель',
+    'wheel_no' => 'штурвал',
+    'rudder' => 'перьев',
+    'folding_propeller' => 'складной пропеллер',
 
     // Названия языков
     "Abkhazian"=>"Абхазский",

@@ -117,6 +117,65 @@
             )
         ));
         ?>
+        <div class="row">
+            <h3><?php echo Yii::t("view","CONTROL"); ?></h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <?php echo Yii::t("view","engine"); ?>
+            </div>
+            <div class="col-md-6">
+                <?php
+                echo isset($profile->engine_type_id)?$profile->engineType->name:Yii::t("view","No data");
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="height: 34px;">
+                &nbsp;
+            </div>
+            <div class="col-md-6">
+                <?php
+                echo isset($profile->engine_mark_id)?$profile->engineMark->name:Yii::t("view","No data");
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="height: 34px;">
+                &nbsp;
+            </div>
+            <div class="col-md-6">
+                <?php
+                echo isset($profile->engine_power_hp)?$profile->engine_power_hp." (HP)":Yii::t("view","No data");
+                echo "/";
+                echo isset($profile->engine_power_kW)?$profile->engine_power_kW." (kW)":Yii::t("view","No data");
+                ?>
+            </div>
+        </div>
+        <?php echo renderRow($profile,'wheel_no',array(
+            'validator'=>array(
+                'compare',
+                'params'=>array(
+                    'operator'=>'>',
+                    'compareValue'=>0
+                )
+            )
+        ));
+        ?>
+        <?php echo renderRow($profile,'rudder',array(
+            'validator'=>array(
+                'compare',
+                'params'=>array(
+                    'operator'=>'>',
+                    'compareValue'=>0
+                )
+            )
+        ));
+        ?>
+        <?php echo renderRow($profile,'folding_propeller',array(
+            'outtype'=>'checkbox',
+        ));
+        ?>
     </div>
 </div>
 <script>

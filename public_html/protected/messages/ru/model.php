@@ -273,8 +273,7 @@ return array(
     'genoa' => 'генуя',
     'automatic' => 'автоматический',
     'LOA' => 'LOA',
-    'engine' => 'двигатель',
-    'wheel' => 'штурвал',
+
     'GPS chart plotter' => 'карт-плоттер',
 
     'option' => 'опция',

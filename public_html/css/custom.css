@@ -150,3 +150,6 @@ span[role='status']{
 .link_row:hover{
     background-color: #dddddd;
 }
+.fleet-detail span.glyphicon{
+    font-size: 20px;
+}

@@ -15,4 +15,6 @@ return array(
     'main_sail_area' => 'area',
     'main_sail_full_battened' => 'full battened',
     'mast_draught' => 'mast draught',
+    'wheel_no' => 'wheel',
+    'folding_propeller' => 'folding propeller',
 );
