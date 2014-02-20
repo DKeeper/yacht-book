@@ -155,34 +155,34 @@
             <h3><?php echo Yii::t("view","CONTROL"); ?></h3>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <?php echo Yii::t("view","engine"); ?>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <?php
                 echo isset($profile->engine_type_id)?$profile->engineType->name:Yii::t("view","No data");
                 ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6" style="height: 34px;">
-                &nbsp;
+            <div class="col-md-4" style="height: 34px;">
+                <?php echo Yii::t("view","mark"); ?>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <?php
                 echo isset($profile->engine_mark_id)?$profile->engineMark->name:Yii::t("view","No data");
                 ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6" style="height: 34px;">
-                &nbsp;
+            <div class="col-md-4" style="height: 34px;">
+                <?php echo Yii::t("view","HP/kW"); ?>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <?php
-                echo isset($profile->engine_power_hp)?$profile->engine_power_hp." (HP)":Yii::t("view","No data");
-                echo "/";
-                echo isset($profile->engine_power_kW)?$profile->engine_power_kW." (kW)":Yii::t("view","No data");
+                echo isset($profile->engine_power_hp)?$profile->engine_power_hp:Yii::t("view","n/a");
+                echo " / ";
+                echo isset($profile->engine_power_kW)?$profile->engine_power_kW:Yii::t("view","n/a");
                 ?>
             </div>
         </div>
