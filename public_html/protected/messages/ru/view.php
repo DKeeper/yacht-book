@@ -127,9 +127,11 @@ return array(
 
     'Company fleets'=>'Флот компании',
     'Fleet' => 'Флот',
+    'No name' => 'Без имени',
 
     'MODEL'=>'МОДЕЛЬ',
     'SAILS'=>'ПАРУСА',
+    'MAIN SAIL'=>'ГЛАВНЫЙ ПАРУС',
     'PROPORTIONS'=>'РАЗМЕРЫ',
     'CONTROL'=>'УПРАВЛЕНИЕ',
     'INSTRUMENTS'=>'ИНСТРУМЕНТЫ',
@@ -137,6 +139,22 @@ return array(
     'TANKS'=>'БАКИ',
     'INTERIOR'=>'ИНТЕРЬЕР',
     'KITCHEN'=>'КУХНЯ',
+    'LIVING SPACE'=>'ЖИЛАЯ ПЛОЩАДЬ',
+
+    'basic' => 'основное',
+    'more' => 'дополнительное',
+    'built_date' => 'год',
+    'renovation_date' => 'реновация',
+    'single_cabins' => 'кают',
+    'crew_cabins' => 'кают для команды',
+    'bunk_cabins' => 'двухъярусные каюты',
+    'double_cabins' => 'двухместные каюты',
+    'main_sail_area' => 'площадь',
+    'main_sail_full_battened' => 'грот на латах',
+    'mast_draught' => 'высота мачты',
+    'beam' => 'ширина',
+    'draft' => 'осадка',
+    'displacement' => 'водоизмещение',
 
     // Названия языков
     "Abkhazian"=>"Абхазский",

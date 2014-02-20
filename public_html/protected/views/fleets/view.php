@@ -16,15 +16,47 @@ $this->menu=array(
 );
 ?>
 
-<h1>View CcFleets #<?php echo $model->id; ?></h1>
+<h1><?php echo !empty($model->profile->name)?$model->profile->name:Yii::t("view","No name"); ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'cc_id',
-		'profile_id',
-		'isActive',
-		'isTrash',
-	),
-)); ?>
+<?php
+$this->widget('zii.widgets.jui.CJuiTabs',array(
+    'tabs'=>array(
+        Yii::t("model","Details")=>array(
+            'content'=>$this->renderPartial(
+                '_view_fleets_detail',
+                array('profile'=>$model->profile,'yachtFoto'=>$model->yachtPhotos(array('condition'=>'type = :tid','params'=>array(':tid'=>7),'limit'=>1))),
+                true
+            ),
+            'id'=>'tab1'
+        ),
+        Yii::t("model","Photo")=>array(
+            'content'=>$this->renderPartial(
+                '_view_fleets_photo',
+                array('profile'=>$model->profile,'yachtFoto'=>$model->yachtPhotos),
+                true
+            ),
+            'id'=>'tab2'
+        ),
+        Yii::t("model","Price")=>array(
+            'content'=>$this->renderPartial(
+                '_view_fleets_price',
+                array('profile'=>$model->profile,'priceCurrYear'=>$model->priceCurrentYears,'priceNextYear'=>$model->priceNextYears),
+                true
+            ),
+            'id'=>'tab3'
+        ),
+        Yii::t("model","Orders")=>array(
+            'content'=>$this->renderPartial(
+                '_view_fleets_orders',
+                array('profile'=>$model->profile),
+                true
+            ),
+            'id'=>'tab4'
+        ),
+    ),
+    // additional javascript options for the tabs plugin
+    'htmlOptions'=>array(
+        'id'=>'fleets_tabs',
+    ),
+));
+?>

@@ -64,10 +64,23 @@ span[role='status']{
     display: inline-block !important;
 }
 
-.row > h3 {
+.fleet-detail div.row{
+    height: 34px;
+}
+
+.row > h3, .row > h4 {
     height: 34px;
     margin: 0;
     padding: 5px;
+}
+
+.photo_prev{
+    height: auto !important;
+}
+
+.photo_prev img {
+    width: 150px;
+    height: 150px;
 }
 
 #select_languages .ui-selecting { background: #FECA40; }

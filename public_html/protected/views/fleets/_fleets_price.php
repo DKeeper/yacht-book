@@ -152,13 +152,13 @@
 
     <div class="row">
         <?php echo $form->labelEx($profile,'IRC_scan'); ?>
-        <?php echo $form->textArea($profile,'IRC_scan',array('rows'=>6, 'cols'=>50)); ?>
+        <?php echo $form->textArea($profile,'IRC_scan',array('class'=>'form-control','rows'=>6, 'cols'=>50)); ?>
         <?php echo $form->error($profile,'IRC_scan'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($profile,'ORC_scan'); ?>
-        <?php echo $form->textArea($profile,'ORC_scan',array('rows'=>6, 'cols'=>50)); ?>
+        <?php echo $form->textArea($profile,'ORC_scan',array('class'=>'form-control','rows'=>6, 'cols'=>50)); ?>
         <?php echo $form->error($profile,'ORC_scan'); ?>
     </div>
 <script>

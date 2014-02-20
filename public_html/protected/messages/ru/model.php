@@ -250,6 +250,8 @@ return array(
     'This year'=>'Текущий год',
     'Next year'=>'Следующий год',
 
+    'Orders' => 'Заказы',
+
     'Today' => 'сегодня',
     'You have' => 'у вас',
     'new messages' => 'новых сообщений',
@@ -259,6 +261,21 @@ return array(
     'request option' => 'запрос на опцию',
     'cancelled' => 'отменено',
     'search' => 'поиск',
+
+    'persons' => 'персон',
+    'main sail' => 'грот',
+    'area' => 'площадь',
+    'lazyjack' => 'lazyjack',
+    'lazybag' => 'lazybag',
+    'furling' => 'закрутка',
+    'classic' => 'классический',
+    'jib' => 'стаксель',
+    'genoa' => 'генуя',
+    'automatic' => 'автоматический',
+    'LOA' => 'LOA',
+    'engine' => 'двигатель',
+    'wheel' => 'штурвал',
+    'GPS chart plotter' => 'карт-плоттер',
 
     'option' => 'опция',
     'outside option' => 'опция из другой системы',
@@ -283,7 +300,6 @@ return array(
     'captain' => 'капитан',
     'messages' => 'сообщения',
     'photo' => 'фото',
-    'orders' => 'заказы',
 
     'history of booking' => 'история бронирования',
     'history' => 'история',
@@ -298,8 +314,6 @@ return array(
     'final clining' => 'финальная уборка',
     'transit log' => 'Транзитлог',
 
-    'basic' => 'основное',
-    'more' => 'дополнительное',
     'sails' => 'паруса',
     'proportion' => 'размеры',
     'living space' => 'жизненное пространство',
@@ -309,24 +323,6 @@ return array(
     'tanks' => 'танки',
     'interier' => 'интерьер',
     'kitchen' => 'кухня',
-
-    'year' => 'год',
-    'rennovation' => 'ренновация',
-    'cabins' => 'кают',
-    'persons' => 'персон',
-    'main sail' => 'грот',
-    'area' => 'площадь',
-    'lazyjack' => 'lazyjack',
-    'lazybag' => 'lazybag',
-    'furling' => 'закрутка',
-    'classic' => 'классический',
-    'jib' => 'стаксель',
-    'genoa' => 'генуя',
-    'automatic' => 'автоматический',
-    'LOA' => 'LOA',
-    'engine' => 'двигатель',
-    'wheel' => 'штурвал',
-    'GPS chart plotter' => 'карт-плоттер',
 
     "Incorrect symbols (A-z0-9_- )." => "Некорректные символы (A-z0-9_- ).",
 );
