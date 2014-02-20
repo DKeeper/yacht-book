@@ -89,8 +89,11 @@
  * @property integer $usb
  * @property integer $TV
  * @property integer $water_tank
+ * @property integer $water_tank_capacity
  * @property integer $fuel_tank
+ * @property integer $fuel_tank_capacity
  * @property integer $grey_tank
+ * @property integer $grey_tank_capacity
  * @property integer $fridge
  * @property integer $fridge_no
  * @property integer $freeser
@@ -151,7 +154,7 @@ class SyProfile extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type_id, shipyard_id, model_id, _index_id, modification_id, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, gennaker, displacement, no_of_engine, engine_type_id, engine_mark_id, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, last_cleaning_incl, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price_obl, race_sail_deposit_obl, crew_license', 'numerical', 'integerOnly'=>true),
+			array('type_id, shipyard_id, model_id, _index_id, modification_id, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, gennaker, displacement, no_of_engine, engine_type_id, engine_mark_id, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, last_cleaning_incl, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price_obl, race_sail_deposit_obl, crew_license, water_tank_capacity, fuel_tank_capacity, grey_tank_capacity', 'numerical', 'integerOnly'=>true),
 			array('main_sail_area, jib_area, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker_area, gennaker_price, gennaker_deposit, length_m, beam, draft, mast_draught, engine_power_hp, engine_power_kW, site_discount, last_cleaning_price, race_sail_price, race_sail_deposit, race_preparation, hull_cleaning', 'numerical'),
 			array('name, other_details, IRC_scan, ORC_scan', 'safe'),
             array('built_date, renovation_date','default','value'=>null),
@@ -278,8 +281,11 @@ class SyProfile extends BaseModel
 			'usb' => Yii::t('model','USB'),
 			'TV' => Yii::t('model','TV'),
 			'water_tank' => Yii::t('model','Water tank'),
+			'water_tank_capacity' => Yii::t('model','Water tank capacity'),
 			'fuel_tank' => Yii::t('model','Fuel tank'),
+			'fuel_tank_capacity' => Yii::t('model','Fuel tank capacity'),
 			'grey_tank' => Yii::t('model','Grey tank'),
+			'grey_tank_capacity' => Yii::t('model','Grey tank capacity'),
 			'fridge' => Yii::t('model','Fridge'),
 			'fridge_no' => Yii::t('model','Fridge no'),
 			'freeser' => Yii::t('model','Freeser'),
@@ -410,8 +416,11 @@ class SyProfile extends BaseModel
 		$criteria->compare('usb',$this->usb);
 		$criteria->compare('TV',$this->TV);
 		$criteria->compare('water_tank',$this->water_tank);
+		$criteria->compare('water_tank_capacity',$this->water_tank_capacity);
 		$criteria->compare('fuel_tank',$this->fuel_tank);
+		$criteria->compare('fuel_tank_capacity',$this->fuel_tank_capacity);
 		$criteria->compare('grey_tank',$this->grey_tank);
+		$criteria->compare('grey_tank_capacity',$this->grey_tank_capacity);
 		$criteria->compare('fridge',$this->fridge);
 		$criteria->compare('fridge_no',$this->fridge_no);
 		$criteria->compare('freeser',$this->freeser);

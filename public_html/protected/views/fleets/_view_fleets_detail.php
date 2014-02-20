@@ -18,6 +18,7 @@
     </div>
 </div>
 <div class="row fleet-detail">
+<div id="base_detail">
     <div class="col-md-4">
         <div class="row" style="height: 34px;">
             &nbsp;
@@ -68,6 +69,39 @@
             'outtype'=>'checkbox',
         ));
         ?>
+        <div class="row">
+            <h4><?php echo Yii::t("view","GENOA"); ?></h4>
+        </div>
+        <?php
+        echo renderRow($profile,'jib_area',array(
+            'measure'=>"m<sup>2</sup>",
+            'validator'=>array(
+                'compare',
+                'params'=>array(
+                    'operator'=>'>=',
+                    'compareValue'=>5
+                )
+            )
+        ));
+        ?>
+        <?php echo renderRow($profile,'jib_automatic',array(
+            'outtype'=>'checkbox',
+        ));
+        ?>
+        <?php echo renderRow($profile,'spinnaker',array(
+            'outtype'=>'checkbox',
+            'value'=>$profile->spinnaker_area,
+            'measure'=>"m<sup>2</sup>",
+        ));
+        ?>
+        <?php echo renderRow($profile,'gennaker',array(
+            'outtype'=>'checkbox',
+            'value'=>$profile->gennaker_area,
+            'measure'=>"m<sup>2</sup>",
+        ));
+        ?>
+        <?php echo renderRow($profile,'winches'); ?>
+        <?php echo renderRow($profile,'el_winches'); ?>
     </div>
     <div class="col-md-4">
         <div class="row">
@@ -172,15 +206,123 @@
             )
         ));
         ?>
-        <?php echo renderRow($profile,'folding_propeller',array(
+        <?php echo renderRow($profile,'folding_propeller',array('outtype'=>'checkbox'));?>
+        <?php echo renderRow($profile,'bow_thruster',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'auto_pilot',array('outtype'=>'checkbox')); ?>
+    </div>
+</div>
+<div id="more_detail" style="display: none;">
+<div>
+    <div class="col-md-4">
+        <div class="row">
+            <h3><?php echo Yii::t("view","INSTRUMENTS"); ?></h3>
+        </div>
+        <?php echo renderRow($profile,'GPS',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'in_cockpit',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'wind',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'speed',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'depht',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'compass',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'VHF',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'radio',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'inverter',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'radar',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'local_charts',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'local_pilot',array('outtype'=>'checkbox')); ?>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <h3><?php echo Yii::t("view","EXTERIOR"); ?></h3>
+        </div>
+        <?php echo renderRow($profile,'tick_cockpit',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'tick_deck',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'sprayhood',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'bimini',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'hard_top',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'flybridge',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'cockpit_table',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'moveable',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'cockpit_speakers',array('outtype'=>'checkbox')); ?>
+        <div class="row">
+            <h3><?php echo Yii::t("view","TANKS"); ?></h3>
+        </div>
+        <?php echo renderRow($profile,'water_tank',array(
+            'measure'=>"L",
             'outtype'=>'checkbox',
+            'value'=>$profile->water_tank_capacity,
+        ));
+        ?>
+        <?php echo renderRow($profile,'fuel_tank',array(
+            'measure'=>"L",
+            'outtype'=>'checkbox',
+            'value'=>$profile->fuel_tank_capacity,
+        ));
+        ?>
+        <?php echo renderRow($profile,'grey_tank',array(
+            'measure'=>"L",
+            'outtype'=>'checkbox',
+            'value'=>$profile->grey_tank_capacity,
         ));
         ?>
     </div>
+    <div class="col-md-4">
+        <div class="row">
+            <h3><?php echo Yii::t("view","INTERIOR"); ?></h3>
+        </div>
+        <?php echo renderRow($profile,'hot_water',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'heater',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'aircon',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'water_maker',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'generator',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'media_type_id',array(
+            'outtype'=>'checkbox',
+            'value'=>isset($profile->media_type_id)?$profile->mediaType->name:'',
+        ));?>
+        <?php echo renderRow($profile,'aux',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'usb',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'TV',array('outtype'=>'checkbox')); ?>
+        <div class="row">
+            <h3><?php echo Yii::t("view","KITCHEN"); ?></h3>
+        </div>
+        <?php echo renderRow($profile,'fridge',array(
+            'outtype'=>'checkbox',
+            'value'=>$profile->fridge_no,
+        ));?>
+        <?php echo renderRow($profile,'freeser',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'gas_cooker',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'microwave',array('outtype'=>'checkbox')); ?>
+        <?php echo renderRow($profile,'kit_equip',array('outtype'=>'checkbox')); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+    <?php echo renderRow($profile,'local_skipper',array('outtype'=>'checkbox')); ?>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row col-md-12">
+    <?php
+    if(isset($profile->other_details)){
+        echo $profile->getAttributeLabel("other_details");
+        echo "<br/>";
+        echo $profile->other_details;
+    }
+    ?>
+</div>
 </div>
 <script>
     $(function(){
         $("div.text-danger").tooltip();
+        $(".detail_view").on("click",function(event){
+            var v = +$(this).find("input").val();
+            if(v){
+                $("#base_detail").hide();
+                $("#more_detail").show();
+            } else {
+                $("#more_detail").hide();
+                $("#base_detail").show();
+            }
+        });
     });
 </script>
 <?php
@@ -216,6 +358,8 @@ function renderRow($model,$attribute='',$options=array()){
                 case 'checkbox':
                     if($model->$attribute){
                         $_ .= "<span class='glyphicon glyphicon-ok text-success'></span>";
+                    } else {
+                        $_ .= "<span class='glyphicon glyphicon-remove text-danger'></span>";
                     }
                     break;
             }
@@ -231,6 +375,12 @@ function renderRow($model,$attribute='',$options=array()){
     if(isset($model->$attribute)){
         switch($options['outtype']){
             case 'checkbox':
+                if(isset($options['value']) && $model->$attribute){
+                    $_ .= $options['value'];
+                    if(isset($options['measure'])){
+                        $_ .= " ".$options['measure'];
+                    }
+                }
                 break;
             default:
                 $_ .= $model->$attribute;

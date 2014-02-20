@@ -173,22 +173,28 @@
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'water_tank'); ?></span>
-                <?php echo CHtml::textField('checkbox_water_tank',$profile->getAttributeLabel("water_tank"),array('class'=>'form-control','disabled'=>true)); ?>
+                <?php echo $form->textField($profile,'water_tank_capacity',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("water_tank_capacity"),'title' => $profile->getAttributeLabel("water_tank_capacity"))); ?>
+                <span class="input-group-addon">l</span>
             </div>
+            <?php echo $form->error($profile,'water_tank_capacity'); ?>
         </div>
 
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'fuel_tank'); ?></span>
-                <?php echo CHtml::textField('checkbox_fuel_tank',$profile->getAttributeLabel("fuel_tank"),array('class'=>'form-control','disabled'=>true)); ?>
+                <?php echo $form->textField($profile,'fuel_tank_capacity',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("fuel_tank_capacity"),'title' => $profile->getAttributeLabel("fuel_tank_capacity"))); ?>
+                <span class="input-group-addon">l</span>
             </div>
+            <?php echo $form->error($profile,'fuel_tank_capacity'); ?>
         </div>
 
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'grey_tank'); ?></span>
-                <?php echo CHtml::textField('checkbox_grey_tank',$profile->getAttributeLabel("grey_tank"),array('class'=>'form-control','disabled'=>true)); ?>
+                <?php echo $form->textField($profile,'grey_tank_capacity',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("grey_tank_capacity"),'title' => $profile->getAttributeLabel("grey_tank_capacity"))); ?>
+                <span class="input-group-addon">l</span>
             </div>
+            <?php echo $form->error($profile,'grey_tank_capacity'); ?>
         </div>
     </div>
     <div class="col-md-4">
@@ -232,7 +238,6 @@
 
         <div class="row">
             <?php
-            echo CHtml::activeHiddenField($profile,'media_type_id');
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>MediaType::model(),   // модель
                 'attribute'=>'name',  // атрибут модели
