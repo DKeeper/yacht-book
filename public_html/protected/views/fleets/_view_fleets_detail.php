@@ -310,6 +310,7 @@
     ?>
 </div>
 </div>
+</div>
 <script>
     $(function(){
         $("div.text-danger").tooltip();

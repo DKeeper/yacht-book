@@ -9,6 +9,8 @@ class EFancyApps extends CWidget
 {
     public $mode = 'gallery';
 
+    public $images = array();
+
     public $ajaxOptions = array();
 
     public $htmlOptions = array();
@@ -38,23 +40,47 @@ class EFancyApps extends CWidget
         Yii::app()->clientScript->registerScriptFile(
             $resPath.'/jquery.mousewheel-3.0.6.pack.js'
         );
+        Yii::app()->clientScript->registerScriptFile(
+            $resPath.'/helpers/jquery.fancybox-button.js'
+        );
+        Yii::app()->clientScript->registerScriptFile(
+            $resPath.'/helpers/jquery.fancybox-thumbs.js'
+        );
         Yii::app()->clientScript->registerCssFile(
             $resPath.'/jquery.fancybox.css'
+        );
+        Yii::app()->clientScript->registerCssFile(
+            $resPath.'/helpers/jquery.fancybox-button.css'
+        );
+        Yii::app()->clientScript->registerCssFile(
+            $resPath.'/helpers/jquery.fancybox-thumbs.css'
         );
     }
 
     public function run() {
-        $defaultConfig = array(
-            'maxWidth'	=> 800,
-            'maxHeight'	=> 600,
-            'fitToView'	=> false,
-            'width'		=> '70%',
-            'height'    => '70%',
-            'autoSize'	=> false,
-            'closeClick'	=> false,
-            'openEffect'	=> 'none',
-            'closeEffect'	=> 'none'
-        );
+        switch($this->mode){
+            case 'inline':
+                $defaultConfig = array(
+                    'maxWidth'	=> 800,
+                    'maxHeight'	=> 600,
+                    'fitToView'	=> false,
+                    'width'		=> '70%',
+                    'height'    => '70%',
+                    'autoSize'	=> false,
+                    'closeClick'	=> false,
+                    'openEffect'	=> 'none',
+                    'closeEffect'	=> 'none'
+                );
+                break;
+            case 'gallery':
+                $defaultConfig = array(
+                    'closeClick'	=> false,
+                    'openEffect'	=> 'none',
+                    'closeEffect'	=> 'none'
+                );
+                break;
+        }
+
         foreach($this->eventCallbacks as $name){
             if(isset($this->config[$name])){
                 $exp = $this->config[$name];
@@ -68,17 +94,43 @@ class EFancyApps extends CWidget
         } else {
             $id = $this->htmlOptions['id'];
         }
+        $jsConfig = CJavaScript::encode($this->config);
         switch($this->mode){
             case 'inline':
                 echo CHtml::link($this->options['label'],$this->options['url'],$this->htmlOptions);
-                $jsConfig = CJavaScript::encode($this->config);
                 $script = "
                     $('#{$id}').fancybox({$jsConfig});
                 ";
-                Yii::app()->clientScript->registerScript($this->htmlOptions['class'],$script,CClientScript::POS_LOAD);
+                break;
+            case 'gallery':
+                $baseHtmlOptions = array(
+                    'class' => 'fancybox-thumb',
+                    'rel' => 'fancybox-thumb',
+                );
+                echo CHtml::openTag('div',$this->htmlOptions);
+                foreach($this->images as $item){
+                    if(isset($item['link'])){
+                        if(!isset($item['thumb'])){
+                            $item['thumb'] = $item['link'];
+                        }
+                    }
+                    if(isset($item['linkOptions'])){
+                        $options = array_merge($baseHtmlOptions,$item['linkOptions']);
+                    } else {
+                        $options = $baseHtmlOptions;
+                    }
+                    $img = CHtml::image($item['thumb'],'',$item['imgOptions']);
+                    echo CHtml::link($img,$item['link'],$options);
+                }
+                echo CHtml::closeTag('div');
+                $script = "
+                    $('.fancybox-thumb').fancybox({$jsConfig});
+                ";
                 break;
             default:
+                $script = "";
                 break;
         }
+        Yii::app()->clientScript->registerScript($this->htmlOptions['class'],$script,CClientScript::POS_LOAD);
     }
 }
