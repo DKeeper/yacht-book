@@ -14,16 +14,7 @@
 ?>
 <div class="row">
 <?php
-    echo CHtml::tag(
-        "button",
-        array(
-            "class"=>"btn btn-default add_price_curr_year",
-            'onclick'=>'addPriceCurrYear(this);return false;'
-        ),
-        Yii::t("model","This year")."
-        <span class='glyphicon glyphicon-plus'></span>
-        "
-    );
+    echo CHtml::label(Yii::t("model","This year"),'',array('class'=>'add_price_curr_year'));
     foreach($priceCurrYear as $i=>$price){
         $this->renderPartial("_fleets_price_period",array(
             "i"=>$i,
@@ -31,20 +22,19 @@
             "model"=>$price,
         ));
     }
+    echo CHtml::tag(
+        "button",
+        array(
+            "class"=>"btn btn-default",
+            'onclick'=>'addPriceCurrYear(this);return false;'
+        ),
+        "<span class='glyphicon glyphicon-plus'></span>"
+    );
 ?>
 </div>
 <div class="row">
     <?php
-    echo CHtml::tag(
-        "button",
-        array(
-            "class"=>"btn btn-default add_price_next_year",
-            'onclick'=>'addPriceNextYear(this);return false;'
-        ),
-        Yii::t("model","Next year")."
-        <span class='glyphicon glyphicon-plus'></span>
-        "
-    );
+    echo CHtml::label(Yii::t("model","Next year"),'',array('class'=>'add_price_next_year'));
     foreach($priceNextYear as $i=>$price){
         $this->renderPartial("_fleets_price_period",array(
             "i"=>$i,
@@ -52,6 +42,14 @@
             "model"=>$price,
         ));
     }
+    echo CHtml::tag(
+        "button",
+        array(
+            "class"=>"btn btn-default",
+            'onclick'=>'addPriceNextYear(this);return false;'
+        ),
+        "<span class='glyphicon glyphicon-plus'></span>"
+    );
     ?>
 </div>
 <div class="row">

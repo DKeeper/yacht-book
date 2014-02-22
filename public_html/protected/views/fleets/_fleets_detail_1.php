@@ -10,15 +10,6 @@
 /* @var $form CActiveForm */
 /* @var $yachtFoto array */
 ?>
-<div class="form-group">
-    <div class="col-md-12">
-        <?php echo $form->labelEx($profile,"name",array("class"=>"control-label col-md-2")); ?>
-        <div class="col-md-10">
-            <?php echo $form->textField($profile,'name',array('class'=>'form-control')); ?>
-            <?php echo $form->error($profile,'name'); ?>
-        </div>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-4">
         <div class="row">

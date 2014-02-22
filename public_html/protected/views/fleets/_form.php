@@ -27,7 +27,15 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
 	<?php echo $form->errorSummary($model); ?>
     <?php echo $form->hiddenField($model,'cc_id'); ?>
     <?php echo $form->hiddenField($model,'profile_id'); ?>
-
+    <div class="form-group">
+        <div class="col-md-12">
+            <?php echo $form->labelEx($profile,"name",array("class"=>"control-label col-md-2")); ?>
+            <div class="col-md-10">
+                <?php echo $form->textField($profile,'name',array('class'=>'form-control')); ?>
+                <?php echo $form->error($profile,'name'); ?>
+            </div>
+        </div>
+    </div>
     <?php
     $this->widget('zii.widgets.jui.CJuiTabs',array(
         'tabs'=>array(
