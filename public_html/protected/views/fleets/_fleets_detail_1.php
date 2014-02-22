@@ -25,6 +25,7 @@
             <h3><?php echo Yii::t("view","MODEL"); ?></h3>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"type_id",array("class"=>"control-label")); ?>
             <?php
             $name = '';
             if(isset($profile->type_id) && !empty($profile->type_id)){
@@ -104,6 +105,7 @@
             ?>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"shipyard_id",array("class"=>"control-label")); ?>
             <?php
             $name = '';
             if(isset($profile->shipyard_id) && !empty($profile->shipyard_id)){
@@ -187,6 +189,7 @@
             ?>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"model_id",array("class"=>"control-label")); ?>
             <?php
             $name = '';
             if(isset($profile->model_id) && !empty($profile->model_id)){
@@ -268,6 +271,7 @@
             ?>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"_index_id",array("class"=>"control-label")); ?>
             <?php
             $name = '';
             if(isset($profile->_index_id) && !empty($profile->_index_id)){
@@ -334,6 +338,7 @@
             ?>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"modification_id",array("class"=>"control-label")); ?>
             <?php
             $name = '';
             if(isset($profile->modification_id) && !empty($profile->modification_id)){
@@ -401,6 +406,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"built_date",array("class"=>"control-label")); ?>
             <?php
                 echo $form->dropDownList($profile,'built_date',BaseModel::getYearRange(),array('class'=>'form-control','prompt' => $profile->getAttributeLabel("built_date"),'title' => $profile->getAttributeLabel("built_date")));
             ?>
@@ -408,6 +414,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"renovation_date",array("class"=>"control-label")); ?>
             <?php
                 echo $form->dropDownList($profile,'renovation_date',BaseModel::getYearRange(),array('class'=>'form-control','prompt' => $profile->getAttributeLabel("renovation_date"),'title' => $profile->getAttributeLabel("renovation_date")));
             ?>
@@ -415,51 +422,61 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"double_cabins",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'double_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("double_cabins"),'title' => $profile->getAttributeLabel("double_cabins"))); ?>
             <?php echo $form->error($profile,'double_cabins'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"bunk_cabins",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'bunk_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("bunk_cabins"),'title' => $profile->getAttributeLabel("bunk_cabins"))); ?>
             <?php echo $form->error($profile,'bunk_cabins'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"twin_cabins",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'twin_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("twin_cabins"),'title' => $profile->getAttributeLabel("twin_cabins"))); ?>
             <?php echo $form->error($profile,'twin_cabins'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"single_cabins",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'single_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("single_cabins"),'title' => $profile->getAttributeLabel("single_cabins"))); ?>
             <?php echo $form->error($profile,'single_cabins'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"berth_cabin",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'berth_cabin',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("berth_cabin"),'title' => $profile->getAttributeLabel("berth_cabin"))); ?>
             <?php echo $form->error($profile,'berth_cabin'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"berth_salon",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'berth_salon',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("berth_salon"),'title' => $profile->getAttributeLabel("berth_salon"))); ?>
             <?php echo $form->error($profile,'berth_salon'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"crew_cabins",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'crew_cabins',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_cabins"),'title' => $profile->getAttributeLabel("crew_cabins"))); ?>
             <?php echo $form->error($profile,'crew_cabins'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"crew_berth",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'crew_berth',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_berth"),'title' => $profile->getAttributeLabel("crew_berth"))); ?>
             <?php echo $form->error($profile,'crew_berth'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"WC",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'WC',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("WC"),'title' => $profile->getAttributeLabel("WC"))); ?>
             <?php echo $form->error($profile,'WC'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"shower",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'shower',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("shower"),'title' => $profile->getAttributeLabel("shower"))); ?>
             <?php echo $form->error($profile,'shower'); ?>
         </div>
@@ -469,6 +486,7 @@
             <h3><?php echo Yii::t("view","SAILS"); ?></h3>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"main_sail_area",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'main_sail_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("main_sail_area"),'title' => $profile->getAttributeLabel("main_sail_area"))); ?>
                 <span class="input-group-addon">m<sup>2</sup></span>
@@ -477,6 +495,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"main_sail_full_battened",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'main_sail_full_battened'); ?></span>
                 <?php echo CHtml::textField('checkbox_main_sail_full_battened',$profile->getAttributeLabel("main_sail_full_battened"),array('class'=>'form-control','disabled'=>true)); ?>
@@ -484,6 +503,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"main_sail_furling_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>SailFurling::model(),   // модель
@@ -504,6 +524,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"main_sail_material_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>SailMaterial::model(),   // модель
@@ -524,6 +545,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"jib_type_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>JibType::model(),   // модель
@@ -544,6 +566,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"jib_area",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'jib_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("jib_area"),'title' => $profile->getAttributeLabel("jib_area"))); ?>
                 <span class="input-group-addon">m<sup>2</sup></span>
@@ -552,6 +575,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"jib_automatic",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'jib_automatic'); ?></span>
                 <?php echo CHtml::textField('checkbox_jib_automatic',$profile->getAttributeLabel("jib_automatic"),array('class'=>'form-control','disabled'=>true)); ?>
@@ -559,6 +583,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"jib_furling_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>JibFurling::model(),   // модель
@@ -579,6 +604,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"jib_material_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>SailMaterial::model(),   // модель
@@ -602,16 +628,19 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"winches",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("winches"),'title' => $profile->getAttributeLabel("winches"))); ?>
             <?php echo $form->error($profile,'winches'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"el_winches",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'el_winches',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("el_winches"),'title' => $profile->getAttributeLabel("el_winches"))); ?>
             <?php echo $form->error($profile,'el_winches'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"spinnaker_area",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'spinnaker'); ?></span>
                 <?php echo $form->textField($profile,'spinnaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_area"),'title' => $profile->getAttributeLabel("spinnaker_area"))); ?>
@@ -621,16 +650,19 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"spinnaker_price",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'spinnaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_price"),'title' => $profile->getAttributeLabel("spinnaker_price"))); ?>
             <?php echo $form->error($profile,'spinnaker_price'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"spinnaker_deposiit",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'spinnaker_deposiit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("spinnaker_deposiit"),'title' => $profile->getAttributeLabel("spinnaker_deposiit"))); ?>
             <?php echo $form->error($profile,'spinnaker_deposiit'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"gennaker_area",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'gennaker'); ?></span>
                 <?php echo $form->textField($profile,'gennaker_area',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_area"),'title' => $profile->getAttributeLabel("gennaker_area"))); ?>
@@ -640,11 +672,13 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"gennaker_price",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'gennaker_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_price"),'title' => $profile->getAttributeLabel("gennaker_price"))); ?>
             <?php echo $form->error($profile,'gennaker_price'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"gennaker_deposit",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'gennaker_deposit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("gennaker_deposit"),'title' => $profile->getAttributeLabel("gennaker_deposit"))); ?>
             <?php echo $form->error($profile,'gennaker_deposit'); ?>
         </div>
@@ -654,6 +688,7 @@
             <h3><?php echo Yii::t("view","PROPORTIONS"); ?></h3>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"length_m",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'length_m',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("length_m"),'title' => $profile->getAttributeLabel("length_m"))); ?>
                 <span class="input-group-addon">m</span>
@@ -662,6 +697,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"beam",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'beam',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("beam"),'title' => $profile->getAttributeLabel("beam"))); ?>
                 <span class="input-group-addon">m</span>
@@ -670,6 +706,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"draft",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'draft',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("draft"),'title' => $profile->getAttributeLabel("draft"))); ?>
                 <span class="input-group-addon">m</span>
@@ -678,6 +715,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"mast_draught",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'mast_draught',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("mast_draught"),'title' => $profile->getAttributeLabel("mast_draught"))); ?>
                 <span class="input-group-addon">m</span>
@@ -686,6 +724,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"displacement",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'displacement',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("displacement"),'title' => $profile->getAttributeLabel("displacement"))); ?>
                 <span class="input-group-addon">t</span>
@@ -693,14 +732,16 @@
             <?php echo $form->error($profile,'displacement'); ?>
         </div>
         <div class="row">
-            <h3><?php echo Yii::t("view","CONTROL"); ?></h3>
+            <h3 style="margin:27px 0 0 0;"><?php echo Yii::t("view","CONTROL"); ?></h3>
         </div>
         <div class="row">
+            <?php echo $form->labelEx($profile,"no_of_engine",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'no_of_engine',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("no_of_engine"),'title' => $profile->getAttributeLabel("no_of_engine"))); ?>
             <?php echo $form->error($profile,'no_of_engine'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"engine_type_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>EngineType::model(),   // модель
@@ -721,6 +762,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"engine_mark_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>EngineMark::model(),   // модель
@@ -741,6 +783,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"engine_power_hp",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'engine_power_hp',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"),'title' => Yii::t("model","Engine power"))); ?>
                 <span class="input-group-addon"><?php echo Yii::t("model","HP");?></span>
@@ -749,6 +792,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"engine_power_kW",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'engine_power_kW',array('class'=>'form-control','placeholder' => Yii::t("model","Engine power"),'title' => Yii::t("model","Engine power"))); ?>
                 <span class="input-group-addon"><?php echo Yii::t("model","kW");?></span>
@@ -757,6 +801,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"wheel_type_id",array("class"=>"control-label")); ?>
             <?php
             $this->widget('autocombobox.JuiAutoComboBox', array(
                 'model'=>WheelType::model(),   // модель
@@ -777,16 +822,19 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"wheel_no",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'wheel_no',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("wheel_no"),'title' => $profile->getAttributeLabel("wheel_no"))); ?>
             <?php echo $form->error($profile,'wheel_no'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"rudder",array("class"=>"control-label")); ?>
             <?php echo $form->textField($profile,'rudder',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("rudder"),'title' => $profile->getAttributeLabel("rudder"))); ?>
             <?php echo $form->error($profile,'rudder'); ?>
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"folding_propeller",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'folding_propeller'); ?></span>
                 <?php echo CHtml::textField('checkbox_folding_propeller',$profile->getAttributeLabel("folding_propeller"),array('class'=>'form-control','disabled'=>true)); ?>
@@ -794,6 +842,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"bow_thruster",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'bow_thruster'); ?></span>
                 <?php echo CHtml::textField('checkbox_bow_thruster',$profile->getAttributeLabel("bow_thruster"),array('class'=>'form-control','disabled'=>true)); ?>
@@ -801,6 +850,7 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($profile,"auto_pilot",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'auto_pilot'); ?></span>
                 <?php echo CHtml::textField('checkbox_auto_pilot',$profile->getAttributeLabel("auto_pilot"),array('class'=>'form-control','disabled'=>true)); ?>

@@ -27,6 +27,7 @@ $this->widget('fancyapps.EFancyApps', array(
                 'width' => 100,
 				'height' => 100
 			),
+            'buttons'=>array(),
         ),
     ),
     'htmlOptions'=>array(

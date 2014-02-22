@@ -41,7 +41,7 @@ class EFancyApps extends CWidget
             $resPath.'/jquery.mousewheel-3.0.6.pack.js'
         );
         Yii::app()->clientScript->registerScriptFile(
-            $resPath.'/helpers/jquery.fancybox-button.js'
+            $resPath.'/helpers/jquery.fancybox-buttons.js'
         );
         Yii::app()->clientScript->registerScriptFile(
             $resPath.'/helpers/jquery.fancybox-thumbs.js'
@@ -50,7 +50,7 @@ class EFancyApps extends CWidget
             $resPath.'/jquery.fancybox.css'
         );
         Yii::app()->clientScript->registerCssFile(
-            $resPath.'/helpers/jquery.fancybox-button.css'
+            $resPath.'/helpers/jquery.fancybox-buttons.css'
         );
         Yii::app()->clientScript->registerCssFile(
             $resPath.'/helpers/jquery.fancybox-thumbs.css'
