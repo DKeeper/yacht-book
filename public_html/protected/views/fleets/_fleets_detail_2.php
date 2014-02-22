@@ -173,7 +173,11 @@
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'water_tank'); ?></span>
-                <?php echo $form->textField($profile,'water_tank_capacity',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("water_tank_capacity"),'title' => $profile->getAttributeLabel("water_tank_capacity"))); ?>
+                <?php echo $form->textField($profile,'water_tank_capacity',array(
+                    'class'=>'form-control tank_selector',
+                    'placeholder' => $profile->getAttributeLabel("water_tank_capacity"),
+                    'title' => $profile->getAttributeLabel("water_tank_capacity")
+                )); ?>
                 <span class="input-group-addon">l</span>
             </div>
             <?php echo $form->error($profile,'water_tank_capacity'); ?>
@@ -182,7 +186,7 @@
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'fuel_tank'); ?></span>
-                <?php echo $form->textField($profile,'fuel_tank_capacity',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("fuel_tank_capacity"),'title' => $profile->getAttributeLabel("fuel_tank_capacity"))); ?>
+                <?php echo $form->textField($profile,'fuel_tank_capacity',array('class'=>'form-control tank_selector','placeholder' => $profile->getAttributeLabel("fuel_tank_capacity"),'title' => $profile->getAttributeLabel("fuel_tank_capacity"))); ?>
                 <span class="input-group-addon">l</span>
             </div>
             <?php echo $form->error($profile,'fuel_tank_capacity'); ?>
@@ -191,10 +195,8 @@
         <div class="row">
             <div class="input-group">
                 <span class="input-group-addon"><?php echo $form->checkBox($profile,'grey_tank'); ?></span>
-                <?php echo $form->textField($profile,'grey_tank_capacity',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("grey_tank_capacity"),'title' => $profile->getAttributeLabel("grey_tank_capacity"))); ?>
-                <span class="input-group-addon">l</span>
+                <?php echo CHtml::textField('checkbox_grey_tank',$profile->getAttributeLabel("grey_tank"),array('class'=>'form-control','disabled'=>true)); ?>
             </div>
-            <?php echo $form->error($profile,'grey_tank_capacity'); ?>
         </div>
     </div>
     <div class="col-md-4">
@@ -343,3 +345,7 @@
         ?>
         <?php echo $form->error($profile,'other_details'); ?>
     </div>
+<div class="row">
+    <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
+    <div class="pull-right"><button type="button" data-type="next" class="btn btn-default"><?php echo Yii::t("view","Next"); ?></button></div>
+</div>

@@ -105,5 +105,16 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
                 }
             }
         });
+        $('button[data-type="back"]').on("click",function(event){
+            var currTabNum = +$('#fleets_tabs').tabs("option","active");
+            $('#fleets_tabs').tabs("option","active",currTabNum-1);
+        });
+        $('button[data-type="next"]').on("click",function(event){
+            var currTabNum = +$('#fleets_tabs').tabs("option","active");
+            $('#fleets_tabs').tabs("option","active",currTabNum+1);
+        });
+        $(".tank_selector").on("change",function(event){
+            $($(this).prev().find("input")[1]).attr("checked",true);
+        });
     });
 </script>

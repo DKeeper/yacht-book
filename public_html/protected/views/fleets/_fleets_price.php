@@ -262,6 +262,9 @@
     ?>
     <?php echo $form->error($profile,'ORC_scan'); ?>
 </div>
+<div class="row">
+    <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
+</div>
 <script>
     function addPriceCurrYear(o){
         var n = $(".price_curr_year").last().attr("class");
