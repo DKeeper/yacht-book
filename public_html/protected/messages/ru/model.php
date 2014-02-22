@@ -115,6 +115,7 @@ return array(
     'Yacht latitude' => 'Широта яхты',
     'Yacht longitude' => 'Долгота яхты',
     'Date from' => 'Дата с',
+    'Date to' => 'Дата по',
     'Duration' => 'Продолжительность',
     'Status' => 'Статус',
     'Long' => 'Скидка за длительное бронирование',

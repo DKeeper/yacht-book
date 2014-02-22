@@ -7,6 +7,7 @@
  * @property integer $id
  * @property integer $yacht_id
  * @property string $date_from
+ * @property string $date_to
  * @property integer $duration
  * @property integer $duration_type_id
  * @property double $price
@@ -43,10 +44,10 @@ class PriceCurrentYear extends BaseModel
 			array('yacht_id, duration_type_id', 'required'),
 			array('yacht_id, duration, duration_type_id, last_minute, week_before', 'numerical', 'integerOnly'=>true),
 			array('price, deposit, deposit_insurance_price, deposit_insurance_deposit, latitude, longitude', 'numerical'),
-            array('date_from','default','value' => '0000-00-00'),
+            array('date_from, date_to','default','value' => '0000-00-00'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, yacht_id, date_from, duration, duration_type_id, price, deposit, deposit_insurance_price, deposit_insurance_deposit, last_minute, week_before, latitude, longitude', 'safe', 'on'=>'search'),
+			array('id, yacht_id, date_from, date_to, duration, duration_type_id, price, deposit, deposit_insurance_price, deposit_insurance_deposit, last_minute, week_before, latitude, longitude', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +73,7 @@ class PriceCurrentYear extends BaseModel
 			'id' => Yii::t('model','ID'),
 			'yacht_id' => Yii::t('model','Yacht'),
 			'date_from' => Yii::t('model','Date from'),
+			'date_to' => Yii::t('model','Date to'),
 			'duration' => Yii::t('model','Duration'),
 			'duration_type_id' => Yii::t('model','Duration type'),
 			'price' => Yii::t('model','Price'),
@@ -106,6 +108,7 @@ class PriceCurrentYear extends BaseModel
 		$criteria->compare('id',$this->id);
 		$criteria->compare('yacht_id',$this->yacht_id);
 		$criteria->compare('date_from',$this->date_from,true);
+		$criteria->compare('date_to',$this->date_to,true);
 		$criteria->compare('duration',$this->duration);
 		$criteria->compare('duration_type_id',$this->duration_type_id);
 		$criteria->compare('price',$this->price);

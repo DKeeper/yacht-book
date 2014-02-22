@@ -126,6 +126,30 @@ class FleetsController extends Controller
             }
 
             if($validate){
+                if(!empty($profile->ORC_scan)){
+                    if(preg_match('/\/upload/',$profile->ORC_scan)){
+                        $ext = preg_replace('/.+?\./','',$profile->ORC_scan);
+                        $scanName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
+                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->ORC_scan,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanName)){
+                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->ORC_scan);
+                            $profile->ORC_scan = $scanName;
+                        } else {
+                            $profile->ORC_scan = null;
+                        }
+                    }
+                }
+                if(!empty($profile->IRC_scan)){
+                    if(preg_match('/\/upload/',$profile->IRC_scan)){
+                        $ext = preg_replace('/.+?\./','',$profile->IRC_scan);
+                        $scanName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
+                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->IRC_scan,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanName)){
+                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->IRC_scan);
+                            $profile->IRC_scan = $scanName;
+                        } else {
+                            $profile->IRC_scan = null;
+                        }
+                    }
+                }
                 $profile->save();
                 $model->profile_id = $profile->id;
                 $model->save();
@@ -329,6 +353,9 @@ class FleetsController extends Controller
             $model->attributes=$_POST['CcFleets'];
             $profile->attributes=$_POST['SyProfile'];
 
+            $oldIRCScan = $profile->IRC_scan;
+            $oldORCScan = $profile->ORC_scan;
+
             $validate = true;
             $validate = $validate && $model->validate();
             $validate = $validate && $profile->validate();
@@ -341,6 +368,38 @@ class FleetsController extends Controller
 
             //TODO Продумать механизм удаления не используемых фото
             if($validate){
+                if(!empty($profile->IRC_scan)){
+                    if(preg_match('/\/upload/',$profile->IRC_scan)){
+                        $ext = preg_replace('/.+?\./','',$profile->IRC_scan);
+                        $scanName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
+                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->IRC_scan,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanName)){
+                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->IRC_scan);
+                            $profile->IRC_scan = $scanName;
+                        } else {
+                            $profile->IRC_scan = null;
+                        }
+                        if(!empty($oldIRCScan) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldIRCScan)){
+                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldIRCScan);
+                        }
+                    }
+                }
+
+                if(!empty($profile->ORC_scan)){
+                    if(preg_match('/\/upload/',$profile->ORC_scan)){
+                        $ext = preg_replace('/.+?\./','',$profile->ORC_scan);
+                        $scanName = '/i/cc_fleets/'.md5(time()+rand()).'.'.$ext;
+                        if(copy(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->ORC_scan,Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$scanName)){
+                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$profile->ORC_scan);
+                            $profile->ORC_scan = $scanName;
+                        } else {
+                            $profile->ORC_scan = null;
+                        }
+                        if(!empty($oldORCScan) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldORCScan)){
+                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldORCScan);
+                        }
+                    }
+                }
+
                 $profile->save();
                 $model->save();
 

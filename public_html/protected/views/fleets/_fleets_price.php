@@ -82,6 +82,14 @@
             <?php echo $form->textField($profile,'race_preparation',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("race_preparation"),'title' => $profile->getAttributeLabel("race_preparation"))); ?>
             <?php echo $form->error($profile,'race_preparation'); ?>
         </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'deposit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("deposit"),'title' => $profile->getAttributeLabel("deposit"))); ?>
+            <?php echo $form->error($profile,'deposit'); ?>
+        </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'last_minute',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("last_minute"),'title' => $profile->getAttributeLabel("last_minute"))); ?>
+            <?php echo $form->error($profile,'last_minute'); ?>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="row">
@@ -127,6 +135,14 @@
             <?php echo $form->textField($profile,'hull_cleaning',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("hull_cleaning"),'title' => $profile->getAttributeLabel("hull_cleaning"))); ?>
             <?php echo $form->error($profile,'hull_cleaning'); ?>
         </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'deposit_insurance_price',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("deposit_insurance_price"),'title' => $profile->getAttributeLabel("deposit_insurance_price"))); ?>
+            <?php echo $form->error($profile,'deposit_insurance_price'); ?>
+        </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'week_before',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("week_before"),'title' => $profile->getAttributeLabel("week_before"))); ?>
+            <?php echo $form->error($profile,'week_before'); ?>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="row">
@@ -147,20 +163,105 @@
             <?php echo $form->textField($profile,'crew_license',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("crew_license"),'title' => $profile->getAttributeLabel("crew_license"))); ?>
             <?php echo $form->error($profile,'crew_license'); ?>
         </div>
+        <div class="row">
+            <?php echo $form->textField($profile,'deposit_insurance_deposit',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("deposit_insurance_deposit"),'title' => $profile->getAttributeLabel("deposit_insurance_deposit"))); ?>
+            <?php echo $form->error($profile,'deposit_insurance_deposit'); ?>
+        </div>
     </div>
 </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($profile,'IRC_scan'); ?>
-        <?php echo $form->textArea($profile,'IRC_scan',array('class'=>'form-control','rows'=>6, 'cols'=>50)); ?>
-        <?php echo $form->error($profile,'IRC_scan'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($profile,'ORC_scan'); ?>
-        <?php echo $form->textArea($profile,'ORC_scan',array('class'=>'form-control','rows'=>6, 'cols'=>50)); ?>
-        <?php echo $form->error($profile,'ORC_scan'); ?>
-    </div>
+<div class="row">
+    <?php echo $form->labelEx($profile,'IRC_scan'); ?>
+    <?php echo $form->textField($profile,'IRC_scan',array('class'=>'form-control','readonly'=>true)); ?>
+    <?php
+    $this->widget('fileuploader.EFineUploader',
+        array(
+            'config'=>array(
+                'autoUpload'=>true,
+                'request'=>array(
+                    'endpoint'=>'/ajax/upload',// OR $this->createUrl('files/upload'),
+                    'params'=>array('YII_CSRF_TOKEN'=>Yii::app()->request->csrfToken),
+                ),
+                'retry'=>array(
+                    'enableAuto'=>false,
+                    'preventRetryResponseProperty'=>true
+                ),
+                'chunking'=>array(
+                    'enable'=>true,
+                    'partSize'=>100
+                ),//bytes
+                'callbacks'=>array(
+                    'onComplete'=>"js:function(id, name, response){
+                            if(response.success){
+                                $('#SyProfile_IRC_scan').val(response.link);
+                            }
+                        }",
+                    'onError'=>"js:function(id, name, errorReason){
+                            $('#SyProfile_IRC_scan').val();
+                            alert(errorReason);
+                        }",
+                ),
+                'validation'=>array(
+                    'allowedExtensions'=>array('jpg','jpeg','png','gif','pdf'),
+                    'sizeLimit'=>10*1024*1024,//maximum file size in bytes
+                    'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
+                ),
+            ),
+            'htmlOptions'=>array(
+                'id'=>'UploadSyProfileIRCScan',
+                'style'=>'margin-top:5px;'
+            ),
+        )
+    );
+    ?>
+    <?php echo $form->error($profile,'IRC_scan'); ?>
+</div>
+<div class="row">
+    <?php echo $form->labelEx($profile,'ORC_scan'); ?>
+    <?php echo $form->textField($profile,'ORC_scan',array('class'=>'form-control','readonly'=>true)); ?>
+    <?php
+    $this->widget('fileuploader.EFineUploader',
+        array(
+            'config'=>array(
+                'autoUpload'=>true,
+                'request'=>array(
+                    'endpoint'=>'/ajax/upload',// OR $this->createUrl('files/upload'),
+                    'params'=>array('YII_CSRF_TOKEN'=>Yii::app()->request->csrfToken),
+                ),
+                'retry'=>array(
+                    'enableAuto'=>false,
+                    'preventRetryResponseProperty'=>true
+                ),
+                'chunking'=>array(
+                    'enable'=>true,
+                    'partSize'=>100
+                ),//bytes
+                'callbacks'=>array(
+                    'onComplete'=>"js:function(id, name, response){
+                            if(response.success){
+                                $('#SyProfile_ORC_scan').val(response.link);
+                            }
+                        }",
+                    'onError'=>"js:function(id, name, errorReason){
+                            $('#SyProfile_ORC_scan').val();
+                            alert(errorReason);
+                        }",
+                ),
+                'validation'=>array(
+                    'allowedExtensions'=>array('jpg','jpeg','png','gif','pdf'),
+                    'sizeLimit'=>10*1024*1024,//maximum file size in bytes
+                    'minSizeLimit'=>0.5*1024*1024,// minimum file size in bytes
+                ),
+            ),
+            'htmlOptions'=>array(
+                'id'=>'UploadSyProfileORCScan',
+                'style'=>'margin-top:5px;'
+            ),
+        )
+    );
+    ?>
+    <?php echo $form->error($profile,'ORC_scan'); ?>
+</div>
 <script>
     function addPriceCurrYear(o){
         var n = $(".price_curr_year").last().attr("class");
