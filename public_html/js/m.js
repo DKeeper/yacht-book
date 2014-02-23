@@ -155,21 +155,25 @@ function initialize(mapData,mapId,param,search,modelPrefix) {
     }
 }
 
-function searchFromGeocoder(a,find){
+function searchFromGeocoder(a,find,mapObjId){
+    var mapData = {};
+    $.each(map,function(){
+        if(this.id===mapObjId){
+            mapData = this;
+            return false;
+        }
+    });
     find = find || false;
-    geocoder.geocode( {address:a}, function(results, status) {
+    if($.isEmptyObject(mapData)){
+        return false;
+    }
+    mapData.geocoder.geocode( {address:a}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            marker.setPosition(results[0].geometry.location);
-            map.fitBounds(results[0].geometry.viewport);
-            $("#CcProfile_longitude").val(results[0].geometry.location.mb);
-            $("#CcProfile_latitude").val(results[0].geometry.location.nb);
+            mapData.marker.setPosition(results[0].geometry.location);
+            mapData.map.fitBounds(results[0].geometry.viewport);
+            setGeoValue({lat:results[0].geometry.location.ob,lng:results[0].geometry.location.pb},mapData.id);
             if(find){
-                $.each(map,function(){
-                    if(this.id==="CcProfile"){
-                        moveMarker(this);
-                        return false;
-                    }
-                });
+                moveMarker(mapData);
                 searchByGeocoder({lat:results[0].geometry.location.nb,lng:results[0].geometry.location.mb},appLng.slice(0,2));
             }
         } else {

@@ -60,7 +60,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                     $("#company_city").val("");
                     $("#CcProfile_company_full_addres").val("");
                     //Ищем страну
-                    searchFromGeocoder(ui.item.label);
+                    searchFromGeocoder(ui.item.label,false,"CcProfile");
                     return false;
                 }',
                 'search' => 'js:function( event, ui ) {
@@ -105,7 +105,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                     $("#CcProfile_company_city_id").val(ui.item.id);
                     $("#CcProfile_company_full_addres").val("");
                     //Ищем город
-                    searchFromGeocoder(ui.item.label);
+                    searchFromGeocoder(ui.item.label,false,"CcProfile");
                     return false;
                 }',
                 'search' => 'js:function( event, ui ) {
@@ -269,7 +269,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     $(function(){
         $('.lang_check').button();
         $("#CcProfile_company_full_addres").change(function(event){
-            searchFromGeocoder($(this).val());
+            searchFromGeocoder($(this).val(),false,"CcProfile");
         });
         $('#company_tabs').tabs({
             activate: function(event,ui) {
