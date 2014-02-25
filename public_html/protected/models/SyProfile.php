@@ -127,7 +127,7 @@
  * The followings are the available model relations:
  * @property SailFurling $mainSailFurling
  * @property SailMaterial $raceSailMaterial
- * @property CcFleets $yacht
+ * @property CcFleets[] $ccFleets
  * @property YachtShipyard $shipyard
  * @property YachtModel $model
  * @property YachtIndex $index
@@ -180,6 +180,7 @@ class SyProfile extends BaseModel
 		return array(
 			'mainSailFurling' => array(self::BELONGS_TO, 'SailFurling', 'main_sail_furling_id'),
 			'raceSailMaterial' => array(self::BELONGS_TO, 'SailMaterial', 'race_sail_material_id'),
+            'ccFleets' => array(self::HAS_MANY, 'CcFleets', 'profile_id'),
 			'type' => array(self::BELONGS_TO, 'YachtType', 'type_id'),
 			'shipyard' => array(self::BELONGS_TO, 'YachtShipyard', 'shipyard_id'),
 			'model' => array(self::BELONGS_TO, 'YachtModel', 'model_id'),

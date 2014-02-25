@@ -153,3 +153,9 @@ span[role='status']{
 .fleet-detail span.glyphicon{
     font-size: 20px;
 }
+.fleet-detail div.row.text-danger{
+    cursor: pointer;
+}
+.view_danger .btn-link{
+
+}

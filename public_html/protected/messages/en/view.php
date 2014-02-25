@@ -39,4 +39,6 @@ return array(
     'media_type_id' => 'media type',
     'gas_cooker' => 'gas cooker',
     'kit_equip' => 'equipment',
+    'last_cleaning_incl' => 'last cleaning include',
+    'race_sail' => 'race sail',
 );

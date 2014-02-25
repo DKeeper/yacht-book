@@ -129,6 +129,8 @@ return array(
     'Company fleets'=>'Флот компании',
     'Fleet' => 'Флот',
     'No name' => 'Без имени',
+    "!!! WARNING !!! - yacht is not available<br/>for search by customers if incorrectly entered data <span class='glyphicon glyphicon-question-sign'></span>" => "!!! ВНИМАНИЕ !!! - яхта не доступна<br/>для поиска, если есть некорректные данные <span class='glyphicon glyphicon-question-sign'></span>",
+    'cnahge data' => 'изменить данные',
 
     'MODEL'=>'МОДЕЛЬ',
     'SAILS'=>'ПАРУСА',
@@ -142,6 +144,9 @@ return array(
     'KITCHEN'=>'КУХНЯ',
     'LIVING SPACE'=>'ЖИЛАЯ ПЛОЩАДЬ',
     'GENOA' => 'СТАКСЕЛЬ',
+    'OBLIGATORY' => 'ОБЯЗАТЕЛЬНЫЕ',
+    'DEPOSIT' => 'ДЕПОЗИТ',
+    'EXTRAS' => 'ХАРАКТЕРИСТИКИ',
 
     'basic' => 'основное',
     'more' => 'дополнительное',
@@ -204,6 +209,8 @@ return array(
     'gas_cooker' => 'газовая плита',
     'microwave' => 'микроволновка',
     'kit_equip' => 'принадлежности',
+    'last_cleaning_incl' => 'финальная уборка включена',
+    'race_sail' => 'гоночные паруса',
 
     // Названия языков
     "Abkhazian"=>"Абхазский",
