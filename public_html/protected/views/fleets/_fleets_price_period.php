@@ -12,19 +12,18 @@
 
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
 $class = get_class($model)."_".$i;
+$idPrefix = $class;
 if($model instanceof PriceCurrentYear){
     $class .= " price_curr_year";
     $options = array(
-        'minDate' => 'y',
-        'maxDate' => '+1y',
-        'yearRange' => 'c:c+1',
+        'minDate' => date('Y',time()).'-01-01',
+        'maxDate' => date('Y',time()).'-12-31',
     );
 } else {
     $class .= " price_next_year";
     $options = array(
-        'minDate' => 'y',
-        'maxDate' => 'y',
-        'yearRange' => 'c:c',
+        'minDate' => (intval(date('Y',time()))+1).'-01-01',
+        'maxDate' => (intval(date('Y',time()))+1).'-12-31',
     );
 }
 ?>
@@ -47,7 +46,10 @@ if($model instanceof PriceCurrentYear){
                         array(
                             'dateFormat' => 'yy-mm-dd',
                             'changeMonth' => true,
-                            'changeYear' => true,
+                            'changeYear' => false,
+                            'onClose'=>'js: function( selectedDate ) {
+                                $( "#'.$idPrefix.'_date_to" ).datepicker( "option", "minDate", selectedDate );
+                            }'
                         )
                     ),
                     'htmlOptions' => array(
@@ -73,7 +75,10 @@ if($model instanceof PriceCurrentYear){
                         array(
                             'dateFormat' => 'yy-mm-dd',
                             'changeMonth' => true,
-                            'changeYear' => true,
+                            'changeYear' => false,
+                            'onClose'=>'js: function( selectedDate ) {
+                                $( "#'.$idPrefix.'_date_from" ).datepicker( "option", "maxDate", selectedDate );
+                            }'
                         )
                     ),
                     'htmlOptions' => array(

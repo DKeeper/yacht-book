@@ -78,7 +78,9 @@ return array(
 
     '{p}% in {v} {d}' => '{p}% за {v} {d}',
     '{p}% for {v} {d}' => '{p}% за {v} {d}',
+    '{p}% for {v} {d} before charter' => '{p}% за {v} {d} до чартера',
     '{p}% to {d}' => '{p}% до {d}',
+    '{p}% from {dF} to {dT}' => '{p}% с {dF} по {dT}',
 
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',

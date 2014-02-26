@@ -124,6 +124,30 @@ foreach($model->ccEarlyPeriods as $i => $data){
         )
     );
 }
+if($model->last_minute_duration!="-1"){
+    $value = '{p}% for {v} {d} before charter';
+    $params = array(
+        '{p}'=>$model->last_minute_value,
+        '{v}'=>$model->last_minute_duration,
+        '{d}'=>strtolower(Yii::t('view',$model->lastMinuteDurationType->name))
+    );
+} else {
+    $value = '{p}% from {dF} to {dT}';
+    $params = array(
+        '{p}'=>$model->last_minute_value,
+        '{dF}'=>date('d.m.Y',strtotime($model->last_minute_date_from)),
+        '{dT}'=>date('d.m.Y',strtotime($model->last_minute_date_to))
+    );
+}
+$attributes = array_merge(
+    $attributes,
+    array(
+        array(
+            'label'=>Yii::t('model','Last minute'),
+            'value'=>Yii::t('view',$value,$params),
+        ),
+    )
+);
 $attributes = array_merge(
     $attributes,
     array(

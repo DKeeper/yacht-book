@@ -48,6 +48,11 @@
  * @property integer $repeater_discount
  * @property integer $max_discount
  * @property string $discount_other
+ * @property integer $last_minute_value
+ * @property integer $last_minute_duration
+ * @property integer $last_minute_duration_type_id
+ * @property string $last_minute_date_from
+ * @property string $last_minute_date_to
  *
  * The followings are the available model relations:
  * @property CcCancelPeriod[] $ccCancelPeriods
@@ -63,6 +68,7 @@
  * @property CcTransitLog[] $ccTransitLogs
  * @property CcLanguage[] $ccLanguages
  * @property Language[] $languages
+ * @property DurationType $lastMinuteDurationType
  */
 class CcProfile extends BaseModel
 {
@@ -102,16 +108,16 @@ class CcProfile extends BaseModel
 		return array(
             array('others, payment_other, cancel_other, discount_other', 'filter', 'filter' => array($purifier, 'purify')),
 			array('cc_id', 'required'),
-			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, repeater_discount, max_discount', 'numerical', 'integerOnly'=>true),
+			array('cc_id, isActive, q_boat, visa, mastercard, amex, bank_transfer, western_union, contact, repeater_discount, max_discount, last_minute_value, last_minute_duration, last_minute_duration_type_id', 'numerical', 'integerOnly'=>true),
 			array('company_postal_code', 'length', 'max'=>10),
 			array('company_phone, company_faxe', 'length', 'max'=>15),
             array('longitude, latitude, visa_percent, mastercard_percent, amex_percent', 'match', 'pattern'=>'/^\d+(\.\d+)?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
 			array('vat', 'length', 'max'=>20),
-            array('currency_id, company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other, discount_other', 'default', 'value' => null),
+            array('currency_id, company_country_id, company_city_id, q_boat, longitude, latitude, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, checkin_day, checkin_hour, checkout_day, checkout_hour, repeater_discount, max_discount, others, payment_other, cancel_other, discount_other, last_minute_value, last_minute_duration, last_minute_duration_type_id, last_minute_date_from, last_minute_date_to', 'default', 'value' => null),
 			array('currency_id, company_country_id, company_city_id, company_name, company_full_addres, company_web_site, company_email, company_logo, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, others, payment_other, cancel_other, checkout_hour, checkin_hour', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cc_id, isActive, company_name, currency_id, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount, discount_other', 'safe', 'on'=>'search'),
+			array('id, cc_id, isActive, company_name, currency_id, company_country_id, company_city_id, company_postal_code, company_full_addres, company_web_site, company_email, company_phone, company_faxe, vat, company_logo, q_boat, longitude, latitude, bank_name, bank_addres, beneficiary, beneficiary_addres, account_no, swift, iban, visa, visa_percent, mastercard, mastercard_percent, amex, amex_percent, bank_transfer, western_union, contact, others, checkin_day, checkin_hour, checkout_day, checkout_hour, payment_other, cancel_other, repeater_discount, max_discount, discount_other, last_minute_value, last_minute_duration, last_minute_duration_type_id, last_minute_date_from, last_minute_date_to', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -135,6 +141,7 @@ class CcProfile extends BaseModel
 			'city' => array(self::BELONGS_TO, 'Gorod', 'company_city_id'),
 			'ccTransitLogs' => array(self::HAS_MANY, 'CcTransitLog', 'cc_profile_id'),
             'ccLanguages' => array(self::HAS_MANY, 'CcLanguage', 'cc_profile_id'),
+            'lastMinuteDurationType' => array(self::BELONGS_TO,'DurationType', 'last_minute_duration_type_id'),
             'languages'=>array(self::MANY_MANY, 'Language',
                 'cc_language(cc_profile_id, language_id)'),
 		);
@@ -191,6 +198,11 @@ class CcProfile extends BaseModel
 			'repeater_discount' => Yii::t('model','Repeater'),
 			'max_discount' => Yii::t('model','Maximum'),
 			'discount_other' => Yii::t('model','Other'),
+            'last_minute_value' => Yii::t('model','Value'),
+            'last_minute_duration' => Yii::t('model','Duration'),
+            'last_minute_duration_type_id' => Yii::t('model','Duration Type'),
+            'last_minute_date_from' => Yii::t('model','Date from'),
+            'last_minute_date_to' => Yii::t('model','Date to'),
 		);
 	}
 
@@ -262,6 +274,11 @@ class CcProfile extends BaseModel
 		$criteria->compare('repeater_discount',$this->repeater_discount);
 		$criteria->compare('max_discount',$this->max_discount);
 		$criteria->compare('discount_other',$this->discount_other,true);
+        $criteria->compare('last_minute_value',$this->last_minute_value);
+        $criteria->compare('last_minute_duration',$this->last_minute_duration);
+        $criteria->compare('last_minute_duration_type_id',$this->last_minute_duration_type_id);
+        $criteria->compare('last_minute_date_from',$this->last_minute_date_from,true);
+        $criteria->compare('last_minute_date_to',$this->last_minute_date_to,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

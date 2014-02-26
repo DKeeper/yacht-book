@@ -12,6 +12,7 @@
 /* @var $cancelPeriods CcCancelPeriod[] */
 /* @var $longPeriods CcLongPeriod[] */
 /* @var $earlyPeriods CcEarlyPeriod[] */
+$durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
 ?>
     <div class="row">
         <div class="col-md-6">
@@ -173,7 +174,6 @@
             "<span class='glyphicon glyphicon-plus'></span>"
         );
     ?>
-    <div class="row"></div>
     <?php
         echo CHtml::label(Yii::t("view","Early booking"),"");
         foreach($earlyPeriods as $i=>$period){
@@ -193,7 +193,104 @@
             "<span class='glyphicon glyphicon-plus'></span>"
         );
     ?>
-
+    <div class="row last_minute">
+        <?php echo CHtml::label(Yii::t("model","Last minute"),""); ?>
+        <div class='col-md-3'>
+            <div class="input-group">
+                <?php echo $form->textField($profileCC,"last_minute_value",array('class'=>'form-control')); ?>
+                <span class="input-group-addon">%</span>
+            </div>
+            <?php
+            echo $form->error($profileCC,"last_minute_value");
+            ?>
+        </div>
+        <div class='col-md-7'>
+            <div class="btn-group" data-toggle="buttons" style="display: inline;">
+                <?php
+                $name = "CcEarlyPeriod[$i][before_duration]";
+                echo CHtml::label(CHtml::checkBox($name,-1==$profileCC->last_minute_duration?true:false,array('id'=>'TD')).Yii::t('view','TD'),'',array('title'=>Yii::t('view','To date'),'class'=>'btn btn-default last_minute_duration'.(-1==$profileCC->last_minute_duration?' active':'')));
+                ?>
+            </div>
+            <div style="display: inline;">
+                <?php
+                if($profileCC->last_minute_duration!=-1){
+                    $style = "display:none;";
+                } else {
+                    $style = "";
+                }
+                ?>
+                <div class="col-md-6">
+                <div class="input-group" style="<?php echo $style; ?>">
+                    <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'model' => $profileCC,
+                        'attribute' => "last_minute_date_from",
+                        'language' => Yii::app()->language,
+                        'options' => array(
+                            'dateFormat' => 'yy-mm-dd',
+                            'minDate' => 'y',
+                            'maxDate' => '+2y',
+                            'yearRange' => 'c:c+2',
+                            'changeMonth' => true,
+                            'changeYear' => true,
+                            'onClose'=>'js: function( selectedDate ) {
+                                $( "#CcProfile_last_minute_date_to" ).datepicker( "option", "minDate", selectedDate );
+                            }'
+                        ),
+                        'htmlOptions' => array('class'=>'form-control','placeholder'=>Yii::t("model","Date from")),
+                    ));
+                    ?>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                </div>
+                <div>
+                <div class="input-group" style="<?php echo $style; ?>">
+                    <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'model' => $profileCC,
+                        'attribute' => "last_minute_date_to",
+                        'language' => Yii::app()->language,
+                        'options' => array(
+                            'dateFormat' => 'yy-mm-dd',
+                            'minDate' => 'y',
+                            'maxDate' => '+2y',
+                            'yearRange' => 'c:c+2',
+                            'changeMonth' => true,
+                            'changeYear' => true,
+                            'onClose'=>'js: function( selectedDate ) {
+                                $( "#CcProfile_last_minute_date_from" ).datepicker( "option", "maxDate", selectedDate );
+                            }'
+                        ),
+                        'htmlOptions' => array('class'=>'form-control','placeholder'=>Yii::t("model","Date to")),
+                    ));
+                    ?>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                </div>
+            </div>
+            <div style="display: inline;">
+                <?php
+                $htmlOptions = array('class'=>'form-control before_duration_value','style'=>'width:auto;');
+                if($profileCC->last_minute_duration==-1){
+                    $htmlOptions['style'] .= "display:none;";
+                }
+                echo $form->textField($profileCC,"last_minute_duration",$htmlOptions); ?>
+            </div>
+            <?php
+            echo $form->error($profileCC,"last_minute_duration");
+            ?>
+        </div>
+        <div class='col-md-2'>
+            <?php
+            $htmlOptions = array('class'=>'form-control');
+            if($profileCC->last_minute_duration==-1){
+                $htmlOptions['style'] = "display:none;";
+            }
+            echo $form->dropDownList($profileCC,"last_minute_duration_type_id",$durationTypeList,$htmlOptions);
+            echo $form->error($profileCC,"last_minute_duration_type_id");
+            ?>
+        </div>
+    </div>
     <div class="row">
         <?php echo $form->labelEx($profileCC,'repeater_discount'); ?>
         <div class="input-group">
@@ -246,6 +343,25 @@
         $.each(o,function(i){
             $($(".checkin_day_radio")[i]).append(this);
             $($(".checkout_day_radio")[i]).append(this);
+        });
+        var check = <?php echo -1==$profileCC->last_minute_duration?-1:isset($profileCC->last_minute_duration)?$profileCC->last_minute_duration:0; ?>;
+        $(".last_minute_duration").tooltip();
+        $(".last_minute_duration").on("click",function(event){
+            var $_ = $(this).parent().parent();
+            if(check!=-1){
+                check = -1;
+                $_.find(".before_duration_value").fadeOut(function(){
+                    $(this).val(-1);
+                    $_.find(".input-group").fadeIn();
+                });
+                $_.parents("div.last_minute").find("select").val(1).fadeOut();
+            } else {
+                check = 0;
+                $_.find(".input-group").fadeOut(function(){
+                    $_.find(".before_duration_value").val('').fadeIn();
+                });
+                $_.parents("div.last_minute").find("select").fadeIn();
+            }
         });
     });
     function addPaymentPeriod(o){
