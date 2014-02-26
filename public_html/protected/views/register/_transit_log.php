@@ -100,7 +100,7 @@ if(isset($model->country_id) && !empty($model->country_id)){
             <div class="checkbox">
     <?php
     echo CHtml::openTag("label");
-    echo $form->checkBox($model,"[$i]included",array('uncheckValue'=>null));
+    echo $form->checkBox($model,"[$i]included");
     echo $model->getAttributeLabel("included");
     echo CHtml::closeTag("label");
     echo $form->error($model,"[$i]included");
@@ -123,3 +123,12 @@ if(isset($model->country_id) && !empty($model->country_id)){
         </div>
     </div>
 </div>
+<script>
+    $(function(){
+        $("#CcTransitLog_<?php echo $i; ?>_included").on("click",function(event){
+            if($(this).is(":checked")){
+                $("#CcTransitLog_<?php echo $i; ?>_price").val(0);
+            }
+        });
+    });
+</script>

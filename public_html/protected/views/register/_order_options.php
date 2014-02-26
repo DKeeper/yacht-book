@@ -56,7 +56,7 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
         <div class="checkbox">
             <?php
             echo CHtml::openTag("label");
-            echo $form->checkBox($model,"[$i]included",array('uncheckValue'=>null));
+            echo $form->checkBox($model,"[$i]included");
             echo $model->getAttributeLabel("included");
             echo CHtml::closeTag("label");
             echo $form->error($model,"[$i]included");
@@ -79,11 +79,12 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
     </div>
     </div>
 </div>
-<?php
-//if(isset($ajax) && $ajax){
-//    $scripts = Yii::app()->clientScript->scripts[4];
-//    foreach($scripts as $script){
-//        echo "<script>".$script."</script>";
-//    }
-//}
-?>
+<script>
+    $(function(){
+        $("#CcOrderOptions_<?php echo $i; ?>_included").on("click",function(event){
+            if($(this).is(":checked")){
+                $("#CcOrderOptions_<?php echo $i; ?>_price").val(0);
+            }
+        });
+    });
+</script>
