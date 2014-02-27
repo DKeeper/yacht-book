@@ -264,7 +264,6 @@ return array(
     'fleet' => 'флот',
     'request option' => 'запрос на опцию',
     'cancelled' => 'отменено',
-    'search' => 'поиск',
 
     'persons' => 'персон',
     'main sail' => 'грот',
