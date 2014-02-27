@@ -18,6 +18,42 @@ class AjaxController extends Controller
         return 'autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
     }
 
+    public function actionMapsearch(){
+        if(Yii::app()->request->isAjaxRequest){
+            $filterData = Yii::app()->request->getPost('Search');
+            $sql = "
+            SELECT f.*
+            FROM cc_fleets as f
+            JOIN sy_profile as p ON p.id = f.profile_id
+            LEFT JOIN price_current_year as pr ON pr.yacht_id = f.id
+            WHERE
+              p.length_m >= :l_min AND
+              p.length_m <= :l_max AND
+              p.built_date BETWEEN :d_min AND :d_max AND
+              pr.price >= :pr_min AND
+              pr.price <= :pr_max AND
+              f.isActive=1
+            ";
+            $params = array(
+                ':l_min'=>$filterData['length']['min'],
+                ':l_max'=>$filterData['length']['max'],
+                ':d_min'=>$filterData['year']['min'].'-01-01',
+                ':d_max'=>$filterData['year']['max'].'-01-01',
+                ':pr_min'=>$filterData['price']['min'],
+                ':pr_max'=>$filterData['price']['max'],
+            );
+            /** @var $fleets CcFleets[]|null */
+            $fleets = CcFleets::model()->findAllBySql($sql,$params);
+            $data = array('count'=>count($fleets));
+        }
+        if(isset($data)){
+            echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
+        } else {
+            echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
+        }
+        Yii::app()->end();
+    }
+
     public function actionRm($uid){
         $model = User::model()->findByPk($uid);
         if(isset($model)){

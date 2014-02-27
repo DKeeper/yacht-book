@@ -1,6 +1,9 @@
 <?php
 /* @var $this MapController */
 /** @var $profile SyProfile */
+/** @var $length array */
+/** @var $date array */
+/** @var $price array */
 $profile = SyProfile::model();
 ?>
 <style>
@@ -65,6 +68,15 @@ $profile = SyProfile::model();
                 Календарь (заглушка)
             </div>
             <div class="row filters">
+                <?php
+                $form = $this->beginWidget(
+                    'CActiveForm',
+                    array(
+                        'id'=>'search-form',
+                        'action'=>'/ajax/mapsearch'
+                    )
+                );
+                ?>
                 <div class="col-md-4">
                     <div class="col-md-4">
                         <?php
@@ -299,15 +311,15 @@ $profile = SyProfile::model();
                         $this->widget('zii.widgets.jui.CJuiSliderInput',array(
                             'id'=>'Search_length',
                             'name'=>'Search[length][min]',
-                            'value'=>5,
+                            'value'=>$length['l_min'],
                             'maxName'=>'Search[length][max]',
-                            'maxValue'=>40,
+                            'maxValue'=>$length['l_max'],
                             // additional javascript options for the slider plugin
                             'options'=>array(
-                                'min'=>5,
-                                'max'=>40,
+                                'min'=>$length['l_min'],
+                                'max'=>$length['l_max'],
                                 'range'=>true,
-                                'values'=>array(5,40),
+                                'values'=>array($length['l_min'],$length['l_max']),
                                 'stop'=>'js: function(event,ui){applyFilters()}',
                             ),
                             'htmlOptions'=>array(
@@ -315,8 +327,8 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_length_min" class="pull-left"></div>
-                        <div id="Search_length_max" class="pull-right"></div>
+                        <div id="Search_length_min" class="pull-left"><?php echo $length['l_min']; ?></div>
+                        <div id="Search_length_max" class="pull-right"><?php echo $length['l_max']; ?></div>
                     </div>
                     <div class="col-md-3 text-center">
                         <?php echo Yii::t("view","cabins"); ?>
@@ -349,15 +361,15 @@ $profile = SyProfile::model();
                         $this->widget('zii.widgets.jui.CJuiSliderInput',array(
                             'id'=>'Search_year',
                             'name'=>'Search[year][min]',
-                            'value'=>1982,
+                            'value'=>$date['b_date_min'],
                             'maxName'=>'Search[year][max]',
-                            'maxValue'=>2014,
+                            'maxValue'=>$date['b_date_max'],
                             // additional javascript options for the slider plugin
                             'options'=>array(
-                                'min'=>1982,
-                                'max'=>2014,
+                                'min'=>$date['b_date_min'],
+                                'max'=>$date['b_date_max'],
                                 'range'=>true,
-                                'values'=>array(1982,2014),
+                                'values'=>array($date['b_date_min'],$date['b_date_max']),
                                 'stop'=>'js: function(event,ui){applyFilters()}',
                             ),
                             'htmlOptions'=>array(
@@ -365,8 +377,8 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_year_min" class="pull-left"></div>
-                        <div id="Search_year_max" class="pull-right"></div>
+                        <div id="Search_year_min" class="pull-left"><?php echo $date['b_date_min']; ?></div>
+                        <div id="Search_year_max" class="pull-right"><?php echo $date['b_date_max']; ?></div>
                     </div>
                     <div class="col-md-3 text-center">
                         <?php echo Yii::t("view","price"); ?>
@@ -374,15 +386,15 @@ $profile = SyProfile::model();
                         $this->widget('zii.widgets.jui.CJuiSliderInput',array(
                             'id'=>'Search_price',
                             'name'=>'Search[price][min]',
-                            'value'=>100,
+                            'value'=>$price['price_min'],
                             'maxName'=>'Search[price][max]',
-                            'maxValue'=>1200,
+                            'maxValue'=>$price['price_max'],
                             // additional javascript options for the slider plugin
                             'options'=>array(
-                                'min'=>100,
-                                'max'=>1200,
+                                'min'=>$price['price_min'],
+                                'max'=>$price['price_max'],
                                 'range'=>true,
-                                'values'=>array(100,1200),
+                                'values'=>array($price['price_min'],$price['price_max']),
                                 'stop'=>'js: function(event,ui){applyFilters()}',
                             ),
                             'htmlOptions'=>array(
@@ -390,10 +402,11 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_price_min" class="pull-left"></div>
-                        <div id="Search_price_max" class="pull-right"></div>
+                        <div id="Search_price_min" class="pull-left"><?php echo $price['price_min']; ?></div>
+                        <div id="Search_price_max" class="pull-right"><?php echo $price['price_max']; ?></div>
                     </div>
                 </div>
+                <?php $this->endWidget(); ?>
             </div>
         </div>
     </div>
@@ -474,6 +487,20 @@ $profile = SyProfile::model();
         }
     }
     function applyFilters(){
-        alert("Search!!!");
+        var $form = $("#search-form");
+        $.ajax({
+            url:$form.attr("action"),
+            data: $form.serialize(),
+            success:function(answer){
+                if(!answer.success){
+                    alert(answer.data);
+                } else {
+                    alert("Найдено лодок: "+answer.data.count);
+                }
+            },
+            type:'POST',
+            dataType:'json',
+            async:true
+        });
     }
 </script>
