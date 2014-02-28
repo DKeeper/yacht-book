@@ -8,6 +8,7 @@
 /* @var $priceNextYear PriceNextYear[] */
 $statusList = BaseModel::getFilters('status');
 Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerCoreScript('maskedinput');
 ?>
 
 <div class="form">

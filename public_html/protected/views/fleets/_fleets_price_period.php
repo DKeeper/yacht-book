@@ -16,14 +16,14 @@ $idPrefix = $class;
 if($model instanceof PriceCurrentYear){
     $class .= " price_curr_year";
     $options = array(
-        'minDate' => date('Y',time()).'-01-01',
-        'maxDate' => date('Y',time()).'-12-31',
+        'minDate' => '01.01.'.date('Y',time()),
+        'maxDate' => '31.12.'.date('Y',time()),
     );
 } else {
     $class .= " price_next_year";
     $options = array(
-        'minDate' => (intval(date('Y',time()))+1).'-01-01',
-        'maxDate' => (intval(date('Y',time()))+1).'-12-31',
+        'minDate' => '01.01.'.(intval(date('Y',time()))+1),
+        'maxDate' => '31.12.'.(intval(date('Y',time()))+1),
     );
 }
 ?>
