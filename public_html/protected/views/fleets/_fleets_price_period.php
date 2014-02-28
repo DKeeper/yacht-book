@@ -18,12 +18,14 @@ if($model instanceof PriceCurrentYear){
     $options = array(
         'minDate' => '01.01.'.date('Y',time()),
         'maxDate' => '31.12.'.date('Y',time()),
+        'showOn' => 'button',
     );
 } else {
     $class .= " price_next_year";
     $options = array(
         'minDate' => '01.01.'.(intval(date('Y',time()))+1),
         'maxDate' => '31.12.'.(intval(date('Y',time()))+1),
+        'showOn' => 'button',
     );
 }
 ?>

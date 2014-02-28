@@ -50,6 +50,7 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
             'yearRange' => 'c:c+2',
             'changeMonth' => true,
             'changeYear' => true,
+            'showOn' => 'button',
         ),
         'htmlOptions' => $htmlOptions,
         'groupStyle'=>$style,

@@ -232,6 +232,7 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                             'yearRange' => 'c:c+2',
                             'changeMonth' => true,
                             'changeYear' => true,
+                            'showOn' => 'button',
                             'onClose'=>'js: function( selectedDate ) {
                                 $( "#CcProfile_last_minute_date_to" ).datepicker( "option", "minDate", selectedDate );
                             }'
@@ -254,6 +255,7 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                             'yearRange' => 'c:c+2',
                             'changeMonth' => true,
                             'changeYear' => true,
+                            'showOn' => 'button',
                             'onClose'=>'js: function( selectedDate ) {
                                 $( "#CcProfile_last_minute_date_from" ).datepicker( "option", "maxDate", selectedDate );
                             }'

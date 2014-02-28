@@ -56,6 +56,7 @@ $nationalityList = Nationality::model()->getModelList();
                 'yearRange' => 'c:c+15',
                 'changeMonth' => true,
                 'changeYear' => true,
+                'showOn' => 'button',
             ),
             'htmlOptions' => array(
                 'class'=>'form-control',
@@ -83,6 +84,7 @@ $nationalityList = Nationality::model()->getModelList();
                 'yearRange' => '-75:-14',
                 'changeMonth' => true,
                 'changeYear' => true,
+                'showOn' => 'button',
             ),
             'htmlOptions' => array(
                 'class'=>'form-control',
@@ -177,6 +179,7 @@ $nationalityList = Nationality::model()->getModelList();
                 'yearRange' => '1960:c',
                 'changeMonth' => true,
                 'changeYear' => true,
+                'showOn' => 'button',
             ),
             'htmlOptions' => array(
                 'class'=>'form-control'

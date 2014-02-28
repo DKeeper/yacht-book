@@ -156,6 +156,6 @@ span[role='status']{
 .fleet-detail div.row.text-danger{
     cursor: pointer;
 }
-.view_danger .btn-link{
-
+.ui-datepicker-trigger {
+    display: none;
 }

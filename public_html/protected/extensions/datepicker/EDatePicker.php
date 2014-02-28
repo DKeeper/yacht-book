@@ -56,7 +56,12 @@ class EDatePicker extends CJuiDatePicker{
             echo CHtml::tag('div',$this->htmlOptions,'');
         }
 
-        echo "<span class='input-group-addon' onclick='$(this).prev().focus();' style='cursor: pointer;'><span class='glyphicon glyphicon-calendar'></span></span></div>";
+        if(isset($this->options['showOn']) && $this->options['showOn'] == 'button'){
+            $f = "$(this).prev().click();";
+        } else {
+            $f = "$(this).prev().focus();";
+        }
+        echo "<span class='input-group-addon' onclick='{$f}' style='cursor: pointer;'><span class='glyphicon glyphicon-calendar'></span></span></div>";
 
         $options=CJavaScript::encode($this->options);
         $js = "jQuery('#{$id}').datepicker($options);";
