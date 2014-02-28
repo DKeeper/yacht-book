@@ -97,7 +97,7 @@ if($model instanceof PriceCurrentYear){
                 "class"=>"btn btn-default",
                 "type" => "button",
                 "data-type" => "delRows",
-                "onclick"=>"delRowMap(this);return false;",
+                "onclick"=>"delRowMap(this,true);return false;",
             ),
             "<span class='glyphicon glyphicon-minus'></span>"
         );

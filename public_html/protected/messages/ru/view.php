@@ -129,6 +129,7 @@ return array(
     "{file} is empty, please select files again without it."=>"{file} пуст, выберите файлы снова без него.",
     "The files are being uploaded, if you leave now the upload will be cancelled."=>"Файлы загружаются, если вы остановите сейчас, загрузка будет отменена.",
 
+    'You are sure you want to delete?'=>'Вы точно уверены, что хотите удалить?',
     'Company fleets'=>'Флот компании',
     'Fleet' => 'Флот',
     'No name' => 'Без имени',

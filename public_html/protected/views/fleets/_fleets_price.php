@@ -264,6 +264,7 @@
     <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
 </div>
 <script>
+    confirmMessage = '<?php echo Yii::t("view","You are sure you want to delete?"); ?>';
     function addPriceCurrYear(o){
         var n = $(".price_curr_year").last().attr("class");
         if(typeof n === "undefined"){

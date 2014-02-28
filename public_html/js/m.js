@@ -6,6 +6,7 @@
  */
 var autoFind = false;
 var hideSearchResult = false;
+var confirmMessage;
 var currentObj;
 var map = [];
 var marker;
@@ -328,14 +329,20 @@ function delRow(o){
     $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
     $o.parent().parent().remove();
 }
-function delRowMap(o){
+function delRowMap(o,c){
+    c = c || false;
+    if(c){
+        if(!confirm(confirmMessage)){
+            return;
+        }
+    }
     var $o = $(o);
     $.fn.yiiactiveform.removeFields($o.parents('form'),$o.parent().parent().find("input, select"));
     // Удаляем карты
     var mapId = $o.parent().parent().attr("class").split(" ")[2];
     $.each(map,function(i){
         if(this.id==mapId){
-            delete map[i];
+            map.splice(i,1);
             return false;
         }
     });
