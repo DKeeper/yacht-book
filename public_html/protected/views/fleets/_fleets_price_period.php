@@ -35,16 +35,15 @@ if($model instanceof PriceCurrentYear){
         echo $form->hiddenField($model,"[$i]duration_type_id",array('value'=>1));
         ?>
         <div class="row">
-            <div class="input-group">
                 <?php
-                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                $this->widget('datepicker.EDatePicker', array(
                     'model' => $model,
                     'attribute' => "[{$i}]date_from",
                     'language' => Yii::app()->language,
                     'options' => array_merge(
                         $options,
                         array(
-                            'dateFormat' => 'yy-mm-dd',
+                            'dateFormat' => 'dd.mm.yy',
                             'changeMonth' => true,
                             'changeYear' => false,
                             'onClose'=>'js: function( selectedDate ) {
@@ -59,21 +58,18 @@ if($model instanceof PriceCurrentYear){
                     ),
                 ));
                 ?>
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
             <?php echo $form->error($model,"[{$i}]date_from"); ?>
         </div>
         <div class="row">
-            <div class="input-group">
                 <?php
-                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                $this->widget('datepicker.EDatePicker', array(
                     'model' => $model,
                     'attribute' => "[{$i}]date_to",
                     'language' => Yii::app()->language,
                     'options' => array_merge(
                         $options,
                         array(
-                            'dateFormat' => 'yy-mm-dd',
+                            'dateFormat' => 'dd.mm.yy',
                             'changeMonth' => true,
                             'changeYear' => false,
                             'onClose'=>'js: function( selectedDate ) {
@@ -88,8 +84,6 @@ if($model instanceof PriceCurrentYear){
                     ),
                 ));
                 ?>
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
             <?php echo $form->error($model,"[{$i}]date_to"); ?>
         </div>
         <div class="row">

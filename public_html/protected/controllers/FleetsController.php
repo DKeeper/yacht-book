@@ -40,6 +40,12 @@ class FleetsController extends Controller
 
         if(isset($_POST['PriceCurrentYear'])){
             foreach($_POST['PriceCurrentYear'] as $i => $item){
+                if(!empty($item['date_from'])){
+                    $item['date_from'] = date('Y-m-d',strtotime($item['date_from']));
+                }
+                if(!empty($item['date_to'])){
+                    $item['date_to'] = date('Y-m-d',strtotime($item['date_to']));
+                }
                 $priceCurrYear[$i] = new PriceCurrentYear;
                 $priceCurrYear[$i]->attributes = $item;
                 $priceCurrYear[$i]->yacht_id = -1;
@@ -47,6 +53,12 @@ class FleetsController extends Controller
         }
         if(isset($_POST['PriceNextYear'])){
             foreach($_POST['PriceNextYear'] as $i => $item){
+                if(!empty($item['date_from'])){
+                    $item['date_from'] = date('Y-m-d',strtotime($item['date_from']));
+                }
+                if(!empty($item['date_to'])){
+                    $item['date_to'] = date('Y-m-d',strtotime($item['date_to']));
+                }
                 $priceNextYear[$i] = new PriceNextYear;
                 $priceNextYear[$i]->attributes = $item;
                 $priceNextYear[$i]->yacht_id = -1;

@@ -76,6 +76,16 @@ class ProfileController extends Controller
                         }
                         /** @var $profileC CProfile */
                         $profileC = CProfile::model()->findByAttributes(array("c_id"=>$modelUser->id));
+                        /** Правим даты */
+                        if(!empty($_POST['CProfile']['expire_date'])){
+                            $_POST['CProfile']['expire_date'] = date('Y-m-d',strtotime($_POST['CProfile']['expire_date']));
+                        }
+                        if(!empty($_POST['CProfile']['date_of_birth'])){
+                            $_POST['CProfile']['date_of_birth'] = date('Y-m-d',strtotime($_POST['CProfile']['date_of_birth']));
+                        }
+                        if(!empty($_POST['CProfile']['date_issued'])){
+                            $_POST['CProfile']['date_issued'] = date('Y-m-d',strtotime($_POST['CProfile']['date_issued']));
+                        }
                         // ajax validator
                         if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
                         {
@@ -161,6 +171,12 @@ class ProfileController extends Controller
                         if($role === "CC" && !$owner){
                             $this->redirect("/profile/edit/".Yii::app()->user->id);
                         }
+                        if(!empty($_POST['CcProfile']['last_minute_date_from'])){
+                            $_POST['CcProfile']['last_minute_date_from'] = date('Y-m-d',strtotime($_POST['CcProfile']['last_minute_date_from']));
+                        }
+                        if(!empty($_POST['CcProfile']['last_minute_date_to'])){
+                            $_POST['CcProfile']['last_minute_date_to'] = date('Y-m-d',strtotime($_POST['CcProfile']['last_minute_date_to']));
+                        }
                         /** @var $profileCC CcProfile */
                         $profileCC = CcProfile::model()->findByAttributes(array("cc_id"=>$modelUser->id));
                         /** @var $paymentsPeriods CcPaymentsPeriod[] */
@@ -207,6 +223,9 @@ class ProfileController extends Controller
                         }
                         if(isset($_POST['CcEarlyPeriod'])){
                             foreach($_POST['CcEarlyPeriod'] as $i => $item){
+                                if(!empty($item['date_value'])){
+                                    $item['date_value'] = date('Y-m-d',strtotime($item['date_value']));
+                                }
                                 $earlyPeriods[$i] = new CcEarlyPeriod;
                                 $earlyPeriods[$i]->attributes = $item;
                                 $earlyPeriods[$i]->cc_profile_id = $profileCC->id;

@@ -39,6 +39,19 @@
  */
 class CProfile extends BaseModel
 {
+    protected function afterFind(){
+        parent::afterFind();
+        if(isset($this->date_of_birth)){
+            $this->date_of_birth = date('d.m.Y',strtotime($this->date_of_birth));
+        }
+        if(isset($this->date_issued)){
+            $this->date_issued = date('d.m.Y',strtotime($this->date_issued));
+        }
+        if(isset($this->expire_date)){
+            $this->expire_date = date('d.m.Y',strtotime($this->expire_date));
+        }
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -58,8 +71,7 @@ class CProfile extends BaseModel
 			array('c_id', 'required'),
 			array('c_id, isActive, sex_id, nationality_id, site_commission, receive_news, professional_regatta, amateur_regatta, repeater, extra', 'numerical', 'integerOnly'=>true),
 			array('name_eng, name_rus, last_name_eng, last_name_rus, zagran_passport, expire_date, date_of_birth, phone, email, avatar, license, school_issued, date_issued, scan_of_license, website, last_settings', 'safe'),
-            array('site_commission, repeater, extra, zagran_passport, email, avatar, license, school_issued, scan_of_license, website, last_settings', 'default', 'value' => null),
-            array('expire_date, date_of_birth, date_issued','default','value' => '0000-00-00'),
+            array('date_issued, date_of_birth, expire_date, site_commission, repeater, extra, zagran_passport, email, avatar, license, school_issued, scan_of_license, website, last_settings', 'default', 'value' => null),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, c_id, isActive, name_eng, name_rus, last_name_eng, last_name_rus, sex_id, zagran_passport, expire_date, nationality_id, date_of_birth, phone, email, site_commission, avatar, license, school_issued, date_issued, scan_of_license, website, receive_news, professional_regatta, amateur_regatta, repeater, extra, last_settings', 'safe', 'on'=>'search'),

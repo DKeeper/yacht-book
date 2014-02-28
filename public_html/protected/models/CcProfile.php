@@ -77,6 +77,16 @@ class CcProfile extends BaseModel
     /** @var $searchCity Gorod */
     public $searchCity;
 
+    protected function afterFind(){
+        parent::afterFind();
+        if(isset($this->last_minute_date_from)){
+            $this->last_minute_date_from = date('d.m.Y',strtotime($this->last_minute_date_from));
+        }
+        if(isset($this->last_minute_date_to)){
+            $this->last_minute_date_to = date('d.m.Y',strtotime($this->last_minute_date_to));
+        }
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */

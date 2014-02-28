@@ -61,7 +61,7 @@
     ));
     ?>
     <div class="row submit">
-        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button></div>
+        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Save"); ?></button></div>
     </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->

@@ -10,6 +10,7 @@ Yii::setPathOfAlias('recaptcha',dirname(__FILE__).'/../extensions/recaptcha');
 Yii::setPathOfAlias('fileuploader',dirname(__FILE__).'/../extensions/fileuploader');
 Yii::setPathOfAlias('datetimepicker',dirname(__FILE__).'/../extensions/datetimepicker');
 Yii::setPathOfAlias('timepicker',dirname(__FILE__).'/../extensions/timepicker');
+Yii::setPathOfAlias('datepicker',dirname(__FILE__).'/../extensions/datepicker');
 if(preg_match("/yacht\-book\.local/",$_SERVER['HTTP_HOST'])){
     $db = array(
         'connectionString' => 'mysql:host=localhost;dbname=yacht-book',

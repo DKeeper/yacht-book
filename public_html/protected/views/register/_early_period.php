@@ -37,15 +37,14 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
             $style = "";
         }
         ?>
-        <div class="input-group" style="<?php echo $style; ?>">
     <?php
     $htmlOptions = array('class'=>'form-control');
-    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+    $this->widget('datepicker.EDatePicker', array(
         'model' => $model,
         'attribute' => "[$i]date_value",
         'language' => Yii::app()->language,
         'options' => array(
-            'dateFormat' => 'yy-mm-dd',
+            'dateFormat' => 'dd.mm.yy',
             'minDate' => 'y',
             'maxDate' => '+2y',
             'yearRange' => 'c:c+2',
@@ -53,10 +52,9 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
             'changeYear' => true,
         ),
         'htmlOptions' => $htmlOptions,
+        'groupStyle'=>$style,
     ));
     ?>
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
     </div>
     <div style="display: inline;">
       <?php

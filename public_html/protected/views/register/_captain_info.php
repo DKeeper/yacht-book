@@ -44,14 +44,13 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'expire_date'); ?>
-        <div class="input-group">
         <?php
-        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+        $this->widget('datepicker.EDatePicker', array(
             'model' => $profileC,
             'attribute' => 'expire_date',
             'language' => Yii::app()->language,
             'options' => array(
-                'dateFormat' => 'yy-mm-dd',
+                'dateFormat' => 'dd.mm.yy',
                 'minDate' => 'y',
                 'maxDate' => '+15y',
                 'yearRange' => 'c:c+15',
@@ -63,8 +62,6 @@ $nationalityList = Nationality::model()->getModelList();
             ),
         ));
         ?>
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
         <?php echo $form->error($profileC,'expire_date'); ?>
     </div>
     <div class="row">
@@ -74,14 +71,13 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'date_of_birth'); ?>
-        <div class="input-group">
         <?php
-        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+        $this->widget('datepicker.EDatePicker', array(
             'model' => $profileC,
             'attribute' => 'date_of_birth',
             'language' => Yii::app()->language,
             'options' => array(
-                'dateFormat' => 'yy-mm-dd',
+                'dateFormat' => 'dd.mm.yy',
                 'minDate' => '-75y',
                 'maxDate' => '-14y',
                 'yearRange' => '-75:-14',
@@ -93,8 +89,6 @@ $nationalityList = Nationality::model()->getModelList();
             ),
         ));
         ?>
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
         <?php echo $form->error($profileC,'date_of_birth'); ?>
     </div>
     <div class="row">
@@ -170,14 +164,13 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'date_issued'); ?>
-        <div class="input-group">
         <?php
-        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+        $this->widget('datepicker.EDatePicker', array(
             'model' => $profileC,
             'attribute' => 'date_issued',
             'language' => Yii::app()->language,
             'options' => array(
-                'dateFormat' => 'yy-mm-dd',
+                'dateFormat' => 'dd.mm.yy',
                 'minDate' => 'js: new Date(1960, 0, 1)',
                 'maxDate' => 'd',
                 'defaultDate' => '0',
@@ -190,8 +183,6 @@ $nationalityList = Nationality::model()->getModelList();
             ),
         ));
         ?>
-        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
         <?php echo $form->error($profileC,'date_issued'); ?>
     </div>
     <div class="row">

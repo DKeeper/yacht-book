@@ -207,7 +207,7 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
         <div class='col-md-7'>
             <div class="btn-group" data-toggle="buttons" style="display: inline;">
                 <?php
-                $name = "CcEarlyPeriod[$i][before_duration]";
+                $name = "CcProfile[last_minute_duration]";
                 echo CHtml::label(CHtml::checkBox($name,-1==$profileCC->last_minute_duration?true:false,array('id'=>'TD')).Yii::t('view','TD'),'',array('title'=>Yii::t('view','To date'),'class'=>'btn btn-default last_minute_duration'.(-1==$profileCC->last_minute_duration?' active':'')));
                 ?>
             </div>
@@ -220,14 +220,13 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                 }
                 ?>
                 <div class="col-md-6">
-                <div class="input-group" style="<?php echo $style; ?>">
                     <?php
-                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    $this->widget('datepicker.EDatePicker', array(
                         'model' => $profileCC,
                         'attribute' => "last_minute_date_from",
                         'language' => Yii::app()->language,
                         'options' => array(
-                            'dateFormat' => 'yy-mm-dd',
+                            'dateFormat' => 'dd.mm.yy',
                             'minDate' => 'y',
                             'maxDate' => '+2y',
                             'yearRange' => 'c:c+2',
@@ -238,20 +237,18 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                             }'
                         ),
                         'htmlOptions' => array('class'=>'form-control','placeholder'=>Yii::t("model","Date from")),
+                        'groupStyle'=>$style,
                     ));
                     ?>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
                 </div>
                 <div>
-                <div class="input-group" style="<?php echo $style; ?>">
                     <?php
-                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    $this->widget('datepicker.EDatePicker', array(
                         'model' => $profileCC,
                         'attribute' => "last_minute_date_to",
                         'language' => Yii::app()->language,
                         'options' => array(
-                            'dateFormat' => 'yy-mm-dd',
+                            'dateFormat' => 'dd.mm.yy',
                             'minDate' => 'y',
                             'maxDate' => '+2y',
                             'yearRange' => 'c:c+2',
@@ -262,10 +259,9 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                             }'
                         ),
                         'htmlOptions' => array('class'=>'form-control','placeholder'=>Yii::t("model","Date to")),
+                        'groupStyle'=>$style,
                     ));
                     ?>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
                 </div>
             </div>
             <div style="display: inline;">
