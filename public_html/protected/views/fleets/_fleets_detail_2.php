@@ -172,7 +172,7 @@
         </div>
         <div class="row">
             <div class="input-group">
-                <span class="input-group-addon"><?php echo $form->checkBox($profile,'water_tank'); ?></span>
+                <?php echo $form->checkBox($profile,'water_tank',array('hidden'=>true)); ?>
                 <?php echo $form->textField($profile,'water_tank_capacity',array(
                     'class'=>'form-control tank_selector',
                     'placeholder' => $profile->getAttributeLabel("water_tank_capacity"),
@@ -185,8 +185,12 @@
 
         <div class="row">
             <div class="input-group">
-                <span class="input-group-addon"><?php echo $form->checkBox($profile,'fuel_tank'); ?></span>
-                <?php echo $form->textField($profile,'fuel_tank_capacity',array('class'=>'form-control tank_selector','placeholder' => $profile->getAttributeLabel("fuel_tank_capacity"),'title' => $profile->getAttributeLabel("fuel_tank_capacity"))); ?>
+                <?php echo $form->checkBox($profile,'fuel_tank',array('hidden'=>true)); ?>
+                <?php echo $form->textField($profile,'fuel_tank_capacity',array(
+                    'class'=>'form-control tank_selector',
+                    'placeholder' => $profile->getAttributeLabel("fuel_tank_capacity"),
+                    'title' => $profile->getAttributeLabel("fuel_tank_capacity")
+                )); ?>
                 <span class="input-group-addon">l</span>
             </div>
             <?php echo $form->error($profile,'fuel_tank_capacity'); ?>

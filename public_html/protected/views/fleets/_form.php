@@ -122,7 +122,11 @@ Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD)
             $('#fleets_tabs').tabs("option","active",currTabNum+1);
         });
         $(".tank_selector").on("change",function(event){
-            $($(this).prev().find("input")[1]).attr("checked",true);
+            if($(this).val()!=""){
+                $($(this).parent().find(":hidden")[1]).attr("checked",true);
+            } else {
+                $($(this).parent().find(":hidden")[1]).attr("checked",false);
+            }
         });
     });
 </script>
