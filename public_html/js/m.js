@@ -168,7 +168,7 @@ function searchFromGeocoder(a,find,mapObjId){
     if($.isEmptyObject(mapData)){
         return false;
     }
-    mapData.geocoder.geocode( {address:a,bounds:mapData.map.getBounds()}, function(results, status) {
+    mapData.geocoder.geocode( {address:a,bounds:mapData.map.getBounds(),language:appLng.slice(0,2)}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             mapData.marker.setPosition(results[0].geometry.location);
             mapData.map.fitBounds(results[0].geometry.viewport);

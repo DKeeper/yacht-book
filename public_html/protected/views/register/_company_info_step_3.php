@@ -334,6 +334,9 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
             appLng = '';
         }
         var s = $.datepicker.regional[appLng];
+        if(appLng==''){
+            appLng='en';
+        }
         var o = ['<?php echo Yii::t("view","Any"); ?>'];
         $.each(s.dayNamesMin,function(i){
             o.push(this);

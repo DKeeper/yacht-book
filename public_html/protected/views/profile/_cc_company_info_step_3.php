@@ -183,6 +183,9 @@ $this->widget('zii.widgets.CDetailView', array(
             appLng = '';
         }
         var s = $.datepicker.regional[appLng];
+        if(appLng==''){
+            appLng='en';
+        }
         var chIn = +$(".chind td").text();
         var chOut = +$(".choutd td").text();
         if(!isNaN(chIn)){
