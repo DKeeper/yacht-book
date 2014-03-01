@@ -27,8 +27,8 @@ $this->widget('zii.widgets.CDetailView', array(
             'label'=>$model->getAttributeLabel('company_city_id'),
             'value'=>isset($model->city)?$model->city->$geoField:Yii::t("view","No data"),
         ),
-        'longitude',
         'latitude',
+        'longitude',
         array(
             'label'=>$model->getAttributeLabel('company_postal_code'),
             'value'=>!empty($model->company_postal_code)?$model->company_postal_code:Yii::t("view","No data"),
