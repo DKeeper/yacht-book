@@ -144,15 +144,15 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($profileCC,'longitude'); ?>
-        <?php echo $form->textField($profileCC,'longitude',array('class'=>'form-control geo')); ?>
-        <?php echo $form->error($profileCC,'longitude'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($profileCC,'latitude'); ?>
         <?php echo $form->textField($profileCC,'latitude',array('class'=>'form-control geo')); ?>
         <?php echo $form->error($profileCC,'latitude'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($profileCC,'longitude'); ?>
+        <?php echo $form->textField($profileCC,'longitude',array('class'=>'form-control geo')); ?>
+        <?php echo $form->error($profileCC,'longitude'); ?>
     </div>
 
     <div class="row">
