@@ -64,12 +64,16 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                     return false;
                 }',
                 'search' => 'js:function( event, ui ) {
-                    $(".aL").remove();
-                    $("#company_country").after("<img class=aL src=/i/indicator.gif />");
+                    $("#company_country").css({backgroundImage:""});
+                    $("#company_country").css({backgroundImage:"url(/i/indicator.gif)"});
                 }',
                 'response' => 'js:function( event, ui ) {
-                    $(".aL").remove();
+                    $("#company_country").css({backgroundImage:""});
                 }',
+            ),
+            'htmlOptions' => array(
+                'class'=>'form-control',
+                'style'=>"background-repeat:no-repeat;background-position:right center;",
             ),
         ));
         ?>
@@ -112,14 +116,16 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                     if(+$("#CcProfile_company_country_id").val()<1){
                         return false;
                     }
-                    $(".aL").remove();
-                    $("#company_city").after("<img class=aL src=/i/indicator.gif />");
+                    $("#company_city").css({backgroundImage:""});
+                    $("#company_city").css({backgroundImage:"url(/i/indicator.gif)"});
                 }',
                 'response' => 'js:function( event, ui ) {
-                    $(".aL").remove();
+                   $("#company_city").css({backgroundImage:""});
                 }',
             ),
             'htmlOptions' => array(
+                'class'=>'form-control',
+                'style'=>"background-repeat:no-repeat;background-position:right center;",
                 'placeholder' => isset($profileCC->company_country_id)?Yii::t('view','Select city'):Yii::t('view','Select country'),
             ),
         ));

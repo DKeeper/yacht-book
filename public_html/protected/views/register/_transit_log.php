@@ -66,12 +66,16 @@ if(isset($model->country_id) && !empty($model->country_id)){
                 return false;
             }',
             'search' => 'js:function( event, ui ) {
-                $(".aL").remove();
-                $("#transit_log_country_'.$i.'").after("<img class=aL src=/i/indicator.gif />");
+                $("#transit_log_country_'.$i.'").css({backgroundImage:""});
+                $("#transit_log_country_'.$i.'").css({backgroundImage:"url(/i/indicator.gif)"});
             }',
             'response' => 'js:function( event, ui ) {
-                $(".aL").remove();
+                $("#transit_log_country_'.$i.'").css({backgroundImage:""});
             }',
+        ),
+        'htmlOptions' => array(
+            'class'=>'form-control',
+            'style'=>"background-repeat:no-repeat;background-position:right center;",
         ),
     ));
     echo $form->error($model,"[$i]country_id");
@@ -124,6 +128,15 @@ if(isset($model->country_id) && !empty($model->country_id)){
     </div>
 </div>
 <script>
+    <?php
+    if(Yii::app()->request->isAjaxRequest){
+        foreach(Yii::app()->clientScript->scripts as $pos){
+            foreach($pos as $script){
+                echo $script;
+            }
+        }
+    }
+    ?>
     $(function(){
         $("#CcTransitLog_<?php echo $i; ?>_included").on("click",function(event){
             if($(this).is(":checked")){
