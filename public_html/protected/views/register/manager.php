@@ -74,3 +74,34 @@ if(empty($this->breadcrumbs)){
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 <?php endif; ?>
+<script>
+    $(function(){
+        $('button[data-type="next"]').tooltip();
+        $('button[data-type="submit"]').tooltip();
+        $('button[data-type="back"]').on("click",function(event){
+            var currTabNum = +$('#manager_tabs').tabs("option","active");
+            $('#manager_tabs').tabs("option","active",currTabNum-1);
+        });
+        $('button[data-type="next"]').on("click",function(event){
+            event.preventDefault();
+            $('#registration-form').data('settings')['submitting'] = true;
+            $.fn.yiiactiveform.validate(
+                    '#registration-form',
+                    function(messages){
+                        var hasError = false;
+                        $.each($('#registration-form').data('settings')['attributes'], function () {
+                            hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#registration-form')) || hasError;
+                        });
+                        $.fn.yiiactiveform.updateSummary($('#registration-form'), messages);
+                        if(!hasError){
+                            var currTabNum = +$('#manager_tabs').tabs("option","active");
+                            $('#manager_tabs').tabs("enable",currTabNum+1);
+                            $('#manager_tabs').tabs("option","active",currTabNum+1);
+                        }
+                    }
+            );
+            $('#registration-form').data('settings')['submitting'] = false;
+            return false;
+        });
+    });
+</script>
