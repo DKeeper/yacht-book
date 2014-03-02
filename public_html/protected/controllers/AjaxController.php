@@ -212,7 +212,8 @@ class AjaxController extends Controller
                 } else {
                     $model->attributes=$_POST[$modelClass];
 			        if($model->save()){
-                        echo "create done";
+                        $data = array('addId'=>$model->id);
+                        echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
                         Yii::app()->end();
                     }
                 }

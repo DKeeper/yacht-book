@@ -64,9 +64,10 @@ function showAjaxForm(o,answer,success){
             url:'/ajax/icreate',
             data: $(this).serialize(),
             success:function(answer){
-                if(answer==="create done"){
+                var t = $.parseJSON(answer);
+                if(typeof t.success !== "undefined" && t.success){
                     if(typeof success !== "undefined"){
-                        success.call();
+                        success.call(this,t.data);
                     }
                     $(".fancybox-close").click();
                 } else {

@@ -166,33 +166,36 @@ $this->widget('fancyapps.EFancyApps', array(
     }
     function createOptions(o){
         if($(o).val()=="0"){
-            createAddForm("#c","order_options",o,function(){
-                    $.getJSON(
-                        "<?php echo $this->createUrl('ajax/autocomplete'); ?>",
-                        {
-                            term: "",
-                            modelClass: "OrderOptions",
-                            sql: false
-                        },
-                        function(data){
-                            var remOpt = [];
-                            $.each($("select[name^='CcOrderOptions']"),function(){
-                                var v = $(this).val();
-                                var out = "<option value=''><?php echo Yii::t("view","Select options"); ?></option>";
-                                $.each(data,function(){
-                                    if(remOpt.indexOf(this.id)!=-1){
-                                        return true;
-                                    }
-                                    var selected = "";
-                                    if(this.id == v){
-                                        selected = " selected";
-                                        remOpt.push(this.id);
-                                    }
-                                    out += "<option value='"+this.id+"'"+selected+">"+this.label+"</option>";
-                                });
-                                $(this).empty().append(out);
+            createAddForm("#c","order_options",o,function(answerData){
+                var addData = answerData.addId;
+                $.getJSON(
+                    "<?php echo $this->createUrl('ajax/autocomplete'); ?>",
+                    {
+                        term: "",
+                        modelClass: "OrderOptions",
+                        sql: false
+                    },
+                    function(data){
+                        var remOpt = [];
+                        $.each($(".order_options_select"),function(){
+                            var v = $(this).val();
+                            var out = "<option value=''><?php echo Yii::t("view","Select options"); ?></option>";
+                            $.each(data,function(){
+                                if(remOpt.indexOf(this.id)!=-1){
+                                    return true;
+                                }
+                                var selected = "";
+                                if(this.id == v){
+                                    selected = " selected";
+                                    remOpt.push(this.id);
+                                }
+                                out += "<option value='"+this.id+"'"+selected+">"+this.label+"</option>";
                             });
+                            $(this).empty().append(out);
                         });
+                        $(".order_options_select").last().val(addData);
+                    }
+                );
             });
             $(".custom_create").click();
             return false;
