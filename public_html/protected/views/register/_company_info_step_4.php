@@ -175,13 +175,18 @@ $this->widget('fancyapps.EFancyApps', array(
                             sql: false
                         },
                         function(data){
+                            var remOpt = [];
                             $.each($("select[name^='CcOrderOptions']"),function(){
                                 var v = $(this).val();
                                 var out = "<option value=''><?php echo Yii::t("view","Select options"); ?></option>";
                                 $.each(data,function(){
+                                    if(remOpt.indexOf(this.id)!=-1){
+                                        return true;
+                                    }
                                     var selected = "";
                                     if(this.id == v){
                                         selected = " selected";
+                                        remOpt.push(this.id);
                                     }
                                     out += "<option value='"+this.id+"'"+selected+">"+this.label+"</option>";
                                 });

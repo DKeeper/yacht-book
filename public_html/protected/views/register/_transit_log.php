@@ -85,7 +85,10 @@ if(isset($model->country_id) && !empty($model->country_id)){
     <div class="row">
         <div class="col-md-3">
     <?php
-    echo $form->textField($model,"[$i]price",array("class"=>"form-control","placeholder"=>$model->getAttributeLabel("price")));
+    echo $form->textField($model,"[$i]price",array(
+        "class"=>"form-control",
+        "placeholder"=>$model->getAttributeLabel("price")
+    ));
     echo $form->error($model,"[$i]price");
     ?>
         </div>
@@ -140,7 +143,18 @@ if(isset($model->country_id) && !empty($model->country_id)){
     $(function(){
         $("#CcTransitLog_<?php echo $i; ?>_included").on("click",function(event){
             if($(this).is(":checked")){
-                $("#CcTransitLog_<?php echo $i; ?>_price").val(0);
+                $("#CcTransitLog_<?php echo $i; ?>_price").val(0).attr("disabled",true);
+                $("#CcTransitLog_<?php echo $i; ?>_obligatory").attr("disabled",true);
+            } else {
+                $("#CcTransitLog_<?php echo $i; ?>_price").attr("disabled",false)
+                $("#CcTransitLog_<?php echo $i; ?>_obligatory").attr("disabled",false);
+            }
+        });
+        $("#CcTransitLog_<?php echo $i; ?>_price").on("change",function(){
+            if(+$(this).val()>0){
+                $("#CcTransitLog_<?php echo $i; ?>_included").attr({"disabled":true,"checked":false});
+            } else {
+                $("#CcTransitLog_<?php echo $i; ?>_included").attr({"disabled":false,"checked":true});
             }
         });
     });
