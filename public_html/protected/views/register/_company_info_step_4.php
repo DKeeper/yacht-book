@@ -19,16 +19,7 @@ $currency = Currency::model()->getModelList();
 </div>
 <div class="row">
 <?php
-    echo CHtml::tag(
-        "button",
-        array(
-            "class"=>"btn btn-default add_transit_log",
-            'onclick'=>'addTransitLog(this);return false;'
-        ),
-        Yii::t("model","transit log")."
-        <span class='glyphicon glyphicon-plus'></span>
-        "
-    );
+    echo CHtml::label(Yii::t("view","Transit log"),"",array('class'=>'add_transit_log'));
     foreach($transitLogs as $i=>$log){
         $this->renderPartial("/register/_transit_log",array(
             "i"=>$i,
@@ -36,6 +27,14 @@ $currency = Currency::model()->getModelList();
             "form"=>$form,
         ));
     }
+    echo CHtml::tag(
+        "button",
+        array(
+            "class"=>"btn btn-default  btn-xs",
+            'onclick'=>'addTransitLog(this);return false;'
+        ),
+        "<span class='glyphicon glyphicon-plus'></span>"
+    );
 ?>
 </div>
 <div class="row">

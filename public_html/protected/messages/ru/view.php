@@ -75,6 +75,7 @@ return array(
     'OS'=>'НМ',
     'To date'=>'До даты',
     'TD'=>'ДД',
+    'Transit log'=>'Транзит лог',
     '{v}% on spot'=>'{v}% на месте',
 
     '{p}% in {v} {d}' => '{p}% за {v} {d}',
