@@ -125,7 +125,7 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
     ));
     ?>
     <div class="row submit">
-        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Save"); ?></button></div>
+        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" class="btn btn-default btn_save"><?php echo UserModule::t("Save"); ?></button></div>
     </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->
@@ -143,6 +143,10 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
         });
         $("#User_email").on("change",function(){
             $("#CcProfile_company_email").val($(this).val());
+        });
+        $(".btn_save").on("click",function(event){
+            $("#save_mode").val(+$('#company_tabs').tabs("option","active"));
+            $("#profile-form").submit();
         });
     });
 </script>

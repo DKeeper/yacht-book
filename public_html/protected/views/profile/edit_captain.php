@@ -61,7 +61,7 @@
     ));
     ?>
     <div class="row submit">
-        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" data-type="submit" class="btn btn-default"><?php echo UserModule::t("Save"); ?></button></div>
+        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" class="btn btn-default btn_save"><?php echo UserModule::t("Save"); ?></button></div>
     </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->
@@ -74,6 +74,10 @@
         });
         $('button[data-type="next"]').on("click",function(event){
             $("#save_mode").val(+$('#captain_tabs').tabs("option","active")+1);
+            $("#profile-form").submit();
+        });
+        $(".btn_save").on("click",function(event){
+            $("#save_mode").val(+$('#captain_tabs').tabs("option","active"));
             $("#profile-form").submit();
         });
     });
