@@ -33,18 +33,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-        <?php
-        $this->widget('ckeditor.CKEditor', array(
-            'model'=>$model,
-            'attribute'=>'description',
-            'config'=> array(
-                'height' => 100,
-                'toolbar' => array(
-                    array('Bold','Italic','Underline'),
-                ),
-            ),
-        ));
-        ?>
+        <?php echo $form->textArea($model,'description',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
@@ -56,7 +45,7 @@
 
 </div><!-- form -->
 <?php
-if(isset($ajax) && $ajax){
+if(Yii::app()->request->isAjaxRequest){
     $scripts = Yii::app()->clientScript->scripts;
     foreach($scripts as $scriptPosition){
         foreach($scriptPosition as $script){

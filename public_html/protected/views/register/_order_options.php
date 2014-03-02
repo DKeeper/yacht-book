@@ -25,7 +25,7 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
         array(
             "prompt"=>Yii::t("view","Select options"),
             "onchange"=>"createOptions(this)",
-            "class"=>"form-control",
+            "class"=>"form-control order_options_select",
         )
     );
     ?>

@@ -136,7 +136,22 @@ $this->widget('fancyapps.EFancyApps', array(
             success:function(answer){
                 var o =  $(".order_options");
                 if(o.length != 0){
+                    var remOpt = [];
+                    $.each(o.find("select.order_options_select"),function(){
+                        if($(this).val()!=""){
+                            remOpt.push($(this).val());
+                        }
+                    });
                     o.last().after(answer);
+                    $.each(remOpt,function(){
+                        var remVal = this;
+                        $.each($(".order_options").last().find("select.order_options_select").find("option"),function(){
+                            if($(this).val()==remVal){
+                                $(this).remove();
+                                return false;
+                            }
+                        });
+                    });
                 } else {
                     $(".add_options").after(answer);
                 }
