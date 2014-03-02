@@ -30,7 +30,7 @@ $currency = Currency::model()->getModelList();
     echo CHtml::tag(
         "button",
         array(
-            "class"=>"btn btn-default  btn-xs",
+            "class"=>"btn btn-default btn-xs",
             'onclick'=>'addTransitLog(this);return false;'
         ),
         "<span class='glyphicon glyphicon-plus'></span>"
@@ -39,16 +39,7 @@ $currency = Currency::model()->getModelList();
 </div>
 <div class="row">
     <?php
-        echo CHtml::tag(
-            "button",
-            array(
-                "class"=>"btn btn-default add_options",
-                'onclick'=>'addOptions(this);return false;'
-            ),
-            Yii::t("model","Options")."
-            <span class='glyphicon glyphicon-plus'></span>
-            "
-        );
+        echo CHtml::label(Yii::t("model","Options"),"",array('class'=>'add_options'));
         foreach($orderOptions as $i=>$option){
             $this->renderPartial("/register/_order_options",array(
                 "i"=>$i,
@@ -56,6 +47,14 @@ $currency = Currency::model()->getModelList();
                 "form"=>$form,
             ));
         }
+        echo CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default btn-xs",
+                'onclick'=>'addOptions(this);return false;'
+            ),
+            "<span class='glyphicon glyphicon-plus'></span>"
+        );
     ?>
 </div>
 <?php
