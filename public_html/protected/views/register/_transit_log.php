@@ -143,7 +143,7 @@ if(isset($model->country_id) && !empty($model->country_id)){
     $(function(){
         $("#CcTransitLog_<?php echo $i; ?>_included").on("click",function(event){
             if($(this).is(":checked")){
-                $("#CcTransitLog_<?php echo $i; ?>_price").val(0).attr("disabled",true);
+                $("#CcTransitLog_<?php echo $i; ?>_price").val("").attr("disabled",true);
                 $("#CcTransitLog_<?php echo $i; ?>_obligatory").attr("disabled",true);
             } else {
                 $("#CcTransitLog_<?php echo $i; ?>_price").attr("disabled",false)

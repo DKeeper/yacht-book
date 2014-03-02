@@ -33,9 +33,10 @@ class CcTransitLog extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cc_profile_id, country_id, price', 'required'),
+			array('cc_profile_id, country_id', 'required'),
 			array('cc_profile_id, country_id, obligatory, included', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
+			array('price', 'default', 'value'=>null),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, cc_profile_id, country_id, obligatory, included, price', 'safe', 'on'=>'search'),
