@@ -134,6 +134,12 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
 <?php
 $script = "
 $('body').on('change','.price_curr_year input.hasDatepicker',function(event){
+    try{
+        var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());
+    } catch(e){
+        $(this).val('');
+        $(this).datepicker('setDate','');
+    }
     if($(this).val()!=''){
         var currDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).val()).getTime();
         if(typeof $(this).datepicker('option','maxDate') == 'string'){
@@ -185,6 +191,12 @@ $('body').on('change','.price_curr_year input.hasDatepicker',function(event){
 });
 $('body').find('.price_curr_year input.hasDatepicker').change();
 $('body').on('change','.price_next_year input.hasDatepicker',function(event){
+    try{
+        var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());
+    } catch(e){
+        $(this).val('');
+        $(this).datepicker('setDate','');
+    }
     if($(this).val()!=''){
         var currDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).val()).getTime();
         if(typeof $(this).datepicker('option','maxDate') == 'string'){
