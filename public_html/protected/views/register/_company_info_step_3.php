@@ -267,18 +267,20 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
                 </div>
             </div>
             <div style="display: inline;">
+                <div class="col-md-6">
                 <?php
                 $htmlOptions = array('class'=>'form-control before_duration_value','style'=>'width:auto;');
                 if($profileCC->last_minute_duration==-1){
                     $htmlOptions['style'] .= "display:none;";
                 }
                 echo $form->textField($profileCC,"last_minute_duration",$htmlOptions); ?>
+                </div>
             </div>
             <?php
             echo $form->error($profileCC,"last_minute_duration");
             ?>
         </div>
-        <div class='col-md-2'>
+        <div class='col-md-2' style="margin-left: -20%;">
             <?php
             $htmlOptions = array('class'=>'form-control');
             if($profileCC->last_minute_duration==-1){
