@@ -47,10 +47,9 @@ class PriceCurrentYear extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('yacht_id, duration_type_id', 'required'),
+			array('yacht_id, duration_type_id, date_from, date_to', 'required'),
 			array('yacht_id, duration, duration_type_id, last_minute, week_before', 'numerical', 'integerOnly'=>true),
 			array('price, deposit, deposit_insurance_price, deposit_insurance_deposit, latitude, longitude', 'numerical'),
-            array('date_from, date_to','default','value' => null),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, yacht_id, date_from, date_to, duration, duration_type_id, price, deposit, deposit_insurance_price, deposit_insurance_deposit, last_minute, week_before, latitude, longitude', 'safe', 'on'=>'search'),

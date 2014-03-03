@@ -48,9 +48,9 @@ if($model instanceof PriceCurrentYear){
                             'dateFormat' => 'dd.mm.yy',
                             'changeMonth' => true,
                             'changeYear' => false,
-                            'onClose'=>'js: function( selectedDate ) {
-                                $( "#'.$idPrefix.'_date_to" ).datepicker( "option", "minDate", selectedDate );
-                            }'
+//                            'onClose'=>'js: function( selectedDate ) {
+//                                $( "#'.$idPrefix.'_date_to" ).datepicker( "option", "minDate", selectedDate );
+//                            }'
                         )
                     ),
                     'htmlOptions' => array(
@@ -74,9 +74,9 @@ if($model instanceof PriceCurrentYear){
                             'dateFormat' => 'dd.mm.yy',
                             'changeMonth' => true,
                             'changeYear' => false,
-                            'onClose'=>'js: function( selectedDate ) {
-                                $( "#'.$idPrefix.'_date_from" ).datepicker( "option", "maxDate", selectedDate );
-                            }'
+//                            'onClose'=>'js: function( selectedDate ) {
+//                                $( "#'.$idPrefix.'_date_from" ).datepicker( "option", "maxDate", selectedDate );
+//                            }'
                         )
                     ),
                     'htmlOptions' => array(
@@ -109,24 +109,24 @@ if($model instanceof PriceCurrentYear){
         <div id="map_canvas_<?php echo get_class($model)."_".$i; ?>" style="width:450px; height:200px; display: none;"></div>
     </div>
 </div>
+<?php
+$script = "
+initialize({id:'".get_class($model)."_".$i."'},'map_canvas_".get_class($model)."_".$i."',{},false,'".get_class($model)."_".$i."');
+";
+Yii::app()->clientScript->registerScript(get_class($model)."_".$i,$script,CClientScript::POS_LOAD);
+if(Yii::app()->request->isAjaxRequest){
+?>
 <script>
+    $(function(){
     <?php
-    if(Yii::app()->request->isAjaxRequest){
-        foreach(Yii::app()->clientScript->scripts as $pos){
-            foreach($pos as $script){
-                echo $script;
+    foreach(Yii::app()->clientScript->scripts as $pos){
+        foreach($pos as $script){
+            echo $script;
             }
         }
-        ?>
-    $(".fleets_form input").tooltip();
-    initialize({id:'<?php echo get_class($model)."_".$i; ?>'},'map_canvas_<?php echo get_class($model)."_".$i; ?>',{},false,"<?php echo get_class($model)."_".$i; ?>");
-        <?php
-    } else {
-        ?>
-    $(function(){
-        initialize({id:'<?php echo get_class($model)."_".$i; ?>'},'map_canvas_<?php echo get_class($model)."_".$i; ?>',{},false,"<?php echo get_class($model)."_".$i; ?>");
-    });
-        <?php
-    }
     ?>
+    });
 </script>
+<?php
+}
+?>

@@ -266,38 +266,59 @@
 <script>
     confirmMessage = '<?php echo Yii::t("view","You are sure you want to delete?"); ?>';
     function addPriceCurrYear(o){
-        var n = $(".price_curr_year").last().attr("class");
-        if(typeof n === "undefined"){
-            n = 0;
-        } else {
-            n = n.split(" ");
-            n = n[2].split("_");
-            n = +n[1]+1;
-        }
-        $(o).after("<img class=aL src=/i/indicator.gif />");
-        $.ajax({
-            url:'/ajax/getmodelbynum',
-            data:{
-                i:n,
-                model:"PriceCurrentYear",
-                view:"/fleets/_fleets_price_period"
-            },
-            success:function(answer){
-                var o =  $(".price_curr_year");
-                if(o.length != 0){
-                    o.last().after(answer);
-                } else {
-                    $(".add_price_curr_year").after(answer);
+        $('#cc-fleets-form').data('settings')['submitting'] = true;
+        $.fn.yiiactiveform.validate(
+                '#cc-fleets-form',
+                function(messages){
+                    var hasError = false;
+                    $.each($('#cc-fleets-form').data('settings')['attributes'], function () {
+                        hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#cc-fleets-form')) || hasError;
+                    });
+                    $.fn.yiiactiveform.updateSummary($('#cc-fleets-form'), messages);
+                    if(!hasError){
+                        var n = $(".price_curr_year").last().attr("class");
+                        if(typeof n === "undefined"){
+                            n = 0;
+                        } else {
+                            n = n.split(" ");
+                            n = n[2].split("_");
+                            n = +n[1]+1;
+                        }
+                        $(o).after("<img class=aL src=/i/indicator.gif />");
+                        $.ajax({
+                            url:'/ajax/getmodelbynum',
+                            data:{
+                                i:n,
+                                model:"PriceCurrentYear",
+                                view:"/fleets/_fleets_price_period"
+                            },
+                            success:function(answer){
+                                var o =  $(".price_curr_year");
+                                if(o.length != 0){
+                                    o.last().after(answer);
+                                } else {
+                                    $(".add_price_curr_year").after(answer);
+                                }
+                                o = $(".price_curr_year");
+                                o.parent().find(".aL").remove();
+                                o.find("div:hidden").addClass("errorMessage");
+                                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
+                                // Установка мин. даты
+                                if(n!=0){
+                                    var minDate = $($(".price_curr_year").last().prev().find(".hasDatepicker")[1]).datepicker("getDate");
+                                    var nextDay = minDate.getTime()+1000*60*60*24;
+                                    minDate.setTime(nextDay);
+                                    $($(".price_curr_year").last().find(".hasDatepicker")[0]).datepicker("option","minDate",minDate);
+                                }
+                            },
+                            type:'POST',
+                            dataType:'html',
+                            async:true
+                        });
+                    }
                 }
-                o = $(".price_curr_year");
-                o.parent().find(".aL").remove();
-                o.find("div:hidden").addClass("errorMessage");
-                $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
-            },
-            type:'POST',
-            dataType:'html',
-            async:true
-        });
+        );
+        $('#cc-fleets-form').data('settings')['submitting'] = false;
     }
     function addPriceNextYear(o){
         var n = $(".price_next_year").last().attr("class");

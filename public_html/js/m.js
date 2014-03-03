@@ -347,6 +347,36 @@ function delRowMap(o,c){
             return false;
         }
     });
+    // Обновляем граничные даты для соседних периодов
+    if($o.parent().parent().hasClass('price_curr_year')){
+        var prevPeriod = $o.parents('.row.price_curr_year').prev('.row');
+        var nextPeriod = $o.parents('.row.price_curr_year').next('.row');
+    } else {
+        var prevPeriod = $o.parents('.row.price_next_year').prev('.row');
+        var nextPeriod = $o.parents('.row.price_next_year').next('.row');
+    }
+    if(prevPeriod.length && nextPeriod.length){
+        var pickerNext = $(nextPeriod.find('input.hasDatepicker')[0]);
+        var pickerPrev = $(prevPeriod.find('input.hasDatepicker')[1]);
+        var maxTmst = pickerNext.datepicker("getDate").getTime()-1000*60*60*24;
+        var maxDate = new Date();
+        maxDate.setTime(maxTmst);
+        var minTmst = pickerPrev.datepicker("getDate").getTime()+1000*60*60*24;
+        var minDate = new Date();
+        minDate.setTime(minTmst);
+        pickerNext.datepicker('option','minDate',minDate);
+        pickerPrev.datepicker('option','maxDate',maxDate);
+    }
+    if(prevPeriod.length && !nextPeriod.length){
+        var pickerNext = $(prevPeriod.find('input.hasDatepicker')[1]);
+        var nextDate = new Date(pickerNext.datepicker('getDate').getFullYear(),11,31);
+        pickerNext.datepicker('option','maxDate',nextDate);
+    }
+    if(nextPeriod.length && !prevPeriod.length){
+        var pickerPrev = $(nextPeriod.find('input.hasDatepicker')[0]);
+        var prevDate = new Date(pickerPrev.datepicker('getDate').getFullYear(),0,1);
+        pickerPrev.datepicker('option','minDate',prevDate);
+    }
     $o.parent().parent().remove();
 }
 /** **/
