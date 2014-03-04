@@ -28,70 +28,98 @@ if($model instanceof PriceCurrentYear){
         'showOn' => 'button',
     );
 }
+if($model->isNewRecord){
+    list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess($this->loadUser());
+    $model->latitude = $profileCC->latitude;
+    $model->longitude = $profileCC->longitude;
+}
 ?>
 <div class="row num_<?php echo $i." ".$class; ?>">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <?php
         echo $form->hiddenField($model,"[$i]latitude");
         echo $form->hiddenField($model,"[$i]longitude");
         echo $form->hiddenField($model,"[$i]duration_type_id",array('value'=>1));
+        $this->widget('datepicker.EDatePicker', array(
+            'model' => $model,
+            'attribute' => "[{$i}]date_from",
+            'language' => Yii::app()->language,
+            'options' => array_merge(
+                $options,
+                array(
+                    'dateFormat' => 'dd.mm.yy',
+                    'changeMonth' => true,
+                    'changeYear' => false,
+                )
+            ),
+            'htmlOptions' => array(
+                'class'=>'form-control',
+                'placeholder'=>$model->getAttributeLabel('date_from'),
+                'title'=>$model->getAttributeLabel('date_from'),
+            ),
+        ));
+        echo $form->error($model,"[{$i}]date_from");
         ?>
-        <div class="row">
-                <?php
-                $this->widget('datepicker.EDatePicker', array(
-                    'model' => $model,
-                    'attribute' => "[{$i}]date_from",
-                    'language' => Yii::app()->language,
-                    'options' => array_merge(
-                        $options,
-                        array(
-                            'dateFormat' => 'dd.mm.yy',
-                            'changeMonth' => true,
-                            'changeYear' => false,
-//                            'onClose'=>'js: function( selectedDate ) {
-//                                $( "#'.$idPrefix.'_date_to" ).datepicker( "option", "minDate", selectedDate );
-//                            }'
-                        )
-                    ),
-                    'htmlOptions' => array(
-                        'class'=>'form-control',
-                        'placeholder'=>$model->getAttributeLabel('date_from'),
-                        'title'=>$model->getAttributeLabel('date_from'),
-                    ),
-                ));
-                ?>
-            <?php echo $form->error($model,"[{$i}]date_from"); ?>
-        </div>
-        <div class="row">
-                <?php
-                $this->widget('datepicker.EDatePicker', array(
-                    'model' => $model,
-                    'attribute' => "[{$i}]date_to",
-                    'language' => Yii::app()->language,
-                    'options' => array_merge(
-                        $options,
-                        array(
-                            'dateFormat' => 'dd.mm.yy',
-                            'changeMonth' => true,
-                            'changeYear' => false,
-//                            'onClose'=>'js: function( selectedDate ) {
-//                                $( "#'.$idPrefix.'_date_from" ).datepicker( "option", "maxDate", selectedDate );
-//                            }'
-                        )
-                    ),
-                    'htmlOptions' => array(
-                        'class'=>'form-control',
-                        'placeholder'=>$model->getAttributeLabel('date_to'),
-                        'title'=>$model->getAttributeLabel('date_to'),
-                    ),
-                ));
-                ?>
-            <?php echo $form->error($model,"[{$i}]date_to"); ?>
-        </div>
-        <div class="row">
-            <?php echo $form->textField($model,"[$i]price",array('class'=>'form-control','placeholder' => $model->getAttributeLabel("price"),'title' => $model->getAttributeLabel("price"))); ?>
-            <?php echo $form->error($model,"[{$i}]price"); ?>
-        </div>
+    </div>
+    <div class="col-md-3">
+        <?php
+        $this->widget('datepicker.EDatePicker', array(
+            'model' => $model,
+            'attribute' => "[{$i}]date_to",
+            'language' => Yii::app()->language,
+            'options' => array_merge(
+                $options,
+                array(
+                    'dateFormat' => 'dd.mm.yy',
+                    'changeMonth' => true,
+                    'changeYear' => false,
+                )
+            ),
+            'htmlOptions' => array(
+                'class'=>'form-control',
+                'placeholder'=>$model->getAttributeLabel('date_to'),
+                'title'=>$model->getAttributeLabel('date_to'),
+            ),
+        ));
+        ?>
+        <?php echo $form->error($model,"[{$i}]date_to"); ?>
+    </div>
+    <div class="col-md-3">
+        <?php echo $form->textField($model,"[$i]price",array('class'=>'form-control','placeholder' => $model->getAttributeLabel("price"),'title' => $model->getAttributeLabel("price"))); ?>
+        <?php echo $form->error($model,"[{$i}]price"); ?>
+    </div>
+    <div class="col-md-3">
+        <?php
+        $label = CHtml::tag(
+            "button",
+            array(
+                "class"=>"btn btn-default",
+                "type" => "button",
+            ),
+            "<span class='glyphicon glyphicon-globe'></span>"
+        );
+        $this->widget('fancyapps.EFancyApps', array(
+            'mode'=>'inline',
+            'config'=>array(
+                'maxWidth'	=> 300,
+                'maxHeight'	=> 300,
+                'width'		=> 300,
+                'height'    => 300,
+                'afterShow'=>"function(){
+                    var id = '".get_class($model)."_".$i."';
+                    initialize({id:id},'fleet_map',{},false,id);
+                }",
+            ),
+            'options' => array(
+                'url' => '#fleet_map_wrapper',
+                'label'=> $label,
+            ),
+            'htmlOptions'=>array(
+                'class'=> "show_fleet_map",
+                "data-type" => "viewMap",
+            )
+        ));
+        ?>
         <?php
         echo CHtml::tag(
             "button",
@@ -105,15 +133,11 @@ if($model instanceof PriceCurrentYear){
         );
         ?>
     </div>
-    <div class="col-md-8">
-        <div id="map_canvas_<?php echo get_class($model)."_".$i; ?>" style="width:450px; height:200px; display: none;"></div>
-    </div>
 </div>
 <?php
 $script = "
 initialize({id:'".get_class($model)."_".$i."'},'map_canvas_".get_class($model)."_".$i."',{},false,'".get_class($model)."_".$i."');
 ";
-Yii::app()->clientScript->registerScript(get_class($model)."_".$i,$script,CClientScript::POS_LOAD);
 if(Yii::app()->request->isAjaxRequest){
 ?>
 <script>

@@ -263,6 +263,7 @@
 <div class="row">
     <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
 </div>
+<div style="display:none;" id="fleet_map_wrapper"><div id=fleet_map></div></div>
 <script>
     confirmMessage = '<?php echo Yii::t("view","You are sure you want to delete?"); ?>';
     function addPriceCurrYear(o){
@@ -348,6 +349,13 @@
                 o.parent().find(".aL").remove();
                 o.find("div:hidden").addClass("errorMessage");
                 $.fn.yiiactiveform.addFields(o.parents('form'), o.find('input, select'));
+                // Установка мин. даты
+                if(n!=0){
+                    var minDate = $($(".price_next_year").last().prev().find(".hasDatepicker")[1]).datepicker("getDate");
+                    var nextDay = minDate.getTime()+1000*60*60*24;
+                    minDate.setTime(nextDay);
+                    $($(".price_next_year").last().find(".hasDatepicker")[0]).datepicker("option","minDate",minDate);
+                }
             },
             type:'POST',
             dataType:'html',

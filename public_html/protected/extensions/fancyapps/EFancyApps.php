@@ -131,6 +131,6 @@ class EFancyApps extends CWidget
                 $script = "";
                 break;
         }
-        Yii::app()->clientScript->registerScript($this->htmlOptions['class'],$script,CClientScript::POS_LOAD);
+        Yii::app()->clientScript->registerScript($id,$script,CClientScript::POS_LOAD);
     }
 }
