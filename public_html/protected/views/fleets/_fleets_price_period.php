@@ -115,6 +115,7 @@ if($model->isNewRecord){
                 'label'=> $label,
             ),
             'htmlOptions'=>array(
+                'id' => get_class($model)."_".$i,
                 'class'=> "show_fleet_map",
                 "data-type" => "viewMap",
             )
