@@ -180,25 +180,27 @@ class ProfileController extends Controller
                         /** @var $profileCC CcProfile */
                         $profileCC = CcProfile::model()->findByAttributes(array("cc_id"=>$modelUser->id));
                         /** @var $paymentsPeriods CcPaymentsPeriod[] */
-                        $paymentsPeriods = $profileCC->ccPaymentsPeriods;
+                        $paymentsPeriods = array();
                         /** @var $cancelPeriods CcCancelPeriod[] */
-                        $cancelPeriods = $profileCC->ccCancelPeriods;
+                        $cancelPeriods = array();
                         /** @var $longPeriods CcLongPeriod[] */
-                        $longPeriods = $profileCC->ccLongPeriods;
+                        $longPeriods = array();
                         /** @var $earlyPeriods CcEarlyPeriod[] */
-                        $earlyPeriods = $profileCC->ccEarlyPeriods;
+                        $earlyPeriods = array();
                         /** @var $transitLogs CcTransitLog[] */
-                        $transitLogs = $profileCC->ccTransitLogs;
+                        $transitLogs = array();
                         /** @var $orderOptions CcOrderOptions[] */
-                        $orderOptions = $profileCC->ccOrderOptions;
+                        $orderOptions = array();
                         /** @var $languages CcLanguage[] */
-                        $languages = $profileCC->ccLanguages;
+                        $languages = array();
                         if(isset($_POST['CcProfile']['ccLanguages'])){
                             foreach($_POST['CcProfile']['ccLanguages'] as $i => $item){
                                 $languages[$i] = new CcLanguage;
                                 $languages[$i]->cc_profile_id = $profileCC->id;
                                 $languages[$i]->language_id = $item;
                             }
+                        } elseif (!isset($_POST['CcProfile']['ccLanguages'])) {
+                            $languages = $profileCC->ccLanguages;
                         }
                         if(isset($_POST['CcPaymentsPeriod'])){
                             foreach($_POST['CcPaymentsPeriod'] as $i => $item){
@@ -206,6 +208,8 @@ class ProfileController extends Controller
                                 $paymentsPeriods[$i]->attributes = $item;
                                 $paymentsPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
+                        } elseif (!isset($_POST['CcPaymentsPeriod'])) {
+                            $paymentsPeriods = $profileCC->ccPaymentsPeriods;
                         }
                         if(isset($_POST['CcCancelPeriod'])){
                             foreach($_POST['CcCancelPeriod'] as $i => $item){
@@ -213,6 +217,8 @@ class ProfileController extends Controller
                                 $cancelPeriods[$i]->attributes = $item;
                                 $cancelPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
+                        } elseif (!isset($_POST['CcCancelPeriod'])) {
+                            $cancelPeriods = $profileCC->ccCancelPeriods;
                         }
                         if(isset($_POST['CcLongPeriod'])){
                             foreach($_POST['CcLongPeriod'] as $i => $item){
@@ -220,6 +226,8 @@ class ProfileController extends Controller
                                 $longPeriods[$i]->attributes = $item;
                                 $longPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
+                        } elseif (!isset($_POST['CcLongPeriod'])) {
+                            $longPeriods = $profileCC->ccLongPeriods;
                         }
                         if(isset($_POST['CcEarlyPeriod'])){
                             foreach($_POST['CcEarlyPeriod'] as $i => $item){
@@ -230,6 +238,8 @@ class ProfileController extends Controller
                                 $earlyPeriods[$i]->attributes = $item;
                                 $earlyPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
+                        } elseif (!isset($_POST['CcEarlyPeriod'])) {
+                            $earlyPeriods = $profileCC->ccEarlyPeriods;
                         }
                         if(isset($_POST['CcTransitLog'])){
                             foreach($_POST['CcTransitLog'] as $i => $item){
@@ -237,6 +247,8 @@ class ProfileController extends Controller
                                 $transitLogs[$i]->attributes = $item;
                                 $transitLogs[$i]->cc_profile_id = $profileCC->id;
                             }
+                        } elseif (!isset($_POST['CcTransitLog'])) {
+                            $transitLogs = $profileCC->ccTransitLogs;
                         }
                         if(isset($_POST['CcOrderOptions'])){
                             foreach($_POST['CcOrderOptions'] as $i => $item){
@@ -244,6 +256,8 @@ class ProfileController extends Controller
                                 $orderOptions[$i]->attributes = $item;
                                 $orderOptions[$i]->cc_profile_id = $profileCC->id;
                             }
+                        } elseif (!isset($_POST['CcOrderOptions'])) {
+                            $orderOptions = $profileCC->ccOrderOptions;
                         }
                         // ajax validator
                         if(isset($_POST['ajax']) && $_POST['ajax']==='profile-form')
@@ -449,6 +463,9 @@ class ProfileController extends Controller
                                             $profileM->avatar = $avatarName;
                                         } else {
                                             $profileM->avatar = null;
+                                        }
+                                        if(!empty($oldAvatar) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
+                                            unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
                                         }
                                     }
                                 }
