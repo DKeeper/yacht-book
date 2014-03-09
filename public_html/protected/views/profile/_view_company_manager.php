@@ -34,8 +34,12 @@
     </div>
 </div>
 <script>
+    confirmMessage = '<?php echo Yii::t("view","You are sure you want to delete?"); ?>';
     $(function(){
         $(".remove_manager").on("click",function(event){
+            if(!confirm(confirmMessage)){
+                return false;
+            }
             var $self = $(this);
             $.ajax({
                 url:'/ajax/rm',
