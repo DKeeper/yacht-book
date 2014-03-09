@@ -26,7 +26,11 @@ Yii::app()->clientScript->registerCoreScript('yiiactiveform');
     </div>
     <div class="row">
         <div class="col-md-8">
-            <h1><?php echo !empty($model->profile->name)?$model->profile->name:Yii::t("view","No name"); ?></h1>
+            <h1><?php
+                echo isset($model->profile->model)?$model->profile->model->name." ":"";
+                echo isset($model->profile->index)?$model->profile->index->name." - ":"";
+                echo "'".(!empty($model->profile->name)?$model->profile->name:Yii::t("view","No name"))."'";
+            ?></h1>
         </div>
         <div class="col-md-4 view_danger text-center" style="display: none;">
             <button type="button" class="btn btn-link change_data_btn"><?php echo Yii::t("view","cnahge data")?></button>

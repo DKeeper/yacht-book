@@ -718,7 +718,7 @@
             <?php echo $form->labelEx($profile,"displacement",array("class"=>"control-label")); ?>
             <div class="input-group">
                 <?php echo $form->textField($profile,'displacement',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("displacement"),'title' => $profile->getAttributeLabel("displacement"))); ?>
-                <span class="input-group-addon">t</span>
+                <span class="input-group-addon">kg</span>
             </div>
             <?php echo $form->error($profile,'displacement'); ?>
         </div>

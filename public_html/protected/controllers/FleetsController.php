@@ -255,6 +255,8 @@ class FleetsController extends Controller
         /** @var $priceNextYear PriceNextYear[] */
         $priceNextYear = $model->priceNextYears;
 
+        $saveMode = isset($_POST['save_mode'])?$_POST['save_mode']:-1;
+
         $validate=null;
 
         if(isset($_POST['PriceCurrentYear'])){
@@ -505,7 +507,12 @@ class FleetsController extends Controller
                     $price->save(false);
                 }
 
-                $this->redirect(array('view','id'=>$model->id));
+                if($saveMode==-1){
+                    $this->redirect(array('view','id'=>$model->id));
+                } else {
+                    $priceCurrYear = $model->priceCurrentYears;
+                    $priceNextYear = $model->priceNextYears;
+                }
             }
         }
 
@@ -515,6 +522,7 @@ class FleetsController extends Controller
             'yachtFoto'=>$yachtFoto,
             'priceCurrYear'=>$priceCurrYear,
             'priceNextYear'=>$priceNextYear,
+            'save_mode'=>$saveMode,
         ));
 	}
 

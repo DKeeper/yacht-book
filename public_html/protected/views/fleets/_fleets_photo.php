@@ -16,7 +16,7 @@
             <div class="col-md-3 cell ui-widget-content">
                 <?php echo $form->hiddenField($yachtFoto[1],"[1]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[1],"[1]type",array("value"=>1)); ?>
-                <h5 class="ui-widget-header"><?php echo Yii::t("view","stem (with name of boat)")?></h5>
+                <h5 class="ui-widget-header"><?php echo Yii::t("view","stern (with name of boat)")?></h5>
                 <?php
                 if(!empty($yachtFoto[1]->link)){
                     echo "<li class='images'><img src='".$yachtFoto[1]->link."' class='img-thumbnail'></li>";

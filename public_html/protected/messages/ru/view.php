@@ -86,7 +86,7 @@ return array(
 
     'Pls attach the real photo of this yacht (obligatory)'=>'Пожалуйста, прикрепите реальные фотографии яхты (обязательно)',
     'Preview uploaded images'=>'Предпросмотр загруженных изображений',
-    'stem (with name of boat)'=>'основная (с названием)',
+    'stern (with name of boat)'=>'основная (с названием)',
     'starboard'=>'правый борт',
     'portside'=>'левый борт',
     'cockpit'=>'кокпит',

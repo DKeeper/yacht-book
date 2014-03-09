@@ -61,8 +61,10 @@
             </div>
         </div>
         <div class="row">
-            <?php echo $form->textField($profile,'race_sail',array('class'=>'form-control','placeholder' => $profile->getAttributeLabel("race_sail"),'title' => $profile->getAttributeLabel("race_sail"))); ?>
-            <?php echo $form->error($profile,'race_sail'); ?>
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $form->checkBox($profile,'race_sail'); ?></span>
+                <?php echo CHtml::textField('checkbox_race_sail',$profile->getAttributeLabel("race_sail"),array('class'=>'form-control','disabled'=>true)); ?>
+            </div>
         </div>
         <div class="row">
             <div class="input-group">

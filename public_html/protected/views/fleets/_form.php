@@ -6,6 +6,7 @@
 /* @var $yachtFoto array */
 /* @var $priceCurrYear PriceCurrentYear[] */
 /* @var $priceNextYear PriceNextYear[] */
+/* @var $save_mode integer */
 $statusList = BaseModel::getFilters('status');
 Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCoreScript('maskedinput');
@@ -25,7 +26,15 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
     ),
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php
+    echo $form->errorSummary($model);
+    echo $form->hiddenField($profile,'save_mode',array('id'=>'save_mode','name'=>'save_mode','value'=>-1));
+    $options = array();
+    if($save_mode!=-1){
+        $options['active'] = $save_mode;
+    }
+
+    ?>
     <?php echo $form->hiddenField($model,'cc_id'); ?>
     <?php echo $form->hiddenField($model,'profile_id'); ?>
     <div class="form-group">
@@ -73,6 +82,7 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
                 'id'=>'tab4'
             ),
         ),
+        'options'=>$options,
         // additional javascript options for the tabs plugin
         'htmlOptions'=>array(
             'id'=>'fleets_tabs',
@@ -94,9 +104,9 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
 	</div>
     <?php } ?>
 
-	<div class="row buttons">
-        <button data-type="submit" class="btn btn-default"><?php echo $model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save'); ?></button>
-	</div>
+    <div class="row submit">
+        <div class="pull-left"><button class="btn btn-default btn_save"><?php echo $model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save'); ?></button></div>
+    </div>
 
 <?php $this->endWidget(); ?>
 
@@ -128,6 +138,10 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
             } else {
                 $($(this).parent().find(":hidden")[1]).attr("checked",false);
             }
+        });
+        $(".btn_save").on("click",function(event){
+            $("#save_mode").val(+$('#fleets_tabs').tabs("option","active"));
+            $("#fleets_form").submit();
         });
     });
 </script>
