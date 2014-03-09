@@ -125,7 +125,7 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
     ));
     ?>
     <div class="row submit">
-        <div class="pull-left"><button title="<?php echo Yii::t("view","To go fill in all fields"); ?>" class="btn btn-default btn_save"><?php echo UserModule::t("Save"); ?></button></div>
+        <div class="pull-left"><button class="btn btn-default btn_save"><?php echo UserModule::t("Save"); ?></button></div>
     </div>
     <?php $this->endWidget(); ?>
 </div><!-- form -->

@@ -41,7 +41,7 @@ foreach($model->ccOrderOptions as $i => $options){
                 'label'=>Yii::t('model','Order options #{n}',array('{n}'=>$i+1)),
                 'value'=>Yii::t(
                     'model',
-                    '{opt} - {v} for {d} (Obligatory: {o}, Included: {i})',
+                    '{opt} - {v} per {d} (Obligatory: {o}, Included: {i})',
                     array(
                         '{opt}'=>$options->orderOption->name,
                         '{v}'=>$options->price,

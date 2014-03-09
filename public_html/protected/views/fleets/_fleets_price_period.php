@@ -135,9 +135,6 @@ if($model->isNewRecord){
     </div>
 </div>
 <?php
-$script = "
-initialize({id:'".get_class($model)."_".$i."'},'map_canvas_".get_class($model)."_".$i."',{},false,'".get_class($model)."_".$i."');
-";
 if(Yii::app()->request->isAjaxRequest){
 ?>
 <script>

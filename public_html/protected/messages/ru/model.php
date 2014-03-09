@@ -76,7 +76,7 @@ return array(
     'Transit log #{n}' => 'Транзитлог №{n}',
     '{c} (Price: {v}, Obligatory: {o}, Included: {i})' => '{c} (Цена: {v}, Обязательно: {o}, Включено: {i})',
     'Order options #{n}' => 'Опции заказа №{n}',
-    '{opt} - {v} for {d} (Obligatory: {o}, Included: {i})' => '{opt} - {v} за {d} (Обязательно: {o}, Включено: {i})',
+    '{opt} - {v} per {d} (Obligatory: {o}, Included: {i})' => '{opt} - {v} за {d} (Обязательно: {o}, Включено: {i})',
     'Repeater' => 'За повторное бронирование',
     'Maximum' => 'Максимально возможная',
     'Other' => 'Прочие',
