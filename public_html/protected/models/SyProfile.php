@@ -123,6 +123,11 @@
  * @property double $deposit_insurance_deposit
  * @property integer $last_minute
  * @property integer $week_before
+ * @property integer $last_minute_value
+ * @property integer $last_minute_duration
+ * @property integer $last_minute_duration_type_id
+ * @property string $last_minute_date_from
+ * @property string $last_minute_date_to
  *
  * The followings are the available model relations:
  * @property SailFurling $mainSailFurling
@@ -143,6 +148,16 @@
  */
 class SyProfile extends BaseModel
 {
+    protected function afterFind(){
+        parent::afterFind();
+        if(isset($this->last_minute_date_from)){
+            $this->last_minute_date_from = date('d.m.Y',strtotime($this->last_minute_date_from));
+        }
+        if(isset($this->last_minute_date_to)){
+            $this->last_minute_date_to = date('d.m.Y',strtotime($this->last_minute_date_to));
+        }
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -159,14 +174,14 @@ class SyProfile extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type_id, shipyard_id, model_id, _index_id, modification_id, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, gennaker, displacement, no_of_engine, engine_type_id, engine_mark_id, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, last_cleaning_incl, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price_obl, race_sail_deposit_obl, crew_license, water_tank_capacity, fuel_tank_capacity, grey_tank_capacity, last_minute, week_before', 'numerical', 'integerOnly'=>true),
+			array('type_id, shipyard_id, model_id, _index_id, modification_id, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, gennaker, displacement, no_of_engine, engine_type_id, engine_mark_id, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, last_cleaning_incl, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price_obl, race_sail_deposit_obl, crew_license, water_tank_capacity, fuel_tank_capacity, grey_tank_capacity, last_minute_value, last_minute_duration, last_minute_duration_type_id', 'numerical', 'integerOnly'=>true),
 			array('main_sail_area, jib_area, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker_area, gennaker_price, gennaker_deposit, engine_power_hp, engine_power_kW, site_discount, last_cleaning_price, race_sail_price, race_sail_deposit, race_preparation, hull_cleaning, deposit, deposit_insurance_price, deposit_insurance_deposit', 'numerical'),
 			array('name, other_details, IRC_scan, ORC_scan', 'safe'),
-            array('built_date, renovation_date','default','value'=>null),
+            array('built_date, renovation_date, last_minute_value, last_minute_duration, last_minute_duration_type_id, last_minute_date_from, last_minute_date_to','default','value'=>null),
             array('length_m, beam, draft, mast_draught', 'match', 'pattern'=>'/^\d+(\.\d+)?$/', 'message' => Yii::t("view","Incorrect symbols (0-9.)")),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, type_id, name, shipyard_id, model_id, _index_id, modification_id, built_date, renovation_date, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_area, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_area, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker, gennaker_area, gennaker_price, gennaker_deposit, length_m, beam, draft, mast_draught, displacement, no_of_engine, engine_type_id, engine_mark_id, engine_power_hp, engine_power_kW, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, other_details, site_discount, last_cleaning_incl, last_cleaning_price, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price, race_sail_price_obl, race_sail_deposit, race_sail_deposit_obl, IRC_scan, ORC_scan, race_preparation, hull_cleaning, crew_license, deposit, deposit_insurance_price, deposit_insurance_deposit, last_minute, week_before', 'safe', 'on'=>'search'),
+			array('id, type_id, name, shipyard_id, model_id, _index_id, modification_id, built_date, renovation_date, double_cabins, bunk_cabins, twin_cabins, single_cabins, berth_cabin, berth_salon, crew_cabins, crew_berth, WC, shower, main_sail_area, main_sail_full_battened, main_sail_furling_id, main_sail_material_id, jib_type_id, jib_area, jib_automatic, jib_furling_id, jib_material_id, winches, el_winches, spinnaker, spinnaker_area, spinnaker_price, spinnaker_deposiit, gennaker, gennaker_area, gennaker_price, gennaker_deposit, length_m, beam, draft, mast_draught, displacement, no_of_engine, engine_type_id, engine_mark_id, engine_power_hp, engine_power_kW, wheel_type_id, wheel_no, rudder, folding_propeller, bow_thruster, auto_pilot, GPS, in_cockpit, wind, speed, depht, compass, VHF, radio, inverter, radar, local_charts, local_pilot, tick_cockpit, tick_deck, sprayhood, bimini, hard_top, flybridge, cockpit_table, moveable, cockpit_speakers, hot_water, heater, aircon, water_maker, generator, media_type_id, aux, usb, TV, water_tank, fuel_tank, grey_tank, fridge, fridge_no, freeser, gas_cooker, microwave, kit_equip, local_skipper, other_details, site_discount, last_cleaning_incl, last_cleaning_price, last_cleaning_obl, race_sail, race_sail_material_id, race_sail_price_incl, race_sail_price, race_sail_price_obl, race_sail_deposit, race_sail_deposit_obl, IRC_scan, ORC_scan, race_preparation, hull_cleaning, crew_license, deposit, deposit_insurance_price, deposit_insurance_deposit, last_minute_value, last_minute_duration, last_minute_duration_type_id, last_minute_date_from, last_minute_date_to', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -302,9 +317,9 @@ class SyProfile extends BaseModel
 			'local_skipper' => Yii::t('model','Local skipper only'),
 			'other_details' => Yii::t('model','Other details'),
 			'site_discount' => Yii::t('model','Site discount'),
-			'last_cleaning_incl' => Yii::t('model','Last cleaning incl'),
-			'last_cleaning_price' => Yii::t('model','Last cleaning price'),
-			'last_cleaning_obl' => Yii::t('model','Last cleaning obl'),
+			'last_cleaning_incl' => Yii::t('model','Final cleaning incl'),
+			'last_cleaning_price' => Yii::t('model','Final cleaning price'),
+			'last_cleaning_obl' => Yii::t('model','Final cleaning obl'),
 			'race_sail' => Yii::t('model','Race sail'),
 			'race_sail_material_id' => Yii::t('model','Race sail material'),
 			'race_sail_price_incl' => Yii::t('model','Race sail price incl'),
@@ -320,8 +335,11 @@ class SyProfile extends BaseModel
             'deposit' => Yii::t('model','Deposit'),
             'deposit_insurance_price' => Yii::t('model','Deposit insurance price'),
             'deposit_insurance_deposit' => Yii::t('model','Deposit insurance deposit'),
-            'last_minute' => Yii::t('model','Last minute'),
-            'week_before' => Yii::t('model','Week before'),
+            'last_minute_value' => Yii::t('model','Value'),
+            'last_minute_duration' => Yii::t('model','Duration'),
+            'last_minute_duration_type_id' => Yii::t('model','Duration Type'),
+            'last_minute_date_from' => Yii::t('model','Date from'),
+            'last_minute_date_to' => Yii::t('model','Date to'),
 		);
 	}
 
@@ -460,8 +478,11 @@ class SyProfile extends BaseModel
         $criteria->compare('deposit',$this->deposit);
         $criteria->compare('deposit_insurance_price',$this->deposit_insurance_price);
         $criteria->compare('deposit_insurance_deposit',$this->deposit_insurance_deposit);
-        $criteria->compare('last_minute',$this->last_minute);
-        $criteria->compare('week_before',$this->week_before);
+        $criteria->compare('last_minute_value',$this->last_minute_value);
+        $criteria->compare('last_minute_duration',$this->last_minute_duration);
+        $criteria->compare('last_minute_duration_type_id',$this->last_minute_duration_type_id);
+        $criteria->compare('last_minute_date_from',$this->last_minute_date_from,true);
+        $criteria->compare('last_minute_date_to',$this->last_minute_date_to,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
