@@ -25,8 +25,8 @@ return array(
     'in_cockpit' => 'in cockpit',
     'local_charts' => 'local charts',
     'local_pilot' => 'local pilot',
-    'tick_cockpit' => 'tick cockpit',
-    'tick_deck' => 'tick deck',
+    'tick_cockpit' => 'teak cockpit',
+    'tick_deck' => 'teak deck',
     'hard_top' => 'hard top',
     'cockpit_table' => 'cockpit table',
     'cockpit_speakers' => 'cockpit speakers',
@@ -41,4 +41,5 @@ return array(
     'kit_equip' => 'equipment',
     'last_cleaning_incl' => 'last cleaning include',
     'race_sail' => 'race sail',
+    'local_skipper' => 'local skipper only',
 );

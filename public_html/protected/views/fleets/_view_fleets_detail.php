@@ -228,7 +228,7 @@
         $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_displacement','class'=>'form-horizontal'));
         $form .= "<div class='input-group'>";
         $form .= CHtml::activeTextField($profile,'displacement',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('displacement')));
-        $form .= "<span class='input-group-addon'>t</span></div>";
+        $form .= "<span class='input-group-addon'>kg</span></div>";
         $form .= CHtml::endForm();
         $form .= '</div></div>';
         $script = "jQuery('#sy_profile_displacement').yiiactiveform({
@@ -240,7 +240,7 @@
         });";
         Yii::app()->clientScript->registerScript('sy_profile_displacement',$script,CClientScript::POS_LOAD);
         echo $this->renderRow($profile,'displacement',array(
-            'measure'=>"t",
+            'measure'=>"kg",
             'validator'=>array(
                 'compare',
                 'params'=>array(
