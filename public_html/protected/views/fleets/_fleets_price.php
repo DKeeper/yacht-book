@@ -441,7 +441,10 @@ foreach($durationTypeList as $i => $element){
                                     var minDate = $($(".price_curr_year").last().prev().find(".hasDatepicker")[1]).datepicker("getDate");
                                     var nextDay = minDate.getTime()+1000*60*60*24;
                                     minDate.setTime(nextDay);
-                                    $($(".price_curr_year").last().find(".hasDatepicker")[0]).datepicker("option","minDate",minDate);
+                                    var dateObj = $($(".price_curr_year").last().find(".hasDatepicker")[0]);
+                                    dateObj.datepicker("option","minDate",minDate);
+                                    dateObj.datepicker("setDate",minDate);
+                                    dateObj.trigger("change");
                                 }
                             },
                             type:'POST',
@@ -496,7 +499,9 @@ foreach($durationTypeList as $i => $element){
                                     var minDate = $($(".price_next_year").last().prev().find(".hasDatepicker")[1]).datepicker("getDate");
                                     var nextDay = minDate.getTime()+1000*60*60*24;
                                     minDate.setTime(nextDay);
-                                    $($(".price_next_year").last().find(".hasDatepicker")[0]).datepicker("option","minDate",minDate);
+                                    var dateObj = $($(".price_next_year").last().find(".hasDatepicker")[0]);
+                                    dateObj.datepicker("option","minDate",minDate);
+                                    dateObj.datepicker("setDate",minDate);
                                 }
                             },
                             type:'POST',

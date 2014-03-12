@@ -11,9 +11,9 @@
 /* @var $i integer */
 
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
-foreach($durationTypeList as $i => $element){
+foreach($durationTypeList as $pos => $element){
     if($element == Yii::t('view','Charter')){
-        unset($durationTypeList[$i]);
+        unset($durationTypeList[$pos]);
     }
 }
 $class = get_class($model)."_".$i;
