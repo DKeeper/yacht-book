@@ -502,6 +502,7 @@ foreach($durationTypeList as $i => $element){
                                     var dateObj = $($(".price_next_year").last().find(".hasDatepicker")[0]);
                                     dateObj.datepicker("option","minDate",minDate);
                                     dateObj.datepicker("setDate",minDate);
+                                    dateObj.trigger("change");
                                 }
                             },
                             type:'POST',
