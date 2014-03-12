@@ -199,7 +199,7 @@ class ProfileController extends Controller
                                 $languages[$i]->cc_profile_id = $profileCC->id;
                                 $languages[$i]->language_id = $item;
                             }
-                        } elseif (!isset($_POST['CcProfile']['ccLanguages'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $languages = $profileCC->ccLanguages;
                         }
                         if(isset($_POST['CcPaymentsPeriod'])){
@@ -208,7 +208,7 @@ class ProfileController extends Controller
                                 $paymentsPeriods[$i]->attributes = $item;
                                 $paymentsPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
-                        } elseif (!isset($_POST['CcPaymentsPeriod'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $paymentsPeriods = $profileCC->ccPaymentsPeriods;
                         }
                         if(isset($_POST['CcCancelPeriod'])){
@@ -217,7 +217,7 @@ class ProfileController extends Controller
                                 $cancelPeriods[$i]->attributes = $item;
                                 $cancelPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
-                        } elseif (!isset($_POST['CcCancelPeriod'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $cancelPeriods = $profileCC->ccCancelPeriods;
                         }
                         if(isset($_POST['CcLongPeriod'])){
@@ -226,7 +226,7 @@ class ProfileController extends Controller
                                 $longPeriods[$i]->attributes = $item;
                                 $longPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
-                        } elseif (!isset($_POST['CcLongPeriod'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $longPeriods = $profileCC->ccLongPeriods;
                         }
                         if(isset($_POST['CcEarlyPeriod'])){
@@ -238,7 +238,7 @@ class ProfileController extends Controller
                                 $earlyPeriods[$i]->attributes = $item;
                                 $earlyPeriods[$i]->cc_profile_id = $profileCC->id;
                             }
-                        } elseif (!isset($_POST['CcEarlyPeriod'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $earlyPeriods = $profileCC->ccEarlyPeriods;
                         }
                         if(isset($_POST['CcTransitLog'])){
@@ -247,7 +247,7 @@ class ProfileController extends Controller
                                 $transitLogs[$i]->attributes = $item;
                                 $transitLogs[$i]->cc_profile_id = $profileCC->id;
                             }
-                        } elseif (!isset($_POST['CcTransitLog'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $transitLogs = $profileCC->ccTransitLogs;
                         }
                         if(isset($_POST['CcOrderOptions'])){
@@ -256,7 +256,7 @@ class ProfileController extends Controller
                                 $orderOptions[$i]->attributes = $item;
                                 $orderOptions[$i]->cc_profile_id = $profileCC->id;
                             }
-                        } elseif (!isset($_POST['CcOrderOptions'])) {
+                        } elseif (!isset($_POST['CcProfile'])) {
                             $orderOptions = $profileCC->ccOrderOptions;
                         }
                         // ajax validator
@@ -406,6 +406,8 @@ class ProfileController extends Controller
                                     Yii::app()->user->updateSession();
                                     Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
                                     $this->redirect(array('/profile'));
+                                } else {
+
                                 }
                             }
                         }

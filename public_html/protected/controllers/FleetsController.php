@@ -251,9 +251,9 @@ class FleetsController extends Controller
         $yachtFoto = array();
 
         /** @var $priceCurrYear PriceCurrentYear[] */
-        $priceCurrYear = $model->priceCurrentYears;
+        $priceCurrYear = array();
         /** @var $priceNextYear PriceNextYear[] */
-        $priceNextYear = $model->priceNextYears;
+        $priceNextYear = array();
 
         $saveMode = isset($_POST['save_mode'])?$_POST['save_mode']:-1;
 
@@ -271,6 +271,8 @@ class FleetsController extends Controller
                 $priceCurrYear[$i]->attributes = $item;
                 $priceCurrYear[$i]->yacht_id = $model->id;
             }
+        } elseif (!isset($_POST['PriceCurrentYear'])) {
+            $priceCurrYear = $model->priceCurrentYears;
         }
         if(isset($_POST['PriceNextYear'])){
             foreach($_POST['PriceNextYear'] as $i => $item){
@@ -284,6 +286,8 @@ class FleetsController extends Controller
                 $priceNextYear[$i]->attributes = $item;
                 $priceNextYear[$i]->yacht_id = $model->id;
             }
+        } elseif (!isset($_POST['PriceNextYear'])) {
+            $priceNextYear = $model->priceNextYears;
         }
 
         foreach($photos as $photo){
@@ -510,6 +514,7 @@ class FleetsController extends Controller
                 if($saveMode==-1){
                     $this->redirect(array('view','id'=>$model->id));
                 } else {
+                    $model = $this->loadModel($id);
                     $priceCurrYear = $model->priceCurrentYears;
                     $priceNextYear = $model->priceNextYears;
                 }

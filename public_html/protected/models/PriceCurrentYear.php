@@ -47,7 +47,7 @@ class PriceCurrentYear extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('yacht_id, duration_type_id, date_from, date_to', 'required'),
+			array('yacht_id, duration_type_id, date_from, date_to, price', 'required'),
 			array('yacht_id, duration, duration_type_id, last_minute, week_before', 'numerical', 'integerOnly'=>true),
 			array('price, deposit, deposit_insurance_price, deposit_insurance_deposit, latitude, longitude', 'numerical'),
 			// The following rule is used by search().

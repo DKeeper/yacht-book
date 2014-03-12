@@ -69,6 +69,9 @@
     ?>
     <?php echo $form->error($profileM,'avatar'); ?>
 </div>
+<div class="row submit">
+    <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
+</div>
 <?php if($this->id=="register"){?>
 <div class="row submit">
     <button data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button>
