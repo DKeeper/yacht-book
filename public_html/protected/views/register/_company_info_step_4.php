@@ -57,6 +57,21 @@ $currency = Currency::model()->getModelList();
         );
     ?>
 </div>
+<div class="row">
+    <?php echo $form->labelEx($profileCC,'options_other'); ?>
+    <?php
+    echo $form->textArea($profileCC,'options_other',array('class'=>'form-control','style'=>'max-width:100%;'));
+//        $this->widget('ckeditor.CKEditor', array(
+//            'model'=>$profileCC,
+//            'attribute'=>'options_other',
+//            'config'=> array(
+//                'height' => 100,
+//                'toolbar' => array(),
+//            ),
+//        ));
+    ?>
+    <?php echo $form->error($profileCC,'options_other'); ?>
+</div>
 <?php
 $this->widget('fancyapps.EFancyApps', array(
     'mode'=>'inline',

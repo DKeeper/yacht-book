@@ -63,6 +63,7 @@ return array(
     'Western union' => 'Western union',
     'Contact' => 'Contact',
     'Others' => 'Прочее',
+    'Others options' => 'Прочие опции',
     'Checkin day' => 'День начала чартера',
     'Checkin hour' => 'Время начала чартера',
     'Checkout day' => 'День окончания чартера',
