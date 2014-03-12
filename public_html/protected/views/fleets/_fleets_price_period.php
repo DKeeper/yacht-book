@@ -11,6 +11,11 @@
 /* @var $i integer */
 
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
+foreach($durationTypeList as $i => $element){
+    if($element == Yii::t('view','Charter')){
+        unset($durationTypeList[$i]);
+    }
+}
 $class = get_class($model)."_".$i;
 $idPrefix = $class;
 if($model instanceof PriceCurrentYear){

@@ -12,6 +12,11 @@
 /* @var $priceCurrYear PriceCurrentYear[] */
 /* @var $priceNextYear PriceNextYear[] */
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
+foreach($durationTypeList as $i => $element){
+    if($element == Yii::t('view','Charter')){
+        unset($durationTypeList[$i]);
+    }
+}
 ?>
 <div class="row">
 <?php

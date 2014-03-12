@@ -10,6 +10,11 @@
 /* @var $model CcLongPeriod */
 /* @var $form CActiveForm */
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
+foreach($durationTypeList as $i => $element){
+    if($element == Yii::t('view','Charter')){
+        unset($durationTypeList[$i]);
+    }
+}
 ?>
 <div class="row long_period num_<?php echo $i;?>">
     <?php

@@ -10,6 +10,11 @@
 /* @var $model CcCancelPeriod */
 /* @var $form CActiveForm */
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
+foreach($durationTypeList as $i => $element){
+    if($element == Yii::t('view','Charter')){
+        unset($durationTypeList[$i]);
+    }
+}
 ?>
 <div class="row cancel_period num_<?php echo $i;?>">
     <?php

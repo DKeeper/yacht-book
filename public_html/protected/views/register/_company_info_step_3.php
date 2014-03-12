@@ -13,6 +13,11 @@
 /* @var $longPeriods CcLongPeriod[] */
 /* @var $earlyPeriods CcEarlyPeriod[] */
 $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'=>'id'));
+foreach($durationTypeList as $i => $element){
+    if($element == Yii::t('view','Charter')){
+        unset($durationTypeList[$i]);
+    }
+}
 ?>
     <div class="row">
         <div class="col-md-6">

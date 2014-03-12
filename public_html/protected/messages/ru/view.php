@@ -62,6 +62,7 @@ return array(
     'Prev' => 'Назад',
     'Week' => 'Неделя',
     'Day' => 'День',
+    'Charter' => 'Чартер',
     'To go fill in all fields' => 'Для перехода заполните все поля',
     'Drag the marker to select the desired address' => 'Перетащите маркер для выбора нужного адреса',
     'All fields are required or eliminate input errors' => 'Необходимо заполнить все поля или устранить ошибки ввода',
