@@ -54,6 +54,16 @@ foreach($model->ccOrderOptions as $i => $options){
         )
     );
 }
+$attributes = array_merge(
+    $attributes,
+    array(
+        array(
+            'label'=>$model->getAttributeLabel('options_other'),
+            'value'=>$model->options_other,
+            'type'=>'html'
+        )
+    )
+);
 $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
     'attributes'=>$attributes,

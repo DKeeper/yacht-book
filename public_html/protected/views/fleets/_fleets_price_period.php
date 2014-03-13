@@ -25,6 +25,9 @@ if($model instanceof PriceCurrentYear){
         'maxDate' => '31.12.'.date('Y',time()),
         'showOn' => 'button',
     );
+    if($i == 0 && $model->isNewRecord){
+        $model->date_from = '01.01.'.date('Y',time());
+    }
 } else {
     $class .= " price_next_year";
     $options = array(
@@ -32,6 +35,9 @@ if($model instanceof PriceCurrentYear){
         'maxDate' => '31.12.'.(intval(date('Y',time()))+1),
         'showOn' => 'button',
     );
+    if($i == 0 && $model->isNewRecord){
+        $model->date_from = '01.01.'.(intval(date('Y',time()))+1);
+    }
 }
 if($model->isNewRecord){
     list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess($this->loadUser());
