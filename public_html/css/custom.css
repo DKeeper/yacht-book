@@ -13,6 +13,9 @@ span[role='status']{
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
 }
+.NoYearDatePicker .ui-datepicker-year {
+    display:none;
+}
 /* IE 6 doesn't support max-height
 * we use height instead, but this forces the menu to always be this tall
 */

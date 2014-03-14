@@ -11,6 +11,10 @@ class EDatePicker extends CJuiDatePicker{
 
     public $groupStyle = "";
 
+    public $maskOptions = array(
+        'mask' => '99.99.9999',
+    );
+
     public function run()
     {
         list($name,$id)=$this->resolveNameID();
@@ -29,7 +33,7 @@ class EDatePicker extends CJuiDatePicker{
             $this->widget('CMaskedTextField', array(
                 'model' => $this->model,
                 'attribute' => $this->attribute,
-                'mask' => '99.99.9999',
+                'mask' => $this->maskOptions['mask'],
                 'htmlOptions' => $this->htmlOptions
                 )
             );

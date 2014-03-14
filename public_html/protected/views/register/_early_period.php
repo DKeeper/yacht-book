@@ -43,19 +43,26 @@ foreach($durationTypeList as $i => $element){
         }
         ?>
     <?php
-    $htmlOptions = array('class'=>'form-control');
+    $htmlOptions = array('class'=>'form-control date-day-month');
     $this->widget('datepicker.EDatePicker', array(
         'model' => $model,
         'attribute' => "[$i]date_value",
         'language' => Yii::app()->language,
         'options' => array(
-            'dateFormat' => 'dd.mm.yy',
-            'minDate' => 'y',
-            'maxDate' => '+2y',
-            'yearRange' => 'c:c+2',
+            'dateFormat' => 'dd.mm',
+            'minDate' => '01.01',
+            'maxDate' => '31.12',
             'changeMonth' => true,
-            'changeYear' => true,
             'showOn' => 'button',
+            'beforeShow' => 'js: function(input, inst){
+                inst.dpDiv.addClass("NoYearDatePicker");
+            }',
+            'onClose' => 'js: function(dateText, inst){
+                inst.dpDiv.removeClass("NoYearDatePicker");
+            }',
+        ),
+        'maskOptions' => array(
+            'mask' => '99.99',
         ),
         'htmlOptions' => $htmlOptions,
         'groupStyle'=>$style,

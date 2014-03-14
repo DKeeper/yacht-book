@@ -17,12 +17,6 @@
  */
 class CcEarlyPeriod extends BaseModel
 {
-    protected function afterFind(){
-        parent::afterFind();
-        if(isset($this->date_value)){
-            $this->date_value = date('d.m.Y',strtotime($this->date_value));
-        }
-    }
 	/**
 	 * @return string the associated database table name
 	 */
@@ -43,6 +37,7 @@ class CcEarlyPeriod extends BaseModel
 			array('cc_profile_id, before_duration, duration_type_id', 'numerical', 'integerOnly'=>true),
 			array('value', 'numerical'),
 			array('date_value', 'default', 'value' => null),
+			array('date_value', 'length', 'max' => 5),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, cc_profile_id, value, date_value, before_duration, duration_type_id', 'safe', 'on'=>'search'),

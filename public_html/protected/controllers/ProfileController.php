@@ -231,9 +231,6 @@ class ProfileController extends Controller
                         }
                         if(isset($_POST['CcEarlyPeriod'])){
                             foreach($_POST['CcEarlyPeriod'] as $i => $item){
-                                if(!empty($item['date_value'])){
-                                    $item['date_value'] = date('Y-m-d',strtotime($item['date_value']));
-                                }
                                 $earlyPeriods[$i] = new CcEarlyPeriod;
                                 $earlyPeriods[$i]->attributes = $item;
                                 $earlyPeriods[$i]->cc_profile_id = $profileCC->id;
@@ -407,7 +404,8 @@ class ProfileController extends Controller
                                     Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
                                     $this->redirect(array('/profile'));
                                 } else {
-
+                                    $profileCC = CcProfile::model()->findByAttributes(array("cc_id"=>$modelUser->id));
+                                    $earlyPeriods = $profileCC->ccEarlyPeriods;
                                 }
                             }
                         }
