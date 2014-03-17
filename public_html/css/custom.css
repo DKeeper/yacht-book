@@ -92,7 +92,7 @@ span[role='status']{
 #select_languages li { margin: 3px; padding: 1px; float: left; width: 100px; height: 45px; text-align: center; }
 
 .cell{
-    height: 150px;
+    height: 160px;
     margin: 2px 4px;
     padding: 0;
     width: 24%;
@@ -102,6 +102,10 @@ span[role='status']{
 .cell span.glyphicon{
     font-size: 50px;
     margin-top: 30px;
+}
+.cell span.delete-img.glyphicon{
+    font-size: 100%;
+    margin-top: 3px;
 }
 .cell img{
     margin-top: 5px;
@@ -127,6 +131,12 @@ span[role='status']{
 }
 .images{
     z-index: 1000;
+    text-align: center;
+}
+.delete-img {
+    width: 100% !important;
+    display: block;
+    margin-top: 3px;
 }
 .layout_preview div.qq-upload-button{
     width: 100% !important;

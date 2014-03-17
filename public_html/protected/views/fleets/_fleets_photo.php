@@ -19,7 +19,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","stern (with name of boat)")?></h5>
                 <?php
                 if(!empty($yachtFoto[1]->link)){
-                    echo "<li class='images'><img src='".$yachtFoto[1]->link."' class='img-thumbnail'></li>";
+                    echo "<li class='images'><img src='".$yachtFoto[1]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                 } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -31,7 +31,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","starboard")?></h5>
                 <?php
                 if(!empty($yachtFoto[2]->link)){
-                    echo "<li class='images'><img src='".$yachtFoto[2]->link."' class='img-thumbnail'></li>";
+                    echo "<li class='images'><img src='".$yachtFoto[2]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                 } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -43,7 +43,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","portside")?></h5>
                 <?php
                 if(!empty($yachtFoto[3]->link)){
-                    echo "<li class='images'><img src='".$yachtFoto[3]->link."' class='img-thumbnail'></li>";
+                    echo "<li class='images'><img src='".$yachtFoto[3]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                 } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -55,7 +55,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","cockpit")?></h5>
                 <?php
                 if(!empty($yachtFoto[4]->link)){
-                    echo "<li class='images'><img src='".$yachtFoto[4]->link."' class='img-thumbnail'></li>";
+                    echo "<li class='images'><img src='".$yachtFoto[4]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                 } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -70,7 +70,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","interior (state-room)")?></h5>
                 <?php
                 if(!empty($yachtFoto[5][$i]->link)){
-                    echo "<li class='images'><img src='".$yachtFoto[5][$i]->link."' class='img-thumbnail'></li>";
+                    echo "<li class='images'><img src='".$yachtFoto[5][$i]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                 } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -85,7 +85,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","layout")?></h5>
                 <?php
                 if(!empty($yachtFoto[7][0]->link)){
-                    echo "<li class='images'><img src='".$yachtFoto[7][0]->link."' class='img-thumbnail'></li>";
+                    echo "<li class='images'><img src='".$yachtFoto[7][0]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                 } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -100,7 +100,7 @@
                     <h5 class="ui-widget-header"><?php echo Yii::t("view","the photos of cabins")?></h5>
                     <?php
                     if(!empty($yachtFoto[6][$i]->link)){
-                        echo "<li class='images'><img src='".$yachtFoto[6][$i]->link."' class='img-thumbnail'></li>";
+                        echo "<li class='images'><img src='".$yachtFoto[6][$i]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                     } else {
                         echo "<span class='glyphicon glyphicon-picture'></span>";
                     }
@@ -115,7 +115,7 @@
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","layout")?></h5>
                 <?php
                 if(!empty($yachtFoto[7][1]->link)){
-                        echo "<li class='images'><img src='".$yachtFoto[7][1]->link."' class='img-thumbnail'></li>";
+                        echo "<li class='images'><img src='".$yachtFoto[7][1]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                     } else {
                     echo "<span class='glyphicon glyphicon-picture'></span>";
                 }
@@ -130,7 +130,7 @@
                     <h5 class="ui-widget-header"><?php echo Yii::t("view","particular photo (optional)")?></h5>
                     <?php
                     if(!empty($yachtFoto[8][$i]->link)){
-                        echo "<li class='images'><img src='".$yachtFoto[8][$i]->link."' class='img-thumbnail'></li>";
+                        echo "<li class='images'><img src='".$yachtFoto[8][$i]->link."' class='img-thumbnail'></li><span class='delete-img glyphicon glyphicon-trash' style='cursor: pointer;'></span>";
                     } else {
                         echo "<span class='glyphicon glyphicon-picture'></span>";
                     }
@@ -172,6 +172,7 @@
                                 $('.qq-upload-list').children('.qq-upload-success').fadeOut(1000,function(){ $(this).remove() });
                                 var wrapper = $('<li>').appendTo($('#upload_preview')).addClass('pull-left images');
                                 $('<img>').appendTo(wrapper).attr('src',response.link).addClass('img-thumbnail');
+                                $('<span>').appendTo(wrapper).addClass('delete-img glyphicon glyphicon-trash').css({cursor:'pointer'}).on('click',deleteImg);
                                 refreshUploadPreview($('#upload_preview li'));
                             }
                         }",
@@ -197,6 +198,25 @@
     <div class="pull-right"><button type="button" data-type="next" class="btn btn-default"><?php echo Yii::t("view","Next"); ?></button></div>
 </div>
 <script>
+    function deleteImg(event){
+        var self = $(this);
+        var cell = self.parents('.cell');
+        if(cell.length==0){
+            self.parent().fadeOut(500,function(){
+                $(this).remove();
+                refreshUploadPreview($(".upload_preview li"));
+            });
+        } else {
+            cell.find(".link").val("").change();
+            self.prev().fadeOut(500,function(){
+                self.remove();
+                $(this).remove();
+                cell.append('<span class="glyphicon glyphicon-picture"></span>');
+                refreshUploadPreview($(".gallery li"));
+            });
+        }
+
+    }
     function refreshUploadPreview($o){
         $o.draggable({
             revert: "invalid",
@@ -229,6 +249,7 @@
         });
     }
     $(function(){
+        $('body').on('click',"#gallery span.delete-img.glyphicon.glyphicon-trash",deleteImg);
         $(".link").change(function(){
             if(this.id=="YachtPhoto_7_0_link"){
                 var v = $(this).val();
