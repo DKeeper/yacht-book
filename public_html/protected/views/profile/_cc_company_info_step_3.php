@@ -111,7 +111,7 @@ foreach($model->ccEarlyPeriods as $i => $data){
         $value = '{p}% to {d}';
         $params = array(
             '{p}'=>$data->value,
-            '{d}'=>date('d.m.Y',strtotime($data->date_value))
+            '{d}'=>$data->date_value
         );
     }
     $attributes = array_merge(

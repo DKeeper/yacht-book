@@ -327,4 +327,7 @@ return array(
     'kitchen' => 'кухня',
 
     "Incorrect symbols (A-z0-9_- )." => "Некорректные символы (A-z0-9_- ).",
+
+    "{columns_labels} - set of values ​​in the fields is not unique" => "{columns_labels} - набор значений в полях не уникален",
+    "{columns_labels} - must enter a value in at least one field" => "{columns_labels} - необходимо ввести значение хотя бы в одно поле",
 );

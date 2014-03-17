@@ -147,6 +147,21 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
 </script>
 <?php
 $script = "
+$('body').on('change','#cc-fleets-form input',function(event){
+            $('#cc-fleets-form').data('settings')['submitting'] = true;
+            $.fn.yiiactiveform.validate(
+                '#cc-fleets-form',
+                    function(messages){
+                        var hasError = false;
+                        $.each($('#cc-fleets-form').data('settings')['attributes'], function () {
+                            hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#cc-fleets-form')) || hasError;
+                        });
+                        $.fn.yiiactiveform.updateSummary($('#cc-fleets-form'), messages);
+                    }
+            );
+            $('#cc-fleets-form').data('settings')['submitting'] = false;
+            return false;
+        });
 $('body').on('change','.price_curr_year input.hasDatepicker',function(event){
     try{
         var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());

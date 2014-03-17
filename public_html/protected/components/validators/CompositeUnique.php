@@ -10,7 +10,7 @@ class CompositeUnique extends CValidator{
     public $keyColumns;
 
     // сообщение об ошибке
-    public $errorMessage = '{columns_labels} - набор значений в полях не уникален';
+    public $errorMessage = '{columns_labels} - set of values ​​in the fields is not unique';
 
     // показывать сообщение об ошибке под всеми
     // полями которые входят в состав уникального ключа
@@ -43,7 +43,7 @@ class CompositeUnique extends CValidator{
             // если это мы вставляем запись или если обновляем и такие же
             // значения полей есть в другой записи то добавляем ошибку к полям
             if ($object->isNewRecord || ($row->getPrimaryKey() != $object->getPrimaryKey())){
-                $message = Yii::t('yii', $this->errorMessage, array(
+                $message = Yii::t('model', $this->errorMessage, array(
                     '{columns_labels}' => join(', ', $keyColumnsLabels)
                 ));
                 if ($this->addErrorToAllColumns) {
