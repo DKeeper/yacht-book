@@ -125,6 +125,10 @@ class ProfileController extends Controller
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
                                         }
                                     }
+                                } else {
+                                    if(!empty($oldAvatar) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
+                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
+                                    }
                                 }
 
                                 if(!empty($profileC->scan_of_license)){
@@ -141,6 +145,10 @@ class ProfileController extends Controller
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense);
                                         }
                                     }
+                                } else {
+                                    if(!empty($oldScanOfLicense) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense)){
+                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldScanOfLicense);
+                                    }
                                 }
 
                                 $profileC->save();
@@ -149,6 +157,8 @@ class ProfileController extends Controller
                                     Yii::app()->user->updateSession();
                                     Yii::app()->user->setFlash('profileMessageSuccess',UserModule::t("Changes are saved."));
                                     $this->redirect(array('/profile'));
+                                } else {
+                                    $profileC = CProfile::model()->findByAttributes(array("c_id"=>$modelUser->id));
                                 }
                             }
                         }
@@ -303,6 +313,7 @@ class ProfileController extends Controller
                             $profileUser->attributes=$_POST['Profile'];
 
                             $oldLogo = $profileCC->company_logo;
+
                             $profileCC->attributes=((isset($_POST['CcProfile'])?$_POST['CcProfile']:array()));
 
                             $validate = true;
@@ -345,6 +356,10 @@ class ProfileController extends Controller
                                         if(!empty($oldLogo) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo)){
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo);
                                         }
+                                    }
+                                } else {
+                                    if(!empty($oldLogo) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo)){
+                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldLogo);
                                     }
                                 }
 
@@ -467,6 +482,10 @@ class ProfileController extends Controller
                                         if(!empty($oldAvatar) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
                                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
                                         }
+                                    }
+                                } else {
+                                    if(!empty($oldAvatar) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar)){
+                                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldAvatar);
                                     }
                                 }
 

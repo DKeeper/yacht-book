@@ -281,7 +281,10 @@ foreach($durationTypeList as $i => $element){
 </div>
 <div class="row">
     <?php echo $form->labelEx($profile,'IRC_scan'); ?>
+    <div class="input-group">
     <?php echo $form->textField($profile,'IRC_scan',array('class'=>'form-control','readonly'=>true)); ?>
+    <span class="input-group-addon" data-type='delImg' data-attribute='SyProfile_IRC_scan' style="cursor: pointer;"><span class='glyphicon glyphicon-minus'></span></span>
+    </div>
     <?php
     $this->widget('fileuploader.EFineUploader',
         array(
@@ -327,7 +330,10 @@ foreach($durationTypeList as $i => $element){
 </div>
 <div class="row">
     <?php echo $form->labelEx($profile,'ORC_scan'); ?>
+    <div class="input-group">
     <?php echo $form->textField($profile,'ORC_scan',array('class'=>'form-control','readonly'=>true)); ?>
+    <span class="input-group-addon" data-type='delImg' data-attribute='SyProfile_ORC_scan' style="cursor: pointer;"><span class='glyphicon glyphicon-minus'></span></span>
+    </div>
     <?php
     $this->widget('fileuploader.EFineUploader',
         array(
@@ -378,6 +384,11 @@ foreach($durationTypeList as $i => $element){
 <script>
     confirmMessage = '<?php echo Yii::t("view","You are sure you want to delete?"); ?>';
     $(function(){
+        $('body').on("click",'span[data-type="delImg"]',function(event){
+            event.preventDefault();
+            var id = $(this).attr("data-attribute");
+            $("#"+id).val("");
+        });
         var check = <?php echo -1==$profile->last_minute_duration?-1:isset($profile->last_minute_duration)?$profile->last_minute_duration:0; ?>;
         $(".last_minute_duration").tooltip();
         $(".last_minute_duration").on("click",function(event){

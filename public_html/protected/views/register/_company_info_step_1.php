@@ -194,6 +194,7 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     <div class="row">
         <?php echo $form->labelEx($profileCC,'company_logo'); ?>
         <?php
+            echo isset($profileCC->company_logo)?CHtml::tag('button',array('class'=>'btn btn-default btn-xs','data-type'=>'delImg','data-attribute'=>'CcProfile_company_logo','style'=>'margin:5px;'),'<span class="glyphicon glyphicon-minus"></span>'):"";
             echo CHtml::image(isset($profileCC->company_logo)?$profileCC->company_logo:'/i/def/avatar.png','',array('id'=>'CompanyLogo','class'=>'avatar_img'));
             echo $form->hiddenField($profileCC,'company_logo');
         ?>
@@ -219,6 +220,8 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
                             if(response.success){
                                 $('#CcProfile_company_logo').val(response.link);
                                 $('#CompanyLogo').attr('src',response.link);
+                                $('button[data-type=\"delImg\"]').remove();
+                                $('#CompanyLogo').before(\"<button class='btn btn-default btn-xs' data-type='delImg' data-attribute='CcProfile_company_logo' style='margin:5px;'><span class='glyphicon glyphicon-minus'></span></button>\");
                                 $('.qq-upload-list').children().fadeOut(1000,function(){ $('.qq-upload-list').empty() });
                             }
                         }",
@@ -274,6 +277,13 @@ if(isset($profileCC->company_city_id) && !empty($profileCC->company_city_id)){
     appLng = '<?php echo Yii::app()->language; ?>';
     $(function(){
         $('.lang_check').button();
+        $('body').on("click",'button[data-type="delImg"]',function(event){
+            event.preventDefault();
+            var id = $(this).attr("data-attribute");
+            $("#"+id).val("");
+            $(this).next().attr("src","/i/def/avatar.png");
+            $(this).remove();
+        });
         $("#CcProfile_company_full_addres").change(function(event){
             searchFromGeocoder($(this).val(),false,"CcProfile");
         });

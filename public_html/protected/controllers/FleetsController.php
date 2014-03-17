@@ -382,11 +382,11 @@ class FleetsController extends Controller
 
         if(isset($_POST['CcFleets']) && isset($_POST['SyProfile']))
         {
-            $model->attributes=$_POST['CcFleets'];
-            $profile->attributes=$_POST['SyProfile'];
-
             $oldIRCScan = $profile->IRC_scan;
             $oldORCScan = $profile->ORC_scan;
+
+            $model->attributes=$_POST['CcFleets'];
+            $profile->attributes=$_POST['SyProfile'];
 
             $validate = true;
             $validate = $validate && $model->validate();
@@ -414,6 +414,10 @@ class FleetsController extends Controller
                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldIRCScan);
                         }
                     }
+                } else {
+                    if(!empty($oldIRCScan) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldIRCScan)){
+                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldIRCScan);
+                    }
                 }
 
                 if(!empty($profile->ORC_scan)){
@@ -429,6 +433,10 @@ class FleetsController extends Controller
                         if(!empty($oldORCScan) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldORCScan)){
                             unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldORCScan);
                         }
+                    }
+                } else {
+                    if(!empty($oldORCScan) && file_exists(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldORCScan)){
+                        unlink(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'..'.$oldORCScan);
                     }
                 }
 

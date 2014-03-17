@@ -106,6 +106,7 @@ $nationalityList = Nationality::model()->getModelList();
     <div class="row">
         <?php echo $form->labelEx($profileC,'avatar'); ?>
         <?php
+            echo isset($profileC->avatar)?CHtml::tag('button',array('class'=>'btn btn-default btn-xs','data-type'=>'delImg','data-attribute'=>'CProfile_avatar','style'=>'margin:5px;'),'<span class="glyphicon glyphicon-minus"></span>'):"";
             echo CHtml::image(isset($profileC->avatar)?$profileC->avatar:'/i/def/avatar.png','',array('id'=>'CaptainAvatar','class'=>'avatar_img'));
             echo $form->hiddenField($profileC,'avatar');
         ?>
@@ -131,6 +132,8 @@ $nationalityList = Nationality::model()->getModelList();
                             if(response.success){
                                 $('#CProfile_avatar').val(response.link);
                                 $('#CaptainAvatar').attr('src',response.link);
+                                $('button[data-type=\"delImg\"]').remove();
+                                $('#CaptainAvatar').before(\"<button class='btn btn-default btn-xs' data-type='delImg' data-attribute='CProfile_avatar' style='margin:5px;'><span class='glyphicon glyphicon-minus'></span></button>\");
                                 $('.qq-upload-list').children().fadeOut(1000,function(){ $('.qq-upload-list').empty() });
                             }
                         }",
@@ -190,7 +193,10 @@ $nationalityList = Nationality::model()->getModelList();
     </div>
     <div class="row">
         <?php echo $form->labelEx($profileC,'scan_of_license'); ?>
+        <div class="input-group">
         <?php echo $form->textField($profileC,'scan_of_license',array('class'=>'form-control','readonly'=>true)); ?>
+        <span class="input-group-addon" data-type='delImg' data-attribute='CProfile_scan_of_license' style="cursor: pointer;"><span class='glyphicon glyphicon-minus'></span></span>
+        </div>
         <?php
         $this->widget('fileuploader.EFineUploader',
             array(
@@ -265,3 +271,19 @@ $nationalityList = Nationality::model()->getModelList();
         <div class="pull-left"><button type="button" data-type="back" class="btn btn-default"><?php echo Yii::t("view","Prev"); ?></button></div>
     </div>
 <?php } ?>
+<script type="text/javascript">
+    $(function(){
+        $('body').on("click",'button[data-type="delImg"]',function(event){
+            event.preventDefault();
+            var id = $(this).attr("data-attribute");
+            $("#"+id).val("");
+            $(this).next().attr("src","/i/def/avatar.png");
+            $(this).remove();
+        });
+        $('body').on("click",'span[data-type="delImg"]',function(event){
+            event.preventDefault();
+            var id = $(this).attr("data-attribute");
+            $("#"+id).val("");
+        });
+    });
+</script>

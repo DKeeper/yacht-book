@@ -21,6 +21,7 @@
 <div class="row">
     <?php echo $form->labelEx($profileM,'avatar'); ?>
     <?php
+        echo isset($profileM->avatar)?CHtml::tag('button',array('class'=>'btn btn-default btn-xs','data-type'=>'delImg','data-attribute'=>'MProfile_avatar','style'=>'margin:5px;'),'<span class="glyphicon glyphicon-minus"></span>'):"";
         echo CHtml::image(isset($profileM->avatar)?$profileM->avatar:'/i/def/avatar.png','',array('id'=>'ManagerAvatar','class'=>'avatar_img'));
         echo $form->hiddenField($profileM,'avatar');
     ?>
@@ -46,6 +47,8 @@
                             if(response.success){
                                 $('#MProfile_avatar').val(response.link);
                                 $('#ManagerAvatar').attr('src',response.link);
+                                $('button[data-type=\"delImg\"]').remove();
+                                $('#ManagerAvatar').before(\"<button class='btn btn-default btn-xs' data-type='delImg' data-attribute='MProfile_avatar' style='margin:5px;'><span class='glyphicon glyphicon-minus'></span></button>\");
                                 $('.qq-upload-list').children().fadeOut(1000,function(){ $('.qq-upload-list').empty() });
                             }
                         }",
@@ -77,3 +80,14 @@
     <button data-type="submit" class="btn btn-default"><?php echo UserModule::t("Register"); ?></button>
 </div>
 <?php } ?>
+<script type="text/javascript">
+    $(function(){
+        $('body').on("click",'button[data-type="delImg"]',function(event){
+            event.preventDefault();
+            var id = $(this).attr("data-attribute");
+            $("#"+id).val("");
+            $(this).next().attr("src","/i/def/avatar.png");
+            $(this).remove();
+        });
+    });
+</script>
