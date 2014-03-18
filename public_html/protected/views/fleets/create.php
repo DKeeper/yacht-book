@@ -5,6 +5,7 @@
 /* @var $yachtFoto array */
 /* @var $priceCurrYear PriceCurrentYear[] */
 /* @var $priceNextYear PriceNextYear[] */
+/* @var $save_mode integer */
 
 $this->breadcrumbs=array(
     Yii::t("view","Company fleets")=>array('index'),
@@ -19,4 +20,4 @@ $this->menu=array(
 
 <h1>Create <?php echo Yii::t("view","Fleet"); ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile,'yachtFoto'=>$yachtFoto,'priceCurrYear'=>$priceCurrYear,'priceNextYear'=>$priceNextYear)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'profile'=>$profile,'yachtFoto'=>$yachtFoto,'priceCurrYear'=>$priceCurrYear,'priceNextYear'=>$priceNextYear,'save_mode'=>$save_mode)); ?>

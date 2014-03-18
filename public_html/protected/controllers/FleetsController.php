@@ -102,6 +102,16 @@ class FleetsController extends Controller
         $model->cc_id = $profileCC->cc_id;
         $model->profile_id = -1;
 
+        $gennakerOption = $profileCC->ccOrderOptions(array('with'=>'orderOption','condition'=>'orderOption.name=:n','params'=>array(':n'=>'gennaker')));
+        $spinnakerOption = $profileCC->ccOrderOptions(array('with'=>'orderOption','condition'=>'orderOption.name=:n','params'=>array(':n'=>'spinnaker')));
+
+        if(!empty($gennakerOption)){
+            $profile->gennaker_price = $gennakerOption[0]->price;
+        }
+        if(!empty($spinnakerOption)){
+            $profile->spinnaker_price = $spinnakerOption[0]->price;
+        }
+
         if(isset($_POST['ajax']) && $_POST['ajax']==='cc-fleets-form')
         {
             $validateModels = array($model,$profile);
@@ -235,6 +245,7 @@ class FleetsController extends Controller
             'yachtFoto'=>$yachtFoto,
             'priceCurrYear'=>$priceCurrYear,
             'priceNextYear'=>$priceNextYear,
+            'save_mode'=>-1,
         ));
 	}
 
