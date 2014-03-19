@@ -35,8 +35,9 @@ class CcOrderOptions extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cc_profile_id, order_option_id, price', 'required'),
+			array('cc_profile_id, order_option_id', 'required'),
 			array('cc_profile_id, order_option_id, obligatory, included, duration_type_id', 'numerical', 'integerOnly'=>true),
+			array('price', 'default', 'value'=>null),
 			array('price', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

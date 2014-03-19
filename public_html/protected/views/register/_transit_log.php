@@ -150,6 +150,7 @@ if(isset($model->country_id) && !empty($model->country_id)){
             if($(this).is(":checked")){
                 $("#CcTransitLog_<?php echo $i; ?>_price").val("").attr("disabled",true);
                 $("#CcTransitLog_<?php echo $i; ?>_obligatory").attr("disabled",true);
+                $("#CcTransitLog_<?php echo $i; ?>_obligatory").attr("checked",false);
             } else {
                 $("#CcTransitLog_<?php echo $i; ?>_price").attr("disabled",false)
                 $("#CcTransitLog_<?php echo $i; ?>_obligatory").attr("disabled",false);

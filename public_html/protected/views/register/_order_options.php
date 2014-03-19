@@ -81,9 +81,27 @@ $durationTypeList = DurationType::model()->getModelList(array(),'',array('order'
 </div>
 <script>
     $(function(){
+        $("#CcOrderOptions_<?php echo $i; ?>_obligatory").on("click",function(event){
+            if($(this).is(":checked") && $("#CcOrderOptions_<?php echo $i; ?>_price").val()==""){
+                $("#CcOrderOptions_<?php echo $i; ?>_price").val(1);
+            }
+        });
         $("#CcOrderOptions_<?php echo $i; ?>_included").on("click",function(event){
             if($(this).is(":checked")){
-                $("#CcOrderOptions_<?php echo $i; ?>_price").val(0);
+                $("#CcOrderOptions_<?php echo $i; ?>_price").val("").attr("disabled",true);
+                $("#CcOrderOptions_<?php echo $i; ?>_obligatory").attr("disabled",true);
+                $("#CcOrderOptions_<?php echo $i; ?>_obligatory").attr("checked",false);
+            } else {
+                $("#CcOrderOptions_<?php echo $i; ?>_price").attr("disabled",false)
+                $("#CcOrderOptions_<?php echo $i; ?>_obligatory").attr("disabled",false);
+            }
+        });
+        $("#CcOrderOptions_<?php echo $i; ?>_price").on("change",function(){
+            if(+$(this).val()>0){
+                $("#CcOrderOptions_<?php echo $i; ?>_included").attr({"disabled":true,"checked":false});
+            } else {
+                $(this).val("");
+                $("#CcOrderOptions_<?php echo $i; ?>_included").attr({"disabled":false,"checked":true});
             }
         });
     });

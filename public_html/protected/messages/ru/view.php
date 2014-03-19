@@ -77,6 +77,10 @@ return array(
     'To date'=>'До даты',
     'TD'=>'ДД',
     'Transit log'=>'Транзит лог',
+    'General options'=>'Основные опции',
+    'included'=>'включено',
+    'obligatory'=>'обязательно',
+    'optional'=>'необязательно',
     '{v}% on spot'=>'{v}% на месте',
 
     '{p}% in {v} {d}' => '{p}% за {v} {d}',

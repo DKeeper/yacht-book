@@ -33,26 +33,117 @@ foreach($model->ccTransitLogs as $i => $transitLog){
         )
     );
 }
-foreach($model->ccOrderOptions as $i => $options){
+$attributes = array_merge(
+    $attributes,
+    array(
+        array(
+            'label'=>'',
+            'value'=>'<h3>'.Yii::t("view","General options").'</h3>',
+            'type'=>'html',
+        ),
+    )
+);
+$includedOptions = $model->ccOrderOptions(array('condition'=>'included = :i','params'=>array(':i'=>true)));
+$obligatoryOptions = $model->ccOrderOptions(array('condition'=>'obligatory = :o','params'=>array(':o'=>true)));
+$otherOptions = $model->ccOrderOptions(array('condition'=>'obligatory = :o and included = :i','params'=>array(':i'=>false,':o'=>false)));
+if(!empty($includedOptions)){
     $attributes = array_merge(
         $attributes,
         array(
             array(
-                'label'=>Yii::t('model','Order options #{n}',array('{n}'=>$i+1)),
-                'value'=>Yii::t(
-                    'model',
-                    '{opt} - {v} per {d} (Obligatory: {o}, Included: {i})',
-                    array(
-                        '{opt}'=>$options->orderOption->name,
-                        '{v}'=>$options->price,
-                        '{d}'=>mb_strtolower(Yii::t('view',$options->durationType->name)),
-                        '{o}'=>$options->obligatory?Yii::t("view","Yes"):Yii::t("view","No"),
-                        '{i}'=>$options->included?Yii::t("view","Yes"):Yii::t("view","No"),
-                    )
-                ),
+                'label'=>'',
+                'value'=>'<h4>'.Yii::t("view","included").'</h4>',
+                'type'=>'html',
             ),
         )
     );
+    foreach($includedOptions as $i => $options){
+        $attributes = array_merge(
+            $attributes,
+            array(
+                array(
+                    'label'=>Yii::t('model','Order options #{n}',array('{n}'=>$i+1)),
+                    'value'=>Yii::t(
+                        'model',
+                        '{opt} - {v} per {d}',
+                        array(
+                            '{opt}'=>$options->orderOption->name,
+                            '{v}'=>$options->price,
+                            '{d}'=>mb_strtolower(Yii::t('view',$options->durationType->name)),
+                            '{o}'=>$options->obligatory?Yii::t("view","Yes"):Yii::t("view","No"),
+                            '{i}'=>$options->included?Yii::t("view","Yes"):Yii::t("view","No"),
+                        )
+                    ),
+                ),
+            )
+        );
+    }
+}
+if(!empty($obligatoryOptions)){
+    $attributes = array_merge(
+        $attributes,
+        array(
+            array(
+                'label'=>'',
+                'value'=>'<h4>'.Yii::t("view","obligatory").'</h4>',
+                'type'=>'html',
+            ),
+        )
+    );
+    foreach($obligatoryOptions as $i => $options){
+        $attributes = array_merge(
+            $attributes,
+            array(
+                array(
+                    'label'=>Yii::t('model','Order options #{n}',array('{n}'=>$i+1)),
+                    'value'=>Yii::t(
+                        'model',
+                        '{opt} - {v} per {d}',
+                        array(
+                            '{opt}'=>$options->orderOption->name,
+                            '{v}'=>$options->price,
+                            '{d}'=>mb_strtolower(Yii::t('view',$options->durationType->name)),
+                            '{o}'=>$options->obligatory?Yii::t("view","Yes"):Yii::t("view","No"),
+                            '{i}'=>$options->included?Yii::t("view","Yes"):Yii::t("view","No"),
+                        )
+                    ),
+                ),
+            )
+        );
+    }
+}
+if(!empty($otherOptions)){
+    $attributes = array_merge(
+        $attributes,
+        array(
+            array(
+                'label'=>'',
+                'value'=>'<h4>'.Yii::t("view","optional").'</h4>',
+                'type'=>'html',
+            ),
+        )
+    );
+    foreach($otherOptions as $i => $options){
+        $attributes = array_merge(
+            $attributes,
+            array(
+                array(
+                    'label'=>Yii::t('model','Order options #{n}',array('{n}'=>$i+1)),
+                    'value'=>Yii::t(
+                        'model',
+                        '{opt} - {v} per {d}',
+                        array(
+                            '{opt}'=>$options->orderOption->name,
+                            '{v}'=>$options->price,
+                            '{d}'=>mb_strtolower(Yii::t('view',$options->durationType->name)),
+                            '{o}'=>$options->obligatory?Yii::t("view","Yes"):Yii::t("view","No"),
+                            '{i}'=>$options->included?Yii::t("view","Yes"):Yii::t("view","No"),
+                        )
+                    ),
+                ),
+            )
+        );
+    }
 }
 $attributes = array_merge(
     $attributes,
