@@ -661,9 +661,13 @@ class FleetsController extends Controller
         $_ = "<div class='col-md-1'>";
         if(!isset($model->$attribute)){
             if(!$validate){
-                $_ .= "<span class='glyphicon glyphicon-question-sign'></span>";
+                if(!isset($options['value'])){
+                    $_ .= "<span class='glyphicon glyphicon-question-sign'></span>";
+                }
             } else {
-                $_ .= "<span class='glyphicon glyphicon-remove-sign'></span>";
+                if(!isset($options['value'])){
+                    $_ .= "<span class='glyphicon glyphicon-remove-sign'></span>";
+                }
             }
         } else {
             if(!$validate){
@@ -683,11 +687,15 @@ class FleetsController extends Controller
         $_ .= "</div>
             <div class='col-md-7' style='white-space: nowrap;'>
         ";
-        $_ .= Yii::t("view",$attribute);
+        if(isset($options['label'])){
+            $_ .= $options['label'];
+        } else {
+            $_ .= Yii::t("view",$attribute);
+        }
         $_ .= "</div>
             <div class='col-md-3' style='white-space: nowrap;'>
         ";
-        if(isset($model->$attribute)){
+        if(isset($model->$attribute) || isset($options['value'])){
             switch($options['outtype']){
                 case 'checkbox':
                     if(isset($options['value']) && $model->$attribute){
@@ -698,7 +706,11 @@ class FleetsController extends Controller
                     }
                     break;
                 default:
-                    $_ .= $model->$attribute;
+                    if(isset($options['value'])){
+                        $_ .= $options['value'];
+                    } else {
+                        $_ .= $model->$attribute;
+                    }
                     if(isset($options['measure'])){
                         $_ .= " ".$options['measure'];
                     }
@@ -709,7 +721,7 @@ class FleetsController extends Controller
         $htmlOptions = array(
             'class'=>'row',
         );
-        if(!isset($model->$attribute)){
+        if(!isset($model->$attribute) && !isset($options['value'])){
             $htmlOptions['class'] .= " text-muted";
         }
         if(!$validate){

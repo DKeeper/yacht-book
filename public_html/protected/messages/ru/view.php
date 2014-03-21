@@ -226,6 +226,10 @@ return array(
     'last_cleaning_incl' => 'финальная уборка включена',
     'race_sail' => 'гоночные паруса',
     'local_skipper' => 'только местный капитан',
+    'berth cabin' => 'berth cabin',
+    'berth salon' => 'berth salon',
+    'crew berth' => 'crew berth',
+    'berth places' => 'berth places',
 
     // Названия языков
     "Abkhazian"=>"Абхазский",

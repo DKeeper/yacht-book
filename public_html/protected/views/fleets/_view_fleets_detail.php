@@ -31,9 +31,14 @@
         <div class="row">
             <h3><?php echo Yii::t("view","LIVING SPACE"); ?></h3>
         </div>
-        <?php echo $this->renderRow($profile,'single_cabins'); ?>
+        <?php echo $this->renderRow($profile,'single_cabins',array(
+            'value' => $profile->single_cabins+$profile->double_cabins+$profile->bunk_cabins+$profile->twin_cabins
+        )); ?>
         <?php echo $this->renderRow($profile,'crew_cabins'); ?>
-        <?php echo $this->renderRow($profile,'bunk_cabins'); ?>
+        <?php echo $this->renderRow($profile,'bunk_cabins',array(
+            'label' => "<span class='label-with-tooltip' title='".Yii::t('view','berth cabin')."+".Yii::t('view','berth salon')."+".Yii::t('view','crew berth')."'>".Yii::t('view','berth places')."</span>",
+            'value' => "<span class='label-with-tooltip' title='".Yii::t('view','berth cabin')."+".Yii::t('view','berth salon')."+".Yii::t('view','crew berth')."'>".(isset($profile->berth_cabin)?$profile->berth_cabin:0)."+".(isset($profile->berth_salon)?$profile->berth_salon:0)."+".(isset($profile->crew_berth)?$profile->crew_berth:0)."</span>",
+        )); ?>
         <?php echo $this->renderRow($profile,'WC'); ?>
         <?php echo $this->renderRow($profile,'shower'); ?>
         <div class="row photo_prev text-center">
@@ -444,6 +449,7 @@
 <script>
     $(function(){
         $("div.text-danger").tooltip();
+        $("span.label-with-tooltip").tooltip();
         $(".detail_view").on("click",function(event){
             var v = +$(this).find("input").val();
             if(v){
