@@ -251,6 +251,9 @@ class ProfileController extends Controller
                         if(isset($_POST['CcTransitLog'])){
                             foreach($_POST['CcTransitLog'] as $i => $item){
                                 $transitLogs[$i] = new CcTransitLog;
+                                if(!isset($item['obligatory'])){
+                                    $transitLogs[$i]->setScenario('price_obligatory');
+                                }
                                 $transitLogs[$i]->attributes = $item;
                                 $transitLogs[$i]->cc_profile_id = $profileCC->id;
                             }

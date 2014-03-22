@@ -101,9 +101,11 @@ $profile = SyProfile::model();
                                 'delay'=>0,
                                 'showAnim'=>'fold',
                                 'click'=>'js: function(event, ui) {
-                                    $(this).val("");
-                                    $("#YachtType_name").autocomplete( "search","");
-                                    return false;}',
+                                    $("#Search_type_id").val("");
+                                    applyFilters();
+                                    $(this).val("").autocomplete( "search","");
+                                    return false;
+                                }',
                                 'select' =>'js: function(event, ui) {
                                     this.value = ui.item.value;
                                     // записываем полученный id в скрытое поле
@@ -118,6 +120,7 @@ $profile = SyProfile::model();
                                 'change' => 'js: function(event, ui) {
                                     if(ui.item===null){
                                         $("#Search_type_id").val("");
+                                        applyFilters();
                                     }
                                     return false;
                                 }',
@@ -179,8 +182,9 @@ $profile = SyProfile::model();
                                 'delay'=>0,
                                 'showAnim'=>'fold',
                                 'click'=>'js: function(event, ui) {
-                                    $(this).val("");
-                                    $("#YachtShipyard_name").autocomplete( "search","");
+                                    $("#Search_shipyard_id").val("");
+                                    applyFilters();
+                                    $(this).val("").autocomplete( "search","");
                                     return false;
                                 }',
                                 'select' =>'js: function(event, ui) {
@@ -202,6 +206,7 @@ $profile = SyProfile::model();
                                 'change' => 'js: function(event, ui) {
                                     if(ui.item===null){
                                         $("#Search_shipyard_id").val("");
+                                        applyFilters();
                                     }
                                     return false;
                                 }',
@@ -255,8 +260,9 @@ $profile = SyProfile::model();
                                 'delay'=>0,
                                 'showAnim'=>'fold',
                                 'click'=>'js: function(event, ui) {
-                                    $(this).val("");
-                                    $("#YachtModel_name").autocomplete( "search","");
+                                    $("#Search_model_id").val("");
+                                    applyFilters();
+                                    $(this).val("").autocomplete( "search","");
                                     return false;
                                 }',
                                 'select' =>'js: function(event, ui) {
@@ -277,6 +283,7 @@ $profile = SyProfile::model();
                                 'change' => 'js: function(event, ui) {
                                     if(ui.item===null){
                                         $("#Search_model_id").val("");
+                                        applyFilters();
                                     }
                                     return false;
                                 }',
@@ -415,7 +422,7 @@ $profile = SyProfile::model();
 </div>
 <script>
     $(function(){
-        var mapData = {id:'map_search'};
+        var mapData = {id:'map_search',markers:[]};
         var mapOptions = {
             panControl: true,
             zoomControl: true,
@@ -495,7 +502,36 @@ $profile = SyProfile::model();
                 if(!answer.success){
                     alert(answer.data);
                 } else {
-                    alert("Найдено лодок: "+answer.data.count);
+                    var mapData = {};
+                    $.each(map,function(){
+                        if(this.id==="map_search"){
+                            mapData = this;
+                            return false;
+                        }
+                    });
+                    $.each(mapData.markers,function(){
+                        this.marker.setMap(null);
+                    });
+                    mapData.markers = [];
+                    $.each(answer.data.fleets,function(){
+                        var m = new google.maps.Marker({
+                            position: new google.maps.LatLng(this.latitude,this.longitude),
+                            map: mapData.map
+                        });
+                        mapData.markers.push({marker:m,data:this});
+                        google.maps.event.addListener(m, 'click', function(event) {
+                            var self = this;
+                            var m = {};
+                            $.each(mapData.markers,function(){
+                                if(this.marker===self){
+                                    m = this.data;
+                                    return false;
+                                }
+                            });
+                            // Загрузка карточек предпросмотра
+                            var t = 0;
+                        });
+                    });
                 }
             },
             type:'POST',

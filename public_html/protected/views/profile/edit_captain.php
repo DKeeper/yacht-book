@@ -69,8 +69,8 @@
     $(function(){
         $('button[data-type="next"]').tooltip();
         $('button[data-type="back"]').on("click",function(event){
-            var currTabNum = +$('#captain_tabs').tabs("option","active");
-            $('#captain_tabs').tabs("option","active",currTabNum-1);
+            $("#save_mode").val(+$('#captain_tabs').tabs("option","active")-1);
+            $("#profile-form").submit();
         });
         $('button[data-type="next"]').on("click",function(event){
             $("#save_mode").val(+$('#captain_tabs').tabs("option","active")+1);

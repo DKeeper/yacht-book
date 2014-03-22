@@ -21,30 +21,33 @@ class AjaxController extends Controller
     public function actionMapsearch(){
         if(Yii::app()->request->isAjaxRequest){
             $filterData = Yii::app()->request->getPost('Search');
-            $sql = "
-            SELECT f.*
-            FROM cc_fleets as f
-            JOIN sy_profile as p ON p.id = f.profile_id
-            LEFT JOIN price_current_year as pr ON pr.yacht_id = f.id
-            WHERE
-              p.length_m >= :l_min AND
-              p.length_m <= :l_max AND
-              p.built_date BETWEEN :d_min AND :d_max AND
-              pr.price >= :pr_min AND
-              pr.price <= :pr_max AND
-              f.isActive=1
-            ";
-            $params = array(
-                ':l_min'=>$filterData['length']['min'],
-                ':l_max'=>$filterData['length']['max'],
-                ':d_min'=>$filterData['year']['min'].'-01-01',
-                ':d_max'=>$filterData['year']['max'].'-01-01',
-                ':pr_min'=>$filterData['price']['min'],
-                ':pr_max'=>$filterData['price']['max'],
+            $command = Yii::app()->db->createCommand();
+            $command
+                ->select('f.id as fid, f.cc_id as cid, pr.id as prid, pr.latitude, pr.longitude')
+                ->from('cc_fleets as f')
+                ->join('sy_profile as p','p.id = f.profile_id')
+                ->leftJoin('price_current_year as pr','pr.yacht_id = f.id')
+                ->andWhere('p.length_m >= :l_min',array(':l_min'=>$filterData['length']['min']))
+                ->andWhere('p.length_m <= :l_max',array(':l_max'=>$filterData['length']['max']))
+                ->andWhere('p.built_date BETWEEN :d_min AND :d_max',array(':d_min'=>$filterData['year']['min'].'-01-01',':d_max'=>$filterData['year']['max'].'-01-01'))
+                ->andWhere('pr.price >= :pr_min',array(':pr_min'=>$filterData['price']['min']))
+                ->andWhere('pr.price <= :pr_max',array(':pr_max'=>$filterData['price']['max']))
+                ->andWhere('f.isActive=1');
+            if(!empty($filterData['type_id'])){
+                $command->andWhere('p.type_id = :tid',array(':tid'=>$filterData['type_id']));
+            }
+            if(!empty($filterData['shipyard_id'])){
+                $command->andWhere('p.shipyard_id = :shid',array(':shid'=>$filterData['shipyard_id']));
+            }
+            if(!empty($filterData['model_id'])){
+                $command->andWhere('p.model_id = :mid',array(':mid'=>$filterData['model_id']));
+            }
+            /** @var $fleets array|null */
+            $fleets = $command->queryAll();
+            $data = array(
+                'count'=>count($fleets),
+                'fleets'=>$fleets,
             );
-            /** @var $fleets CcFleets[]|null */
-            $fleets = CcFleets::model()->findAllBySql($sql,$params);
-            $data = array('count'=>count($fleets));
         }
         if(isset($data)){
             echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));

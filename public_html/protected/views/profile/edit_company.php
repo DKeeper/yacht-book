@@ -134,8 +134,8 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
     $(function(){
         $('button[data-type="next"]').tooltip();
         $('button[data-type="back"]').on("click",function(event){
-            var currTabNum = +$('#company_tabs').tabs("option","active");
-            $('#company_tabs').tabs("option","active",currTabNum-1);
+            $("#save_mode").val(+$('#company_tabs').tabs("option","active")-1);
+            $("#profile-form").submit();
         });
         $('button[data-type="next"]').on("click",function(event){
             $("#save_mode").val(+$('#company_tabs').tabs("option","active")+1);
@@ -147,6 +147,21 @@ Yii::app()->clientScript->registerScriptFile($scriptLink,CClientScript::POS_HEAD
         $(".btn_save").on("click",function(event){
             $("#save_mode").val(+$('#company_tabs').tabs("option","active"));
             $("#profile-form").submit();
+        });
+        $('body').on('change','#profile-form input',function(event){
+            $('#profile-form').data('settings')['submitting'] = true;
+            $.fn.yiiactiveform.validate(
+                    '#profile-form',
+                    function(messages){
+                        var hasError = false;
+                        $.each($('#profile-form').data('settings')['attributes'], function () {
+                            hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#profile-form')) || hasError;
+                        });
+                        $.fn.yiiactiveform.updateSummary($('#profile-form'), messages);
+                    }
+            );
+            $('#profile-form').data('settings')['submitting'] = false;
+            return false;
         });
     });
 </script>

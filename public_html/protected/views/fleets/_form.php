@@ -125,12 +125,12 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
             }
         });
         $('button[data-type="back"]').on("click",function(event){
-            var currTabNum = +$('#fleets_tabs').tabs("option","active");
-            $('#fleets_tabs').tabs("option","active",currTabNum-1);
+            $("#save_mode").val(+$('#fleets_tabs').tabs("option","active")-1);
+            $("#fleets_form").submit();
         });
         $('button[data-type="next"]').on("click",function(event){
-            var currTabNum = +$('#fleets_tabs').tabs("option","active");
-            $('#fleets_tabs').tabs("option","active",currTabNum+1);
+            $("#save_mode").val(+$('#fleets_tabs').tabs("option","active")+1);
+            $("#fleets_form").submit();
         });
         $(".tank_selector").on("change",function(event){
             if($(this).val()!=""){

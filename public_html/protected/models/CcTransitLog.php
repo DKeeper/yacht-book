@@ -34,6 +34,7 @@ class CcTransitLog extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_profile_id, country_id', 'required'),
+            array('price','required','on'=>'price_obligatory'),
 			array('cc_profile_id, country_id, obligatory, included', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
 			array('price', 'default', 'value'=>null),
