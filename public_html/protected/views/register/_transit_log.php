@@ -62,7 +62,7 @@ if(isset($model->country_id) && !empty($model->country_id)){
                 // устанавливается в значение выбранного пункта
                 this.value = ui.item.label;
                 // устанавливаем значения скрытого поля
-                $("#CcTransitLog_'.$i.'_country_id").val(ui.item.id);
+                $("#CcTransitLog_'.$i.'_country_id").val(ui.item.id).trigger("change");
                 return false;
             }',
             'search' => 'js:function( event, ui ) {
@@ -96,7 +96,7 @@ if(isset($model->country_id) && !empty($model->country_id)){
             <div class="checkbox">
     <?php
     echo CHtml::openTag("label");
-    echo $form->checkBox($model,"[$i]obligatory",array('uncheckValue'=>null));
+    echo $form->checkBox($model,"[$i]obligatory");
     echo $model->getAttributeLabel("obligatory");
     echo CHtml::closeTag("label");
     echo $form->error($model,"[$i]obligatory");

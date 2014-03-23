@@ -174,6 +174,34 @@
         ?>
         <?php
         $form = "<div class='form' style='display: none;'><div class='row'>";
+        $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_length_m','class'=>'form-horizontal'));
+        $form .= "<div class='input-group'>";
+        $form .= CHtml::activeTextField($profile,'length_m',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('length_m')));
+        $form .= "<span class='input-group-addon'>m</span></div>";
+        $form .= CHtml::endForm();
+        $form .= '</div></div>';
+        $script = "jQuery('#sy_profile_length_m').yiiactiveform({
+	        'attributes':[
+		        {'id':'SyProfile_length_m','inputID':'SyProfile_length_m','errorID':'SyProfile_length_m_em_','model':'SyProfile','name':'length_m','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+		        {'summary':false}
+	        ],
+	        'errorCss':'error'
+        });";
+        Yii::app()->clientScript->registerScript('sy_profile_length_m',$script,CClientScript::POS_LOAD);
+        echo $this->renderRow($profile,'length_m',array(
+            'measure'=>"m",
+            'validator'=>array(
+                'compare',
+                'params'=>array(
+                    'operator'=>'>',
+                    'compareValue'=>0
+                )
+            ),
+            'form'=>$form
+        ));
+        ?>
+        <?php
+        $form = "<div class='form' style='display: none;'><div class='row'>";
         $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_beam','class'=>'form-horizontal'));
         $form .= "<div class='input-group'>";
         $form .= CHtml::activeTextField($profile,'beam',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('beam')));

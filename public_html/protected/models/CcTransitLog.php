@@ -34,7 +34,8 @@ class CcTransitLog extends BaseModel
 		// will receive user inputs.
 		return array(
 			array('cc_profile_id, country_id', 'required'),
-            array('price','required','on'=>'price_obligatory'),
+            array('price','required','on'=>'price_required'),
+            array('obligatory, included','application.components.validators.Cabins','compareAttributes'=>'obligatory, included','on'=>'type_required'),
 			array('cc_profile_id, country_id, obligatory, included', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
 			array('price', 'default', 'value'=>null),

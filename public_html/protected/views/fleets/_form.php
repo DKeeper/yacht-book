@@ -115,15 +115,6 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
     $(function(){
         $(".fleets_form input").tooltip();
         $(".fleets_form select").tooltip();
-        $('#fleets_tabs').tabs({
-            activate: function(event,ui) {
-                if(ui.newPanel.selector=="#tab4"){
-                    $.each(map,function(){
-                        initialize({id:this.id},'map_canvas_'+this.id,{},false,this.id);
-                    });
-                }
-            }
-        });
         $('button[data-type="back"]').on("click",function(event){
             $("#save_mode").val(+$('#fleets_tabs').tabs("option","active")-1);
             $("#fleets_form").submit();

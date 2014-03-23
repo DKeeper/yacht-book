@@ -42,4 +42,5 @@ return array(
     'last_cleaning_incl' => 'final cleaning include',
     'race_sail' => 'race sail',
     'local_skipper' => 'local skipper only',
+    'length_m' => 'length',
 );

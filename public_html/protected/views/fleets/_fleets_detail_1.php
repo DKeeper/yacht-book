@@ -807,7 +807,19 @@
                     parent_include: false,
                     create_include: false,
                     sql: false
-                }, response);}'
+                }, response);}',
+                'options'=>array(
+                    'select' =>'js: function(event, ui) {
+                        this.value = ui.item.value;
+                        // записываем полученный id в скрытое поле
+                        $("#SyProfile_wheel_type_id").val(ui.item.id);
+                        if(ui.item.value==="Rumpel"){
+                            $("#SyProfile_wheel_no").val("").attr("disabled",true);
+                        } else {
+                            $("#SyProfile_wheel_no").attr("disabled",false);
+                        }
+                    }',
+                ),
             ));
             ?>
         </div>
@@ -939,3 +951,26 @@
     ));
     ?>
     <div style="display:none;" id="c"></div>
+<script>
+    $(function(){
+        $("#SyProfile_spinnaker_price").on("change",function(event){
+            if($(this).val()===""){
+                $("#SyProfile_spinnaker_deposiit").val("").attr("disabled",true);
+            } else {
+                $("#SyProfile_spinnaker_deposiit").attr("disabled",false);
+            }
+        });
+        $("#SyProfile_spinnaker_price").trigger("change");
+        $("#SyProfile_gennaker_price").on("change",function(event){
+            if($(this).val()===""){
+                $("#SyProfile_gennaker_deposit").val("").attr("disabled",true);
+            } else {
+                $("#SyProfile_gennaker_deposit").attr("disabled",false);
+            }
+        });
+        $("#SyProfile_gennaker_price").trigger("change");
+        if($("#WheelType_name").val()==="Rumpel"){
+            $("#SyProfile_wheel_no").attr("disabled",true);
+        }
+    });
+</script>
