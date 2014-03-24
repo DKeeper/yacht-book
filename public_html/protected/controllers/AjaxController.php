@@ -21,6 +21,7 @@ class AjaxController extends Controller
     public function actionMapsearch(){
         if(Yii::app()->request->isAjaxRequest){
             $filterData = Yii::app()->request->getPost('Search');
+            // Поиск лодок
             $command = Yii::app()->db->createCommand();
             $command
                 ->select('f.id as fid, f.cc_id as cid, pr.id as prid, pr.latitude, pr.longitude')
@@ -44,9 +45,42 @@ class AjaxController extends Controller
             }
             /** @var $fleets array|null */
             $fleets = $command->queryAll();
+            // Поиск граничных значений фильтров
+            $command->reset();
+            $command
+                ->select("
+                    MIN(p.length_m) as l_min,
+                    MAX(p.length_m) as l_max,
+                    MIN(p.built_date) as b_date_min,
+                    MAX(p.built_date) as b_date_max,
+                    MIN(pr.price) as price_min,
+                    MAX(pr.price) as price_max
+                ")
+                ->from('cc_fleets as f')
+                ->join('sy_profile as p','p.id = f.profile_id')
+                ->leftJoin('price_current_year as pr','pr.yacht_id = f.id')
+                ->andWhere('f.isActive=1');
+            if(!empty($filterData['type_id'])){
+                $command->andWhere('p.type_id = :tid',array(':tid'=>$filterData['type_id']));
+            }
+            if(!empty($filterData['shipyard_id'])){
+                $command->andWhere('p.shipyard_id = :shid',array(':shid'=>$filterData['shipyard_id']));
+            }
+            if(!empty($filterData['model_id'])){
+                $command->andWhere('p.model_id = :mid',array(':mid'=>$filterData['model_id']));
+            }
+            $newFilter = $command->queryRow();
+            $newFilter['l_min'] = intval($newFilter['l_min']);
+            $newFilter['l_max'] = intval($newFilter['l_max']);
+            $newFilter['b_date_min'] = intval($newFilter['b_date_min']);
+            $newFilter['b_date_max'] = intval($newFilter['b_date_max']);
+            $newFilter['price_min'] = intval($newFilter['price_min']);
+            $newFilter['price_max'] = intval($newFilter['price_max']);
+
             $data = array(
                 'count'=>count($fleets),
                 'fleets'=>$fleets,
+                'filter'=>$newFilter,
             );
         }
         if(isset($data)){

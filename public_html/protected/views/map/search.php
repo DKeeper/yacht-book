@@ -4,6 +4,7 @@
 /** @var $length array */
 /** @var $date array */
 /** @var $price array */
+/** @var $cabins array */
 $profile = SyProfile::model();
 ?>
 <style>
@@ -334,8 +335,11 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_length_min" class="pull-left"><?php echo $length['l_min']; ?></div>
-                        <div id="Search_length_max" class="pull-right"><?php echo $length['l_max']; ?></div>
+                        <div class="slider_footer row">
+                            <div id="Search_length_min" class="pull-left text-left"><?php echo $length['l_min']; ?></div>
+                            <div id="Search_length_max" class="pull-right text-right"><?php echo $length['l_max']; ?></div>
+                            <div class=""><button type="button" class="btn btn-default btn-xxs slider-reset" title="<?php echo Yii::t("view","drop filter"); ?>"><span class="glyphicon glyphicon-refresh"></span></button></div>
+                        </div>
                     </div>
                     <div class="col-md-3 text-center">
                         <?php echo Yii::t("view","cabins"); ?>
@@ -343,15 +347,15 @@ $profile = SyProfile::model();
                         $this->widget('zii.widgets.jui.CJuiSliderInput',array(
                             'id'=>'Search_cabins',
                             'name'=>'Search[cabins][min]',
-                            'value'=>2,
+                            'value'=>$cabins['cabins_min'],
                             'maxName'=>'Search[cabins][max]',
-                            'maxValue'=>10,
+                            'maxValue'=>$cabins['cabins_max'],
                             // additional javascript options for the slider plugin
                             'options'=>array(
-                                'min'=>2,
-                                'max'=>10,
+                                'min'=>$cabins['cabins_min'],
+                                'max'=>$cabins['cabins_max'],
                                 'range'=>true,
-                                'values'=>array(2,10),
+                                'values'=>array($cabins['cabins_min'],$cabins['cabins_max']),
                                 'stop'=>'js: function(event,ui){applyFilters()}',
                             ),
                             'htmlOptions'=>array(
@@ -359,8 +363,11 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_cabins_min" class="pull-left"></div>
-                        <div id="Search_cabins_max" class="pull-right"></div>
+                        <div class="slider_footer row">
+                            <div id="Search_cabins_min" class="pull-left"><?php echo $cabins['cabins_min']; ?></div>
+                            <div id="Search_cabins_max" class="pull-right"><?php echo $cabins['cabins_max']; ?></div>
+                            <div class=""><button type="button" class="btn btn-default btn-xxs slider-reset" title="<?php echo Yii::t("view","drop filter"); ?>"><span class="glyphicon glyphicon-refresh"></span></button></div>
+                        </div>
                     </div>
                     <div class="col-md-3 text-center">
                         <?php echo Yii::t("view","year"); ?>
@@ -384,8 +391,11 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_year_min" class="pull-left"><?php echo $date['b_date_min']; ?></div>
-                        <div id="Search_year_max" class="pull-right"><?php echo $date['b_date_max']; ?></div>
+                        <div class="slider_footer row">
+                            <div id="Search_year_min" class="pull-left"><?php echo $date['b_date_min']; ?></div>
+                            <div id="Search_year_max" class="pull-right"><?php echo $date['b_date_max']; ?></div>
+                            <div class=""><button type="button" class="btn btn-default btn-xxs slider-reset" title="<?php echo Yii::t("view","drop filter"); ?>"><span class="glyphicon glyphicon-refresh"></span></button></div>
+                        </div>
                     </div>
                     <div class="col-md-3 text-center">
                         <?php echo Yii::t("view","price"); ?>
@@ -409,8 +419,11 @@ $profile = SyProfile::model();
                             ),
                         ));
                         ?>
-                        <div id="Search_price_min" class="pull-left"><?php echo $price['price_min']; ?></div>
-                        <div id="Search_price_max" class="pull-right"><?php echo $price['price_max']; ?></div>
+                        <div class="slider_footer row">
+                            <div id="Search_price_min" class="pull-left"><?php echo $price['price_min']; ?></div>
+                            <div id="Search_price_max" class="pull-right"><?php echo $price['price_max']; ?></div>
+                            <div class=""><button type="button" class="btn btn-default btn-xxs slider-reset" title="<?php echo Yii::t("view","drop filter"); ?>"><span class="glyphicon glyphicon-refresh"></span></button></div>
+                        </div>
                     </div>
                 </div>
                 <?php $this->endWidget(); ?>
@@ -422,6 +435,19 @@ $profile = SyProfile::model();
 </div>
 <script>
     $(function(){
+        $("button.slider-reset").tooltip();
+        $("button.slider-reset").on("click",function(event){
+            var slider = $(this).parents(".slider_footer").prev();
+            var values = [
+                slider.slider("option","min"),
+                slider.slider("option","max")
+            ];
+            slider.slider("option","values",values);
+            var id = slider.attr("id").replace('_slider','');
+            $("#"+id).val(values[0]);
+            $("#"+id+"_end").val(values[1]);
+            applyFilters();
+        });
         var mapData = {id:'map_search',markers:[]};
         var mapOptions = {
             panControl: true,
@@ -472,6 +498,7 @@ $profile = SyProfile::model();
 
         });
         $(window).resize();
+        applyFilters();
     });
     function codeAddress() {
         var mapData = {};
@@ -502,6 +529,77 @@ $profile = SyProfile::model();
                 if(!answer.success){
                     alert(answer.data);
                 } else {
+                    // Применяем новые фильтры
+                    if(answer.data.filter.l_min==answer.data.filter.l_max){
+                        $("#Search_length_slider").slider("disable");
+                    } else {
+                        $("#Search_length_slider").slider("enable");
+                        var values = $("#Search_length_slider").slider("option","values");
+                        if(values[0]<answer.data.filter.l_min){
+                            values[0] = answer.data.filter.l_min;
+                        }
+                        if(values[0]>answer.data.filter.l_max){
+                            values[0] = answer.data.filter.l_min;
+                        }
+                        if(values[1]>answer.data.filter.l_max){
+                            values[1] = answer.data.filter.l_max;
+                        }
+                        if(values[1]<answer.data.filter.l_min){
+                            values[1] = answer.data.filter.l_max;
+                        }
+                        $("#Search_length_min").empty().append(values[0]);
+                        $("#Search_length_max").empty().append(values[1]);
+                        $("#Search_length_slider").slider("option","values",values);
+                        $("#Search_length_slider").slider("option","min",answer.data.filter.l_min);
+                        $("#Search_length_slider").slider("option","max",answer.data.filter.l_max);
+                    }
+                    if(answer.data.filter.price_min==answer.data.filter.price_max){
+                        $("#Search_price_slider").slider("disable");
+                    } else {
+                        $("#Search_price_slider").slider("enable");
+                        var values = $("#Search_price_slider").slider("option","values");
+                        if(values[0]<answer.data.filter.price_min){
+                            values[0] = answer.data.filter.price_min;
+                        }
+                        if(values[0]>answer.data.filter.price_max){
+                            values[0] = answer.data.filter.price_min;
+                        }
+                        if(values[1]>answer.data.filter.price_max){
+                            values[1] = answer.data.filter.price_max;
+                        }
+                        if(values[1]<answer.data.filter.price_min){
+                            values[1] = answer.data.filter.price_max;
+                        }
+                        $("#Search_price_min").empty().append(values[0]);
+                        $("#Search_price_max").empty().append(values[1]);
+                        $("#Search_price_slider").slider("option","values",values);
+                        $("#Search_price_slider").slider("option","min",answer.data.filter.price_min);
+                        $("#Search_price_slider").slider("option","max",answer.data.filter.price_max);
+                    }
+                    if(answer.data.filter.b_date_min==answer.data.filter.b_date_max){
+                        $("#Search_year_slider").slider("disable");
+                    } else {
+                        $("#Search_year_slider").slider("enable");
+                        var values = $("#Search_year_slider").slider("option","values");
+                        if(values[0]<answer.data.filter.b_date_min){
+                            values[0] = answer.data.filter.b_date_min;
+                        }
+                        if(values[0]>answer.data.filter.b_date_max){
+                            values[0] = answer.data.filter.b_date_min;
+                        }
+                        if(values[1]>answer.data.filter.b_date_max){
+                            values[1] = answer.data.filter.b_date_max;
+                        }
+                        if(values[1]<answer.data.filter.b_date_min){
+                            values[1] = answer.data.filter.b_date_max;
+                        }
+                        $("#Search_year_min").empty().append(values[0]);
+                        $("#Search_year_max").empty().append(values[1]);
+                        $("#Search_year_slider").slider("option","values",values);
+                        $("#Search_year_slider").slider("option","min",answer.data.filter.b_date_min);
+                        $("#Search_year_slider").slider("option","max",answer.data.filter.b_date_max);
+                    }
+                    // Обновление маркеров
                     var mapData = {};
                     $.each(map,function(){
                         if(this.id==="map_search"){

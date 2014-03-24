@@ -231,6 +231,9 @@ return array(
     'crew berth' => 'crew berth',
     'berth places' => 'berth places',
 
+    'drop filter' => 'сброс фильтра',
+    'drop filters' => 'сброс фильтров',
+
     // Названия языков
     "Abkhazian"=>"Абхазский",
     'English' => 'Английский',

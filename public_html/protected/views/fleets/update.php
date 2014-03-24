@@ -8,7 +8,7 @@
 /* @var $save_mode integer */
 
 $this->breadcrumbs=array(
-	'Cc Fleets'=>array('index'),
+    Yii::t("view","Company fleets")=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );

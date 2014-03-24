@@ -21,7 +21,19 @@ class MapController extends Controller
           MIN(p.built_date) as b_date_min,
           MAX(p.built_date) as b_date_max,
           MIN(pr.price) as price_min,
-          MAX(pr.price) as price_max
+          MAX(pr.price) as price_max,
+          MIN(
+            ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
+	        ( CASE WHEN p.double_cabins IS NULL THEN 0 ELSE p.double_cabins END ) +
+	        ( CASE WHEN p.bunk_cabins IS NULL THEN 0 ELSE p.bunk_cabins END ) +
+	        ( CASE WHEN p.twin_cabins IS NULL THEN 0 ELSE p.twin_cabins END )
+	      ) AS cabins_min,
+          MAX(
+            ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
+	        ( CASE WHEN p.double_cabins IS NULL THEN 0 ELSE p.double_cabins END ) +
+	        ( CASE WHEN p.bunk_cabins IS NULL THEN 0 ELSE p.bunk_cabins END ) +
+	        ( CASE WHEN p.twin_cabins IS NULL THEN 0 ELSE p.twin_cabins END )
+	      ) AS cabins_max
         FROM cc_fleets as f
         JOIN sy_profile as p ON p.id = f.profile_id
         LEFT JOIN price_current_year as pr ON pr.yacht_id = f.id
@@ -40,6 +52,10 @@ class MapController extends Controller
             'price_min'=>intval($row['price_min']),
             'price_max'=>intval($row['price_max']),
         );
+        $cabins = array(
+            'cabins_min'=>intval($row['cabins_min']),
+            'cabins_max'=>intval($row['cabins_max']),
+        );
 
 		$this->render(
             'search',
@@ -47,6 +63,7 @@ class MapController extends Controller
                 'length' => $length,
                 'date' => $date,
                 'price' => $price,
+                'cabins' => $cabins,
             )
         );
 	}
