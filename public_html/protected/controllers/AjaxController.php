@@ -33,6 +33,22 @@ class AjaxController extends Controller
                 ->andWhere('p.built_date BETWEEN :d_min AND :d_max',array(':d_min'=>$filterData['year']['min'].'-01-01',':d_max'=>$filterData['year']['max'].'-01-01'))
                 ->andWhere('pr.price >= :pr_min',array(':pr_min'=>$filterData['price']['min']))
                 ->andWhere('pr.price <= :pr_max',array(':pr_max'=>$filterData['price']['max']))
+                ->andWhere('
+                    (
+                        ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
+	                    ( CASE WHEN p.double_cabins IS NULL THEN 0 ELSE p.double_cabins END ) +
+	                    ( CASE WHEN p.bunk_cabins IS NULL THEN 0 ELSE p.bunk_cabins END ) +
+	                    ( CASE WHEN p.twin_cabins IS NULL THEN 0 ELSE p.twin_cabins END )
+	                ) >= :c_min
+                ',array(':c_min'=>$filterData['cabins']['min']))
+                ->andWhere('
+                    (
+                        ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
+	                    ( CASE WHEN p.double_cabins IS NULL THEN 0 ELSE p.double_cabins END ) +
+	                    ( CASE WHEN p.bunk_cabins IS NULL THEN 0 ELSE p.bunk_cabins END ) +
+	                    ( CASE WHEN p.twin_cabins IS NULL THEN 0 ELSE p.twin_cabins END )
+	                ) <= :c_max
+                ',array(':c_max'=>$filterData['cabins']['max']))
                 ->andWhere('f.isActive=1');
             if(!empty($filterData['type_id'])){
                 $command->andWhere('p.type_id = :tid',array(':tid'=>$filterData['type_id']));
@@ -54,7 +70,19 @@ class AjaxController extends Controller
                     MIN(p.built_date) as b_date_min,
                     MAX(p.built_date) as b_date_max,
                     MIN(pr.price) as price_min,
-                    MAX(pr.price) as price_max
+                    MAX(pr.price) as price_max,
+                    MIN(
+                        ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
+	                    ( CASE WHEN p.double_cabins IS NULL THEN 0 ELSE p.double_cabins END ) +
+	                    ( CASE WHEN p.bunk_cabins IS NULL THEN 0 ELSE p.bunk_cabins END ) +
+	                    ( CASE WHEN p.twin_cabins IS NULL THEN 0 ELSE p.twin_cabins END )
+	                ) AS cabins_min,
+                    MAX(
+                        ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
+	                    ( CASE WHEN p.double_cabins IS NULL THEN 0 ELSE p.double_cabins END ) +
+	                    ( CASE WHEN p.bunk_cabins IS NULL THEN 0 ELSE p.bunk_cabins END ) +
+	                    ( CASE WHEN p.twin_cabins IS NULL THEN 0 ELSE p.twin_cabins END )
+	                ) AS cabins_max
                 ")
                 ->from('cc_fleets as f')
                 ->join('sy_profile as p','p.id = f.profile_id')
@@ -76,6 +104,8 @@ class AjaxController extends Controller
             $newFilter['b_date_max'] = intval($newFilter['b_date_max']);
             $newFilter['price_min'] = intval($newFilter['price_min']);
             $newFilter['price_max'] = intval($newFilter['price_max']);
+            $newFilter['cabins_min'] = intval($newFilter['cabins_min']);
+            $newFilter['cabins_max'] = intval($newFilter['cabins_max']);
 
             $data = array(
                 'count'=>count($fleets),
@@ -137,6 +167,7 @@ class AjaxController extends Controller
             $parentID = Yii::app()->getRequest()->getParam('parent_id');
             $parentProp = Yii::app()->getRequest()->getParam('parent_link');
             $parentModel = Yii::app()->getRequest()->getParam('parent_model');
+            $mapSearch = Yii::app()->getRequest()->getParam('map');
 
             if($sql){
                 $command = Yii::app()->db->createCommand();
@@ -182,6 +213,9 @@ class AjaxController extends Controller
                 if($parentID && $parentProp){
                     $criteria->addCondition($parentProp.'=:v');
                     $criteria->params += array(':v'=>$parentID);
+                }
+                if(isset($mapSearch)){
+                    $this->addMapSearchCondition($criteria,get_class($model));
                 }
                 $objects = $model->findAll($criteria);
             }
@@ -361,5 +395,78 @@ class AjaxController extends Controller
         $result=htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         echo $result;
         Yii::app()->end();
+    }
+
+    /**
+     * @param $criteria CDbCriteria
+     * @param $className
+     */
+    protected function addMapSearchCondition(&$criteria,$className){
+        $criteria->alias = 't';
+        $criteria->distinct = true;
+        $criteria->select = 't.'.$criteria->select;
+        $criteria->order = 't.'.$criteria->order;
+        if($criteria->condition!==''){
+            $conditions = explode(' AND ',$criteria->condition);
+            $criteria->condition = '';
+            foreach($conditions as $condition){
+                $condition = 't.'.trim($condition,'()');
+                $criteria->addCondition($condition);
+            }
+        }
+        $filterData = Yii::app()->getRequest()->getParam('map_filter');
+        $params = array(
+            ':l_min'=>$filterData['l_min'],
+            ':l_max'=>$filterData['l_max'],
+            ':d_min'=>$filterData['y_min'].'-01-01',
+            ':d_max'=>$filterData['y_max'].'-01-01',
+            ':pr_min'=>$filterData['p_min'],
+            ':pr_max'=>$filterData['p_max'],
+            ':c_min'=>$filterData['c_min'],
+            ':c_max'=>$filterData['c_max']
+        );
+        $criteria->params += $params;
+        switch($className){
+            case 'YachtType':
+                $criteria->join = "
+                    JOIN sy_profile AS yp ON yp.type_id = t.id
+                    JOIN cc_fleets AS f ON f.profile_id = yp.id
+                    LEFT JOIN price_current_year AS pr ON pr.yacht_id = f.id
+                ";
+                break;
+            case 'YachtShipyard':
+                $criteria->join = "
+                    JOIN sy_profile AS yp ON yp.shipyard_id = t.id
+                    JOIN cc_fleets AS f ON f.profile_id = yp.id
+                    LEFT JOIN price_current_year AS pr ON pr.yacht_id = f.id
+                ";
+                break;
+            case 'YachtModel':
+                $criteria->join = "
+                    JOIN sy_profile AS yp ON yp.model_id = t.id
+                    JOIN cc_fleets AS f ON f.profile_id = yp.id
+                    LEFT JOIN price_current_year AS pr ON pr.yacht_id = f.id
+                ";
+                break;
+        }
+        $criteria->addCondition("yp.length_m >= :l_min");
+        $criteria->addCondition("yp.length_m <= :l_max");
+        $criteria->addCondition("yp.built_date BETWEEN :d_min AND :d_max");
+        $criteria->addCondition("pr.price >= :pr_min");
+        $criteria->addCondition("pr.price <= :pr_max");
+        $criteria->addCondition("(
+                        ( CASE WHEN yp.single_cabins IS NULL THEN 0 ELSE yp.single_cabins END ) +
+	                    ( CASE WHEN yp.double_cabins IS NULL THEN 0 ELSE yp.double_cabins END ) +
+	                    ( CASE WHEN yp.bunk_cabins IS NULL THEN 0 ELSE yp.bunk_cabins END ) +
+	                    ( CASE WHEN yp.twin_cabins IS NULL THEN 0 ELSE yp.twin_cabins END )
+	                ) >= :c_min");
+        $criteria->addCondition("(
+                        ( CASE WHEN yp.single_cabins IS NULL THEN 0 ELSE yp.single_cabins END ) +
+	                    ( CASE WHEN yp.double_cabins IS NULL THEN 0 ELSE yp.double_cabins END ) +
+	                    ( CASE WHEN yp.bunk_cabins IS NULL THEN 0 ELSE yp.bunk_cabins END ) +
+	                    ( CASE WHEN yp.twin_cabins IS NULL THEN 0 ELSE yp.twin_cabins END )
+	                ) <= :c_max");
+        $criteria->addCondition("f.isActive=1");
+        $t = 0;
     }
 }

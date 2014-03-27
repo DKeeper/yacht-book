@@ -87,14 +87,25 @@ $profile = SyProfile::model();
                             'model'=>$model,   // модель
                             'attribute'=>'name',  // атрибут модели
                             // "источник" данных для выборки
-                            'source' =>'js:function(request, response) {
+                            'source' =>'js: function(request, response) {
                                 $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
-                                term: request.term.split(/,s*/).pop(),
-                                modelClass: "YachtType",
-                                parent_include: false,
-                                create_include: false,
-                                sql: false
-                            }, response);}',
+                                    term: request.term.split(/,s*/).pop(),
+                                    modelClass: "YachtType",
+                                    parent_include: false,
+                                    create_include: false,
+                                    sql: false,
+                                    map: true,
+                                    map_filter: {
+                                        l_min : $("#Search_length").val(),
+                                        l_max : $("#Search_length_end").val(),
+                                        c_min : $("#Search_cabins").val(),
+                                        c_max : $("#Search_cabins_end").val(),
+                                        y_min : $("#Search_year").val(),
+                                        y_max : $("#Search_year_end").val(),
+                                        p_min : $("#Search_price").val(),
+                                        p_max : $("#Search_price_end").val(),
+                                    }
+                                },response);}',
                             // параметры, подробнее можно посмотреть на сайте
                             // http://jqueryui.com/demos/autocomplete/
                             'options'=>array(
@@ -173,7 +184,18 @@ $profile = SyProfile::model();
                                     modelClass: "YachtShipyard",
                                     field: {yachtType: "name"},
                                     create_include: false,
-                                    sql: false
+                                    sql: false,
+                                    map: true,
+                                    map_filter: {
+                                        l_min : $("#Search_length").val(),
+                                        l_max : $("#Search_length_end").val(),
+                                        c_min : $("#Search_cabins").val(),
+                                        c_max : $("#Search_cabins_end").val(),
+                                        y_min : $("#Search_year").val(),
+                                        y_max : $("#Search_year_end").val(),
+                                        p_min : $("#Search_price").val(),
+                                        p_max : $("#Search_price_end").val(),
+                                    }
                                 }, response);
                             }',
                             // параметры, подробнее можно посмотреть на сайте
@@ -251,7 +273,18 @@ $profile = SyProfile::model();
                                     modelClass: "YachtModel",
                                     field: {shipyard: "name"},
                                     create_include: false,
-                                    sql: false
+                                    sql: false,
+                                    map: true,
+                                    map_filter: {
+                                        l_min : $("#Search_length").val(),
+                                        l_max : $("#Search_length_end").val(),
+                                        c_min : $("#Search_cabins").val(),
+                                        c_max : $("#Search_cabins_end").val(),
+                                        y_min : $("#Search_year").val(),
+                                        y_max : $("#Search_year_end").val(),
+                                        p_min : $("#Search_price").val(),
+                                        p_max : $("#Search_price_end").val(),
+                                    }
                                 },response);
                             }',
                             // параметры, подробнее можно посмотреть на сайте
@@ -598,6 +631,29 @@ $profile = SyProfile::model();
                         $("#Search_year_slider").slider("option","values",values);
                         $("#Search_year_slider").slider("option","min",answer.data.filter.b_date_min);
                         $("#Search_year_slider").slider("option","max",answer.data.filter.b_date_max);
+                    }
+                    if(answer.data.filter.cabins_min==answer.data.filter.cabins_max){
+                        $("#Search_cabins_slider").slider("disable");
+                    } else {
+                        $("#Search_cabins_slider").slider("enable");
+                        var values = $("#Search_cabins_slider").slider("option","values");
+                        if(values[0]<answer.data.filter.cabins_min){
+                            values[0] = answer.data.filter.cabins_min;
+                        }
+                        if(values[0]>answer.data.filter.cabins_max){
+                            values[0] = answer.data.filter.cabins_min;
+                        }
+                        if(values[1]>answer.data.filter.cabins_max){
+                            values[1] = answer.data.filter.cabins_max;
+                        }
+                        if(values[1]<answer.data.filter.cabins_min){
+                            values[1] = answer.data.filter.cabins_max;
+                        }
+                        $("#Search_cabins_min").empty().append(values[0]);
+                        $("#Search_cabins_max").empty().append(values[1]);
+                        $("#Search_cabins_slider").slider("option","values",values);
+                        $("#Search_cabins_slider").slider("option","min",answer.data.filter.cabins_min);
+                        $("#Search_cabins_slider").slider("option","max",answer.data.filter.cabins_max);
                     }
                     // Обновление маркеров
                     var mapData = {};
