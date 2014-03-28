@@ -15,7 +15,40 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
+        return 'getyachtcards ,autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
+    }
+
+    public function actionGetyachtcards(){
+        if(Yii::app()->request->isAjaxRequest){
+            $markerData = Yii::app()->request->getParam('data');
+            $data = '';
+            foreach($markerData as $marker){
+                $fleet = CcFleets::model()->findByPk($marker['fid']);
+                $company = CcProfile::model()->findByAttributes(array('cc_id'=>$marker['cid']));
+                $priceCurrentYear = PriceCurrentYear::model()->findByPk($marker['prid']);
+                if(isset($fleet) && isset($company) && isset($priceCurrentYear)){
+                    $data .= $this->renderPartial(
+                        '/fleets/_view_yacht_card_for_map',
+                        array(
+                            'fleet' => $fleet,
+                            'company' => $company,
+                            'price' => $priceCurrentYear,
+                        ),
+                        true
+                    );
+                }
+            }
+            if($data===''){
+                unset($data);
+                $error = Yii::t("view","No data");
+            }
+            if(isset($data)){
+                echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
+            } else {
+                echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
+            }
+        }
+        Yii::app()->end();
     }
 
     public function actionMapsearch(){
@@ -112,11 +145,11 @@ class AjaxController extends Controller
                 'fleets'=>$fleets,
                 'filter'=>$newFilter,
             );
-        }
-        if(isset($data)){
-            echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
-        } else {
-            echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
+            if(isset($data)){
+                echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
+            } else {
+                echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
+            }
         }
         Yii::app()->end();
     }

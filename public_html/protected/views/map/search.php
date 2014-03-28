@@ -667,25 +667,74 @@ $profile = SyProfile::model();
                         this.marker.setMap(null);
                     });
                     mapData.markers = [];
+                    var m_for_cluster = [];
                     $.each(answer.data.fleets,function(){
                         var m = new google.maps.Marker({
-                            position: new google.maps.LatLng(this.latitude,this.longitude),
-                            map: mapData.map
+                            position: new google.maps.LatLng(this.latitude,this.longitude)
                         });
+                        m_for_cluster.push(m);
                         mapData.markers.push({marker:m,data:this});
                         google.maps.event.addListener(m, 'click', function(event) {
                             var self = this;
-                            var m = {};
+                            var m = [];
                             $.each(mapData.markers,function(){
                                 if(this.marker===self){
-                                    m = this.data;
+                                    m.push(this);
                                     return false;
                                 }
                             });
                             // Загрузка карточек предпросмотра
-                            var t = 0;
+                            loadYachtCards(m,mapData.map,this);
                         });
                     });
+                    // Кластеризация маркеров
+                    var markerCluster = new MarkerClusterer(mapData.map, m_for_cluster,{
+                        'zoomOnClick':false
+                    });
+                    // Обработка клика на кластере
+                    google.maps.event.addListener(markerCluster, 'clusterclick', function(e){
+                        var mapData = {}, markers = [];
+                        $.each(map,function(){
+                            if(this.id==="map_search"){
+                                mapData = this;
+                                return false;
+                            }
+                        });
+                        $.each(e.getMarkers(),function(){
+                            var clusterMarker = this;
+                            $.each(mapData.markers,function(){
+                                if(this.marker===clusterMarker){
+                                    markers.push(this);
+                                    return false;
+                                }
+                            });
+                        });
+                        // Загрузка карточек предпросмотра
+                        loadYachtCards(markers,mapData.map,e);
+                    });
+                }
+            },
+            type:'POST',
+            dataType:'json',
+            async:true
+        });
+    }
+    function loadYachtCards(markers,map,infoMarker){
+        var markerData = [];
+        $.each(markers,function(){
+            markerData.push(this.data);
+        });
+        $.ajax({
+            url:'/ajax/getyachtcards',
+            data:{data:markerData},
+            success:function(answer){
+                if(!answer.success){
+                    alert(answer.data);
+                } else {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: answer.data
+                    });
+                    infowindow.open(map,infoMarker);
                 }
             },
             type:'POST',
