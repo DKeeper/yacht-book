@@ -240,7 +240,7 @@ class SyProfile extends BaseModel
 			'shower' => Yii::t('model','Shower'),
 			'main_sail_area' => Yii::t('model','Main sail area'),
 			'main_sail_full_battened' => Yii::t('model','Main sail full battened'),
-			'main_sail_furling_id' => Yii::t('model','Main sail furling'),
+			'main_sail_furling_id' => Yii::t('model','Main sail'),
 			'main_sail_material_id' => Yii::t('model','Main sail material'),
 			'jib_type_id' => Yii::t('model','Jib type'),
 			'jib_area' => Yii::t('model','Jib area'),

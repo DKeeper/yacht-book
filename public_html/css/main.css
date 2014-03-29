@@ -245,3 +245,14 @@ div.search-form
 .info{
     margin-left: 110px;
 }
+.fleet-detail h1,
+.fleet-detail h2,
+.fleet-detail h3,
+.fleet-detail h4,
+.fleet-detail h5,
+.fleet-detail h6{
+    margin: 0;
+}
+.fleet-detail form{
+    width: 90%;
+}

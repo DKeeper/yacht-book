@@ -117,11 +117,11 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
         $(".fleets_form select").tooltip();
         $('button[data-type="back"]').on("click",function(event){
             $("#save_mode").val(+$('#fleets_tabs').tabs("option","active")-1);
-            $("#fleets_form").submit();
+            $("#cc-fleets-form").submit();
         });
         $('button[data-type="next"]').on("click",function(event){
             $("#save_mode").val(+$('#fleets_tabs').tabs("option","active")+1);
-            $("#fleets_form").submit();
+            $("#cc-fleets-form").submit();
         });
         $(".tank_selector").on("change",function(event){
             if($(this).val()!=""){

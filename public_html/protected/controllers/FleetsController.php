@@ -369,6 +369,18 @@ class FleetsController extends Controller
             }
         }
 
+        $profileCC = CcProfile::model()->findByAttributes(array('cc_id'=>$model->cc_id));
+
+        $gennakerOption = $profileCC->ccOrderOptions(array('with'=>'orderOption','condition'=>'orderOption.name=:n','params'=>array(':n'=>'gennaker')));
+        $spinnakerOption = $profileCC->ccOrderOptions(array('with'=>'orderOption','condition'=>'orderOption.name=:n','params'=>array(':n'=>'spinnaker')));
+
+        if(!empty($gennakerOption) && is_null($profile->gennaker_price)){
+            $profile->gennaker_price = $gennakerOption[0]->price;
+        }
+        if(!empty($spinnakerOption) && is_null($profile->spinnaker_price)){
+            $profile->spinnaker_price = $spinnakerOption[0]->price;
+        }
+
         if(isset($_POST['ajax']) && $_POST['ajax']==='cc-fleets-form')
         {
             $validateModels = array($model,$profile);

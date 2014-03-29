@@ -155,7 +155,7 @@ return array(
     'Shower' => 'Душей',
     'Main sail area' => 'Площадь грота',
     'Main sail full battened' => 'Грот на латах',
-    'Main sail furling' => 'Способ хранения грота',
+    'Main sail' => 'Грот',
     'Main sail material' => 'Материал',
     'Jib type' => 'Тип стакселя',
     'Jib area' => 'Площадь стакселя',
