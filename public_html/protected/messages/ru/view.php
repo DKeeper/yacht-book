@@ -230,6 +230,10 @@ return array(
     'berth salon' => 'в салоне',
     'crew berth' => 'в капитанской каюте',
     'berth places' => 'кают',
+    'furling' => 'закрутки',
+    'material' => 'материал',
+    'no_of_engine' => 'кол. двигателей',
+    'type' => 'тип',
 
     'drop filter' => 'сброс фильтра',
     'drop filters' => 'сброс фильтров',

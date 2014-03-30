@@ -169,7 +169,14 @@
             <h3><?php echo Yii::t("view","LIVING SPACE"); ?></h3>
         </div>
         <div class="col-md-4">
-            <h4><?php echo Yii::t("view","GENOA"); ?></h4>
+            <div class="col-md-4">
+                <?php echo Yii::t("view","furling"); ?>
+            </div>
+            <div class="col-md-8">
+                <?php
+                echo isset($profile->main_sail_furling_id)?$profile->mainSailFurling->name:Yii::t("view","No data");
+                ?>
+            </div>
         </div>
         <div class="col-md-4">
             <?php
@@ -209,34 +216,14 @@
             )); ?>
         </div>
         <div class="col-md-4">
-            <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_jib_area','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'jib_area',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('jib_area')));
-            $form .= "<span class='input-group-addon'>m<sup>2</sup></span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_jib_area').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_jib_area','inputID':'SyProfile_jib_area','errorID':'SyProfile_jib_area_em_','model':'SyProfile','name':'jib_area','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-    	        'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_jib_area',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'jib_area',array(
-                'measure'=>"m<sup>2</sup>",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>=',
-                        'compareValue'=>5
-                    )
-                ),
-                'form'=>$form
-            ));
-            ?>
+            <div class="col-md-4">
+                <?php echo Yii::t("view","material"); ?>
+            </div>
+            <div class="col-md-8">
+                <?php
+                echo isset($profile->main_sail_material_id)?$profile->mainSailMaterial->name:Yii::t("view","No data");
+                ?>
+            </div>
         </div>
         <div class="col-md-4">
             <?php
@@ -272,10 +259,9 @@
     <div class="row">
         <div class="col-md-4"><?php echo $this->renderRow($profile,'crew_cabins'); ?></div>
         <div class="col-md-4">
-            <?php echo $this->renderRow($profile,'jib_automatic',array(
-                'outtype'=>'checkbox',
-            ));
-            ?>
+            <?php if(isset($profile->jib_type_id)){?>
+            <h4><?php echo Yii::t("view",strtoupper($profile->jibType->name)); ?></h4>
+            <?php } ?>
         </div>
         <div class="col-md-4">
             <h3><?php echo Yii::t("view","CONTROL"); ?></h3>
@@ -289,10 +275,32 @@
             )); ?>
         </div>
         <div class="col-md-4">
-            <?php echo $this->renderRow($profile,'spinnaker',array(
-                'outtype'=>'checkbox',
-                'value'=>$profile->spinnaker_area,
+            <?php
+            $form = "<div class='form' style='display: none;'><div class='row'>";
+            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_jib_area','class'=>'form-horizontal'));
+            $form .= "<div class='input-group'>";
+            $form .= CHtml::activeTextField($profile,'jib_area',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('jib_area')));
+            $form .= "<span class='input-group-addon'>m<sup>2</sup></span></div>";
+            $form .= CHtml::endForm();
+            $form .= '</div></div>';
+            $script = "jQuery('#sy_profile_jib_area').yiiactiveform({
+	            'attributes':[
+		            {'id':'SyProfile_jib_area','inputID':'SyProfile_jib_area','errorID':'SyProfile_jib_area_em_','model':'SyProfile','name':'jib_area','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+		            {'summary':false}
+	            ],
+    	        'errorCss':'error'
+            });";
+            Yii::app()->clientScript->registerScript('sy_profile_jib_area',$script,CClientScript::POS_LOAD);
+            echo $this->renderRow($profile,'jib_area',array(
                 'measure'=>"m<sup>2</sup>",
+                'validator'=>array(
+                    'compare',
+                    'params'=>array(
+                        'operator'=>'>=',
+                        'compareValue'=>5
+                    )
+                ),
+                'form'=>$form
             ));
             ?>
         </div>
@@ -310,10 +318,8 @@
     <div class="row">
         <div class="col-md-4"><?php echo $this->renderRow($profile,'WC'); ?></div>
         <div class="col-md-4">
-            <?php echo $this->renderRow($profile,'gennaker',array(
+            <?php echo $this->renderRow($profile,'jib_automatic',array(
                 'outtype'=>'checkbox',
-                'value'=>$profile->gennaker_area,
-                'measure'=>"m<sup>2</sup>",
             ));
             ?>
         </div>
@@ -330,7 +336,16 @@
     </div>
     <div class="row">
         <div class="col-md-4"><?php echo $this->renderRow($profile,'shower'); ?></div>
-        <div class="col-md-4"><?php echo $this->renderRow($profile,'winches'); ?></div>
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <?php echo Yii::t("view","furling"); ?>
+            </div>
+            <div class="col-md-8">
+                <?php
+                echo isset($profile->jib_furling_id)?$profile->jibFurling->name:Yii::t("view","No data");
+                ?>
+            </div>
+        </div>
         <div class="col-md-4">
             <div class="col-md-4">
                 <?php echo Yii::t("view","HP/kW"); ?>
@@ -356,7 +371,47 @@
                 ?>
             </div>
         </div>
-        <div class="col-md-4"><?php echo $this->renderRow($profile,'el_winches'); ?></div>
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <?php echo Yii::t("view","material"); ?>
+            </div>
+            <div class="col-md-8">
+                <?php
+                echo isset($profile->jib_material_id)?$profile->jibMaterial->name:Yii::t("view","No data");
+                ?>
+            </div>
+        </div>
+        <div class="col-md-4"><?php echo $this->renderRow($profile,'no_of_engine'); ?></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->renderRow($profile,'spinnaker',array(
+                'outtype'=>'checkbox',
+                'value'=>$profile->spinnaker_area,
+                'measure'=>"m<sup>2</sup>",
+            ));
+            ?>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <?php echo Yii::t("view","type"); ?>
+            </div>
+            <div class="col-md-8">
+                <?php
+                echo isset($profile->wheel_type_id)?$profile->wheelType->name:Yii::t("view","No data");
+                ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->renderRow($profile,'gennaker',array(
+                'outtype'=>'checkbox',
+                'value'=>$profile->gennaker_area,
+                'measure'=>"m<sup>2</sup>",
+            ));
+            ?>
+        </div>
         <div class="col-md-4">
             <?php
             $form = "<div class='form' style='display: none;'><div class='row'>";
@@ -383,6 +438,11 @@
                 'form'=>$form
             ));
             ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"><?php echo $this->renderRow($profile,'winches'); ?></div>
+        <div class="col-md-4">
             <?php
             $form = "<div class='form' style='display: none;'><div class='row'>";
             $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_rudder','class'=>'form-horizontal'));
@@ -408,10 +468,17 @@
                 'form'=>$form
             ));
             ?>
-            <?php echo $this->renderRow($profile,'folding_propeller',array('outtype'=>'checkbox'));?>
-            <?php echo $this->renderRow($profile,'bow_thruster',array('outtype'=>'checkbox')); ?>
-            <?php echo $this->renderRow($profile,'auto_pilot',array('outtype'=>'checkbox')); ?>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"><?php echo $this->renderRow($profile,'el_winches'); ?></div>
+        <div class="col-md-4"><?php echo $this->renderRow($profile,'folding_propeller',array('outtype'=>'checkbox'));?></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8"><?php echo $this->renderRow($profile,'bow_thruster',array('outtype'=>'checkbox')); ?></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8"><?php echo $this->renderRow($profile,'auto_pilot',array('outtype'=>'checkbox')); ?></div>
     </div>
 </div>
 <div id="more_detail" style="display: none;">
