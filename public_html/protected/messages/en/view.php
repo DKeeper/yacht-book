@@ -15,7 +15,7 @@ return array(
     'main_sail_area' => 'area',
     'main_sail_full_battened' => 'full battened',
     'mast_draught' => 'mast draught',
-    'wheel_no' => 'wheel',
+    'wheel_no' => 'wheel no',
     'folding_propeller' => 'folding propeller',
     'jib_area' => 'area',
     'jib_automatic' => 'automatic',
@@ -44,4 +44,5 @@ return array(
     'local_skipper' => 'local skipper only',
     'length_m' => 'length',
     'no_of_engine' => 'no of engine',
+    'rudder' => 'rudder no',
 );

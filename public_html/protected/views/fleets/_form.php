@@ -134,14 +134,10 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
             $("#save_mode").val(+$('#fleets_tabs').tabs("option","active"));
             $("#fleets_form").submit();
         });
-    });
-</script>
-<?php
-$script = "
-$('body').on('change','#cc-fleets-form input',function(event){
+        $('body').on('change','#cc-fleets-form input',function(event){
             $('#cc-fleets-form').data('settings')['submitting'] = true;
             $.fn.yiiactiveform.validate(
-                '#cc-fleets-form',
+                    '#cc-fleets-form',
                     function(messages){
                         var hasError = false;
                         $.each($('#cc-fleets-form').data('settings')['attributes'], function () {
@@ -153,120 +149,119 @@ $('body').on('change','#cc-fleets-form input',function(event){
             $('#cc-fleets-form').data('settings')['submitting'] = false;
             return false;
         });
-$('body').on('change','.price_curr_year input.hasDatepicker',function(event){
-    try{
-        var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());
-    } catch(e){
-        $(this).val('');
-        $(this).datepicker('setDate','');
-    }
-    if($(this).val()!=''){
-        var currDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).val()).getTime();
-        if(typeof $(this).datepicker('option','maxDate') == 'string'){
-            var maxDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','maxDate')).getTime();
-        } else {
-            var maxDate = $(this).datepicker('option','maxDate').getTime();
-        }
-        if(typeof $(this).datepicker('option','minDate') == 'string'){
-            var minDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','minDate')).getTime();
-        } else {
-            var minDate = $(this).datepicker('option','minDate').getTime();
-        }
-        var correct = false;
-        if(maxDate<currDate){
-            $(this).val('');
-            $(this).datepicker('setDate','');
-            correct = true;
-        }
-        if(minDate>currDate){
-            $(this).val('');
-            $(this).datepicker('setDate','');
-            correct = true;
-        }
-        if(!correct){
-            var pattern = /date_to$/i;
-            if(pattern.test(this.id)){
-                var ID = this.id.replace('date_to','date_from');
-                $('#'+ID).datepicker('option','maxDate',$(this).val());
-                var picker = $($(this).parents('.row.price_curr_year').next('.row').find('input.hasDatepicker')[0]);
-                if(picker.length){
-                    var minDate = new Date();
-                    var nextDay = currDate+1000*60*60*24;
-                    minDate.setTime(nextDay);
-                    picker.datepicker('option','minDate',minDate);
+        $('body').on('change','.price_curr_year input.hasDatepicker',function(event){
+            try{
+                var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());
+            } catch(e){
+                $(this).val('');
+                $(this).datepicker('setDate','');
+            }
+            if($(this).val()!=''){
+                var currDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).val()).getTime();
+                if(typeof $(this).datepicker('option','maxDate') == 'string'){
+                    var maxDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','maxDate')).getTime();
+                } else {
+                    var maxDate = $(this).datepicker('option','maxDate').getTime();
                 }
-            } else {
-                var ID = this.id.replace('date_from','date_to');
-                $('#'+ID).datepicker('option','minDate',$(this).val());
-                var picker = $($(this).parents('.row.price_curr_year').prev('.row').find('input.hasDatepicker')[1]);
-                if(picker.length){
-                    var maxDate = new Date();
-                    var prevDay = currDate-1000*60*60*24;
-                    maxDate.setTime(prevDay);
-                    picker.datepicker('option','maxDate',maxDate);
+                if(typeof $(this).datepicker('option','minDate') == 'string'){
+                    var minDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','minDate')).getTime();
+                } else {
+                    var minDate = $(this).datepicker('option','minDate').getTime();
+                }
+                var correct = false;
+                if(maxDate<currDate){
+                    $(this).val('');
+                    $(this).datepicker('setDate','');
+                    correct = true;
+                }
+                if(minDate>currDate){
+                    $(this).val('');
+                    $(this).datepicker('setDate','');
+                    correct = true;
+                }
+                if(!correct){
+                    var pattern = /date_to$/i;
+                    if(pattern.test(this.id)){
+                        var ID = this.id.replace('date_to','date_from');
+                        $('#'+ID).datepicker('option','maxDate',$(this).val());
+                        var picker = $($(this).parents('.row.price_curr_year').next('.row').find('input.hasDatepicker')[0]);
+                        if(picker.length){
+                            var minDate = new Date();
+                            var nextDay = currDate+1000*60*60*24;
+                            minDate.setTime(nextDay);
+                            picker.datepicker('option','minDate',minDate);
+                        }
+                    } else {
+                        var ID = this.id.replace('date_from','date_to');
+                        $('#'+ID).datepicker('option','minDate',$(this).val());
+                        var picker = $($(this).parents('.row.price_curr_year').prev('.row').find('input.hasDatepicker')[1]);
+                        if(picker.length){
+                            var maxDate = new Date();
+                            var prevDay = currDate-1000*60*60*24;
+                            maxDate.setTime(prevDay);
+                            picker.datepicker('option','maxDate',maxDate);
+                        }
+                    }
                 }
             }
-        }
-    }
-});
-$('body').find('.price_curr_year input.hasDatepicker').change();
-$('body').on('change','.price_next_year input.hasDatepicker',function(event){
-    try{
-        var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());
-    } catch(e){
-        $(this).val('');
-        $(this).datepicker('setDate','');
-    }
-    if($(this).val()!=''){
-        var currDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).val()).getTime();
-        if(typeof $(this).datepicker('option','maxDate') == 'string'){
-            var maxDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','maxDate')).getTime();
-        } else {
-            var maxDate = $(this).datepicker('option','maxDate').getTime();
-        }
-        if(typeof $(this).datepicker('option','minDate') == 'string'){
-            var minDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','minDate')).getTime();
-        } else {
-            var minDate = $(this).datepicker('option','minDate').getTime();
-        }
-        var correct = false;
-        if(maxDate<currDate){
-            $(this).val('');
-            $(this).datepicker('setDate','');
-            correct = true;
-        }
-        if(minDate>currDate){
-            $(this).val('');
-            $(this).datepicker('setDate','');
-            correct = true;
-        }
-        if(!correct){
-            var pattern = /date_to$/i;
-            if(pattern.test(this.id)){
-                var ID = this.id.replace('date_to','date_from');
-                $('#'+ID).datepicker('option','maxDate',$(this).val());
-                var picker = $($(this).parents('.row.price_next_year').next('.row').find('input.hasDatepicker')[0]);
-                if(picker.length){
-                    var minDate = new Date();
-                    var nextDay = currDate+1000*60*60*24;
-                    minDate.setTime(nextDay);
-                    picker.datepicker('option','minDate',minDate);
+        });
+        $('body').find('.price_curr_year input.hasDatepicker').change();
+        $('body').on('change','.price_next_year input.hasDatepicker',function(event){
+            try{
+                var t = $.datepicker.parseDate('dd.mm.yy',$(this).val());
+            } catch(e){
+                $(this).val('');
+                $(this).datepicker('setDate','');
+            }
+            if($(this).val()!=''){
+                var currDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).val()).getTime();
+                if(typeof $(this).datepicker('option','maxDate') == 'string'){
+                    var maxDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','maxDate')).getTime();
+                } else {
+                    var maxDate = $(this).datepicker('option','maxDate').getTime();
                 }
-            } else {
-                var ID = this.id.replace('date_from','date_to');
-                $('#'+ID).datepicker('option','minDate',$(this).val());
-                var picker = $($(this).parents('.row.price_next_year').prev('.row').find('input.hasDatepicker')[1]);
-                if(picker.length){
-                    var maxDate = new Date();
-                    var prevDay = currDate-1000*60*60*24;
-                    maxDate.setTime(prevDay);
-                    picker.datepicker('option','maxDate',maxDate);
+                if(typeof $(this).datepicker('option','minDate') == 'string'){
+                    var minDate = $.datepicker.parseDate( 'dd.mm.yy', $(this).datepicker('option','minDate')).getTime();
+                } else {
+                    var minDate = $(this).datepicker('option','minDate').getTime();
+                }
+                var correct = false;
+                if(maxDate<currDate){
+                    $(this).val('');
+                    $(this).datepicker('setDate','');
+                    correct = true;
+                }
+                if(minDate>currDate){
+                    $(this).val('');
+                    $(this).datepicker('setDate','');
+                    correct = true;
+                }
+                if(!correct){
+                    var pattern = /date_to$/i;
+                    if(pattern.test(this.id)){
+                        var ID = this.id.replace('date_to','date_from');
+                        $('#'+ID).datepicker('option','maxDate',$(this).val());
+                        var picker = $($(this).parents('.row.price_next_year').next('.row').find('input.hasDatepicker')[0]);
+                        if(picker.length){
+                            var minDate = new Date();
+                            var nextDay = currDate+1000*60*60*24;
+                            minDate.setTime(nextDay);
+                            picker.datepicker('option','minDate',minDate);
+                        }
+                    } else {
+                        var ID = this.id.replace('date_from','date_to');
+                        $('#'+ID).datepicker('option','minDate',$(this).val());
+                        var picker = $($(this).parents('.row.price_next_year').prev('.row').find('input.hasDatepicker')[1]);
+                        if(picker.length){
+                            var maxDate = new Date();
+                            var prevDay = currDate-1000*60*60*24;
+                            maxDate.setTime(prevDay);
+                            picker.datepicker('option','maxDate',maxDate);
+                        }
+                    }
                 }
             }
-        }
-    }
-});
-$('body').find('.price_next_year input.hasDatepicker').change();
-";
-Yii::app()->clientScript->registerScript('date_change',$script,CClientScript::POS_LOAD);
-?>
+        });
+        $('body').find('.price_next_year input.hasDatepicker').change();
+    });
+</script>

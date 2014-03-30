@@ -815,8 +815,10 @@
                         $("#SyProfile_wheel_type_id").val(ui.item.id);
                         if(ui.item.value==="Rumpel"){
                             $("#SyProfile_wheel_no").val("").attr("disabled",true);
+                            $("#SyProfile_rudder").attr("disabled",false);
                         } else {
                             $("#SyProfile_wheel_no").attr("disabled",false);
+                            $("#SyProfile_rudder").val("").attr("disabled",true);
                         }
                     }',
                 ),
@@ -970,7 +972,7 @@
         });
         $("#SyProfile_gennaker_price").trigger("change");
         if($("#WheelType_name").val()==="Rumpel"){
-            $("#SyProfile_wheel_no").attr("disabled",true);
+            $("#SyProfile_wheel_no").val("").attr("disabled",true);
         }
     });
 </script>
