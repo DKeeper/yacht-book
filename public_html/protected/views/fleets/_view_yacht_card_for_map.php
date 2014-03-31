@@ -12,13 +12,13 @@
 /** @var $photo YachtPhoto[] */
 $photo = YachtPhoto::model()->findAllByAttributes(array('yacht_id'=>$fleet->id),'type != :tid',array(':tid'=>7));
 ?>
-<div class="row">
-    <div class="fleet col-md-2">
+<div class="row fleet_card">
+    <div class="col-md-6">
         <?php
         echo CHtml::image(!empty($photo)?$photo[rand(0,count($photo)-1)]->link:'/i/def/fleets.png','',array('class'=>'fleet_img'));
         ?>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-6">
         Описание
     </div>
 </div>
