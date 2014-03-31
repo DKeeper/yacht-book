@@ -3,13 +3,13 @@
 /* @var $data CcFleets */
 
 /** @var $photo YachtPhoto[] */
-$photo = YachtPhoto::model()->findAllByAttributes(array('yacht_id'=>$data->id),'type != :tid',array(':tid'=>7));
+$photo = YachtPhoto::model()->findByAttributes(array('yacht_id'=>$data->id),'type = :tid',array(':tid'=>2));
 ?>
 
 <div class="row view link_row" data-fleet="<?php echo $data->id; ?>">
     <div class="fleet col-md-2">
         <?php
-        echo CHtml::image(!empty($photo)?$photo[rand(0,count($photo)-1)]->link:'/i/def/fleets.png','',array('class'=>'fleet_img'));
+        echo CHtml::image(!empty($photo)?$photo->link:'/i/def/fleets.png','',array('class'=>'fleet_img'));
         ?>
     </div>
     <div class="col-md-10">

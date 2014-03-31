@@ -52,7 +52,7 @@ $this->widget('zii.widgets.jui.CJuiTabs',array(
         Yii::t("model","Photo")=>array(
             'content'=>$this->renderPartial(
                 '_view_fleets_photo',
-                array('profile'=>$model->profile,'yachtFoto'=>$model->yachtPhotos),
+                array('profile'=>$model->profile,'yachtFoto'=>$model->yachtPhotos(array('order'=>'type'))),
                 true
             ),
             'id'=>'tab2'
