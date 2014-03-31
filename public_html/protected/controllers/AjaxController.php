@@ -23,6 +23,7 @@ class AjaxController extends Controller
             $markerData = Yii::app()->request->getParam('data');
             $data = '';
             foreach($markerData as $marker){
+                /** @var $fleet CcFleets */
                 $fleet = CcFleets::model()->findByPk($marker['fid']);
                 $company = CcProfile::model()->findByAttributes(array('cc_id'=>$marker['cid']));
                 $priceCurrentYear = PriceCurrentYear::model()->findByPk($marker['prid']);
@@ -61,11 +62,9 @@ class AjaxController extends Controller
                 ->from('cc_fleets as f')
                 ->join('sy_profile as p','p.id = f.profile_id')
                 ->leftJoin('price_current_year as pr','pr.yacht_id = f.id')
-                ->andWhere('p.length_m >= :l_min',array(':l_min'=>$filterData['length']['min']))
-                ->andWhere('p.length_m <= :l_max',array(':l_max'=>$filterData['length']['max']))
-                ->andWhere('p.built_date BETWEEN :d_min AND :d_max',array(':d_min'=>$filterData['year']['min'].'-01-01',':d_max'=>$filterData['year']['max'].'-01-01'))
-                ->andWhere('pr.price >= :pr_min',array(':pr_min'=>$filterData['price']['min']))
-                ->andWhere('pr.price <= :pr_max',array(':pr_max'=>$filterData['price']['max']))
+                ->andWhere('p.length_m BETWEEN :l_min AND :l_max',array(':l_min'=>$filterData['length']['min'],':l_max'=>$filterData['length']['max']))
+                ->andWhere('p.built_date BETWEEN :d_min AND :d_max',array(':d_min'=>$filterData['year']['min'],':d_max'=>$filterData['year']['max']))
+                ->andWhere('pr.price BETWEEN :pr_min AND :pr_max',array(':pr_min'=>$filterData['price']['min'],':pr_max'=>$filterData['price']['max']))
                 ->andWhere('
                     (
                         ( CASE WHEN p.single_cabins IS NULL THEN 0 ELSE p.single_cabins END ) +
