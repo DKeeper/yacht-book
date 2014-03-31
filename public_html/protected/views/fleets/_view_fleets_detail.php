@@ -387,10 +387,10 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="col-md-4">
-                <?php echo Yii::t("view","type"); ?>
+            <div class="col-md-6">
+                <?php echo Yii::t("view","wheel type"); ?>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <?php
                 echo isset($profile->wheel_type_id)?$profile->wheelType->name:Yii::t("view","No data");
                 ?>

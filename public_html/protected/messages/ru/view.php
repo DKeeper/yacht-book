@@ -234,7 +234,7 @@ return array(
     'furling' => 'закрутки',
     'material' => 'материал',
     'no_of_engine' => 'кол. двигателей',
-    'type' => 'тип',
+    'wheel type' => 'тип управления',
 
     'drop filter' => 'сброс фильтра',
     'drop filters' => 'сброс фильтров',
