@@ -731,10 +731,28 @@ $profile = SyProfile::model();
                 if(!answer.success){
                     alert(answer.data);
                 } else {
-                    var infowindow = new google.maps.InfoWindow({
-                        content: answer.data
+//                    var infowindow = new google.maps.InfoWindow({
+//                        content: answer.data
+//                    });
+//                    infowindow.open(map,infoMarker);
+                    var infoBubble = new InfoBubble({
+                        map: map,
+                        content: answer.data,
+                        position: infoMarker.getPosition(),
+                        shadowStyle: 1,
+                        padding: 0,
+                        backgroundColor: 'rgb(57,57,57)',
+                        borderRadius: 4,
+                        arrowSize: 10,
+                        borderWidth: 1,
+                        borderColor: '#2c2c2c',
+                        disableAutoPan: true,
+                        hideCloseButton: false,
+                        arrowPosition: 5,
+                        backgroundClassName: 'phoney',
+                        arrowStyle: 2
                     });
-                    infowindow.open(map,infoMarker);
+                    infoBubble.open();
                 }
             },
             type:'POST',

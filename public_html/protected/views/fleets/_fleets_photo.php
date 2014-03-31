@@ -13,7 +13,7 @@
     <div class="row panel panel-default">
         <div class="panel-heading"><?php echo Yii::t("view","Pls attach the real photo of this yacht (obligatory)"); ?></div>
         <div id="gallery" class="panel-body gallery">
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[1]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($yachtFoto[1],"[1]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[1],"[1]type",array("value"=>1)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","stern (with name of boat)")?></h5>
@@ -25,7 +25,7 @@
                 }
                 ?>
             </div>
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[2]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($yachtFoto[2],"[2]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[2],"[2]type",array("value"=>2)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","starboard")?></h5>
@@ -37,7 +37,7 @@
                 }
                 ?>
             </div>
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[3]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($yachtFoto[3],"[3]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[3],"[3]type",array("value"=>3)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","portside")?></h5>
@@ -49,7 +49,7 @@
                 }
                 ?>
             </div>
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[4]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($yachtFoto[4],"[4]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[4],"[4]type",array("value"=>4)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","cockpit")?></h5>
@@ -64,7 +64,7 @@
             <?php
                 foreach($yachtFoto[5] as $i => $foto){
             ?>
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[5][$i]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($foto,"[5][$i]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($foto,"[5][$i]type",array("value"=>5)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","interior (state-room)")?></h5>
@@ -79,7 +79,7 @@
             <?php
                 }
             ?>
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[7][0]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($yachtFoto[7][0],"[7][0]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[7][0],"[7][0]type",array("value"=>7)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","layout")?></h5>
@@ -94,7 +94,7 @@
             <?php
             foreach($yachtFoto[6] as $i => $foto){
                 ?>
-                <div class="col-md-3 cell ui-widget-content">
+                <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[6][$i]['link']==""?"error":""; ?>">
                     <?php echo $form->hiddenField($foto,"[6][$i]link",array('class'=>'link')); ?>
                     <?php echo $form->hiddenField($foto,"[6][$i]type",array("value"=>6)); ?>
                     <h5 class="ui-widget-header"><?php echo Yii::t("view","the photos of cabins")?></h5>
@@ -109,7 +109,7 @@
                 <?php
             }
             ?>
-            <div class="col-md-3 cell ui-widget-content">
+            <div class="col-md-3 cell ui-widget-content <?php echo $yachtFoto[7][1]['link']==""?"error":""; ?>">
                 <?php echo $form->hiddenField($yachtFoto[7][1],"[7][1]link",array('class'=>'link')); ?>
                 <?php echo $form->hiddenField($yachtFoto[7][1],"[7][1]type",array("value"=>7)); ?>
                 <h5 class="ui-widget-header"><?php echo Yii::t("view","layout")?></h5>

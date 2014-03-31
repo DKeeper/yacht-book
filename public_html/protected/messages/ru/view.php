@@ -110,6 +110,7 @@ return array(
     "gas" => "газ",
 
     "Incorrect symbols (0-9.)" => "Допустимые символы (0-9.)",
+    "Required photos are not added" => "Обязательные фотографии не добавлены",
 
     "You can fill in other data profile after registration, in a private office.<br/>We remind you that without a fully populated part of the functional profile of the site will not be available."=>"Вы можете заполнить прочие данные профиля после регистрации, в личном кабинете.<br/>Напоминаем, что без полностью заполненного профиля часть функционала сайта будет не доступна.",
 

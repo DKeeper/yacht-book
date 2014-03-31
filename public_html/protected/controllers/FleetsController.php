@@ -130,6 +130,26 @@ class FleetsController extends Controller
                 $priceCurrYearValidate,
                 $priceNextYearValidate
             );
+            $fotoValidate = array();
+            foreach($_POST['YachtPhoto'] as $type => $items){
+                if($type==8) continue;
+                if(!isset($items['link'])){
+                    foreach($items as $i => $item){
+                        if(empty($item['link'])){
+                            $fotoValidate['YachtPhoto_'.$type.'_'.$i] = false;
+                        } else {
+                            $fotoValidate['YachtPhoto_'.$type.'_'.$i] = true;
+                        }
+                    }
+                } else {
+                    if(empty($items['link'])){
+                        $fotoValidate['YachtPhoto_'.$type] = false;
+                    } else {
+                        $fotoValidate['YachtPhoto_'.$type] = true;
+                    }
+                }
+            }
+            $result['fotoValidate'] = array('validate'=>$fotoValidate,'message'=>Yii::t("view","Required photos are not added"));
             echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
         }
@@ -147,6 +167,21 @@ class FleetsController extends Controller
             }
             foreach($priceNextYear as $i => $price){
                 $validate = $validate && $priceNextYear[$i]->validate();
+            }
+
+            foreach($_POST['YachtPhoto'] as $type => $items){
+                if($type==8) continue;
+                if(!isset($items['link'])){
+                    foreach($items as $i => $item){
+                        if(empty($item['link'])){
+                            $validate = $validate && false;
+                        }
+                    }
+                } else {
+                    if(empty($items['link'])){
+                        $validate = $validate && false;
+                    }
+                }
             }
 
             if($validate){
@@ -399,6 +434,26 @@ class FleetsController extends Controller
                 $priceCurrYearValidate,
                 $priceNextYearValidate
             );
+            $fotoValidate = array();
+            foreach($_POST['YachtPhoto'] as $type => $items){
+                if($type==8) continue;
+                if(!isset($items['link'])){
+                    foreach($items as $i => $item){
+                        if(empty($item['link'])){
+                            $fotoValidate['YachtPhoto_'.$type.'_'.$i] = false;
+                        } else {
+                            $fotoValidate['YachtPhoto_'.$type.'_'.$i] = true;
+                        }
+                    }
+                } else {
+                    if(empty($items['link'])){
+                        $fotoValidate['YachtPhoto_'.$type] = false;
+                    } else {
+                        $fotoValidate['YachtPhoto_'.$type] = true;
+                    }
+                }
+            }
+            $result['fotoValidate'] = array('validate'=>$fotoValidate,'message'=>Yii::t("view","Required photos are not added"));
             echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
         }
@@ -419,6 +474,21 @@ class FleetsController extends Controller
             }
             foreach($priceNextYear as $i => $price){
                 $validate = $validate && $priceNextYear[$i]->validate();
+            }
+
+            foreach($_POST['YachtPhoto'] as $type => $items){
+                if($type==8) continue;
+                if(!isset($items['link'])){
+                    foreach($items as $i => $item){
+                        if(empty($item['link'])){
+                            $validate = $validate && false;
+                        }
+                    }
+                } else {
+                    if(empty($items['link'])){
+                        $validate = $validate && false;
+                    }
+                }
             }
 
             //TODO Продумать механизм удаления не используемых фото

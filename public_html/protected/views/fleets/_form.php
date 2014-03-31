@@ -109,7 +109,9 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
     </div>
 
 <?php $this->endWidget(); ?>
-
+<?php
+    Yii::app()->clientScript->registerScript("refreshField",'$($("#cc-fleets-form input")[0]).change();',CClientScript::POS_LOAD);
+?>
 </div><!-- form -->
 <script>
     $(function(){
@@ -144,6 +146,20 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
                             hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#cc-fleets-form')) || hasError;
                         });
                         $.fn.yiiactiveform.updateSummary($('#cc-fleets-form'), messages);
+                        $.each(messages.fotoValidate.validate,function(id){
+                            hasError = !this.valueOf() || hasError;
+                            if(!this.valueOf()){
+                                $("#"+id+"_link").parent().addClass("error");
+                            } else {
+                                $("#"+id+"_link").parent().removeClass("error");
+                            }
+                        });
+                        if(hasError){
+                            $(".errorSummary").find("ul").append("<li>"+messages.fotoValidate.message+"</li>");
+                            if($(".errorSummary:visible").length == 0){
+                                $(".errorSummary").show();
+                            }
+                        }
                     }
             );
             $('#cc-fleets-form').data('settings')['submitting'] = false;

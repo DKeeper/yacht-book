@@ -43,7 +43,10 @@ span[role='status']{
 }
 .flash.success { color:#007700; background-color:#e0f8dd; }
 .flash.error { color:#7a0000; background-color:#fdd9d9; }
-
+.gallery div.error{
+    border-color: #ff0000;
+    border-radius: 0px;
+}
 .fleet_img{
     padding-right: 5px;
     width: auto;
