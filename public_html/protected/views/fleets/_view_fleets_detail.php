@@ -169,14 +169,9 @@
             <h3><?php echo Yii::t("view","LIVING SPACE"); ?></h3>
         </div>
         <div class="col-md-4">
-            <div class="col-md-4">
-                <?php echo Yii::t("view","furling"); ?>
-            </div>
-            <div class="col-md-8">
-                <?php
-                echo isset($profile->main_sail_furling_id)?$profile->mainSailFurling->name:Yii::t("view","No data");
-                ?>
-            </div>
+            <?php
+            echo isset($profile->main_sail_furling_id)?$profile->mainSailFurling->name:"";
+            ?>
         </div>
         <div class="col-md-4">
             <?php
@@ -342,14 +337,9 @@
     <div class="row">
         <div class="col-md-4"><?php echo $this->renderRow($profile,'shower'); ?></div>
         <div class="col-md-4">
-            <div class="col-md-4">
-                <?php echo Yii::t("view","furling"); ?>
-            </div>
-            <div class="col-md-8">
-                <?php
-                echo isset($profile->jib_furling_id)?$profile->jibFurling->name:Yii::t("view","No data");
-                ?>
-            </div>
+            <?php
+            echo isset($profile->jib_furling_id)?$profile->jibFurling->name:"";
+            ?>
         </div>
         <div class="col-md-4">
             <div class="col-md-6">

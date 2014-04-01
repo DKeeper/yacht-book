@@ -28,6 +28,7 @@ return array(
     'Photo' => 'Фото',
     'Price per' => 'Стоимость за',
     'Order option' => 'Опция заказа',
+    'order options' => 'опции заказа',
     'Is active' => 'Активен',
     'Is trash' => 'Удален',
     'Currency' => 'Валюта',

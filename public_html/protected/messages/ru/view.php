@@ -235,6 +235,7 @@ return array(
     'material' => 'материал',
     'no_of_engine' => 'кол. двигателей',
     'wheel type' => 'тип управления',
+    'incl.' => 'вкл.',
 
     'drop filter' => 'сброс фильтра',
     'drop filters' => 'сброс фильтров',
