@@ -27,7 +27,7 @@
     <?php Yii::app()->clientScript->registerCoreScript('migrate'); ?>
     <?php Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD); ?>
     <?php Yii::app()->clientScript->registerScriptFile("/js/markerclusterer.js",CClientScript::POS_HEAD); ?>
-    <?php Yii::app()->clientScript->registerScriptFile("/js/infobubble.js",CClientScript::POS_HEAD); ?>
+    <?php Yii::app()->clientScript->registerScriptFile("/js/maptooltip.js",CClientScript::POS_HEAD); ?>
     <style>
         html, body, #map_container {
             height: 100%;

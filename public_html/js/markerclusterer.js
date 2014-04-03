@@ -1096,6 +1096,28 @@ ClusterIcon.prototype.triggerClusterClick = function() {
   }
 };
 
+ClusterIcon.prototype.triggerClusterMouseDown = function() {
+    var markerClusterer = this.cluster_.getMarkerClusterer();
+
+    // Trigger the clusterclick event.
+    google.maps.event.trigger(markerClusterer, 'clustermousedown', this.cluster_);
+}
+
+ClusterIcon.prototype.triggerClusterMouseOver = function() {
+    var markerClusterer = this.cluster_.getMarkerClusterer();
+
+    // Trigger the clusterclick event.
+    google.maps.event.trigger(markerClusterer, 'clustermouseover', this.cluster_);
+}
+
+
+ClusterIcon.prototype.triggerClusterMouseOut = function() {
+    var markerClusterer = this.cluster_.getMarkerClusterer();
+
+    // Trigger the clusterclick event.
+    google.maps.event.trigger(markerClusterer, 'clustermouseout', this.cluster_);
+}
+
 
 /**
  * Adding the cluster icon to the dom.
@@ -1115,6 +1137,15 @@ ClusterIcon.prototype.onAdd = function() {
   var that = this;
   google.maps.event.addDomListener(this.div_, 'click', function() {
     that.triggerClusterClick();
+  });
+  google.maps.event.addDomListener(this.div_, 'mousedown', function() {
+    that.triggerClusterMouseDown();
+  });
+  google.maps.event.addDomListener(this.div_, 'mouseover', function() {
+    that.triggerClusterMouseOver();
+  });
+  google.maps.event.addDomListener(this.div_, 'mouseout', function() {
+    that.triggerClusterMouseOut();
   });
 };
 

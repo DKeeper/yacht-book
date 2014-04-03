@@ -467,7 +467,13 @@ $profile = SyProfile::model();
 <div id="map_container" class="map_container">
 </div>
 <script>
+var tooltip;
     $(function(){
+        tooltip = new MapTooltip({
+            styles: {
+                'max-height': 350
+            }
+        });
         $("button.slider-reset").tooltip();
         $("button.slider-reset").on("click",function(event){
             var slider = $(this).parents(".slider_footer").prev();
@@ -674,7 +680,7 @@ $profile = SyProfile::model();
                         });
                         m_for_cluster.push(m);
                         mapData.markers.push({marker:m,data:this});
-                        google.maps.event.addListener(m, 'click', function(event) {
+                        google.maps.event.addListener(m, 'mousedown', function(event) {
                             var self = this;
                             var m = [];
                             $.each(mapData.markers,function(){
@@ -685,6 +691,26 @@ $profile = SyProfile::model();
                             });
                             // Загрузка карточек предпросмотра
                             loadYachtCards(m,mapData.map,this);
+                            tooltip.setFix(true);
+                        });
+                        google.maps.event.addListener(m,'mouseover',function(event) {
+                            var self = this;
+                            var m = [];
+                            $.each(mapData.markers,function(){
+                                if(this.marker===self){
+                                    m.push(this);
+                                    return false;
+                                }
+                            });
+                            // Загрузка карточек предпросмотра
+                            if( !tooltip.isOpen() && !tooltip.isFix() ){
+                                loadYachtCards(m,mapData.map,this);
+                            }
+                        });
+                        google.maps.event.addListener(m,'mouseout',function(event) {
+                            if(tooltip.isOpen() && !tooltip.isFix()){
+                                tooltip.close();
+                            }
                         });
                     });
                     // Кластеризация маркеров
@@ -692,7 +718,7 @@ $profile = SyProfile::model();
                         'zoomOnClick':false
                     });
                     // Обработка клика на кластере
-                    google.maps.event.addListener(markerCluster, 'clusterclick', function(e){
+                    google.maps.event.addListener(markerCluster, 'clustermousedown', function(e){
                         var mapData = {}, markers = [];
                         $.each(map,function(){
                             if(this.id==="map_search"){
@@ -711,6 +737,34 @@ $profile = SyProfile::model();
                         });
                         // Загрузка карточек предпросмотра
                         loadYachtCards(markers,mapData.map,e);
+                        tooltip.setFix(true);
+                    });
+                    google.maps.event.addListener(markerCluster, 'clustermouseover', function(e){
+                        var mapData = {}, markers = [];
+                        $.each(map,function(){
+                            if(this.id==="map_search"){
+                                mapData = this;
+                                return false;
+                            }
+                        });
+                        $.each(e.getMarkers(),function(){
+                            var clusterMarker = this;
+                            $.each(mapData.markers,function(){
+                                if(this.marker===clusterMarker){
+                                    markers.push(this);
+                                    return false;
+                                }
+                            });
+                        });
+                        // Загрузка карточек предпросмотра
+                        if( !tooltip.isOpen() && !tooltip.isFix() ){
+                            loadYachtCards(markers,mapData.map,e);
+                        }
+                    });
+                    google.maps.event.addListener(markerCluster, 'clustermouseout', function(e){
+                        if(tooltip.isOpen() && !tooltip.isFix()){
+                            tooltip.close();
+                        }
                     });
                 }
             },
@@ -724,6 +778,14 @@ $profile = SyProfile::model();
         $.each(markers,function(){
             markerData.push(this.data);
         });
+        if(tooltip.isOpen()){
+            if(tooltip.getAnchor()===infoMarker && !tooltip.isFix()){
+                return;
+            }
+            if(tooltip.getAnchor()!==infoMarker && tooltip.isFix()){
+                tooltip.close();
+            }
+        }
         $.ajax({
             url:'/ajax/getyachtcards',
             data:{data:markerData},
@@ -731,28 +793,7 @@ $profile = SyProfile::model();
                 if(!answer.success){
                     alert(answer.data);
                 } else {
-//                    var infowindow = new google.maps.InfoWindow({
-//                        content: answer.data
-//                    });
-//                    infowindow.open(map,infoMarker);
-                    var infoBubble = new InfoBubble({
-                        map: map,
-                        content: answer.data,
-                        position: infoMarker.getPosition(),
-                        shadowStyle: 1,
-                        padding: 0,
-                        backgroundColor: 'rgb(57,57,57)',
-                        borderRadius: 4,
-                        arrowSize: 10,
-                        borderWidth: 1,
-                        borderColor: '#2c2c2c',
-                        disableAutoPan: true,
-                        hideCloseButton: false,
-                        arrowPosition: 5,
-                        backgroundClassName: 'phoney',
-                        arrowStyle: 2
-                    });
-                    infoBubble.open();
+                    tooltip.open(map,infoMarker,answer.data);
                 }
             },
             type:'POST',
