@@ -958,16 +958,20 @@
         $("#SyProfile_spinnaker_price").on("change",function(event){
             if($(this).val()===""){
                 $("#SyProfile_spinnaker_deposiit").val("").attr("disabled",true);
+                $("#SyProfile_spinnaker").attr("checked",false);
             } else {
                 $("#SyProfile_spinnaker_deposiit").attr("disabled",false);
+                $("#SyProfile_spinnaker").attr("checked",true);
             }
         });
         $("#SyProfile_spinnaker_price").trigger("change");
         $("#SyProfile_gennaker_price").on("change",function(event){
             if($(this).val()===""){
                 $("#SyProfile_gennaker_deposit").val("").attr("disabled",true);
+                $("#SyProfile_gennaker").attr("checked",false);
             } else {
                 $("#SyProfile_gennaker_deposit").attr("disabled",false);
+                $("#SyProfile_gennaker").attr("checked",true);
             }
         });
         $("#SyProfile_gennaker_price").trigger("change");
