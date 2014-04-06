@@ -15,7 +15,25 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'getyachtcards ,autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
+        return 'getclustermarker, getyachtcards ,autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
+    }
+
+    public function actionGetclustermarker($data){
+        $data = CJavaScript::jsonDecode($data);
+        $marker = imagecreatetruecolor(40,40);
+        $black = imagecolorallocate($marker, 0, 0, 0);
+        $white = imagecolorallocate($marker, 0xFF, 0xFF, 0xFF);
+        $red = imagecolorallocate($marker, 0xFF, 0x00, 0x00);
+        $green = imagecolorallocate($marker, 0x00, 0xFF, 0x00);
+        $blue = imagecolorallocate($marker, 0x00, 0x00, 0xFF);
+        imagefilledarc($marker,20,20,40,40,270,30,$red,IMG_ARC_PIE);
+        imagefilledarc($marker,20,20,40,40,30,150,$green,IMG_ARC_PIE);
+        imagefilledarc($marker,20,20,40,40,150,270,$blue,IMG_ARC_PIE);
+        imagefilledarc($marker,20,20,40,40,0,360,$white,IMG_ARC_NOFILL);
+        imagecolortransparent($marker, $black);
+        header('Content-Type: image/png');
+        imagepng($marker);
+        imagedestroy($marker);
     }
 
     public function actionGetyachtcards(){

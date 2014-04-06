@@ -25,6 +25,7 @@
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <?php Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
     <?php Yii::app()->clientScript->registerCoreScript('migrate'); ?>
+    <?php Yii::app()->clientScript->registerCoreScript('json'); ?>
     <?php Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD); ?>
     <?php Yii::app()->clientScript->registerScriptFile("/js/markerclusterer.js",CClientScript::POS_HEAD); ?>
     <?php Yii::app()->clientScript->registerScriptFile("/js/maptooltip.js",CClientScript::POS_HEAD); ?>

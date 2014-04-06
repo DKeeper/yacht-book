@@ -1249,7 +1249,11 @@ ClusterIcon.prototype.useStyle = function() {
   var index = Math.max(0, this.sums_.index - 1);
   index = Math.min(this.styles_.length - 1, index);
   var style = this.styles_[index];
-  this.url_ = style['url'];
+  if(typeof style['url'] === "function"){
+      this.url_ = style['url'].call(this);
+  } else {
+      this.url_ = style['url'];
+  }
   this.height_ = style['height'];
   this.width_ = style['width'];
   this.textColor_ = style['textColor'];
@@ -1309,6 +1313,10 @@ ClusterIcon.prototype.createCss = function(pos) {
       pos.x + 'px; color:' + txtColor + '; position:absolute; font-size:' +
       txtSize + 'px; font-family:Arial,sans-serif; font-weight:bold');
   return style.join('');
+};
+
+ClusterIcon.prototype.getCluster = function() {
+    return this.cluster_;
 };
 
 

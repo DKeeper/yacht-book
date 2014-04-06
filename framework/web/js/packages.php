@@ -47,6 +47,10 @@ return array(
 		'js'=>array(YII_DEBUG ? 'jquery.maskedinput.js' : 'jquery.maskedinput.min.js'),
 		'depends'=>array('jquery'),
 	),
+	'json'=>array(
+		'js'=>array(YII_DEBUG ? 'jquery.json.js' : 'jquery.json.min.js'),
+		'depends'=>array('jquery'),
+	),
 	'cookie'=>array(
 		'js'=>array('jquery.cookie.js'),
 		'depends'=>array('jquery'),

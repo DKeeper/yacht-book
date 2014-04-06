@@ -675,8 +675,14 @@ var tooltip;
                     mapData.markers = [];
                     var m_for_cluster = [];
                     $.each(answer.data.fleets,function(){
+                        var url = {
+                            c:this.cid,
+                            f:this.fid,
+                            p:this.prid
+                        };
                         var m = new google.maps.Marker({
-                            position: new google.maps.LatLng(this.latitude,this.longitude)
+                            position: new google.maps.LatLng(this.latitude,this.longitude),
+                            icon: "/ajax/getclustermarker/data/"+$.toJSON(url)
                         });
                         m_for_cluster.push(m);
                         mapData.markers.push({marker:m,data:this});
@@ -715,7 +721,35 @@ var tooltip;
                     });
                     // Кластеризация маркеров
                     var markerCluster = new MarkerClusterer(mapData.map, m_for_cluster,{
-                        'zoomOnClick':false
+                        'zoomOnClick': false,
+                        'styles' : [{
+                            url : function(){
+                                var mapData = {}, markers = [];
+                                $.each(map,function(){
+                                    if(this.id==="map_search"){
+                                        mapData = this;
+                                        return false;
+                                    }
+                                });
+                                $.each(this.getCluster().getMarkers(),function(){
+                                    var clusterMarker = this;
+                                    $.each(mapData.markers,function(){
+                                        if(this.marker===clusterMarker){
+                                            markers.push({
+                                                c:this.data.cid,
+                                                f:this.data.fid,
+                                                p:this.data.prid
+                                            });
+                                            return false;
+                                        }
+                                    });
+                                });
+                                return "'/ajax/getclustermarker/data/"+$.toJSON(markers)+"'";
+                            },
+                            textColor : 'white',
+                            height : 40,
+                            width : 40
+                        }]
                     });
                     // Обработка клика на кластере
                     google.maps.event.addListener(markerCluster, 'clustermousedown', function(e){
