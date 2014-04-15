@@ -466,6 +466,21 @@ $profile = SyProfile::model();
 </div>
 <div id="map_container" class="map_container">
 </div>
+<?php
+$this->widget('fancyapps.EFancyApps', array(
+    'mode'=>'inline',
+    'id'=>'view_fill_fleet_card',
+    'config'=>array(
+        'afterClose'=>"function(){jQuery('#fancy_tt').empty();}",
+    ),
+    'options' => array(
+        'url' => '#fancy_tt',
+        'label'=> '',
+    ),
+    'htmlOptions'=>array('class'=> "full_card_view")
+));
+?>
+<div style="display:none;" id="fancy_tt"></div>
 <script>
 var tooltip;
     $(function(){
@@ -473,6 +488,24 @@ var tooltip;
             styles: {
                 'max-height': 350
             }
+        });
+        $("body").on("click",".fleet_card",function(event){
+            var fid = $(this).attr("class").split(" ")[2].split("_")[1];
+            $.ajax({
+                url:'/ajax/getfleetcard/fid/'+fid,
+                success:function(answer){
+                    if(!answer.success){
+                        alert(answer.data);
+                    } else {
+                        $("#fancy_tt").append(answer.data);
+                        eval(answer.script);
+                        $("#view_fill_fleet_card").click();
+                    }
+                },
+                type:'get',
+                dataType:'json',
+                async:true
+            });
         });
         $("button.slider-reset").tooltip();
         $("button.slider-reset").on("click",function(event){

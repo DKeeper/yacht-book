@@ -5,6 +5,10 @@
  */
 class Controller extends RController
 {
+    public $ajax;
+
+    public $validate;
+
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -97,5 +101,99 @@ class Controller extends RController
             $role,
             $owner
         );
+    }
+
+    public function renderRow($model,$attribute='',$options=array()){
+        $validate = true;
+        if(!isset($options['outtype'])){
+            $options['outtype'] = '';
+        }
+        if(isset($options['validator'])){
+            $c = get_class($model);
+            /** @var $validateModel BaseModel */
+            $validateModel = new $c;
+            $validateModel->$attribute = $model->$attribute;
+            /** @var $compareValidator CValidator */
+            $compareValidator = CValidator::createValidator($options['validator'][0],$validateModel,$attribute,$options['validator']['params']);
+            $compareValidator->validate($validateModel,$attribute);
+            if($validateModel->hasErrors()){
+                $validate = false;
+            }
+        }
+        $_ = "<div class='col-md-1'>";
+        if(!isset($model->$attribute)){
+            if(!$validate){
+                if(!isset($options['value'])){
+                    $_ .= "<span class='glyphicon glyphicon-question-sign'></span>";
+                }
+            } else {
+                if(!isset($options['value'])){
+                    $_ .= "<span class='glyphicon glyphicon-remove-sign'></span>";
+                }
+            }
+        } else {
+            if(!$validate){
+                $_ .= "<span class='glyphicon glyphicon-question-sign'></span>";
+            } else {
+                switch($options['outtype']){
+                    case 'checkbox':
+                        if($model->$attribute){
+                            $_ .= "<span class='glyphicon glyphicon-ok text-success'></span>";
+                        } else {
+                            $_ .= "<span class='glyphicon glyphicon-remove text-danger'></span>";
+                        }
+                        break;
+                }
+            }
+        }
+        $_ .= "</div>
+            <div class='col-md-7' style='white-space: nowrap;'>
+        ";
+        if(isset($options['label'])){
+            $_ .= $options['label'];
+        } else {
+            $_ .= Yii::t("view",$attribute);
+        }
+        $_ .= "</div>
+            <div class='col-md-3' style='white-space: nowrap;'>
+        ";
+        if(isset($model->$attribute) || isset($options['value'])){
+            switch($options['outtype']){
+                case 'checkbox':
+                    if(isset($options['value']) && $model->$attribute){
+                        $_ .= $options['value'];
+                        if(isset($options['measure'])){
+                            $_ .= " ".$options['measure'];
+                        }
+                    }
+                    break;
+                default:
+                    if(isset($options['value'])){
+                        $_ .= $options['value'];
+                    } else {
+                        $_ .= $model->$attribute;
+                    }
+                    if(isset($options['measure'])){
+                        $_ .= " ".$options['measure'];
+                    }
+                    break;
+            }
+        }
+        $_ .= "</div>";
+        $htmlOptions = array(
+            'class'=>'row',
+        );
+        if(!isset($model->$attribute) && !isset($options['value'])){
+            $htmlOptions['class'] .= " text-muted";
+        }
+        if(!$validate){
+            $htmlOptions['class'] .= " text-danger";
+            $htmlOptions['title'] = $validateModel->getError($attribute);
+            if(isset($options['form'])){
+                $_ .= $options['form'];
+            }
+        }
+        $this->validate = $this->validate && $validate;
+        return CHtml::tag('div',$htmlOptions,$_);
     }
 }

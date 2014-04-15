@@ -64,6 +64,7 @@ MapTooltip.prototype.createDOM = function(){
         that.content = that.htmlToDocumentFragment_(that.content);
     }
     if(that.content){
+        tooltip.style['display'] = 'none';
         tooltip.appendChild(that.content);
     }
 };
@@ -144,6 +145,7 @@ MapTooltip.prototype.open_ = function(opt_map, opt_anchor, content) {
         this.set('content', content);
         this.createDOM();
     }
+    this.tooltip_.style['display'] = '';
     this.isOpen_ = true;
     this.draw();
 };
@@ -177,6 +179,7 @@ MapTooltip.prototype.draw = function() {
     var pos = projection.fromLatLngToDivPixel(latLng);
 
     var tooltip = this.tooltip_;
+
     tooltip.style['top'] = this.px(pos.y);
     tooltip.style['left'] = this.px(pos.x);
     tooltip.style['display'] = 'block';
@@ -202,3 +205,39 @@ MapTooltip.prototype.px = function(num) {
 MapTooltip.prototype.onRemove = function() {
 };
 MapTooltip.prototype['onRemove'] = MapTooltip.prototype.onRemove;
+
+MapTooltip.prototype.getElementSize_ = function(element, opt_maxWidth,
+                                                opt_maxHeight) {
+    var sizer = document.createElement('DIV');
+    sizer.style['display'] = 'inline';
+    sizer.style['position'] = 'absolute';
+    sizer.style['z-index'] = '-1';
+    sizer.style['top'] = '0';
+    sizer.style['left'] = '0';
+
+    if (typeof element == 'string') {
+        sizer.innerHTML = element;
+    } else {
+        sizer.appendChild(element.cloneNode(true));
+    }
+
+    document.body.appendChild(sizer);
+    var size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
+
+    // If the width is bigger than the max width then set the width and size again
+    if (opt_maxWidth && size.width > opt_maxWidth) {
+        sizer.style['width'] = this.px(opt_maxWidth);
+        size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
+    }
+
+    // If the height is bigger than the max height then set the height and size
+    // again
+    if (opt_maxHeight && size.height > opt_maxHeight) {
+        sizer.style['height'] = this.px(opt_maxHeight);
+        size = new google.maps.Size(sizer.offsetWidth, sizer.offsetHeight);
+    }
+
+    document.body.removeChild(sizer);
+    delete sizer;
+    return size;
+};

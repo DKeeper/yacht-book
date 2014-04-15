@@ -34,32 +34,39 @@
         </div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_length_m','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'length_m',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('length_m')));
-            $form .= "<span class='input-group-addon'>m</span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_length_m').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_length_m','inputID':'SyProfile_length_m','errorID':'SyProfile_length_m_em_','model':'SyProfile','name':'length_m','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-	            'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_length_m',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'length_m',array(
-                'measure'=>"m",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>',
-                        'compareValue'=>0
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_length_m','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'length_m',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('length_m')));
+                $form .= "<span class='input-group-addon'>m</span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_length_m').yiiactiveform({
+    	            'attributes':[
+    		            {'id':'SyProfile_length_m','inputID':'SyProfile_length_m','errorID':'SyProfile_length_m_em_','model':'SyProfile','name':'length_m','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+	                ],
+	                'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_length_m',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"m",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>',
+                            'compareValue'=>0
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"m",
+                );
+            }
+            echo $this->renderRow($profile,'length_m',$param);
             ?>
         </div>
     </div>
@@ -67,62 +74,76 @@
         <div class="col-md-4"><?php echo $this->renderRow($profile,'renovation_date'); ?></div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_main_sail_area','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'main_sail_area',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('main_sail_area')));
-            $form .= "<span class='input-group-addon'>m<sup>2</sup></span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_main_sail_area').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_main_sail_area','inputID':'SyProfile_main_sail_area','errorID':'SyProfile_main_sail_area_em_','model':'SyProfile','name':'main_sail_area','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-    	        'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_main_sail_area',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'main_sail_area',array(
-                'measure'=>"m<sup>2</sup>",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>=',
-                        'compareValue'=>5
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_main_sail_area','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'main_sail_area',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('main_sail_area')));
+                $form .= "<span class='input-group-addon'>m<sup>2</sup></span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_main_sail_area').yiiactiveform({
+    	            'attributes':[
+    		            {'id':'SyProfile_main_sail_area','inputID':'SyProfile_main_sail_area','errorID':'SyProfile_main_sail_area_em_','model':'SyProfile','name':'main_sail_area','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+    	            ],
+        	        'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_main_sail_area',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"m<sup>2</sup>",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>=',
+                            'compareValue'=>5
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"m<sup>2</sup>",
+                );
+            }
+            echo $this->renderRow($profile,'main_sail_area',$param);
             ?>
         </div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_beam','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'beam',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('beam')));
-            $form .= "<span class='input-group-addon'>m</span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_beam').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_beam','inputID':'SyProfile_beam','errorID':'SyProfile_beam_em_','model':'SyProfile','name':'beam','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-	            'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_beam',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'beam',array(
-                'measure'=>"m",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>',
-                        'compareValue'=>0
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_beam','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'beam',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('beam')));
+                $form .= "<span class='input-group-addon'>m</span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_beam').yiiactiveform({
+    	            'attributes':[
+    		            {'id':'SyProfile_beam','inputID':'SyProfile_beam','errorID':'SyProfile_beam_em_','model':'SyProfile','name':'beam','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+    	            ],
+    	            'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_beam',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"m",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>',
+                            'compareValue'=>0
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"m",
+                );
+            }
+            echo $this->renderRow($profile,'beam',$param);
             ?>
         </div>
     </div>
@@ -135,32 +156,39 @@
         </div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_draft','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'draft',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('draft')));
-            $form .= "<span class='input-group-addon'>m</span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_draft').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_draft','inputID':'SyProfile_draft','errorID':'SyProfile_draft_em_','model':'SyProfile','name':'draft','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-	            'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_draft',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'draft',array(
-                'measure'=>"m",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>',
-                        'compareValue'=>0
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_draft','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'draft',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('draft')));
+                $form .= "<span class='input-group-addon'>m</span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_draft').yiiactiveform({
+    	            'attributes':[
+    		            {'id':'SyProfile_draft','inputID':'SyProfile_draft','errorID':'SyProfile_draft_em_','model':'SyProfile','name':'draft','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+    	            ],
+    	            'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_draft',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"m",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>',
+                            'compareValue'=>0
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"m",
+                );
+            }
+            echo $this->renderRow($profile,'draft',$param);
             ?>
         </div>
     </div>
@@ -175,32 +203,39 @@
         </div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_mast_draught','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'mast_draught',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('mast_draught')));
-            $form .= "<span class='input-group-addon'>m</span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_mast_draught').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_mast_draught','inputID':'SyProfile_mast_draught','errorID':'SyProfile_mast_draught_em_','model':'SyProfile','name':'mast_draught','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-	            'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_mast_draught',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'mast_draught',array(
-                'measure'=>"m",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>',
-                        'compareValue'=>0
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_mast_draught','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'mast_draught',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('mast_draught')));
+                $form .= "<span class='input-group-addon'>m</span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_mast_draught').yiiactiveform({
+    	            'attributes':[
+    		            {'id':'SyProfile_mast_draught','inputID':'SyProfile_mast_draught','errorID':'SyProfile_mast_draught_em_','model':'SyProfile','name':'mast_draught','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+    	            ],
+    	            'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_mast_draught',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"m",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>',
+                            'compareValue'=>0
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"m",
+                );
+            }
+            echo $this->renderRow($profile,'mast_draught',$param);
             ?>
         </div>
     </div>
@@ -222,32 +257,39 @@
         </div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_displacement','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'displacement',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('displacement')));
-            $form .= "<span class='input-group-addon'>kg</span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_displacement').yiiactiveform({
-    	        'attributes':[
-	    	        {'id':'SyProfile_displacement','inputID':'SyProfile_displacement','errorID':'SyProfile_displacement_em_','model':'SyProfile','name':'displacement','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-	            'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_displacement',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'displacement',array(
-                'measure'=>"kg",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>',
-                        'compareValue'=>0
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_displacement','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'displacement',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('displacement')));
+                $form .= "<span class='input-group-addon'>kg</span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_displacement').yiiactiveform({
+        	        'attributes':[
+    	    	        {'id':'SyProfile_displacement','inputID':'SyProfile_displacement','errorID':'SyProfile_displacement_em_','model':'SyProfile','name':'displacement','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+    	            ],
+    	            'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_displacement',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"kg",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>',
+                            'compareValue'=>0
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"kg",
+                );
+            }
+            echo $this->renderRow($profile,'displacement',$param);
             ?>
         </div>
     </div>
@@ -271,32 +313,39 @@
         </div>
         <div class="col-md-4">
             <?php
-            $form = "<div class='form' style='display: none;'><div class='row'>";
-            $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_jib_area','class'=>'form-horizontal'));
-            $form .= "<div class='input-group'>";
-            $form .= CHtml::activeTextField($profile,'jib_area',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('jib_area')));
-            $form .= "<span class='input-group-addon'>m<sup>2</sup></span></div>";
-            $form .= CHtml::endForm();
-            $form .= '</div></div>';
-            $script = "jQuery('#sy_profile_jib_area').yiiactiveform({
-	            'attributes':[
-		            {'id':'SyProfile_jib_area','inputID':'SyProfile_jib_area','errorID':'SyProfile_jib_area_em_','model':'SyProfile','name':'jib_area','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-		            {'summary':false}
-	            ],
-    	        'errorCss':'error'
-            });";
-            Yii::app()->clientScript->registerScript('sy_profile_jib_area',$script,CClientScript::POS_LOAD);
-            echo $this->renderRow($profile,'jib_area',array(
-                'measure'=>"m<sup>2</sup>",
-                'validator'=>array(
-                    'compare',
-                    'params'=>array(
-                        'operator'=>'>=',
-                        'compareValue'=>5
-                    )
-                ),
-                'form'=>$form
-            ));
+            if(!$this->ajax){
+                $form = "<div class='form' style='display: none;'><div class='row'>";
+                $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_jib_area','class'=>'form-horizontal'));
+                $form .= "<div class='input-group'>";
+                $form .= CHtml::activeTextField($profile,'jib_area',array('class'=>'form-control  input-sm','placeholder' => $profile->getAttributeLabel('jib_area')));
+                $form .= "<span class='input-group-addon'>m<sup>2</sup></span></div>";
+                $form .= CHtml::endForm();
+                $form .= '</div></div>';
+                $script = "jQuery('#sy_profile_jib_area').yiiactiveform({
+    	            'attributes':[
+    		            {'id':'SyProfile_jib_area','inputID':'SyProfile_jib_area','errorID':'SyProfile_jib_area_em_','model':'SyProfile','name':'jib_area','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+    		            {'summary':false}
+    	            ],
+        	        'errorCss':'error'
+                });";
+                Yii::app()->clientScript->registerScript('sy_profile_jib_area',$script,CClientScript::POS_LOAD);
+                $param = array(
+                    'measure'=>"m<sup>2</sup>",
+                    'validator'=>array(
+                        'compare',
+                        'params'=>array(
+                            'operator'=>'>=',
+                            'compareValue'=>5
+                        )
+                    ),
+                    'form'=>$form
+                );
+            } else {
+                $param = array(
+                    'measure'=>"m<sup>2</sup>",
+                );
+            }
+            echo $this->renderRow($profile,'jib_area',$param);
             ?>
         </div>
         <div class="col-md-4">
@@ -400,53 +449,63 @@
             <?php
             if(isset($profile->wheel_type_id)){
                 if($profile->wheelType->name==="Wheel"){
-                    $form = "<div class='form' style='display: none;'><div class='row'>";
-                    $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_wheel_no','class'=>'form-horizontal'));
-                    $form .= CHtml::activeTextField($profile,'wheel_no',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('wheel_no')));
-                    $form .= CHtml::endForm();
-                    $form .= '</div></div>';
-                    $script = "jQuery('#sy_profile_wheel_no').yiiactiveform({
-    	            'attributes':[
-    		            {'id':'SyProfile_wheel_no','inputID':'SyProfile_wheel_no','errorID':'SyProfile_wheel_no_em_','model':'SyProfile','name':'wheel_no','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-    		            {'summary':false}
-    	            ],
-    	            'errorCss':'error'
-                    });";
-                    Yii::app()->clientScript->registerScript('sy_profile_wheel_no',$script,CClientScript::POS_LOAD);
-                    echo $this->renderRow($profile,'wheel_no',array(
-                        'validator'=>array(
-                            'compare',
-                            'params'=>array(
-                                'operator'=>'>',
-                                'compareValue'=>0
-                            )
-                        ),
-                        'form'=>$form
-                    ));
+                    if(!$this->ajax){
+                        $form = "<div class='form' style='display: none;'><div class='row'>";
+                        $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_wheel_no','class'=>'form-horizontal'));
+                        $form .= CHtml::activeTextField($profile,'wheel_no',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('wheel_no')));
+                        $form .= CHtml::endForm();
+                        $form .= '</div></div>';
+                        $script = "jQuery('#sy_profile_wheel_no').yiiactiveform({
+        	            'attributes':[
+        		            {'id':'SyProfile_wheel_no','inputID':'SyProfile_wheel_no','errorID':'SyProfile_wheel_no_em_','model':'SyProfile','name':'wheel_no','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+        		            {'summary':false}
+    	                ],
+    	                'errorCss':'error'
+                        });";
+                        Yii::app()->clientScript->registerScript('sy_profile_wheel_no',$script,CClientScript::POS_LOAD);
+                        $param = array(
+                            'validator'=>array(
+                                'compare',
+                                'params'=>array(
+                                    'operator'=>'>',
+                                    'compareValue'=>0
+                                )
+                            ),
+                            'form'=>$form
+                        );
+                    } else {
+                        $param = array();
+                    }
+                    echo $this->renderRow($profile,'wheel_no',$param);
                 } else {
-                    $form = "<div class='form' style='display: none;'><div class='row'>";
-                    $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_rudder','class'=>'form-horizontal'));
-                    $form .= CHtml::activeTextField($profile,'rudder',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('rudder')));
-                    $form .= CHtml::endForm();
-                    $form .= '</div></div>';
-                    $script = "jQuery('#sy_profile_rudder').yiiactiveform({
-    	            'attributes':[
-    		            {'id':'SyProfile_rudder','inputID':'SyProfile_rudder','errorID':'SyProfile_rudder_em_','model':'SyProfile','name':'rudder','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
-    		            {'summary':false}
-	                ],
-	                'errorCss':'error'
-                    });";
-                    Yii::app()->clientScript->registerScript('sy_profile_rudder',$script,CClientScript::POS_LOAD);
-                    echo $this->renderRow($profile,'rudder',array(
-                        'validator'=>array(
-                            'compare',
-                            'params'=>array(
-                                'operator'=>'>',
-                                'compareValue'=>0
-                            )
-                        ),
-                        'form'=>$form
-                    ));
+                    if(!$this->ajax){
+                        $form = "<div class='form' style='display: none;'><div class='row'>";
+                        $form .= CHtml::beginForm(Yii::app()->createAbsoluteUrl('syprofile/ajaxupdate',array('id'=>$profile->id)),'post',array('id'=>'sy_profile_rudder','class'=>'form-horizontal'));
+                        $form .= CHtml::activeTextField($profile,'rudder',array('class'=>'form-control input-sm','placeholder' => $profile->getAttributeLabel('rudder')));
+                        $form .= CHtml::endForm();
+                        $form .= '</div></div>';
+                        $script = "jQuery('#sy_profile_rudder').yiiactiveform({
+        	            'attributes':[
+        		            {'id':'SyProfile_rudder','inputID':'SyProfile_rudder','errorID':'SyProfile_rudder_em_','model':'SyProfile','name':'rudder','enableAjaxValidation':true,'validateOnChange':true,'status':1,afterValidateAttribute:changeTitle},
+        		            {'summary':false}
+	                    ],
+	                    'errorCss':'error'
+                        });";
+                        Yii::app()->clientScript->registerScript('sy_profile_rudder',$script,CClientScript::POS_LOAD);
+                        $param = array(
+                            'validator'=>array(
+                                'compare',
+                                'params'=>array(
+                                    'operator'=>'>',
+                                    'compareValue'=>0
+                                )
+                            ),
+                            'form'=>$form
+                        );
+                    } else {
+                        $param = array();
+                    }
+                    echo $this->renderRow($profile,'rudder',$param);
                 }
             } else {
                 echo "&nbsp";

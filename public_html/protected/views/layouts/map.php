@@ -16,6 +16,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="/css/map.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,7 +34,11 @@
         html, body, #map_container {
             height: 100%;
             margin: 0px;
-            padding: 0px
+            padding: 0px;
+        }
+        div.fancybox-inner{
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
         }
     </style>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>

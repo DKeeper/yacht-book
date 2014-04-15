@@ -227,32 +227,3 @@ div.search-form
 {
 	background: #80CFFF;
 }
-.view_manager, .view_user{
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #4F81BD;
-    height: 130px;
-}
-.avatar{
-    padding: 5px;
-    width: 100px;
-    height: 100px;
-}
-.avatar img{
-    width: 100px;
-    height: 100px;
-}
-.info{
-    margin-left: 110px;
-}
-.fleet-detail h1,
-.fleet-detail h2,
-.fleet-detail h3,
-.fleet-detail h4,
-.fleet-detail h5,
-.fleet-detail h6{
-    margin: 0;
-}
-.fleet-detail form{
-    width: 90%;
-}

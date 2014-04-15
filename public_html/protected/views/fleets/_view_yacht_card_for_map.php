@@ -11,7 +11,7 @@
 /* @var $price PriceCurrentYear|PriceNextYear */
 $photos = $fleet->yachtPhotos(array('condition'=>'type != :tid','params'=>array(':tid'=>7)));
 ?>
-<div class="row fleet_card">
+<div class="row fleet_card fleet_<?php echo $fleet->id; ?>">
     <div class="col-md-6">
         <?php
         echo CHtml::image(!empty($photos)?$photos[rand(0,count($photos)-1)]->link:'/i/def/fleets.png','',array('class'=>'fleet_img'));

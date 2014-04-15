@@ -43,10 +43,10 @@ $t = 0;
             }
         }
         if(!empty($includedOptions)){
-            echo $this->renderRow(CcOrderOptions::model(),'name',array(
-                'label' => CHtml::tag("strong",array(),Yii::t("model","order options")),
-                'value' => '',
-            ));
+//            echo $this->renderRow(CcOrderOptions::model(),'name',array(
+//                'label' => CHtml::tag("strong",array(),Yii::t("model","order options")),
+//                'value' => '',
+//            ));
             foreach($includedOptions as $option){
                 echo $this->renderRow($option,'price',array(
                     'label' => $option->orderOption->name,
@@ -66,10 +66,10 @@ $t = 0;
         </div>
         <?php
         if(!empty($otherOptions)){
-            echo $this->renderRow(CcOrderOptions::model(),'name',array(
-                'label' => CHtml::tag("strong",array(),Yii::t("model","order options")),
-                'value' => '',
-            ));
+//            echo $this->renderRow(CcOrderOptions::model(),'name',array(
+//                'label' => CHtml::tag("strong",array(),Yii::t("model","order options")),
+//                'value' => '',
+//            ));
             foreach($otherOptions as $option){
                 echo $this->renderRow($option,'price',array(
                     'label' => $option->orderOption->name,

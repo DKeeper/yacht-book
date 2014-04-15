@@ -7,6 +7,12 @@
  */
 class AjaxController extends Controller
 {
+    public function init(){
+        parent::init();
+        $this->ajax = true;
+        $this->validate = true;
+    }
+
     public function filters()
     {
         return array(
@@ -15,7 +21,36 @@ class AjaxController extends Controller
     }
 
     public function allowedActions(){
-        return 'getclustermarker, getyachtcards ,autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
+        return 'getfleetcard, getclustermarker, getyachtcards ,autocomplete, icreate, getcityll, getmodelbynum, findgeoobject, upload';
+    }
+
+    public function actionGetfleetcard($fid){
+        if(Yii::app()->request->isAjaxRequest){
+            $data = '';
+            $script = '';
+            $model=CcFleets::model()->findByPk($fid);
+            if(isset($model)){
+                $data = $this->renderPartial('/fleets/view',array(
+                    'model'=>$model,
+                    'ajax'=>true,
+                ),true);
+                if($data===''){
+                    unset($data);
+                    $error = Yii::t("view","No data");
+                }
+                if(isset($data)){
+                    foreach(Yii::app()->clientScript->scripts as $pos){
+                        foreach($pos as $s){
+                            $script .= $s;
+                        }
+                    }
+                    echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data,'script'=>$script));
+                } else {
+                    echo CJavaScript::jsonEncode(array('success'=>false,'data'=>$error));
+                }
+            }
+        }
+        Yii::app()->end();
     }
 
     public function actionGetclustermarker($data){
