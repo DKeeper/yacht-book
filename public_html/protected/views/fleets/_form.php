@@ -29,12 +29,14 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
 	<?php
     echo $form->errorSummary($model);
     echo $form->hiddenField($profile,'save_mode',array('id'=>'save_mode','name'=>'save_mode','value'=>-1));
+    echo $form->hiddenField($profile,'validate_photo',array('id'=>'validate_photo','name'=>'validate_photo','value'=>$save_mode!=2?0:1));
     $options = array();
     if($save_mode!=-1){
         $options['active'] = $save_mode;
     }
 
     ?>
+    <?php echo $form->hiddenField($model,'id'); ?>
     <?php echo $form->hiddenField($model,'cc_id'); ?>
     <?php echo $form->hiddenField($model,'profile_id'); ?>
     <div class="form-group">
@@ -105,7 +107,7 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
     <?php } ?>
 
     <div class="row submit">
-        <div class="pull-left"><button class="btn btn-default btn_save"><?php echo $model->isNewRecord ? Yii::t('view','Create') : Yii::t('view','Save'); ?></button></div>
+        <div class="pull-left"><button class="btn btn-default btn_save"><?php echo Yii::t('view','Save'); ?></button></div>
     </div>
 
 <?php $this->endWidget(); ?>
@@ -134,6 +136,7 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
         });
         $(".btn_save").on("click",function(event){
             $("#save_mode").val(+$('#fleets_tabs').tabs("option","active"));
+            $("#validate_photo").val(1);
             $("#fleets_form").submit();
         });
         $('body').on('change','#cc-fleets-form input',function(event){
@@ -146,18 +149,20 @@ Yii::app()->clientScript->registerCoreScript('maskedinput');
                             hasError = $.fn.yiiactiveform.updateInput(this, messages, $('#cc-fleets-form')) || hasError;
                         });
                         $.fn.yiiactiveform.updateSummary($('#cc-fleets-form'), messages);
-                        $.each(messages.fotoValidate.validate,function(id){
-                            hasError = !this.valueOf() || hasError;
-                            if(!this.valueOf()){
-                                $("#"+id+"_link").parent().addClass("error");
-                            } else {
-                                $("#"+id+"_link").parent().removeClass("error");
-                            }
-                        });
-                        if(hasError){
-                            $(".errorSummary").find("ul").append("<li>"+messages.fotoValidate.message+"</li>");
-                            if($(".errorSummary:visible").length == 0){
-                                $(".errorSummary").show();
+                        if(typeof messages.fotoValidate !== "undefined"){
+                            $.each(messages.fotoValidate.validate,function(id){
+                                hasError = !this.valueOf() || hasError;
+                                if(!this.valueOf()){
+                                    $("#"+id+"_link").parent().addClass("error");
+                                } else {
+                                    $("#"+id+"_link").parent().removeClass("error");
+                                }
+                            });
+                            if(hasError){
+                                $(".errorSummary").find("ul").append("<li>"+messages.fotoValidate.message+"</li>");
+                                if($(".errorSummary:visible").length == 0){
+                                    $(".errorSummary").show();
+                                }
                             }
                         }
                     }

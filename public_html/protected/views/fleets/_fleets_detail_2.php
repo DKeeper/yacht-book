@@ -250,7 +250,7 @@
                 'parentModel' => $profile,
                 'parentAttribute' => 'media_type_id',
                 // "источник" данных для выборки
-                'source' =>'js:function(request, rsponse) {
+                'source' =>'js:function(request, response) {
                     $.getJSON("'.$this->createUrl('ajax/autocomplete').'", {
                     term: request.term.split(/,s*/).pop(),
                     modelClass: "MediaType",

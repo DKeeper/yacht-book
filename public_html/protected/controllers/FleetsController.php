@@ -32,13 +32,20 @@ class FleetsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new CcFleets;
+        $id = isset($_POST['CcFleets'])?$_POST['CcFleets']['id']:"";
+        if(!empty($id)){
+            $model = $this->loadModel($id);
+        } else {
+            $model=new CcFleets;
+        }
         $profile=new SyProfile;
 
         /** @var $priceCurrYear PriceCurrentYear[] */
         $priceCurrYear = array();
         /** @var $priceNextYear PriceNextYear[] */
         $priceNextYear = array();
+
+        $saveMode = Yii::app()->request->getPost('save_mode',-1);
 
         $validate=null;
 
@@ -109,6 +116,8 @@ class FleetsController extends Controller
         $gennakerOption = $profileCC->ccOrderOptions(array('with'=>'orderOption','condition'=>'orderOption.name=:n','params'=>array(':n'=>'gennaker')));
         $spinnakerOption = $profileCC->ccOrderOptions(array('with'=>'orderOption','condition'=>'orderOption.name=:n','params'=>array(':n'=>'spinnaker')));
 
+        $fValidation = Yii::app()->request->getPost('validate_photo',0);
+
         if(!empty($gennakerOption)){
             $profile->gennaker_price = $gennakerOption[0]->price;
         }
@@ -135,25 +144,27 @@ class FleetsController extends Controller
                 $priceNextYearValidate
             );
             $fotoValidate = array();
-            foreach($_POST['YachtPhoto'] as $type => $items){
-                if($type==8) continue;
-                if(!isset($items['link'])){
-                    foreach($items as $i => $item){
-                        if(empty($item['link'])){
-                            $fotoValidate['YachtPhoto_'.$type.'_'.$i] = false;
+            if($fValidation){
+                foreach($_POST['YachtPhoto'] as $type => $items){
+                    if($type==8) continue;
+                    if(!isset($items['link'])){
+                        foreach($items as $i => $item){
+                            if(empty($item['link'])){
+                                $fotoValidate['YachtPhoto_'.$type.'_'.$i] = false;
+                            } else {
+                                $fotoValidate['YachtPhoto_'.$type.'_'.$i] = true;
+                            }
+                        }
+                    } else {
+                        if(empty($items['link'])){
+                            $fotoValidate['YachtPhoto_'.$type] = false;
                         } else {
-                            $fotoValidate['YachtPhoto_'.$type.'_'.$i] = true;
+                            $fotoValidate['YachtPhoto_'.$type] = true;
                         }
                     }
-                } else {
-                    if(empty($items['link'])){
-                        $fotoValidate['YachtPhoto_'.$type] = false;
-                    } else {
-                        $fotoValidate['YachtPhoto_'.$type] = true;
-                    }
                 }
+                $result['fotoValidate'] = array('validate'=>$fotoValidate,'message'=>Yii::t("view","Required photos are not added"));
             }
-            $result['fotoValidate'] = array('validate'=>$fotoValidate,'message'=>Yii::t("view","Required photos are not added"));
             echo function_exists('json_encode') ? json_encode($result) : CJSON::encode($result);
             Yii::app()->end();
         }
@@ -173,17 +184,19 @@ class FleetsController extends Controller
                 $validate = $validate && $priceNextYear[$i]->validate();
             }
 
-            foreach($_POST['YachtPhoto'] as $type => $items){
-                if($type==8) continue;
-                if(!isset($items['link'])){
-                    foreach($items as $i => $item){
-                        if(empty($item['link'])){
+            if($fValidation){
+                foreach($_POST['YachtPhoto'] as $type => $items){
+                    if($type==8) continue;
+                    if(!isset($items['link'])){
+                        foreach($items as $i => $item){
+                            if(empty($item['link'])){
+                                $validate = $validate && false;
+                            }
+                        }
+                    } else {
+                        if(empty($items['link'])){
                             $validate = $validate && false;
                         }
-                    }
-                } else {
-                    if(empty($items['link'])){
-                        $validate = $validate && false;
                     }
                 }
             }
@@ -264,8 +277,6 @@ class FleetsController extends Controller
                     $price->yacht_id = $model->id;
                     $price->save(false);
                 }
-
-                $this->redirect(array('view','id'=>$model->id));
             } else {
                 $model->validate();
                 $profile->validate();
@@ -284,7 +295,7 @@ class FleetsController extends Controller
             'yachtFoto'=>$yachtFoto,
             'priceCurrYear'=>$priceCurrYear,
             'priceNextYear'=>$priceNextYear,
-            'save_mode'=>-1,
+            'save_mode'=>$saveMode,
         ));
 	}
 
@@ -305,7 +316,7 @@ class FleetsController extends Controller
         /** @var $priceNextYear PriceNextYear[] */
         $priceNextYear = array();
 
-        $saveMode = isset($_POST['save_mode'])?$_POST['save_mode']:-1;
+        $saveMode = Yii::app()->request->getPost('save_mode',-1);
 
         $validate=null;
 
