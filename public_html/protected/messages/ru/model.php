@@ -131,7 +131,7 @@ return array(
     'Deposit' => 'Депозит',
     'Deposit insurance price' => 'Страховка депозита',
     'Deposit insurance deposit' => 'Депозит страховки депозита',
-    'Last minute' => 'Горящее предложение',
+    'Last minute' => 'Горящее предложение: X% до даты или N дней/недель до чартера',
     'Week before' => 'Недель до',
     'Count' => 'Количество',
     'Last date' => 'Последний просмотр',
