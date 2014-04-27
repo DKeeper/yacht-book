@@ -19,7 +19,6 @@ $transitLogs = $ccProfile->ccTransitLogs(array('condition'=>'obligatory = 1'));
 $includedOptions = $ccProfile->ccOrderOptions(array('condition'=>'obligatory = 1'));
 /** @var $otherOptions CcOrderOptions[] */
 $otherOptions = $ccProfile->ccOrderOptions(array('condition'=>'obligatory = 0'));
-$t = 0;
 ?>
 <div class="row">
     Заглушка - календарь
@@ -37,6 +36,7 @@ $t = 0;
             ));
             foreach($transitLogs as $transitLog){
                 echo $this->renderRow($transitLog,'price',array(
+                    'measure'=>CcProfile::model()->findByAttributes(array('cc_id'=>$profile->ccFleets[0]->cc_id))->currency->name,
                     'label' => $transitLog->country['nazvanie_'.Yii::app()->params['geoFieldName'][Yii::app()->language]],
                     'value' => $transitLog->included?Yii::t("view","incl."):$transitLog->price,
                 ));
@@ -49,6 +49,7 @@ $t = 0;
 //            ));
             foreach($includedOptions as $option){
                 echo $this->renderRow($option,'price',array(
+                    'measure'=>CcProfile::model()->findByAttributes(array('cc_id'=>$profile->ccFleets[0]->cc_id))->currency->name,
                     'label' => $option->orderOption->name,
                     'value' => $option->included?Yii::t("view","incl."):$option->price,
                 ));
@@ -71,8 +72,12 @@ $t = 0;
 //                'value' => '',
 //            ));
             foreach($otherOptions as $option){
+                if($option->orderOption->name === "gennaker" || $option->orderOption->name === "spinnaker"){
+                    continue;
+                }
                 echo $this->renderRow($option,'price',array(
-                    'label' => $option->orderOption->name,
+                    'measure'=>CcProfile::model()->findByAttributes(array('cc_id'=>$profile->ccFleets[0]->cc_id))->currency->name,
+                    'label' => Yii::t("view",$option->orderOption->name),
                     'value' => $option->included?Yii::t("view","incl."):$option->price,
                 ));
             }
