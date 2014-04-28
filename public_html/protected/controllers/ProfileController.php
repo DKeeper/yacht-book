@@ -528,6 +528,8 @@ class ProfileController extends Controller
         if(Yii::app()->user->checkAccess('Administrator') && is_null($id)){
             $this->redirect('/user/profile');
         }
+        $tabs = isset(Yii::app()->request->cookies['tabs'])?Yii::app()->request->cookies['tabs']->value:0;
+        $sub_tabs = isset(Yii::app()->request->cookies['sub_tabs'])?Yii::app()->request->cookies['sub_tabs']->value:0;
         $model = $this->loadUser($id);
         if($model){
             list($profileCC,$profileC,$profileM,$view,$role,$owner) = $this->checkAccess($model);
@@ -540,6 +542,8 @@ class ProfileController extends Controller
                 'role'=>$role,
                 'view'=>$view,
                 'owner'=>$owner,
+                'tabs'=>$tabs,
+                'sub_tabs'=>$sub_tabs,
             ));
         } else {
             $this->render('view',array(

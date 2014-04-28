@@ -7,6 +7,7 @@
  */
 /* @var $this ProfileController */
 /* @var $model CcProfile */
+/* @var $sub_tabs integer */
 $this->widget('zii.widgets.jui.CJuiTabs',array(
     'tabs'=>array(
         UserModule::t("General info")=>array(
@@ -44,9 +45,13 @@ $this->widget('zii.widgets.jui.CJuiTabs',array(
     ),
     // additional javascript options for the tabs plugin
     'options'=>array(
-        //'collapsible'=>true,
+        'active'=>$sub_tabs,
+        'activate'=>'js: function(event, ui){
+            $.cookie("sub_tabs", $(this).tabs("option","active"),{path:"/"});
+        }',
     ),
     'htmlOptions'=>array(
         'id'=>'company_tabs',
     ),
 ));
+?>

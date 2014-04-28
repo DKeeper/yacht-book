@@ -25,6 +25,7 @@
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <?php Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
     <?php Yii::app()->clientScript->registerCoreScript('migrate'); ?>
+    <?php Yii::app()->clientScript->registerCoreScript('cookie'); ?>
     <?php Yii::app()->clientScript->registerScriptFile("/js/m.js",CClientScript::POS_HEAD); ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>

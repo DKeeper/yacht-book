@@ -15,6 +15,8 @@
 /* @var $owner boolean */
 /* @var $view string */
 /* @var $no_load boolean */
+/* @var $tabs integer */
+/* @var $sub_tabs integer */
 $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Profile");
 $this->breadcrumbs=array(
     UserModule::t("Profile"),
@@ -115,7 +117,7 @@ if(isset($no_load)){
                     UserModule::t("Company info")=>array(
                         'content'=>$this->renderPartial(
                             '_cc_company_info',
-                            array('model'=>$profileCC),
+                            array('model'=>$profileCC,'sub_tabs'=>$sub_tabs),
                             true
                         ),
                         'id'=>'tab2'
@@ -139,7 +141,10 @@ if(isset($no_load)){
                 ),
                 // additional javascript options for the tabs plugin
                 'options'=>array(
-                    //'collapsible'=>true,
+                    'active'=>$tabs,
+                    'activate'=>'js: function(event, ui){
+                        $.cookie("tabs", $(this).tabs("option","active"),{path:"/"});
+                    }',
                 ),
                 'htmlOptions'=>array(
                     'id'=>'company_profile_tabs',
