@@ -5,6 +5,7 @@
 /** @var $date array */
 /** @var $price array */
 /** @var $cabins array */
+/** @var $debug array */
 $profile = SyProfile::model();
 ?>
 <style>
@@ -481,6 +482,16 @@ $this->widget('fancyapps.EFancyApps', array(
 ));
 ?>
 <div style="display:none;" id="fancy_tt"></div>
+<div style="display:none;" class="debug">
+    <table>
+        <tr>
+            <td><?php echo $debug['sql']; ?></td>
+        </tr>
+        <tr>
+            <td><?php var_dump($debug['param']); ?></td>
+        </tr>
+    </table>
+</div>
 <script>
 var tooltip;
     $(function(){

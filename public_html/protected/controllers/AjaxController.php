@@ -144,6 +144,8 @@ class AjaxController extends Controller
             if(!empty($filterData['model_id'])){
                 $command->andWhere('p.model_id = :mid',array(':mid'=>$filterData['model_id']));
             }
+            $debugSQL = $command->getText();
+            $debugParam = $command->params;
             /** @var $fleets array|null */
             $fleets = $command->queryAll();
             // Поиск граничных значений фильтров
@@ -183,8 +185,8 @@ class AjaxController extends Controller
                 $command->andWhere('p.model_id = :mid',array(':mid'=>$filterData['model_id']));
             }
             $newFilter = $command->queryRow();
-            $newFilter['l_min'] = intval($newFilter['l_min']);
-            $newFilter['l_max'] = intval($newFilter['l_max']);
+            $newFilter['l_min'] = floor($newFilter['l_min']);
+            $newFilter['l_max'] = ceil($newFilter['l_max']);
             $newFilter['b_date_min'] = intval($newFilter['b_date_min']);
             $newFilter['b_date_max'] = intval($newFilter['b_date_max']);
             $newFilter['price_min'] = intval($newFilter['price_min']);
@@ -196,6 +198,10 @@ class AjaxController extends Controller
                 'count'=>count($fleets),
                 'fleets'=>$fleets,
                 'filter'=>$newFilter,
+                'debug'=>array(
+                    'sql'=>$debugSQL,
+                    'param'=>$debugParam,
+                ),
             );
             if(isset($data)){
                 echo CJavaScript::jsonEncode(array('success'=>true,'data'=>$data));
