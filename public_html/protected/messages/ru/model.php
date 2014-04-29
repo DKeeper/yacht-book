@@ -19,6 +19,7 @@ return array(
     'Manager' => 'Менеджер',
     'Yacht' => 'Яхта',
     'Options' => 'Опции',
+    'Options (WiFi format: WiFi x GB)' => 'Опции (WiFi формат: WiFi x GB)',
     'Description' => 'Описание',
     'Obligatory' => 'Обязательно',
     'Included' => 'Включено',

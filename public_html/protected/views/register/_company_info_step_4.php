@@ -39,7 +39,7 @@ $currency = Currency::model()->getModelList();
 </div>
 <div class="row">
     <?php
-        echo CHtml::label(Yii::t("model","Options"),"",array('class'=>'add_options'));
+        echo CHtml::label(Yii::t("model","Options (WiFi format: WiFi x GB)"),"",array('class'=>'add_options'));
         foreach($orderOptions as $i=>$option){
             $this->renderPartial("/register/_order_options",array(
                 "i"=>$i,
