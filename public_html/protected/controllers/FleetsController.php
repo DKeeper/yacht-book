@@ -277,6 +277,7 @@ class FleetsController extends Controller
                     $price->yacht_id = $model->id;
                     $price->save(false);
                 }
+                $this->redirect(array('update','id'=>$model->id));
             } else {
                 $model->validate();
                 $profile->validate();
